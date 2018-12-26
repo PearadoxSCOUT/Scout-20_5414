@@ -1,14 +1,8 @@
 package com.pearadox.scout_5414;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.media.AudioManager;
-import android.media.ToneGenerator;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,7 +14,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 //import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RadioGroup;
@@ -37,14 +30,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import static com.pearadox.scout_5414.R.id.radgrp_Scout;
-import static com.pearadox.scout_5414.R.id.radioButton_def_bad;
-import static com.pearadox.scout_5414.R.id.radioGroup_defense;
 
 
 /**

@@ -1,6 +1,5 @@
 package com.pearadox.scout_5414;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -62,8 +61,6 @@ import java.io.ObjectOutputStream;
 
 import static android.app.PendingIntent.getActivity;
 import static android.view.View.VISIBLE;
-import static android.view.View.generateViewId;
-import static android.view.View.inflate;
 
 public class PitScoutActivity extends AppCompatActivity {
 

@@ -1,6 +1,5 @@
 package com.pearadox.scout_5414;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaActionSound;
 import android.os.Bundle;
@@ -13,10 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 

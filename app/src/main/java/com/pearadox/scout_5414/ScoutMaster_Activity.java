@@ -1,20 +1,10 @@
 package com.pearadox.scout_5414;
 
-import android.app.Activity;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,13 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.ToggleButton;
+
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 // Debug & Messaging
 import android.util.Log;
@@ -41,10 +28,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.ValueEventListener;
 
 import static android.app.PendingIntent.getActivity;
-import static com.pearadox.scout_5414.Pearadox.numTeams;
 
 public class ScoutMaster_Activity extends AppCompatActivity {
 
