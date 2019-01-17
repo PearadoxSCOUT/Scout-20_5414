@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     private String deviceId;            // Android Device ID
     TextView txt_messageLine;
     Boolean is_resumed = false;         // indicator if 'Resumed'
-    Boolean FB_logon = false;           // indicator for Firebas logon success
+    Boolean FB_logon = false;           // indicator for Firebase logon success
     Spinner spinner_Device, spinner_Event;
     ImageView img_netStatus;            // Internet Status
     ArrayAdapter<String> adapter_dev, adapter_StudStr, adapter_Event;
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (NameNotFoundException e) {
             Log.e(TAG, e.getMessage());
         }
-        Toast toast = Toast.makeText(getBaseContext(), "Pearadox Scouting App ©2018  Ver." + Pearadox_Version, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(getBaseContext(), "Pearadox Scouting App ©2019  Ver." + Pearadox_Version, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         toast.show();
         deviceId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -148,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
         //loadStudentString();            // Force student load from Strings
         pfDatabase = FirebaseDatabase.getInstance();
         if (Pearadox.is_Network) {      // is Internet available?
+            Log.w(TAG, "%%%%%  FireBase %%%%%");                                       // ** DEBUG
             pfEvent_DBReference = pfDatabase.getReference("competitions");      // Get list of Events/Competitions
             pfStudent_DBReference = pfDatabase.getReference("students");        // Get list of Students
             addStud_VE_Listener(pfStudent_DBReference);
@@ -422,7 +423,7 @@ public class MainActivity extends AppCompatActivity {
                         currentImageUri = Uri.fromFile(x);
                         Log.w(TAG, " URI " + currentImageUri);
                         FirebaseStorage storage = FirebaseStorage.getInstance();
-//                        StorageReference storageReference = storage.getReferenceFromUrl("gs://pearadox-2018.appspot.com/images/" + Pearadox.FRC_Event).child(tmpf);
+//                        StorageReference storageReference = storage.getReferenceFromUrl("gs://pearadox-2019.appspot.com/images/" + Pearadox.FRC_Event).child(tmpf);
 //
 //                        UploadTask uploadTask = storageReference.putFile(currentImageUri);
                         String src = direct_img + "/" + tmpf;
@@ -830,9 +831,6 @@ private void preReqs() {
             AboutDialog about = new AboutDialog(this);
             about.setTitle("Scout_5414   Ver " + Pearadox_Version);
             about.show();
-//            Toast toast = Toast.makeText(getBaseContext(), "Pearadox Scouting App ©2018  Ver." + Pearadox_Version, Toast.LENGTH_LONG);
-//            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-//            toast.show();
             return true;
         }
 
@@ -859,7 +857,7 @@ private void preReqs() {
                     Pearadox.FRC_ChampDiv = event_inst.getcomp_div();
                 }
             }
-            Log.w(TAG, "** Event code '" + Pearadox.FRC_Event + "' " + Pearadox.FRC_ChampDiv + "  \n ");
+            Log.e(TAG, "** Event code '" + Pearadox.FRC_Event + "' " + Pearadox.FRC_ChampDiv + "  \n ");
 
             pfTeam_DBReference = pfDatabase.getReference("teams/" + Pearadox.FRC_Event);   // Team data from Firebase D/B
             addTeam_VE_Listener(pfTeam_DBReference.orderByChild("team_num"));               // Load Teams since we now know event
@@ -937,7 +935,7 @@ private void preReqs() {
     }
 
     private void loadEvents() {
-        Log.w(TAG, "###  loadEvents  ### " + is_resumed + " Logon " + FB_logon);
+        Log.w(TAG, "###  loadEvents  ### Resume=" + is_resumed + " FB-Logon=" + FB_logon);
 
         if (!is_resumed) {      // Don't re-load if Resuming from scout
             Log.w(TAG, "@@ addEvents @@");
