@@ -36,6 +36,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -639,6 +640,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                         /*listener failed or was removed for security reasons*/
+                    Log.e(TAG, " *****>>> ERROR getting STUDENTS from Firebase DB  <<<<**** " );
+                    Toast.makeText(getBaseContext(), "*****>>> ERROR getting STUDENTS from Firebase DB  <<<<****", Toast.LENGTH_LONG).show();
                     throw databaseError.toException();
                 }
             });
@@ -1023,10 +1026,10 @@ private void preReqs() {
                         // Sign in success
                         Log.d(TAG, "signInWithEmail:success ");
                         FB_logon = true;    // show success
-//                        FirebaseUser user = mAuth.getCurrentUser();
+                        FirebaseUser user = mAuth.getCurrentUser();
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithEmail:failure", task.getException());
+                        Log.e(TAG, "signInWithEmail:failure", task.getException());
                         final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
                         tg.startTone(ToneGenerator.TONE_PROP_BEEP2);
                         Toast toast = Toast.makeText(getBaseContext(), "Firebase authentication failed.", Toast.LENGTH_LONG);
@@ -1035,6 +1038,7 @@ private void preReqs() {
                     }
                 }
             });
+        loadEvents();       // Load all the competitions
     }
 
 
@@ -1049,7 +1053,7 @@ public void onStart() {
 //    if (FB_logon) {
         Fb_Auth();      // Authenticate with Firebase
 //    }
-    loadEvents();
+//    loadEvents();
 }
 @Override
 public void onResume() {
