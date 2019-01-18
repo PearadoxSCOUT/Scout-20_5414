@@ -192,10 +192,10 @@
         android:id="@+id/lbl_Auto"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/imageView_MS"
+        android:layout_alignParentStart="true"
         android:layout_marginTop="30dp"
-        android:text="Autonomous period"
+        android:text="Sandstorm period"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="@color/red"
         tools:textAlignment="center" />

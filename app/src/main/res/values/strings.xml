@@ -9,6 +9,7 @@
     <string name="mtchtyp_prompt">Match Type?</string>
     <string name="event_prompt">Event?</string>
     <string name="lbl_Divider">______________________  Device Status  ______________________</string>
+    <string name="NoShowMsg">*** Team/robot is a \'No Show\' ***</string>
 
 
     <!-- ##### DEVICES ##### -->
@@ -61,9 +62,9 @@
     <!-- ##### Start Position for Autononous ##### -->
     <string-array name="auto_start_array">
         <item> </item>
-        <item>Side (out)</item>
-        <item>Middle</item>
-        <item>Side (in)</item>
+        <item>Level 1</item>
+        <item>Level 2</item>
+        <item>No Show</item>
     </string-array>
 
 

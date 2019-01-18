@@ -48,9 +48,7 @@ public class MatchScoutActivity extends AppCompatActivity {
     CheckBox chk_baseline, checkbox_automode, chk_cubeSwitch, chk_attemptSwitch, chk_XoverSwitch, chk_WrongSwitch, chk_cubeScale, chk_attemptScale, chk_XoverScale, chk_WrongScale, chk_highGoal, chk_gears, chk_lowGoal, chk_activate_hopper, chk_baselineINVIS;
     CheckBox chk_ExtraSwitch, chk_cube, chk_ExtraScale;
     EditText editText_autoComment, editText_Fuel;
-    Spinner spinner_balls_collected;
-    SeekBar seekBar_HighGoal, seekBar_LowGoal;
-//    ImageView imgScoutLogo;
+    Spinner spinner_startPos;
     private Button button_GoToTeleopActivity, button_GoToArenaLayoutActivity, button_GearsMinus, button_GearsPlus, button_GearsAttemptedMinus, button_GearsAttemptedPlus;
     String team_num, team_name, team_loc;
     p_Firebase.teamsObj team_inst = new p_Firebase.teamsObj(team_num, team_name, team_loc);
@@ -605,7 +603,7 @@ public class MatchScoutActivity extends AppCompatActivity {
 
         button_GoToTeleopActivity.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.i(TAG, "Clicked 'NEXT/TeleOps' Button  match=" + matchID);
+                Log.w(TAG, "Clicked 'NEXT/TeleOps' Button  match=" + matchID);
                 if (matchID.length() < 2) {     // Between matches??
                     Toast.makeText(getBaseContext(), "*** Match has _NOT_ started; wait until you have a Team #  *** ", Toast.LENGTH_LONG).show();
 
@@ -794,7 +792,11 @@ public class MatchScoutActivity extends AppCompatActivity {
                                    View view, int pos, long id) {
             startPos = parent.getItemAtPosition(pos).toString();
             Log.d(TAG, ">>>>>  '" + startPos + "'");
-
+            if (spinner_startPos.getSelectedItemPosition() == 3) {  //  No Show?
+                Log.e(TAG, "### Team/robot is a No Show ###" );
+                editText_autoComment.setText(R.string.NoShowMsg);
+                //ToDo - Do we want to turn off all other widgets?
+            }
         }
         public void onNothingSelected(AdapterView<?> parent) {
             // Do nothing.
