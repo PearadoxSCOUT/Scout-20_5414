@@ -18,27 +18,32 @@
         android:textColor="@color/yellow"
         tools:textAlignment="center" />
 
-    <TextView
-        android:id="@+id/lbl_robotnum"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/lin_TeamNum"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/text_Teleop"
-        android:layout_marginTop="19dp"
-        android:text="Robot Team Number"
-        android:textColor="@color/white" />
+        android:layout_marginTop="12sp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/txt_tnum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/lbl_robotnum"
-        android:layout_alignBottom="@+id/lbl_robotnum"
-        android:layout_alignEnd="@+id/lbl_Opponent"
-        android:text="0000"
-        android:textColor="@color/yellow"
-        android:textSize="24sp" />
+        <TextView
+            android:id="@+id/lbl_robotnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/text_Teleop"
+            android:text="Robot Team Number"
+            android:textColor="@color/white" />
 
+        <TextView
+            android:id="@+id/txt_tnum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="0000"
+            android:textColor="@color/yellow"
+            android:textSize="16sp" />
+    </LinearLayout>
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
@@ -48,7 +53,7 @@
         android:id="@+id/lin_AllShips"
         android:layout_width="match_parent"
         android:layout_height="250sp"
-        android:layout_below="@+id/lbl_robotnum"
+        android:layout_below="@+id/lin_TeamNum"
         android:layout_marginTop="12sp"
         android:orientation="horizontal">
 
@@ -533,472 +538,15 @@
             android:text=" = Cargo" />
 
     </LinearLayout>
-
-
-
+// ======= End of Legend
 
 
     // ==============================================================================
     // ==============================================================================
-    // Scale
-    <LinearLayout
-        android:id="@+id/lin_cubePlacedScale"
-        android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:layout_below="@+id/lin_Legend"
-        android:layout_marginTop="12sp"
-        android:orientation="horizontal">
-
-    <ImageView
-        android:id="@+id/imageView_Scale"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:contentDescription="Switch"
-        android:src="@drawable/scale" />
-
-        <TextView
-            android:id="@+id/lbl_CubeScale"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cube(s) Scored"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/txt_CubeScaleNUM"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="5dp"
-            android:text="0"
-            android:textColor="@color/yellow" />
-
-        <Button
-            android:id="@+id/btn_CubeScaleM"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="-" />
-
-        <Button
-            android:id="@+id/btn_CubeScaleP"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="+" />
-
-        <TextView
-            android:id="@+id/lbl_CubeScaleAttempted"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10sp"
-            android:text="Cube(s) Attempted"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/txt_CubeScaleAttNUM"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="5dp"
-            android:text="0"
-            android:textColor="@color/yellow" />
-
-        <Button
-            android:id="@+id/btn_CubeScaleAttM"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="-" />
-
-        <Button
-            android:id="@+id/btn_CubeScaleAttP"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="+" />
-
-    </LinearLayout>
+    // ==============================================================================
     // ==============================================================================
 
-    <TextView
-        android:id="@+id/lbl_Opponent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lin_cubePlacedScale"
-        android:layout_marginTop="1sp"
-        android:text="====  Opponent's Switch  ===="
-        android:textColor="@color/red" />
 
-    // ==============================================================================
-    // OTHER Switch
-
-    <LinearLayout
-        android:id="@+id/lin_OtherSwitch"
-        android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:layout_below="@+id/lbl_Opponent"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageView_OtherSwitch"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:contentDescription="Switch"
-            android:src="@drawable/on_off_switch" />
-
-        <TextView
-            android:id="@+id/lbl_OtherSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cube(s) Scored"
-            android:textColor="@color/orange" />
-
-        <TextView
-            android:id="@+id/txt_OtherSwitchNUM"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="5dp"
-            android:text="0"
-            android:textColor="@color/yellow" />
-
-        <Button
-            android:id="@+id/btn_OtherSwitchM"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="-" />
-
-        <Button
-            android:id="@+id/btn_OtherSwitchP"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="+" />
-
-        <TextView
-            android:id="@+id/lbl_OtherSwitchAttempted"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10sp"
-            android:text="Cube(s) Attempted"
-            android:textColor="@color/orange" />
-
-        <TextView
-            android:id="@+id/txt_OtherSwitchAttNUM"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="5dp"
-            android:text="0"
-            android:textColor="@color/yellow" />
-
-        <Button
-            android:id="@+id/btn_OtherSwitchAttM"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="-" />
-
-        <Button
-            android:id="@+id/btn_OtherSwitchAttP"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="+" />
-
-    </LinearLayout>
-
-    // ==============================================================================
-
-    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-    <LinearLayout
-        android:id="@+id/del_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lin_OtherSwitch"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/lbl_Delivery"
-            android:layout_width="150sp"
-            android:layout_height="30sp"
-            android:layout_weight="2"
-            android:text=" Cube Delivery Type"
-            android:textColor="@color/limegreen"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <RadioGroup
-            android:id="@+id/radgrp_Deliver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radio_Launch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="RadioClick_Del"
-                android:text="Launch"
-                android:textColor="@color/green"
-                tools:layout_marginLeft="0dp" />
-
-            <RadioButton
-                android:id="@+id/radio_Place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="RadioClick_Del"
-                android:text="Place"
-                android:textColor="@color/green" />
-        </RadioGroup>
-    </LinearLayout>
-
-    // ==============================================================================
-    // Platform
-
-    <LinearLayout
-        android:id="@+id/lin_PlatformZone"
-        android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:layout_below="@+id/del_type"
-        android:layout_marginTop="8sp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageView_CZ"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:contentDescription="Switch"
-            android:src="@drawable/cube_zone" />
-
-        <TextView
-            android:id="@+id/lbl_CubeZone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cube(s) retrieved"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/txt_CubeZoneNUM"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="5dp"
-            android:text="0"
-            android:textColor="@color/yellow" />
-
-        <Button
-            android:id="@+id/btn_CubeZoneM"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="-" />
-
-        <Button
-            android:id="@+id/btn_CubeZoneP"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="+" />
-
-        <ImageView
-            android:id="@+id/imageView_Platform"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_alignEnd="@+id/chkBox_PU_Cubes_floor"
-            android:layout_alignTop="@+id/lin_PlatformZone"
-            android:layout_marginLeft="20sp"
-            android:contentDescription="Switch"
-            android:src="@drawable/platform_zone" />
-
-        <TextView
-            android:id="@+id/lbl_CubePlatform"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cube(s) retrieved"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/txt_CubePlatformNUM"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="5dp"
-            android:text="0"
-            android:textColor="@color/yellow" />
-
-        <Button
-            android:id="@+id/btn_CubePlatformM"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="-" />
-
-        <Button
-            android:id="@+id/btn_CubePlatformP"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="+" />
-    </LinearLayout>
-    // ==============================================================================
-
-    <TextView
-        android:id="@+id/lbl_FromPortal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lin_PlatformZone"
-        android:layout_toEndOf="@+id/linearLayout"
-        android:text="From Portal"
-        android:textColor="@color/wallet_holo_blue_light" />
-
-    <TextView
-        android:id="@+id/lbl_GetOpponent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_below="@+id/lin_PlatformZone"
-        android:layout_marginStart="10sp"
-        android:layout_toEndOf="@+id/chkBox_PU_Cubes_floor"
-        android:text="====  Opponent's Switch  ===="
-        android:textColor="@color/red" />
-    // ==============================================================================
-
-    <LinearLayout
-        android:id="@+id/lin_OthrSwtch_Portal"
-        android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:layout_below="@+id/lbl_GetOpponent"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageView_Portal"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:contentDescription="Portal"
-            android:src="@drawable/portal" />
-
-        <TextView
-            android:id="@+id/lbl_Portal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cube(s) retrieved"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/txt_PortalNUM"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="5dp"
-            android:text="0"
-            android:textColor="@color/yellow" />
-
-        <Button
-            android:id="@+id/btn_PortalM"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="-" />
-
-        <Button
-            android:id="@+id/btn_PortalP"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="+" />
-
-        <ImageView
-            android:id="@+id/imageView_OthrSwtch"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="20sp"
-            android:contentDescription="Other Switch"
-            android:src="@drawable/platform_zone" />
-
-        <TextView
-            android:id="@+id/lbl_OthrSwtch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cube(s) stolen"
-            android:textColor="@color/orange" />
-
-        <TextView
-            android:id="@+id/txt_OthrSwtchNUM"
-            android:layout_width="30dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="5dp"
-            android:text="0"
-            android:textColor="@color/yellow" />
-
-        <Button
-            android:id="@+id/btn_OthrSwtchM"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="-" />
-
-        <Button
-            android:id="@+id/btn_OthrSwtchP"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="+" />
-    </LinearLayout>
-
-    // ==============================================================================
-
-    <LinearLayout
-        android:id="@+id/lin_Exchange"
-        android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:layout_below="@+id/lin_OthrSwtch_Portal"
-        android:layout_marginTop="4sp"
-        android:orientation="horizontal">
-
-
-        <ImageView
-            android:id="@+id/imageView_Exchange"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:contentDescription="Exchange"
-            android:src="@drawable/exchange" />
-
-        <TextView
-            android:id="@+id/lbl_Exchange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cubes into Exchange"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/txt_ExchangeNUM"
-            android:layout_width="20dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="5dp"
-            android:text="0"
-            android:textColor="@color/yellow" />
-
-        <Button
-            android:id="@+id/btn_ExchangeM"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="-" />
-
-        <Button
-            android:id="@+id/btn_ExchangeP"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="+" />
-
-        <TextView
-            android:id="@+id/lbl_Random"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="Random Cubes from Floor"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/txt_RandomNUM"
-            android:layout_width="20dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="5dp"
-            android:text="0"
-            android:textColor="@color/yellow" />
-
-        <Button
-            android:id="@+id/btn_RandomM"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="-" />
-
-        <Button
-            android:id="@+id/btn_RandomP"
-            android:layout_width="30dp"
-            android:layout_height="40dp"
-            android:text="+" />
-    </LinearLayout>
     // ==============================================================================
     // "Dummy" layout to PREVENT Comment field getting focus
     <LinearLayout
@@ -1012,18 +560,18 @@
 
     <ScrollView
         android:id="@+id/scrollv_comm"
-        android:layout_width="500sp"
+        android:layout_width="550sp"
         android:layout_height="80sp"
+        android:layout_below="@+id/lin_Legend"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/lin_Exchange"
         android:isScrollContainer="false">
 
         <EditText
             android:id="@+id/editText_teleComments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/scrollv_comm"
             android:layout_alignStart="@+id/scrollv_comm"
+            android:layout_alignBottom="@+id/scrollv_comm"
             android:layout_marginStart="4dp"
             android:layout_toStartOf="@+id/button_GoToFinalActivity"
             android:background="@drawable/border"
@@ -1033,88 +581,39 @@
             android:lines="3"
             android:scrollbars="vertical"
             android:textColor="@color/yellow" />
-
     </ScrollView>
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     <CheckBox
         android:id="@+id/chkBox_PU_Cubes_floor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/scrollv_comm"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/scrollv_comm"
-        android:text="Did they pickup cubes from the floor?" />
-
+        android:layout_marginStart="279dp"
+        android:layout_marginTop="0dp"
+        android:text="Pickup Cargo from the floor?" />
     <CheckBox
-        android:id="@+id/chkBox_Platform"
+        android:id="@+id/chkBox_PU_Panel_floor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/lbl_GetOpponent"
         android:layout_below="@+id/scrollv_comm"
-        android:text="Ended on platform?" />
-    // ==============================================================================
+        android:text="Pickup Panel from the floor?" />
 
-    <LinearLayout
-        android:id="@+id/lin_Climb"
-        android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:layout_below="@+id/chkBox_PU_Cubes_floor"
-        android:layout_marginTop="4sp"
-        android:orientation="horizontal">
-
-
-        <CheckBox
-            android:id="@+id/chk_climbsuccess"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Climb Successful" />
-
-        <CheckBox
-            android:id="@+id/chk_climbattempt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Climb Attempted" />
-
-    <RadioGroup
-        android:id="@+id/radgrp_Boss"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/radio_Rung"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10sp"
-            android:onClick="RadioClick_Boss"
-            android:text="Rung"
-            android:textColor="@color/magenta" />
-
-        <RadioButton
-            android:id="@+id/radio_Side"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10sp"
-            android:onClick="RadioClick_Boss"
-            android:text="Side"
-            android:textColor="@color/magenta" />
-    </RadioGroup>
-</LinearLayout>
 
     // ==============================================================================
-
     <LinearLayout
         android:id="@+id/lin_Lift"
         android:layout_width="match_parent"
         android:layout_height="40sp"
-        android:layout_below="@+id/lin_Climb"
+        android:layout_below="@+id/chkBox_PU_Cubes_floor"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/lbl_Lift"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lifted"
+            android:text="HAB Level @ End"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
@@ -1130,7 +629,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="RadioClick_Lifted"
-                android:text="Zero"
+                android:text="Not On"
                 android:textColor="@color/cyan" />
 
             <RadioButton
@@ -1148,56 +647,61 @@
                 android:onClick="RadioClick_Lifted"
                 android:text="Two"
                 android:textColor="@color/cyan" />
+            <RadioButton
+                android:id="@+id/radio_Three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="RadioClick_Lifted"
+                android:text="Three"
+                android:textColor="@color/cyan" />
         </RadioGroup>
 
         <CheckBox
             android:id="@+id/chk_LiftedBy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20sp"
-            android:text="Lifted by another Robot" />
+            android:layout_marginLeft="15sp"
+            android:text="Lifted by other Robot" />
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button_Number_PenaltiesPlus"
-        android:layout_width="30dp"
-        android:layout_height="40dp"
-        android:layout_alignTop="@+id/lbl_Number_Penalties"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@+id/button_Number_PenaltiesUndo"
-        android:text="+" />
-
-    <Button
-        android:id="@+id/button_Number_PenaltiesUndo"
-        android:layout_width="30dp"
-        android:layout_height="40dp"
-        android:layout_alignEnd="@+id/lbl_Opponent"
-        android:layout_alignTop="@+id/lbl_Number_Penalties"
-        android:layout_marginStart="15dp"
-        android:text="-" />
-
-    <TextView
-        android:id="@+id/txt_Number_Penalties"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    // ==============================================================================
+    <LinearLayout
+        android:id="@+id/lin_Penalties"
+        android:layout_width="match_parent"
+        android:layout_height="40sp"
         android:layout_below="@+id/lin_Lift"
-        android:layout_marginTop="10dp"
-        android:layout_toStartOf="@+id/lbl_Number_Penalties"
-        android:text="Number of Penalties"
-        android:textColor="@color/white" />
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/txt_Number_Penalties"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Number of Penalties"
+            android:textColor="@color/white" />
 
-    <TextView
-        android:id="@+id/lbl_Number_Penalties"
-        android:layout_width="25dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txt_Number_Penalties"
-        android:layout_alignBottom="@+id/txt_Number_Penalties"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@+id/lbl_robotnum"
-        android:text="0"
-        android:textColor="@color/yellow"
-        android:textSize="16dp" />
+        <TextView
+            android:id="@+id/lbl_Number_Penalties"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="0"
+            android:textColor="@color/yellow"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/button_Number_PenaltiesPlus"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:text="+" />
+        <Button
+            android:id="@+id/button_Number_PenaltiesUndo"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="15dp"
+            android:text="-" />
+    </LinearLayout>
 
 
     <Button
