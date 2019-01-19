@@ -31,7 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class TeleopScoutActivity extends Activity {
 
     String TAG = "TeleopScoutActivity";      // This CLASS name
-    TextView txt_dev, txt_stud, txt_match, txt_CubeSwitchNUM, txt_CubeSwitchAttNUM, txt_tnum, txt_CubeScaleNUM, txt_CubeScaleAttNUM, lbl_Number_Penalties;
+    TextView txt_dev, txt_stud, txt_match, txt_tnum, lbl_Number_Penalties;
     TextView  txt_OtherSwitchNUM, txt_OtherSwitchAttNUM, txt_CubeZoneNUM, txt_CubePlatformNUM, txt_OthrSwtchNUM, txt_PortalNUM, txt_ExchangeNUM, txt_RandomNUM;
     /* Final */       private Button button_GoToFinalActivity, button_Number_PenaltiesPlus, button_Number_PenaltiesUndo;
     /* Switch */      private Button btn_CubeSwitchM, btn_CubeSwitchP, btn_CubeSwitchAttP, btn_CubeSwitchAttM;
@@ -98,9 +98,6 @@ public class TeleopScoutActivity extends Activity {
         btn_CubeZoneP             = (Button) findViewById(R.id.btn_CubeZoneP);
         btn_CubeZoneM             = (Button) findViewById(R.id.btn_CubeZoneM);
         txt_CubeZoneNUM           = (TextView) findViewById(R.id.txt_CubeZoneNUM);
-        txt_CubeSwitchAttNUM      = (TextView) findViewById(R.id.txt_CubeSwitchAttNUM);
-        btn_CubeSwitchAttP        = (Button)   findViewById(R.id.btn_CubeSwitchAttP);
-        btn_CubeSwitchAttM        = (Button)   findViewById(R.id.btn_CubeSwitchAttM);
         btn_CubeScaleAttP         = (Button)   findViewById(R.id.btn_CubeScaleAttP);
         btn_CubeScaleAttM         = (Button)   findViewById(R.id.btn_CubeScaleAttM);
         btn_OtherSwitchM          = (Button)   findViewById(R.id.btn_OtherSwitchM);
@@ -122,13 +119,8 @@ public class TeleopScoutActivity extends Activity {
         chkBox_PU_Cubes_floor     = (CheckBox) findViewById(R.id.chkBox_PU_Cubes_floor);
         editText_TeleComments     = (EditText) findViewById(R.id.editText_teleComments);
         button_GoToFinalActivity  = (Button)   findViewById(R.id.button_GoToFinalActivity);
-        btn_CubeSwitchM           = (Button)   findViewById(R.id.btn_CubeSwitchM);
-        btn_CubeSwitchP           = (Button)   findViewById(R.id.btn_CubeSwitchP);
         btn_CubeScaleP            = (Button)   findViewById(R.id.btn_CubeScaleP);
         btn_CubeScaleM            = (Button)   findViewById(R.id.btn_CubeScaleM);
-        txt_CubeScaleAttNUM       = (TextView) findViewById(R.id.txt_CubeScaleAttNUM);
-        txt_CubeScaleNUM          = (TextView) findViewById(R.id.txt_CubeScaleNUM);
-        txt_CubeSwitchNUM         = (TextView) findViewById(R.id.txt_CubeSwitchNUM);
         btn_PortalP               = (Button) findViewById(R.id.btn_PortalP);
         btn_PortalM               = (Button) findViewById(R.id.btn_PortalM);
         txt_PortalNUM             = (TextView) findViewById(R.id.txt_PortalNUM);
@@ -140,10 +132,6 @@ public class TeleopScoutActivity extends Activity {
         txt_RandomNUM             = (TextView) findViewById(R.id.txt_RandomNUM);
         lbl_Number_Penalties      = (TextView) findViewById(R.id.lbl_Number_Penalties);
 
-        txt_CubeSwitchAttNUM.setText(Integer.toString(cubeSwitch_attempt));
-        txt_CubeSwitchNUM   .setText(Integer.toString(cubeSwitch_placed));
-        txt_CubeScaleAttNUM .setText(Integer.toString(scale_attempt));
-        txt_CubeScaleNUM    .setText(Integer.toString(cube_scale));
         button_Number_PenaltiesPlus = (Button) findViewById(R.id.button_Number_PenaltiesPlus);
         button_Number_PenaltiesUndo = (Button) findViewById(R.id.button_Number_PenaltiesUndo);
 
@@ -163,95 +151,6 @@ public class TeleopScoutActivity extends Activity {
         for (int i = 0; i < radgrp_Boss.getChildCount(); i++) {  // Same for Rung/Side
             radgrp_Boss.getChildAt(i).setEnabled(false);
         }
-
-
-        btn_CubeSwitchAttP.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (cubeSwitch_attempt < 66) {
-                    cubeSwitch_attempt++;
-                }
-                Log.w(TAG, "Cubes = " + cubeSwitch_attempt);      // ** DEBUG **
-                txt_CubeSwitchAttNUM.setText(Integer.toString(cubeSwitch_attempt));    // Perform action on click
-            }
-        });
-        btn_CubeSwitchAttM.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (cubeSwitch_attempt >= 1 && cubeSwitch_attempt > cubeSwitch_placed) {
-                    cubeSwitch_attempt--;
-                }
-                Log.w(TAG, "Cubes = " + cubeSwitch_attempt);      // ** DEBUG **
-                txt_CubeSwitchAttNUM.setText(Integer.toString(cubeSwitch_attempt));    // Perform action on click
-            }
-        });
-
-        btn_CubeSwitchP.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (cubeSwitch_placed < 66) {
-                    cubeSwitch_placed++;
-                    cubeSwitch_attempt++;
-                }
-                Log.w(TAG, "Cubes = " + cubeSwitch_placed);      // ** DEBUG **
-                Log.w(TAG, "Cubes Attempted = " + cubeSwitch_attempt);
-                txt_CubeSwitchNUM.setText(Integer.toString(cubeSwitch_placed));    // Perform action on click
-                txt_CubeSwitchAttNUM.setText(Integer.toString(cubeSwitch_attempt));
-            }
-        });
-        btn_CubeSwitchM.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (cubeSwitch_placed >= 1 && cubeSwitch_attempt >= cubeSwitch_placed) {
-                    cubeSwitch_placed--;
-                    cubeSwitch_attempt--;
-                }
-                Log.w(TAG, "Cubes = " + cubeSwitch_placed);      // ** DEBUG **
-                Log.w(TAG, "Cubes Attempted = " + cubeSwitch_attempt);
-                txt_CubeSwitchNUM.setText(Integer.toString(cubeSwitch_placed));    // Perform action on click
-                txt_CubeSwitchAttNUM.setText(Integer.toString(cubeSwitch_attempt));
-            }
-        });
-
-        btn_CubeScaleAttP.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (scale_attempt < 66) {
-                    scale_attempt++;
-                }
-                Log.w(TAG, "Cubes = " + scale_attempt);      // ** DEBUG **
-                txt_CubeScaleAttNUM.setText(Integer.toString(scale_attempt));    // Perform action on click
-            }
-        });
-        btn_CubeScaleAttM.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (scale_attempt >= 1 && scale_attempt > cube_scale) {
-                    scale_attempt--;
-                }
-                Log.w(TAG, "Cubes = " + scale_attempt);      // ** DEBUG **
-                txt_CubeScaleAttNUM.setText(Integer.toString(scale_attempt));    // Perform action on click
-            }
-        });
-
-        btn_CubeScaleP.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (cube_scale < 66) {
-                    cube_scale++;
-                    scale_attempt++;
-                }
-                Log.w(TAG, "Cubes Scale = " + cube_scale);      // ** DEBUG **
-                Log.w(TAG, "Cubes Scale Attempted = " + cube_scale);
-                txt_CubeScaleNUM.setText(Integer.toString(cube_scale));    // Perform action on click
-                txt_CubeScaleAttNUM.setText(Integer.toString(scale_attempt));
-            }
-        });
-        btn_CubeScaleM.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (cube_scale >= 1 && scale_attempt >= cube_scale) {
-                    cube_scale--;
-                    scale_attempt--;
-                }
-                Log.w(TAG, "Cubes Scale = " + cube_scale);      // ** DEBUG **
-                Log.w(TAG, "Cubes Scale Attempted = " + cube_scale);
-                txt_CubeScaleNUM.setText(Integer.toString(cube_scale));    // Perform action on click
-                txt_CubeScaleAttNUM.setText(Integer.toString(scale_attempt));
-            }
-        });
 
 
         btn_OtherSwitchAttP.setOnClickListener(new View.OnClickListener() {
