@@ -792,6 +792,7 @@ public class MatchScoutActivity extends AppCompatActivity {
                                    View view, int pos, long id) {
             startPos = parent.getItemAtPosition(pos).toString();
             Log.d(TAG, ">>>>>  '" + startPos + "'");
+            final Spinner spinner_startPos = (Spinner) findViewById(R.id.spinner_startPos);
             if (spinner_startPos.getSelectedItemPosition() == 3) {  //  No Show?
                 Log.e(TAG, "### Team/robot is a No Show ###" );
                 editText_autoComment.setText(R.string.NoShowMsg);
