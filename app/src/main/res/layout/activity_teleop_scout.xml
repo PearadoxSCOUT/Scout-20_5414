@@ -42,26 +42,24 @@
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
-
-
     // ==============================================================================
-
+    // ==============================================================================
     <LinearLayout
         android:id="@+id/lin_AllShips"
         android:layout_width="match_parent"
-        android:layout_height="300sp"
+        android:layout_height="250sp"
         android:layout_below="@+id/lbl_robotnum"
         android:layout_marginTop="12sp"
         android:orientation="horizontal">
 
         // Near Rocket Ship
         <RelativeLayout
-            android:id="@+id/rel_NearRocketShip"
+            android:id="@+id/rel_LeftRocketShip"
             android:layout_width="160dp"
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView_NearRocket"
+                android:id="@+id/imageView_LeftRocket"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_alignParentStart="true"
@@ -75,13 +73,13 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
-                android:text="Near Rocket"
+                android:text="Left Rocket"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
-
             // --------------- LEFT ----------------------------------
+
             <CheckBox
-                android:id="@+id/chk_NearRockLC1"
+                android:id="@+id/chk_LeftRocket_LPan3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -90,17 +88,85 @@
                 android:buttonTint="@color/brightblue" />
 
             <CheckBox
-                android:id="@+id/chk_NearRockLP1"
+                android:id="@+id/chk_LeftRocket_LCarg1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="90dp"
                 android:buttonTint="@color/yellow" />
+            <CheckBox
+                android:id="@+id/chk_LeftRocket_LPan2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="130dp"
+                android:buttonTint="@color/brightblue" />
+            <CheckBox
+                android:id="@+id/chk_LeftRocket_LCarg2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="130dp"
+                android:buttonTint="@color/yellow" />
+
+            <CheckBox
+                android:id="@+id/chk_LeftRocket_LPan1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="175dp"
+                android:buttonTint="@color/brightblue" />
+            <CheckBox
+                android:id="@+id/chk_LeftRocket_LCarg3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="175dp"
+                android:buttonTint="@color/yellow" />
             // --------------- RIGHT ----------------------------------
 
             <CheckBox
-                android:id="@+id/chk_NearRockRC1"
+                android:id="@+id/chk_LeftRocket_RPan1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="130dp"
+                android:layout_marginTop="178dp"
+                android:buttonTint="@color/brightblue" />
+            <CheckBox
+                android:id="@+id/chk_LeftRocket_RCarg1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="90dp"
+                android:buttonTint="@color/yellow" />
+
+            <CheckBox
+                android:id="@+id/chk_LeftRocket_RPan2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="130dp"
+                android:layout_marginTop="130dp"
+                android:buttonTint="@color/brightblue" />
+
+            <CheckBox
+                android:id="@+id/chk_LeftRocket_RCarg2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="130dp"
+                android:buttonTint="@color/yellow" />
+
+            <CheckBox
+                android:id="@+id/chk_LeftRocket_RPan3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -109,13 +175,14 @@
                 android:buttonTint="@color/brightblue" />
 
             <CheckBox
-                android:id="@+id/chk_NearRockRP1"
+                android:id="@+id/chk_LeftRocket_RCarg3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="90dp"
-                android:layout_marginTop="90dp"
+                android:layout_marginTop="176dp"
                 android:buttonTint="@color/yellow" />
+
 
         </RelativeLayout>
         <!--</LinearLayout>-->
@@ -125,7 +192,7 @@
         <!--android:id="@+id/lin_CargoShip"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="185dp"-->
-        <!--android:layout_below="@+id/lin_NearRocketShip"-->
+        <!--android:layout_below="@+id/lin_LeftRocketShip"-->
         <!--android:layout_marginTop="12sp"-->
         <!--android:orientation="horizontal">-->
 
@@ -144,7 +211,7 @@
                 android:src="@drawable/cargo_ship" />
 
             <CheckBox
-                android:id="@+id/chk_CargoRP1"
+                android:id="@+id/chk_CargoRCarg1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -153,7 +220,7 @@
                 android:buttonTint="@color/yellow" />
 
             <CheckBox
-                android:id="@+id/chk_CargoRC1"
+                android:id="@+id/chk_CargoRPan1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -162,7 +229,7 @@
                 android:buttonTint="@color/brightblue" />
 
             <CheckBox
-                android:id="@+id/chk_CargoRP2"
+                android:id="@+id/chk_CargoRCarg2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -171,7 +238,7 @@
                 android:buttonTint="@color/yellow" />
 
             <CheckBox
-                android:id="@+id/chk_CargoRC2"
+                android:id="@+id/chk_CargoRPan2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -180,7 +247,7 @@
                 android:buttonTint="@color/brightblue" />
 
             <CheckBox
-                android:id="@+id/chk_CargoRP3"
+                android:id="@+id/chk_CargoRCarg3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -189,7 +256,7 @@
                 android:buttonTint="@color/yellow" />
 
             <CheckBox
-                android:id="@+id/chk_CargoRC3"
+                android:id="@+id/chk_CargoRPan3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -199,7 +266,7 @@
             
             // --------------- LEFT ----------------------------------
             <CheckBox
-                android:id="@+id/chk_CargoLC1"
+                android:id="@+id/chk_CargoLPan1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -208,52 +275,79 @@
                 android:buttonTint="@color/brightblue" />
 
             <CheckBox
-                android:id="@+id/chk_CargoLP1"
+                android:id="@+id/chk_CargoLCarg1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="82dp"
                 android:layout_marginTop="78dp"
                 android:buttonTint="@color/yellow" />
-
             <CheckBox
-                android:id="@+id/chk_CargoLC2"
+                android:id="@+id/chk_CargoLPan2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="30sp"
                 android:layout_marginTop="45dp"
                 android:buttonTint="@color/brightblue" />
-
             <CheckBox
-                android:id="@+id/chk_CargoLP2"
+                android:id="@+id/chk_CargoLCarg2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="82dp"
                 android:layout_marginTop="45dp"
                 android:buttonTint="@color/yellow" />
-
             <CheckBox
-                android:id="@+id/chk_CargoLC3"
+                android:id="@+id/chk_CargoLPan3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="12dp"
                 android:buttonTint="@color/brightblue" />
-
             <CheckBox
-                android:id="@+id/chk_CargoLP3"
+                android:id="@+id/chk_CargoLCarg3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="82dp"
                 android:layout_marginTop="12dp"
                 android:buttonTint="@color/yellow" />
-
             // ----------------- END ----------------------------
+            <CheckBox
+                android:id="@+id/chk_CargoLELPan1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="170dp"
+                android:buttonTint="@color/brightblue" />
 
+            <CheckBox
+                android:id="@+id/chk_CargoELCarg1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="130dp"
+                android:buttonTint="@color/yellow" />
+            <CheckBox
+                android:id="@+id/chk_CargoLERPan1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="125dp"
+                android:layout_marginTop="170dp"
+                android:buttonTint="@color/brightblue" />
+            <CheckBox
+                android:id="@+id/chk_CargoERCarg1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="125dp"
+                android:layout_marginTop="130dp"
+                android:buttonTint="@color/yellow" />
         </RelativeLayout>
         <!--</LinearLayout>-->
 
@@ -261,25 +355,26 @@
         // ==============================================================================
         // Far Rocket Ship
         <!--<LinearLayout-->
-        <!--android:id="@+id/lin_NearRocketShip"-->
+        <!--android:id="@+id/lin_LeftRocketShip"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="185dp"-->
         <!--android:layout_below="@+id/lin_CargoShip"-->
         <!--android:layout_marginTop="12sp"-->
         <!--android:orientation="horizontal">-->
         <RelativeLayout
-            android:id="@+id/rel_FarRocketShip"
+            android:id="@+id/rel_RghtRocketShip"
             android:layout_width="160dp"
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView_FarRocket"
+                android:id="@+id/imageView_RghtRocket"
                 android:layout_width="400dp"
                 android:layout_height="250dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:contentDescription="Far Rocket"
                 android:src="@drawable/full_ship" />
+
             <TextView
                 android:id="@+id/lblFar"
                 android:layout_width="wrap_content"
@@ -287,31 +382,63 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
-                android:text="Far Rocket"
+                android:text="Right Rocket"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
             // --------------- LEFT ----------------------------------
+
             <CheckBox
-                android:id="@+id/chk_FarRockLC1"
+                android:id="@+id/chk_RghtRocket_LPan3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="90dp"
                 android:buttonTint="@color/brightblue" />
-
             <CheckBox
-                android:id="@+id/chk_FarRockLP1"
+                android:id="@+id/chk_RghtRocket_LP1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="90dp"
                 android:buttonTint="@color/yellow" />
-            // --------------- RIGHT ----------------------------------
+            <CheckBox
+                android:id="@+id/chk_RghtRocket_LPan2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="130dp"
+                android:buttonTint="@color/brightblue" />
+            <CheckBox
+                android:id="@+id/chk_RghtRocket_LCarg2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="130dp"
+                android:buttonTint="@color/yellow" />
 
             <CheckBox
-                android:id="@+id/chk_FarRockRC1"
+                android:id="@+id/chk_RghtRocket_LPan1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="175dp"
+                android:buttonTint="@color/brightblue" />
+            <CheckBox
+                android:id="@+id/chk_RghtRocket_LCarg3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="175dp"
+                android:buttonTint="@color/yellow" />
+            // --------------- RIGHT ----------------------------------
+            <CheckBox
+                android:id="@+id/chk_RghtRocket_RPan1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -320,7 +447,7 @@
                 android:buttonTint="@color/brightblue" />
 
             <CheckBox
-                android:id="@+id/chk_FarRockRP1"
+                android:id="@+id/chk_RghtRocket_RCarg1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -328,7 +455,83 @@
                 android:layout_marginTop="90dp"
                 android:buttonTint="@color/yellow" />
 
+            <CheckBox
+                android:id="@+id/chk_RghtRocket_RPan2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="130dp"
+                android:layout_marginTop="130dp"
+                android:buttonTint="@color/brightblue" />
+
+            <CheckBox
+                android:id="@+id/chk_RghtRocket_RCarg2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="130dp"
+                android:buttonTint="@color/yellow" />
+
+            <CheckBox
+                android:id="@+id/chk_RghtRocket_RPan3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="130dp"
+                android:layout_marginTop="175dp"
+                android:buttonTint="@color/brightblue" />
+
+            <CheckBox
+                android:id="@+id/chk_RghtRocket_RCarg3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="175dp"
+                android:buttonTint="@color/yellow" />
+
         </RelativeLayout>
+    </LinearLayout>
+
+    // ==============================================================================
+    <LinearLayout
+        android:id="@+id/lin_Legend"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:layout_below="@+id/lin_AllShips"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/lblDriver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="From Driver's Viewpoint"
+            android:textColor="@color/green"
+            android:textSize="16sp" />
+        <CheckBox
+            android:id="@+id/chk_LegendPanel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:clickable="false"
+            android:layout_marginStart="10dp"
+            android:buttonTint="@color/brightblue"
+            android:text="= Panel " />
+        <CheckBox
+            android:id="@+id/chk_LegendCargo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:clickable="false"
+            android:layout_marginStart="10dp"
+            android:buttonTint="@color/yellow"
+            android:text=" = Cargo" />
+
     </LinearLayout>
 
 
@@ -336,12 +539,13 @@
 
 
     // ==============================================================================
+    // ==============================================================================
     // Scale
     <LinearLayout
         android:id="@+id/lin_cubePlacedScale"
         android:layout_width="match_parent"
         android:layout_height="50sp"
-        android:layout_below="@+id/lin_AllShips"
+        android:layout_below="@+id/lin_Legend"
         android:layout_marginTop="12sp"
         android:orientation="horizontal">
 
