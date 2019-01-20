@@ -44,22 +44,48 @@ public class TeleopScoutActivity extends Activity {
                         TextView lbl_Number_Penalties;
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     private FirebaseDatabase  pfDatabase;
-    private DatabaseReference pfTeam_DBReference;
-    private DatabaseReference pfMatch_DBReference;
+//    private DatabaseReference pfTeam_DBReference;
+//    private DatabaseReference pfMatch_DBReference;
     private DatabaseReference pfDevice_DBReference;
-    private DatabaseReference pfCur_Match_DBReference;
+//    private DatabaseReference pfCur_Match_DBReference;
     String key = null;
     String tn  = " ";
 
     // ===================  TeleOps Elements for Match Scout Data object ===================
-    public boolean cube_pickup        = false; // Did they pickup cargo off the ground?
-    public boolean panel_pickup       = false; // Did they pickup panel off the ground?
-    public int end_HAB_Level          = 0;     // HAB Level
-    public boolean got_lift           = false; // Got Lifted by another robot
-    public boolean lifted             = false; // Got Lifted by another robot
-    public int final_num_Penalties    = 0;     // How many penalties received?
+    public boolean LeftRocket_LPan1    = false;  // L-Rocket L-Panel#1
+    public boolean LeftRocket_LPan2    = false;  // L-Rocket L-Panel#2
+    public boolean LeftRocket_LPan3    = false;  // L-Rocket L-Panel#3
+    public boolean LeftRocket_RPan1    = false;  // L-Rocket R-Panel#1
+    public boolean LeftRocket_RPan2    = false;  // L-Rocket R-Panel#2
+    public boolean LeftRocket_RPan3    = false;  // L-Rocket R-Panel#3
+    public boolean LeftRocket_LCarg1   = false; // L-Rocket L-Cargo#1
+    public boolean LeftRocket_LCarg2   = false; // L-Rocket L-Cargo#2
+    public boolean LeftRocket_LCarg3   = false; // L-Rocket L-Cargo#3
+    public boolean LeftRocket_RCarg1   = false; // L-Rocket R-Cargo#1
+    public boolean LeftRocket_RCarg2   = false; // L-Rocket R-Cargo#2
+    public boolean LeftRocket_RCarg3   = false; // L-Rocket R-Cargo#3
+
+    public boolean RghtRocket_LPan1    = false;  // R-Rocket L-Panel#1
+    public boolean RghtRocket_LPan2    = false;  // R-Rocket L-Panel#2
+    public boolean RghtRocket_LPan3    = false;  // R-Rocket L-Panel#3
+    public boolean RghtRocket_RPan1    = false;  // R-Rocket R-Panel#1
+    public boolean RghtRocket_RPan2    = false;  // R-Rocket R-Panel#2
+    public boolean RghtRocket_RPan3    = false;  // R-Rocket R-Panel#3
+    public boolean RghtRocket_LCarg1   = false; // R-Rocket L-Cargo#1
+    public boolean RghtRocket_LCarg2   = false; // R-Rocket L-Cargo#2
+    public boolean RghtRocket_LCarg3   = false; // R-Rocket L-Cargo#3
+    public boolean RghtRocket_RCarg1   = false; // R-Rocket R-Cargo#1
+    public boolean RghtRocket_RCarg2   = false; // R-Rocket R-Cargo#2
+    public boolean RghtRocket_RCarg3   = false; // R-Rocket R-Cargo#3
+
+    public boolean cube_pickup              = false; // Did they pickup cargo off the ground?
+    public boolean panel_pickup             = false; // Did they pickup panel off the ground?
+    public int end_HAB_Level                = 0;     // HAB Level
+    public boolean got_lift                 = false; // Got Lifted by another robot
+    public boolean lifted                   = false; // Got Lifted by another robot
+    public int final_num_Penalties          = 0;     // How many penalties received?
     /* */
-    public String  teleComment        = " ";   // Tele Comment
+    public String  teleComment              = " ";   // Tele Comment
     // ===========================================================================
     matchData match_cycle = new matchData();
 
