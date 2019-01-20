@@ -44,8 +44,6 @@
             android:textColor="@color/yellow"
             android:textSize="16sp" />
     </LinearLayout>
-    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
 
     // ==============================================================================
     // ==============================================================================
@@ -84,7 +82,7 @@
             // --------------- LEFT ----------------------------------
 
             <CheckBox
-                android:id="@+id/chk_LeftRocket_LPan3"
+                android:id="@+id/chk_LeftRocket_LPan1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -118,7 +116,7 @@
                 android:buttonTint="@color/yellow" />
 
             <CheckBox
-                android:id="@+id/chk_LeftRocket_LPan1"
+                android:id="@+id/chk_LeftRocket_LPan3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -268,7 +266,7 @@
                 android:layout_marginStart="185dp"
                 android:layout_marginTop="12dp"
                 android:buttonTint="@color/brightblue" />
-            
+
             // --------------- LEFT ----------------------------------
             <CheckBox
                 android:id="@+id/chk_CargoLPan1"
@@ -603,14 +601,14 @@
 
     // ==============================================================================
     <LinearLayout
-        android:id="@+id/lin_Lift"
+        android:id="@+id/lin_HAB"
         android:layout_width="match_parent"
         android:layout_height="40sp"
         android:layout_below="@+id/chkBox_PU_Cubes_floor"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/lbl_Lift"
+            android:id="@+id/lbl_Lvl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="HAB Level @ End"
@@ -618,7 +616,7 @@
             android:textSize="16sp" />
 
         <RadioGroup
-            android:id="@+id/radgrp_Lifted"
+            android:id="@+id/radgrp_HAB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -655,15 +653,28 @@
                 android:text="Three"
                 android:textColor="@color/cyan" />
         </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_Lift"
+        android:layout_width="match_parent"
+        android:layout_height="40sp"
+        android:layout_below="@+id/lin_HAB"
+        android:orientation="horizontal">
 
         <CheckBox
             android:id="@+id/chk_LiftedBy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15sp"
-            android:text="Lifted by other Robot" />
-
-    </LinearLayout>
+            android:text="Was lifted by other Robot" />
+        <CheckBox
+            android:id="@+id/chk_Lifted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60sp"
+            android:text="Lifted  Robot(s)" />
+</LinearLayout>
 
     // ==============================================================================
     <LinearLayout

@@ -895,48 +895,48 @@ public class Visualizer_Activity extends AppCompatActivity {
                 if (mdt.matches(team)) {        // is this match data for the team we are working on?
                 Log.w(TAG, "GMFT TEAM  " + mdt);
                     numMDs++;       // increment # of MDs
-                    if (match_inst.isAuto_baseline()) {
-                        base++;
-                    }
-                    if (match_inst.isAuto_cube_switch()) {
-                        swNum++;
-                    }
-                    if (match_inst.isAuto_cube_switch_att()) {
-                        swAtt++;
-                    }
-                    if (match_inst.isAuto_cube_scale()) {
-                        scNum++;
-                    }
-                    if (match_inst.isAuto_cube_scale_att()) {
-                        scAtt++;
-                    }
-                    if (match_inst.isAuto_switch_extra()) {
-                        extra++;
-                    }
+//                    if (match_inst.isAuto_baseline()) {
+//                        base++;
+//                    }
+//                    if (match_inst.isAuto_cube_switch()) {
+//                        swNum++;
+//                    }
+//                    if (match_inst.isAuto_cube_switch_att()) {
+//                        swAtt++;
+//                    }
+//                    if (match_inst.isAuto_cube_scale()) {
+//                        scNum++;
+//                    }
+//                    if (match_inst.isAuto_cube_scale_att()) {
+//                        scAtt++;
+//                    }
+//                    if (match_inst.isAuto_switch_extra()) {
+//                        extra++;
+//                    }
                     // =================== TeleOps ============
-                    tswNum = tswNum + match_inst.getTele_cube_switch();
-                    tswAtt = tswAtt + match_inst.getTele_switch_attempt();
-                    tscNum = tscNum + match_inst.getTele_cube_scale();
-                    tscAtt = tscAtt + match_inst.getTele_scale_attempt();
-                    exch = exch + match_inst.getTele_cube_exchange();
-                    othr = othr + match_inst.getTele_their_switch();
-                    o_att = o_att + match_inst.getTele_their_attempt();
-                    portal = portal + match_inst.getTele_cube_portal();
-                    zone = zone + match_inst.getTele_cube_pwrzone();
-                    floor = floor + match_inst.getTele_cube_floor();
-                    tfloor = tfloor + match_inst.getTele_their_floor();
-                    if (match_inst.isTele_climb_success()) {
-                        climb++;
-                    }
-                    if (match_inst.isTele_climb_attempt()) {
-                        c_att++;
-                    }
-                    if (match_inst.isTele_lift_one()) {
-                        lift1++;
-                    }
-                    if (match_inst.isTele_lift_two()) {
-                        lift2++;
-                    }
+//                    tswNum = tswNum + match_inst.getTele_cube_switch();
+//                    tswAtt = tswAtt + match_inst.getTele_switch_attempt();
+//                    tscNum = tscNum + match_inst.getTele_cube_scale();
+//                    tscAtt = tscAtt + match_inst.getTele_scale_attempt();
+//                    exch = exch + match_inst.getTele_cube_exchange();
+//                    othr = othr + match_inst.getTele_their_switch();
+//                    o_att = o_att + match_inst.getTele_their_attempt();
+//                    portal = portal + match_inst.getTele_cube_portal();
+//                    zone = zone + match_inst.getTele_cube_pwrzone();
+//                    floor = floor + match_inst.getTele_cube_floor();
+//                    tfloor = tfloor + match_inst.getTele_their_floor();
+//                    if (match_inst.isTele_climb_success()) {
+//                        climb++;
+//                    }
+//                    if (match_inst.isTele_climb_attempt()) {
+//                        c_att++;
+//                    }
+//                    if (match_inst.isTele_lift_one()) {
+//                        lift1++;
+//                    }
+//                    if (match_inst.isTele_lift_two()) {
+//                        lift2++;
+//                    }
                     if (match_inst.isTele_got_lift()) {
                         was++;
                     }

@@ -952,64 +952,64 @@ public boolean onCreateOptionsMenu(Menu menu) {
             if (match_inst.getTeam_num().matches(team)) {
 //                Log.e(TAG, i + "  " + match_inst.getMatch() + "  Team=" + team);
                 numMatches++;
-                if (match_inst.isAuto_cube_switch()) {
-                    autoCubeSw++;
-                }
-                if (match_inst.isAuto_cube_switch_att()) {
-                    autoCubeSwAtt++;
-                }
-                if (match_inst.isAuto_xover_switch()) {
-                    autoSwXnum++;
-                }
-                if (match_inst.isAuto_switch_extra()) {
-                    autoCubeSwExtra++;
-                }
-                if (match_inst.isAuto_scale_extra()) {
-                    autoCubeScExtra++;
-                }
-                if (match_inst.isAuto_cube_scale()) {
-                    autoCubeSc++;
-                }
-                if (match_inst.isAuto_cube_scale_att()) {
-                    autoCubeScAtt++;
-                }
-                if (match_inst.isAuto_xover_scale()) {
-                    autoScXnum++;
-                }
-                teleCubeSw = teleCubeSw + match_inst.getTele_cube_switch();
-                teleCubeSwAtt = teleCubeSwAtt + match_inst.getTele_switch_attempt();
-                teleCubeSc = teleCubeSc + match_inst.getTele_cube_scale();
-                teleCubeScAtt = teleCubeScAtt + match_inst.getTele_scale_attempt();
-                teleCubeExch = teleCubeExch + match_inst.getTele_cube_exchange();
-                telePortalNUM = telePortalNUM + match_inst.getTele_cube_portal();
-                teleZoneNUM = teleZoneNUM + match_inst.getTele_cube_pwrzone();
-                teleFloorNUM = teleFloorNUM + match_inst.getTele_cube_floor();
-                teleTheirNUM = teleTheirNUM + match_inst.getTele_their_floor();
-                teleRandomNUM = teleRandomNUM + match_inst.getTele_random_floor();
-                teleOthrNUM = teleOthrNUM + match_inst.getTele_their_switch();
-                teleOthrATT = teleOthrATT + match_inst.getTele_their_attempt();
-                if (match_inst.isTele_cube_pickup()) {
-                    cube_pu = true;
-                }
-                if (match_inst.isTele_climb_success()) {
-                    climbs++;
-                }
-                if (match_inst.isTele_climb_attempt()) {
-                    climbAttemps++;
-                }
-                if (match_inst.isTele_lift_one()) {
-                    lift1Num++;
-                }
-                if (match_inst.isTele_lift_two()) {
-                    lift2Num++;
-                }
-                if (match_inst.isTele_on_platform()) {
-                    platNum++;
-                }
-                if (match_inst.isTele_got_lift()) {
-                    liftedNum++;
-                }
-//                Log.w(TAG, "Accum. matches = " + numMatches);
+//                if (match_inst.isAuto_cube_switch()) {
+//                    autoCubeSw++;
+//                }
+//                if (match_inst.isAuto_cube_switch_att()) {
+//                    autoCubeSwAtt++;
+//                }
+//                if (match_inst.isAuto_xover_switch()) {
+//                    autoSwXnum++;
+//                }
+//                if (match_inst.isAuto_switch_extra()) {
+//                    autoCubeSwExtra++;
+//                }
+//                if (match_inst.isAuto_scale_extra()) {
+//                    autoCubeScExtra++;
+//                }
+//                if (match_inst.isAuto_cube_scale()) {
+//                    autoCubeSc++;
+//                }
+//                if (match_inst.isAuto_cube_scale_att()) {
+//                    autoCubeScAtt++;
+//                }
+//                if (match_inst.isAuto_xover_scale()) {
+//                    autoScXnum++;
+//                }
+//                teleCubeSw = teleCubeSw + match_inst.getTele_cube_switch();
+//                teleCubeSwAtt = teleCubeSwAtt + match_inst.getTele_switch_attempt();
+//                teleCubeSc = teleCubeSc + match_inst.getTele_cube_scale();
+//                teleCubeScAtt = teleCubeScAtt + match_inst.getTele_scale_attempt();
+//                teleCubeExch = teleCubeExch + match_inst.getTele_cube_exchange();
+//                telePortalNUM = telePortalNUM + match_inst.getTele_cube_portal();
+//                teleZoneNUM = teleZoneNUM + match_inst.getTele_cube_pwrzone();
+//                teleFloorNUM = teleFloorNUM + match_inst.getTele_cube_floor();
+//                teleTheirNUM = teleTheirNUM + match_inst.getTele_their_floor();
+//                teleRandomNUM = teleRandomNUM + match_inst.getTele_random_floor();
+//                teleOthrNUM = teleOthrNUM + match_inst.getTele_their_switch();
+//                teleOthrATT = teleOthrATT + match_inst.getTele_their_attempt();
+//                if (match_inst.isTele_cube_pickup()) {
+//                    cube_pu = true;
+//                }
+//                if (match_inst.isTele_climb_success()) {
+//                    climbs++;
+//                }
+//                if (match_inst.isTele_climb_attempt()) {
+//                    climbAttemps++;
+//                }
+//                if (match_inst.isTele_lift_one()) {
+//                    lift1Num++;
+//                }
+//                if (match_inst.isTele_lift_two()) {
+//                    lift2Num++;
+//                }
+//                if (match_inst.isTele_on_platform()) {
+//                    platNum++;
+//                }
+//                if (match_inst.isTele_got_lift()) {
+//                    liftedNum++;
+//                }
+                Log.w(TAG, "Accum. matches = " + numMatches);
             } //End if teams equal
         } // End For _ALL_ matches
 //        Log.w(TAG, "####### Total Matches/Team = " + numMatches);

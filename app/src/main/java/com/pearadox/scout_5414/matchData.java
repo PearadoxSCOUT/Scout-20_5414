@@ -5,51 +5,53 @@ import java.io.Serializable;
 public class matchData implements Serializable {
     private static final long serialVersionUID = -54145414541400L;
     // ============= AUTO ================
-    private String match;                   // Match ID (e.g., 'T00' where T = X(Practice), Q(ualifying) and '00' - match #
+    private String match;                   // Match ID (e.g., Qualifying) and '00' - match #)
     private String team_num;                // Team Number (e.g., '5414')
                                             // *** Pre-Game **
-    private boolean pre_cube;               // Do they carry a cube
+    private boolean pre_cargo;              // Do they carry cargo
+    private boolean pre_panel;              // Do they carry a panel
     private String pre_startPos;            // Start Position
 
     private boolean auto_mode;              // Do they have Autonomous mode?
-    private boolean auto_baseline;          // Did they cross Baseline
-    private boolean auto_cube_switch;       // cube placed on Switch during Auto
-    private boolean auto_cube_switch_att;   // cube attempt on Switch during Auto
-    private boolean auto_switch_extra;      // extra cube placed on switch during Auto
-    private boolean auto_cube_scale;        // cube placed on Scale during Auto
-    private boolean auto_cube_scale_att;    // cube attempt on Scale during Auto
-    private boolean auto_scale_extra;       // extra cube placed on scale during Auto
-    private boolean auto_xover_switch;      // crossed over field to Switch
-    private boolean auto_xover_scale;       // crossed over field to Scale
-    private boolean auto_wrong_switch;      // put cube in WRONG Switch
-    private boolean auto_wrong_scale;       // put cube in WRONG Scale
+    private boolean auto_leftHAB;           // Did they leave HAB
     private String auto_comment;            // Auto comment
-    // ============== TELE =================
-    private int     tele_cube_switch;       // # cubes placed on Switch during Tele
-    private int     tele_switch_attempt;    // # cubes attempted on Switch during Tele
-    private int     tele_cube_scale;        // # cubes placed on Switch during Tele
-    private int     tele_scale_attempt;     // # cubes attempted on Switch during Tele
-    private int     tele_their_switch;      // # cubes placed on _THEIR_Switch during Tele
-    private int     tele_their_attempt;     // # cubes attempted on _THEIR_Switch during Tele
-    private int     tele_cube_exchange;     // # cubes placed in Exchange during Tele
-    private int     tele_cube_portal;       // # cubes retrieved from Portal during Tele
-    private int     tele_cube_pwrzone;      // # cubes retrieved from Power Zone during Tele
-    private int     tele_cube_floor;        // # cubes retrieved from our Floor or Platform Zone during Tele
-    private int     tele_their_floor;       // # cubes retrieved from their Floor or Platform Zone during Tele
-    private int     tele_random_floor;      // # cubes retrieved from random places during Tele
-    private boolean tele_cube_pickup;       // Did they pick up cube(s)
-    private boolean tele_placed_cube;       // Did they place cube(s)
-    private boolean tele_launched_cube;     // Did they launch cube(s)
-    private boolean tele_on_platform;       // Finished on platform
-    private boolean tele_climb_attempt;     // Did they ATTEMPT climb?
-    private boolean tele_climb_success;     // Was climb successful?
-    private boolean tele_grab_rung;         // == Grabbed rung to climb
-    private boolean tele_grab_side;         // == Grabbed side to climb
-    private boolean tele_lift_one;          // Lifted one other robot
-    private boolean tele_lift_two;          // Lifted one other robot
-    private boolean tele_got_lift;          // Got Lifted by another robot
 
-    private String tele_comment;            // Tele comment
+
+    // ============== TELE =================
+    private boolean tele_LeftRocket_LPan1;  // L-Rocket L-Panel#1
+    private boolean tele_LeftRocket_LPan2;  // L-Rocket L-Panel#2
+    private boolean tele_LeftRocket_LPan3;  // L-Rocket L-Panel#3
+    private boolean tele_LeftRocket_RPan1;  // L-Rocket R-Panel#1
+    private boolean tele_LeftRocket_RPan2;  // L-Rocket R-Panel#2
+    private boolean tele_LeftRocket_RPan3;  // L-Rocket R-Panel#3
+    private boolean tele_LeftRocket_LCarg1; // L-Rocket L-Cargo#1
+    private boolean tele_LeftRocket_LCarg2; // L-Rocket L-Cargo#2
+    private boolean tele_LeftRocket_LCarg3; // L-Rocket L-Cargo#3
+    private boolean tele_LeftRocket_RCarg1; // L-Rocket R-Cargo#1
+    private boolean tele_LeftRocket_RCarg2; // L-Rocket R-Cargo#2
+    private boolean tele_LeftRocket_RCarg3; // L-Rocket R-Cargo#3
+
+    private boolean tele_RghtRocket_LPan1;  // R-Rocket L-Panel#1
+    private boolean tele_RghtRocket_LPan2;  // R-Rocket L-Panel#2
+    private boolean tele_RghtRocket_LPan3;  // R-Rocket L-Panel#3
+    private boolean tele_RghtRocket_RPan1;  // R-Rocket R-Panel#1
+    private boolean tele_RghtRocket_RPan2;  // R-Rocket R-Panel#2
+    private boolean tele_RghtRocket_RPan3;  // R-Rocket R-Panel#3
+    private boolean tele_RghtRocket_LCarg1; // R-Rocket L-Cargo#1
+    private boolean tele_RghtRocket_LCarg2; // R-Rocket L-Cargo#2
+    private boolean tele_RghtRocket_LCarg3; // R-Rocket L-Cargo#3
+    private boolean tele_RghtRocket_RCarg1; // R-Rocket R-Cargo#1
+    private boolean tele_RghtRocket_RCarg2; // R-Rocket R-Cargo#2
+    private boolean tele_RghtRocket_RCarg3; // R-Rocket R-Cargo#3
+
+    private boolean tele_cube_pickup;       // Did they pick up cube(s)
+    private boolean tele_Panel_pickup;      // Did they pick up Panel(s)
+    private boolean tele_got_lift;          // Did they get lifted to higher HAB Level
+    private boolean tele_lifted;            // Did they lift to higher HAB Level
+    private int     tele_level_num;         // Ended on What HAB Level (0-3)
+    private int     tele_num_Penalties;     // How many penalties received?
+    private String  tele_comment;           // Tele comment
+
     // ============= Final  ================
     private boolean final_lostParts;         // Did they lose parts
     private boolean final_lostComms;         // Did they lose communication
@@ -57,55 +59,54 @@ public class matchData implements Serializable {
     private boolean final_def_Lane;          // Did they use Lane Defense
     private boolean final_def_Block;         // Did they use Blocking Defense
     private boolean final_def_BlockSwitch;   // Did they block the Switch
-    private int     final_num_Penalties;     // How many penalties received?
-
+    /*=============================================================================*/
     private String  final_comment;           // Final comment
     private String  final_studID;            // Student doing the scouting
     private String  final_dateTime;          // Date & Time data was saved
 
-// =================================================================================
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-    public matchData(String match, String team_num, boolean pre_cube, String pre_startPos, boolean auto_mode, boolean auto_baseline, boolean auto_cube_switch, boolean auto_cube_switch_att, boolean auto_switch_extra, boolean auto_cube_scale, boolean auto_cube_scale_att, boolean auto_scale_extra, boolean auto_xover_switch, boolean auto_xover_scale, boolean auto_wrong_switch, boolean auto_wrong_scale, String auto_comment, int tele_cube_switch, int tele_switch_attempt, int tele_cube_scale, int tele_scale_attempt, int tele_their_switch, int tele_their_attempt, int tele_cube_exchange, int tele_cube_portal, int tele_cube_pwrzone, int tele_cube_floor, int tele_their_floor, int tele_random_floor, boolean tele_cube_pickup, boolean tele_placed_cube, boolean tele_launched_cube, boolean tele_on_platform, boolean tele_climb_attempt, boolean tele_climb_success, boolean tele_grab_rung, boolean tele_grab_side, boolean tele_lift_one, boolean tele_lift_two, boolean tele_got_lift, String tele_comment, boolean final_lostParts, boolean final_lostComms, boolean final_defense_good, boolean final_def_Lane, boolean final_def_Block, boolean final_def_BlockSwitch, int final_num_Penalties, String final_comment, String final_studID, String final_dateTime) {
+
+    public matchData(String match, String team_num, boolean pre_cargo, boolean pre_panel, String pre_startPos, boolean auto_mode, boolean auto_leftHAB, String auto_comment, boolean tele_LeftRocket_LPan1, boolean tele_LeftRocket_LPan2, boolean tele_LeftRocket_LPan3, boolean tele_LeftRocket_RPan1, boolean tele_LeftRocket_RPan2, boolean tele_LeftRocket_RPan3, boolean tele_LeftRocket_LCarg1, boolean tele_LeftRocket_LCarg2, boolean tele_LeftRocket_LCarg3, boolean tele_LeftRocket_RCarg1, boolean tele_LeftRocket_RCarg2, boolean tele_LeftRocket_RCarg3, boolean tele_RghtRocket_LPan1, boolean tele_RghtRocket_LPan2, boolean tele_RghtRocket_LPan3, boolean tele_RghtRocket_RPan1, boolean tele_RghtRocket_RPan2, boolean tele_RghtRocket_RPan3, boolean tele_RghtRocket_LCarg1, boolean tele_RghtRocket_LCarg2, boolean tele_RghtRocket_LCarg3, boolean tele_RghtRocket_RCarg1, boolean tele_RghtRocket_RCarg2, boolean tele_RghtRocket_RCarg3, boolean tele_cube_pickup, boolean tele_Panel_pickup, boolean tele_got_lift, boolean tele_lifted, int tele_level_num, int tele_num_Penalties, String tele_comment, boolean final_lostParts, boolean final_lostComms, boolean final_defense_good, boolean final_def_Lane, boolean final_def_Block, boolean final_def_BlockSwitch, String final_comment, String final_studID, String final_dateTime) {
         this.match = match;
         this.team_num = team_num;
-        this.pre_cube = pre_cube;
+        this.pre_cargo = pre_cargo;
+        this.pre_panel = pre_panel;
         this.pre_startPos = pre_startPos;
         this.auto_mode = auto_mode;
-        this.auto_baseline = auto_baseline;
-        this.auto_cube_switch = auto_cube_switch;
-        this.auto_cube_switch_att = auto_cube_switch_att;
-        this.auto_switch_extra = auto_switch_extra;
-        this.auto_cube_scale = auto_cube_scale;
-        this.auto_cube_scale_att = auto_cube_scale_att;
-        this.auto_scale_extra = auto_scale_extra;
-        this.auto_xover_switch = auto_xover_switch;
-        this.auto_xover_scale = auto_xover_scale;
-        this.auto_wrong_switch = auto_wrong_switch;
-        this.auto_wrong_scale = auto_wrong_scale;
+        this.auto_leftHAB = auto_leftHAB;
         this.auto_comment = auto_comment;
-        this.tele_cube_switch = tele_cube_switch;
-        this.tele_switch_attempt = tele_switch_attempt;
-        this.tele_cube_scale = tele_cube_scale;
-        this.tele_scale_attempt = tele_scale_attempt;
-        this.tele_their_switch = tele_their_switch;
-        this.tele_their_attempt = tele_their_attempt;
-        this.tele_cube_exchange = tele_cube_exchange;
-        this.tele_cube_portal = tele_cube_portal;
-        this.tele_cube_pwrzone = tele_cube_pwrzone;
-        this.tele_cube_floor = tele_cube_floor;
-        this.tele_their_floor = tele_their_floor;
-        this.tele_random_floor = tele_random_floor;
+        this.tele_LeftRocket_LPan1 = tele_LeftRocket_LPan1;
+        this.tele_LeftRocket_LPan2 = tele_LeftRocket_LPan2;
+        this.tele_LeftRocket_LPan3 = tele_LeftRocket_LPan3;
+        this.tele_LeftRocket_RPan1 = tele_LeftRocket_RPan1;
+        this.tele_LeftRocket_RPan2 = tele_LeftRocket_RPan2;
+        this.tele_LeftRocket_RPan3 = tele_LeftRocket_RPan3;
+        this.tele_LeftRocket_LCarg1 = tele_LeftRocket_LCarg1;
+        this.tele_LeftRocket_LCarg2 = tele_LeftRocket_LCarg2;
+        this.tele_LeftRocket_LCarg3 = tele_LeftRocket_LCarg3;
+        this.tele_LeftRocket_RCarg1 = tele_LeftRocket_RCarg1;
+        this.tele_LeftRocket_RCarg2 = tele_LeftRocket_RCarg2;
+        this.tele_LeftRocket_RCarg3 = tele_LeftRocket_RCarg3;
+        this.tele_RghtRocket_LPan1 = tele_RghtRocket_LPan1;
+        this.tele_RghtRocket_LPan2 = tele_RghtRocket_LPan2;
+        this.tele_RghtRocket_LPan3 = tele_RghtRocket_LPan3;
+        this.tele_RghtRocket_RPan1 = tele_RghtRocket_RPan1;
+        this.tele_RghtRocket_RPan2 = tele_RghtRocket_RPan2;
+        this.tele_RghtRocket_RPan3 = tele_RghtRocket_RPan3;
+        this.tele_RghtRocket_LCarg1 = tele_RghtRocket_LCarg1;
+        this.tele_RghtRocket_LCarg2 = tele_RghtRocket_LCarg2;
+        this.tele_RghtRocket_LCarg3 = tele_RghtRocket_LCarg3;
+        this.tele_RghtRocket_RCarg1 = tele_RghtRocket_RCarg1;
+        this.tele_RghtRocket_RCarg2 = tele_RghtRocket_RCarg2;
+        this.tele_RghtRocket_RCarg3 = tele_RghtRocket_RCarg3;
         this.tele_cube_pickup = tele_cube_pickup;
-        this.tele_placed_cube = tele_placed_cube;
-        this.tele_launched_cube = tele_launched_cube;
-        this.tele_on_platform = tele_on_platform;
-        this.tele_climb_attempt = tele_climb_attempt;
-        this.tele_climb_success = tele_climb_success;
-        this.tele_grab_rung = tele_grab_rung;
-        this.tele_grab_side = tele_grab_side;
-        this.tele_lift_one = tele_lift_one;
-        this.tele_lift_two = tele_lift_two;
+        this.tele_Panel_pickup = tele_Panel_pickup;
         this.tele_got_lift = tele_got_lift;
+        this.tele_lifted = tele_lifted;
+        this.tele_level_num = tele_level_num;
+        this.tele_num_Penalties = tele_num_Penalties;
         this.tele_comment = tele_comment;
         this.final_lostParts = final_lostParts;
         this.final_lostComms = final_lostComms;
@@ -113,7 +114,6 @@ public class matchData implements Serializable {
         this.final_def_Lane = final_def_Lane;
         this.final_def_Block = final_def_Block;
         this.final_def_BlockSwitch = final_def_BlockSwitch;
-        this.final_num_Penalties = final_num_Penalties;
         this.final_comment = final_comment;
         this.final_studID = final_studID;
         this.final_dateTime = final_dateTime;
@@ -127,8 +127,8 @@ public matchData() {
 }
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 // Getters & Setters
-
 
 
     public static long getSerialVersionUID() {
@@ -151,12 +151,20 @@ public matchData() {
         this.team_num = team_num;
     }
 
-    public boolean isPre_cube() {
-        return pre_cube;
+    public boolean isPre_cargo() {
+        return pre_cargo;
     }
 
-    public void setPre_cube(boolean pre_cube) {
-        this.pre_cube = pre_cube;
+    public void setPre_cargo(boolean pre_cargo) {
+        this.pre_cargo = pre_cargo;
+    }
+
+    public boolean isPre_panel() {
+        return pre_panel;
+    }
+
+    public void setPre_panel(boolean pre_panel) {
+        this.pre_panel = pre_panel;
     }
 
     public String getPre_startPos() {
@@ -175,90 +183,12 @@ public matchData() {
         this.auto_mode = auto_mode;
     }
 
-    public boolean isAuto_baseline() {
-        return auto_baseline;
+    public boolean isAuto_leftHAB() {
+        return auto_leftHAB;
     }
 
-    public void setAuto_baseline(boolean auto_baseline) {
-        this.auto_baseline = auto_baseline;
-    }
-
-    public boolean isAuto_cube_switch() {
-        return auto_cube_switch;
-    }
-
-    public void setAuto_cube_switch(boolean auto_cube_switch) {
-        this.auto_cube_switch = auto_cube_switch;
-    }
-
-    public boolean isAuto_cube_switch_att() {
-        return auto_cube_switch_att;
-    }
-
-    public void setAuto_cube_switch_att(boolean auto_cube_switch_att) {
-        this.auto_cube_switch_att = auto_cube_switch_att;
-    }
-
-    public boolean isAuto_switch_extra() {
-        return auto_switch_extra;
-    }
-
-    public void setAuto_switch_extra(boolean auto_switch_extra) {
-        this.auto_switch_extra = auto_switch_extra;
-    }
-
-    public boolean isAuto_cube_scale() {
-        return auto_cube_scale;
-    }
-
-    public void setAuto_cube_scale(boolean auto_cube_scale) {
-        this.auto_cube_scale = auto_cube_scale;
-    }
-
-    public boolean isAuto_cube_scale_att() {
-        return auto_cube_scale_att;
-    }
-
-    public void setAuto_cube_scale_att(boolean auto_cube_scale_att) {
-        this.auto_cube_scale_att = auto_cube_scale_att;
-    }
-    public boolean isAuto_scale_extra() {
-        return auto_scale_extra;
-    }
-
-    public void setAuto_scale_extra(boolean auto_scale_extra) {
-        this.auto_scale_extra = auto_scale_extra;
-    }
-    public boolean isAuto_xover_switch() {
-        return auto_xover_switch;
-    }
-
-    public void setAuto_xover_switch(boolean auto_xover_switch) {
-        this.auto_xover_switch = auto_xover_switch;
-    }
-
-    public boolean isAuto_xover_scale() {
-        return auto_xover_scale;
-    }
-
-    public void setAuto_xover_scale(boolean auto_xover_scale) {
-        this.auto_xover_scale = auto_xover_scale;
-    }
-
-    public boolean isAuto_wrong_switch() {
-        return auto_wrong_switch;
-    }
-
-    public void setAuto_wrong_switch(boolean auto_wrong_switch) {
-        this.auto_wrong_switch = auto_wrong_switch;
-    }
-
-    public boolean isAuto_wrong_scale() {
-        return auto_wrong_scale;
-    }
-
-    public void setAuto_wrong_scale(boolean auto_wrong_scale) {
-        this.auto_wrong_scale = auto_wrong_scale;
+    public void setAuto_leftHAB(boolean auto_leftHAB) {
+        this.auto_leftHAB = auto_leftHAB;
     }
 
     public String getAuto_comment() {
@@ -269,100 +199,196 @@ public matchData() {
         this.auto_comment = auto_comment;
     }
 
-    public int getTele_cube_switch() {
-        return tele_cube_switch;
+    public boolean isTele_LeftRocket_LPan1() {
+        return tele_LeftRocket_LPan1;
     }
 
-    public void setTele_cube_switch(int tele_cube_switch) {
-        this.tele_cube_switch = tele_cube_switch;
+    public void setTele_LeftRocket_LPan1(boolean tele_LeftRocket_LPan1) {
+        this.tele_LeftRocket_LPan1 = tele_LeftRocket_LPan1;
     }
 
-    public int getTele_switch_attempt() {
-        return tele_switch_attempt;
+    public boolean isTele_LeftRocket_LPan2() {
+        return tele_LeftRocket_LPan2;
     }
 
-    public void setTele_switch_attempt(int tele_switch_attempt) {
-        this.tele_switch_attempt = tele_switch_attempt;
+    public void setTele_LeftRocket_LPan2(boolean tele_LeftRocket_LPan2) {
+        this.tele_LeftRocket_LPan2 = tele_LeftRocket_LPan2;
     }
 
-    public int getTele_cube_scale() {
-        return tele_cube_scale;
+    public boolean isTele_LeftRocket_LPan3() {
+        return tele_LeftRocket_LPan3;
     }
 
-    public void setTele_cube_scale(int tele_cube_scale) {
-        this.tele_cube_scale = tele_cube_scale;
+    public void setTele_LeftRocket_LPan3(boolean tele_LeftRocket_LPan3) {
+        this.tele_LeftRocket_LPan3 = tele_LeftRocket_LPan3;
     }
 
-    public int getTele_scale_attempt() {
-        return tele_scale_attempt;
+    public boolean isTele_LeftRocket_RPan1() {
+        return tele_LeftRocket_RPan1;
     }
 
-    public void setTele_scale_attempt(int tele_scale_attempt) {
-        this.tele_scale_attempt = tele_scale_attempt;
+    public void setTele_LeftRocket_RPan1(boolean tele_LeftRocket_RPan1) {
+        this.tele_LeftRocket_RPan1 = tele_LeftRocket_RPan1;
     }
 
-    public int getTele_their_switch() {
-        return tele_their_switch;
+    public boolean isTele_LeftRocket_RPan2() {
+        return tele_LeftRocket_RPan2;
     }
 
-    public void setTele_their_switch(int tele_their_switch) {
-        this.tele_their_switch = tele_their_switch;
+    public void setTele_LeftRocket_RPan2(boolean tele_LeftRocket_RPan2) {
+        this.tele_LeftRocket_RPan2 = tele_LeftRocket_RPan2;
     }
 
-    public int getTele_their_attempt() {
-        return tele_their_attempt;
+    public boolean isTele_LeftRocket_RPan3() {
+        return tele_LeftRocket_RPan3;
     }
 
-    public void setTele_their_attempt(int tele_their_attempt) {
-        this.tele_their_attempt = tele_their_attempt;
+    public void setTele_LeftRocket_RPan3(boolean tele_LeftRocket_RPan3) {
+        this.tele_LeftRocket_RPan3 = tele_LeftRocket_RPan3;
     }
 
-    public int getTele_cube_exchange() {
-        return tele_cube_exchange;
+    public boolean isTele_LeftRocket_LCarg1() {
+        return tele_LeftRocket_LCarg1;
     }
 
-    public void setTele_cube_exchange(int tele_cube_exchange) {
-        this.tele_cube_exchange = tele_cube_exchange;
+    public void setTele_LeftRocket_LCarg1(boolean tele_LeftRocket_LCarg1) {
+        this.tele_LeftRocket_LCarg1 = tele_LeftRocket_LCarg1;
     }
 
-    public int getTele_cube_portal() {
-        return tele_cube_portal;
+    public boolean isTele_LeftRocket_LCarg2() {
+        return tele_LeftRocket_LCarg2;
     }
 
-    public void setTele_cube_portal(int tele_cube_portal) {
-        this.tele_cube_portal = tele_cube_portal;
+    public void setTele_LeftRocket_LCarg2(boolean tele_LeftRocket_LCarg2) {
+        this.tele_LeftRocket_LCarg2 = tele_LeftRocket_LCarg2;
     }
 
-    public int getTele_cube_pwrzone() {
-        return tele_cube_pwrzone;
+    public boolean isTele_LeftRocket_LCarg3() {
+        return tele_LeftRocket_LCarg3;
     }
 
-    public void setTele_cube_pwrzone(int tele_cube_pwrzone) {
-        this.tele_cube_pwrzone = tele_cube_pwrzone;
+    public void setTele_LeftRocket_LCarg3(boolean tele_LeftRocket_LCarg3) {
+        this.tele_LeftRocket_LCarg3 = tele_LeftRocket_LCarg3;
     }
 
-    public int getTele_cube_floor() {
-        return tele_cube_floor;
+    public boolean isTele_LeftRocket_RCarg1() {
+        return tele_LeftRocket_RCarg1;
     }
 
-    public void setTele_cube_floor(int tele_cube_floor) {
-        this.tele_cube_floor = tele_cube_floor;
+    public void setTele_LeftRocket_RCarg1(boolean tele_LeftRocket_RCarg1) {
+        this.tele_LeftRocket_RCarg1 = tele_LeftRocket_RCarg1;
     }
 
-    public int getTele_their_floor() {
-        return tele_their_floor;
+    public boolean isTele_LeftRocket_RCarg2() {
+        return tele_LeftRocket_RCarg2;
     }
 
-    public void setTele_their_floor(int tele_their_floor) {
-        this.tele_their_floor = tele_their_floor;
+    public void setTele_LeftRocket_RCarg2(boolean tele_LeftRocket_RCarg2) {
+        this.tele_LeftRocket_RCarg2 = tele_LeftRocket_RCarg2;
     }
 
-    public int getTele_random_floor() {
-        return tele_random_floor;
+    public boolean isTele_LeftRocket_RCarg3() {
+        return tele_LeftRocket_RCarg3;
     }
 
-    public void setTele_random_floor(int tele_random_floor) {
-        this.tele_random_floor = tele_random_floor;
+    public void setTele_LeftRocket_RCarg3(boolean tele_LeftRocket_RCarg3) {
+        this.tele_LeftRocket_RCarg3 = tele_LeftRocket_RCarg3;
+    }
+
+    public boolean isTele_RghtRocket_LPan1() {
+        return tele_RghtRocket_LPan1;
+    }
+
+    public void setTele_RghtRocket_LPan1(boolean tele_RghtRocket_LPan1) {
+        this.tele_RghtRocket_LPan1 = tele_RghtRocket_LPan1;
+    }
+
+    public boolean isTele_RghtRocket_LPan2() {
+        return tele_RghtRocket_LPan2;
+    }
+
+    public void setTele_RghtRocket_LPan2(boolean tele_RghtRocket_LPan2) {
+        this.tele_RghtRocket_LPan2 = tele_RghtRocket_LPan2;
+    }
+
+    public boolean isTele_RghtRocket_LPan3() {
+        return tele_RghtRocket_LPan3;
+    }
+
+    public void setTele_RghtRocket_LPan3(boolean tele_RghtRocket_LPan3) {
+        this.tele_RghtRocket_LPan3 = tele_RghtRocket_LPan3;
+    }
+
+    public boolean isTele_RghtRocket_RPan1() {
+        return tele_RghtRocket_RPan1;
+    }
+
+    public void setTele_RghtRocket_RPan1(boolean tele_RghtRocket_RPan1) {
+        this.tele_RghtRocket_RPan1 = tele_RghtRocket_RPan1;
+    }
+
+    public boolean isTele_RghtRocket_RPan2() {
+        return tele_RghtRocket_RPan2;
+    }
+
+    public void setTele_RghtRocket_RPan2(boolean tele_RghtRocket_RPan2) {
+        this.tele_RghtRocket_RPan2 = tele_RghtRocket_RPan2;
+    }
+
+    public boolean isTele_RghtRocket_RPan3() {
+        return tele_RghtRocket_RPan3;
+    }
+
+    public void setTele_RghtRocket_RPan3(boolean tele_RghtRocket_RPan3) {
+        this.tele_RghtRocket_RPan3 = tele_RghtRocket_RPan3;
+    }
+
+    public boolean isTele_RghtRocket_LCarg1() {
+        return tele_RghtRocket_LCarg1;
+    }
+
+    public void setTele_RghtRocket_LCarg1(boolean tele_RghtRocket_LCarg1) {
+        this.tele_RghtRocket_LCarg1 = tele_RghtRocket_LCarg1;
+    }
+
+    public boolean isTele_RghtRocket_LCarg2() {
+        return tele_RghtRocket_LCarg2;
+    }
+
+    public void setTele_RghtRocket_LCarg2(boolean tele_RghtRocket_LCarg2) {
+        this.tele_RghtRocket_LCarg2 = tele_RghtRocket_LCarg2;
+    }
+
+    public boolean isTele_RghtRocket_LCarg3() {
+        return tele_RghtRocket_LCarg3;
+    }
+
+    public void setTele_RghtRocket_LCarg3(boolean tele_RghtRocket_LCarg3) {
+        this.tele_RghtRocket_LCarg3 = tele_RghtRocket_LCarg3;
+    }
+
+    public boolean isTele_RghtRocket_RCarg1() {
+        return tele_RghtRocket_RCarg1;
+    }
+
+    public void setTele_RghtRocket_RCarg1(boolean tele_RghtRocket_RCarg1) {
+        this.tele_RghtRocket_RCarg1 = tele_RghtRocket_RCarg1;
+    }
+
+    public boolean isTele_RghtRocket_RCarg2() {
+        return tele_RghtRocket_RCarg2;
+    }
+
+    public void setTele_RghtRocket_RCarg2(boolean tele_RghtRocket_RCarg2) {
+        this.tele_RghtRocket_RCarg2 = tele_RghtRocket_RCarg2;
+    }
+
+    public boolean isTele_RghtRocket_RCarg3() {
+        return tele_RghtRocket_RCarg3;
+    }
+
+    public void setTele_RghtRocket_RCarg3(boolean tele_RghtRocket_RCarg3) {
+        this.tele_RghtRocket_RCarg3 = tele_RghtRocket_RCarg3;
     }
 
     public boolean isTele_cube_pickup() {
@@ -373,76 +399,12 @@ public matchData() {
         this.tele_cube_pickup = tele_cube_pickup;
     }
 
-    public boolean isTele_placed_cube() {
-        return tele_placed_cube;
+    public boolean isTele_Panel_pickup() {
+        return tele_Panel_pickup;
     }
 
-    public void setTele_placed_cube(boolean tele_placed_cube) {
-        this.tele_placed_cube = tele_placed_cube;
-    }
-
-    public boolean isTele_launched_cube() {
-        return tele_launched_cube;
-    }
-
-    public void setTele_launched_cube(boolean tele_launched_cube) {
-        this.tele_launched_cube = tele_launched_cube;
-    }
-
-    public boolean isTele_on_platform() {
-        return tele_on_platform;
-    }
-
-    public void setTele_on_platform(boolean tele_on_platform) {
-        this.tele_on_platform = tele_on_platform;
-    }
-
-    public boolean isTele_climb_attempt() {
-        return tele_climb_attempt;
-    }
-
-    public void setTele_climb_attempt(boolean tele_climb_attempt) {
-        this.tele_climb_attempt = tele_climb_attempt;
-    }
-
-    public boolean isTele_climb_success() {
-        return tele_climb_success;
-    }
-
-    public void setTele_climb_success(boolean tele_climb_success) {
-        this.tele_climb_success = tele_climb_success;
-    }
-
-    public boolean isTele_grab_rung() {
-        return tele_grab_rung;
-    }
-
-    public void setTele_grab_rung(boolean tele_grab_rung) {
-        this.tele_grab_rung = tele_grab_rung;
-    }
-
-    public boolean isTele_grab_side() {
-        return tele_grab_side;
-    }
-
-    public void setTele_grab_side(boolean tele_grab_side) {
-        this.tele_grab_side = tele_grab_side;
-    }
-
-    public boolean isTele_lift_one() {
-        return tele_lift_one;
-    }
-
-    public void setTele_lift_one(boolean tele_lift_one) {
-        this.tele_lift_one = tele_lift_one;
-    }
-
-    public boolean isTele_lift_two() {
-        return tele_lift_two;
-    }
-
-    public void setTele_lift_two(boolean tele_lift_two) {
-        this.tele_lift_two = tele_lift_two;
+    public void setTele_Panel_pickup(boolean tele_Panel_pickup) {
+        this.tele_Panel_pickup = tele_Panel_pickup;
     }
 
     public boolean isTele_got_lift() {
@@ -451,6 +413,30 @@ public matchData() {
 
     public void setTele_got_lift(boolean tele_got_lift) {
         this.tele_got_lift = tele_got_lift;
+    }
+
+    public boolean isTele_lifted() {
+        return tele_lifted;
+    }
+
+    public void setTele_lifted(boolean tele_lifted) {
+        this.tele_lifted = tele_lifted;
+    }
+
+    public int getTele_level_num() {
+        return tele_level_num;
+    }
+
+    public void setTele_level_num(int tele_level_num) {
+        this.tele_level_num = tele_level_num;
+    }
+
+    public int getTele_num_Penalties() {
+        return tele_num_Penalties;
+    }
+
+    public void setTele_num_Penalties(int tele_num_Penalties) {
+        this.tele_num_Penalties = tele_num_Penalties;
     }
 
     public String getTele_comment() {
@@ -507,14 +493,6 @@ public matchData() {
 
     public void setFinal_def_BlockSwitch(boolean final_def_BlockSwitch) {
         this.final_def_BlockSwitch = final_def_BlockSwitch;
-    }
-
-    public int getFinal_num_Penalties() {
-        return final_num_Penalties;
-    }
-
-    public void setFinal_num_Penalties(int final_num_Penalties) {
-        this.final_num_Penalties = final_num_Penalties;
     }
 
     public String getFinal_comment() {

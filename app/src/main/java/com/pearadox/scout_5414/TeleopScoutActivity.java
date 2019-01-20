@@ -31,13 +31,18 @@ import com.google.firebase.database.FirebaseDatabase;
 public class TeleopScoutActivity extends Activity {
 
     String TAG = "TeleopScoutActivity";      // This CLASS name
-    TextView txt_dev, txt_stud, txt_match, txt_tnum, lbl_Number_Penalties;
-    TextView  txt_CubeZoneNUM, txt_CubePlatformNUM, txt_OthrSwtchNUM, txt_PortalNUM, txt_ExchangeNUM;
-    /* Last Sect. */       private Button button_GoToFinalActivity, button_Number_PenaltiesPlus, button_Number_PenaltiesUndo;
-    CheckBox   chkBox_PU_Cubes_floor, chk_LiftedBy;
-    EditText   editText_TeleComments;
-    RadioGroup  radgrp_Lifted;      RadioButton  radio_Lift, radio_One, radio_Two, radio_Three, radio_Zero;
-
+    /* Header Sect. */  TextView txt_dev, txt_stud, txt_match, txt_tnum;
+    /* L Rocket */      CheckBox chk_LeftRocket_LPan1,chk_LeftRocket_LPan2,chk_LeftRocket_LPan3, chk_LeftRocket_LCarg1,chk_LeftRocket_LCarg2,chk_LeftRocket_LCarg3;
+                        CheckBox chk_LeftRocket_RPan1,chk_LeftRocket_RPan2,chk_LeftRocket_RPan3, chk_LeftRocket_RCarg1,chk_LeftRocket_RCarg2,chk_LeftRocket_RCarg3;
+    /* R Rocket */      CheckBox chk_RghtRocket_LPan1,chk_RghtRocket_LPan2,chk_RghtRocket_LPan3, chk_RghtRocket_LCarg1,chk_RghtRocket_LCarg2,chk_RghtRocket_LCarg3;
+                        CheckBox chk_RghtRocket_RPan1,chk_RghtRocket_RPan2,chk_RghtRocket_RPan3, chk_RghtRocket_RCarg1,chk_RghtRocket_RCarg2,chk_RghtRocket_RCarg3;
+    /* Comment */       EditText editText_TeleComments;
+    /* P/U Sect. */     CheckBox chkBox_PU_Cubes_floor;
+    /* HAB */           RadioGroup  radgrp_HAB;      RadioButton  radio_Lift, radio_One, radio_Two, radio_Three, radio_Zero;
+                        CheckBox chk_LiftedBy, chk_Lifted;
+    /* Last Sect. */    Button button_GoToFinalActivity, button_Number_PenaltiesPlus, button_Number_PenaltiesUndo;
+                        TextView lbl_Number_Penalties;
+    /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     private FirebaseDatabase  pfDatabase;
     private DatabaseReference pfTeam_DBReference;
     private DatabaseReference pfMatch_DBReference;
@@ -47,41 +52,22 @@ public class TeleopScoutActivity extends Activity {
     String tn  = " ";
 
     // ===================  TeleOps Elements for Match Scout Data object ===================
-    public int     cubeSwitch_placed  = 0;     // # Gears placed
-    public int     cubeSwitch_attempt = 0;     // # Gears attempted
-    public int     cube_scale         = 0;     // # cubes placed on Switch during Tele
-    public int     scale_attempt      = 0;     // # cubes attempted on Switch during Tele
-    public int     their_switch       = 0;     // # cubes placed on _THEIR_Switch during Tele
-    public int     their_attempt      = 0;     // # cubes attempted on _THEIR_Switch during Tele
-    public int     cube_exchange      = 0;     // # cubes placed in Exchange during Tele
-    public int     cube_portal        = 0;     // # cubes retrieved from Portal during Tele
-    public int     cube_pwrzone       = 0;     // # cubes retrieved from Power Zone during Tele
-    public int     cube_floor         = 0;     // # cubes retrieved from our Floor or Platform Zone during Tele
-    public int     their_floor        = 0;     // # cubes retrieved from their Floor or Platform Zone during Tele
-    public int     random_floor       = 0;     // # cubes retrieved from random places during Tele
-    public boolean cube_pickup        = false; // Did they pickup gears off the ground?
-    public boolean on_platform        = false; // Finished on platform
-    public boolean delPlace           = false; // Cube Delivery = Place    \ Radio
-    public boolean delLaunch          = false; // Cube Delivery = Launch   /  Button
-    public boolean climb_attempt      = false; // Did they ATTEMPT climb?
-    public boolean climb_success      = false; // Was climb successful?
-    public boolean grab_rung          = false; // == Grabbed rung to climb   \ Radio
-    public boolean grab_side          = false; // == Grabbed side to climb   /  Button
-    public boolean lift_zero          = false; // Lifted no other robot     \
-    public boolean lift_one           = false; // Lifted one other robot       Radio
-    public boolean lift_two           = false; // Lifted two other robots   /   Button
-    public boolean lift_three          = false; // Lifted two other robots   /   Button
+    public boolean cube_pickup        = false; // Did they pickup cargo off the ground?
+    public boolean panel_pickup       = false; // Did they pickup panel off the ground?
+    public int end_HAB_Level          = 0;     // HAB Level
     public boolean got_lift           = false; // Got Lifted by another robot
-    public int    final_num_Penalties = 0;     // How many penalties received?
+    public boolean lifted             = false; // Got Lifted by another robot
+    public int final_num_Penalties    = 0;     // How many penalties received?
     /* */
     public String  teleComment        = " ";   // Tele Comment
     // ===========================================================================
     matchData match_cycle = new matchData();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "<< Teleop Scout >>");
+        Log.w(TAG, "<< Teleop Scout >>");
         setContentView(R.layout.activity_teleop_scout);
         Bundle bundle = this.getIntent().getExtras();
         tn = bundle.getString("tnum");
@@ -90,36 +76,25 @@ public class TeleopScoutActivity extends Activity {
         txt_tnum = (TextView) findViewById(R.id.txt_tnum);
         txt_tnum.setText(tn);
 
-        txt_CubeZoneNUM           = (TextView) findViewById(R.id.txt_CubeZoneNUM);
-//        txt_OtherSwitchNUM        = (TextView) findViewById(R.id.txt_OtherSwitchNUM);
-//        txt_OtherSwitchAttNUM     = (TextView) findViewById(R.id.txt_OtherSwitchAttNUM);
-//        txt_OthrSwtchNUM          = (TextView) findViewById(R.id.txt_OthrSwtchNUM);
-        txt_CubePlatformNUM       = (TextView) findViewById(R.id.txt_CubePlatformNUM);
         chk_LiftedBy              = (CheckBox) findViewById(R.id.chk_LiftedBy);
+        chk_Lifted                = (CheckBox) findViewById(R.id.chk_Lifted);
         chkBox_PU_Cubes_floor     = (CheckBox) findViewById(R.id.chkBox_PU_Cubes_floor);
         editText_TeleComments     = (EditText) findViewById(R.id.editText_teleComments);
         button_GoToFinalActivity  = (Button)   findViewById(R.id.button_GoToFinalActivity);
-        txt_PortalNUM             = (TextView) findViewById(R.id.txt_PortalNUM);
-        txt_ExchangeNUM           = (TextView) findViewById(R.id.txt_ExchangeNUM);
-//        txt_RandomNUM             = (TextView) findViewById(R.id.txt_RandomNUM);
         lbl_Number_Penalties      = (TextView) findViewById(R.id.lbl_Number_Penalties);
-
         button_Number_PenaltiesPlus = (Button) findViewById(R.id.button_Number_PenaltiesPlus);
         button_Number_PenaltiesUndo = (Button) findViewById(R.id.button_Number_PenaltiesUndo);
 
-        pfDatabase                = FirebaseDatabase.getInstance();
-//        pfTeam_DBReference        = pfDatabase      .getReference("teams");         // Tteam data from Firebase D/B
-//        pfStudent_DBReference     = pfDatabase      .getReference("students");      // List of Students
-//        pfMatch_DBReference       = pfDatabase      .getReference("matches");       // List of matches
-//        pfCur_Match_DBReference   = pfDatabase      .getReference("current-match"); // _THE_ current Match
+        pfDatabase                = FirebaseDatabase.getInstance();                 // Firebase
         pfDevice_DBReference      = pfDatabase      .getReference("devices");    // List of Devices
+
+        radio_Zero = (RadioButton) findViewById(R.id.radio_Zero);
+        //radio_Zero.setEnabled(false);        // Don't let them choose if CLIMB not selected
         radio_One = (RadioButton) findViewById(R.id.radio_One);
         //radio_One.setEnabled(false);        // Don't let them choose if CLIMB not selected
         radio_Two = (RadioButton) findViewById(R.id.radio_Two);
         //radio_Two.setEnabled(false);        // Don't let them choose if CLIMB not selected
         radio_Three = (RadioButton) findViewById(R.id.radio_Three);
-        radio_Zero = (RadioButton) findViewById(R.id.radio_Zero);
-        //radio_Zero.setEnabled(false);        // Don't let them choose if CLIMB not selected
 
 // *****************************************************************************************
 // *****************************************************************************************
@@ -127,7 +102,7 @@ public class TeleopScoutActivity extends Activity {
 
         button_GoToFinalActivity.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.i(TAG, "Clicked Final");
+                Log.w(TAG, "Clicked Final");
                 // ToDo - Check for ANY required fields
 //                if (!climb_success || (climb_success && (radio_Rung.isChecked() || radio_Side.isChecked()))) {     // Gotta pick one!
                     updateDev("Final");           // Update 'Phase' for stoplight indicator in ScoutM aster
@@ -148,16 +123,15 @@ public class TeleopScoutActivity extends Activity {
         });
 
         chkBox_PU_Cubes_floor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
             @Override
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-            Log.i(TAG, "chkBox_PU_Cubes_floor Listener");
+            Log.w(TAG, "chkBox_PU_Cubes_floor Listener");
             if (buttonView.isChecked()) {
                 Log.w(TAG,"PU_Cubes is checked.");
                 cube_pickup = true;
 
             } else {  //not checked
-                Log.i(TAG,"PU_Cubes is unchecked.");
+                Log.w(TAG,"PU_Cubes is unchecked.");
                 cube_pickup = false;
             }
             }
@@ -166,74 +140,43 @@ public class TeleopScoutActivity extends Activity {
 
 
         chk_LiftedBy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
             @Override
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                Log.i(TAG, "chk_LiftedBy Listener");
+                Log.w(TAG, "chk_LiftedBy Listener");
                     if (chk_LiftedBy.isChecked()) {
                         //checked
-                    Log.i(TAG,"LiftedBy is checked.");
+                    Log.w(TAG,"LiftedBy is checked.");
                     got_lift = true;
+                    chk_Lifted.setChecked(false);       // Can't be both!!
+                    lifted = false;
                 }
                 else {
                     //not checked
-                    Log.i(TAG,"LiftedBy is unchecked.");
+                    Log.w(TAG,"LiftedBy is unchecked.");
                     got_lift = false;
                     //chkBox_Platform.setChecked(false);       // Have to be on platform to get lifted!
                 }
             }
         });
 
-
-
-        View.OnClickListener listener = new View.OnClickListener() {
+        chk_Lifted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                if(radio_One.isChecked())
-                {
-                    lift_one = true;
-                    Log.w(TAG, "radio_One is " + lift_one);
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                Log.w(TAG, "chk_Lifted Listener");
+                if (chk_Lifted.isChecked()) {
+                    //checked
+                    Log.w(TAG,"Lifted is checked.");
+                    got_lift = true;
+                    chk_LiftedBy.setChecked(false);       // Can't be both!!
+                    lifted = false;
                 }
-                else
-                {
-                    lift_one=false;
-                    Log.w(TAG, "radio_One is " + lift_one);
+                else {
+                    //not checked
+                    Log.w(TAG,"Lifted is unchecked.");
+                    got_lift = false;
                 }
             }
-        };
-
-        radio_One.setOnClickListener(listener);
-        listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (radio_Two.isChecked()) {
-                    lift_two = true;
-                    Log.w(TAG, "radio_Two is " + lift_two);
-                } else {
-                    lift_two = false;
-                    Log.w(TAG, "radio_Two is " + lift_two);
-                }
-            }
-        };
-
-        radio_Two.setOnClickListener(listener);
-        listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (radio_Zero.isChecked()) {
-                    lift_zero = true;
-                    lift_one = false;
-                    lift_two = false;
-                    //chkBox_Platform.setChecked(true);
-                    Log.w(TAG, "radio_Zero is " + lift_zero);
-                } else {
-                    lift_zero = false;
-                    Log.w(TAG, "radio_Zero is " + lift_zero);
-                }
-            }
-        };
-
-    radio_Zero.setOnClickListener(listener);
+        });
 
 
         button_Number_PenaltiesPlus.setOnClickListener(new View.OnClickListener() {
@@ -258,17 +201,17 @@ public class TeleopScoutActivity extends Activity {
         editText_TeleComments.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.i(TAG, "******  onTextChanged TextWatcher  ******" + s);
+                Log.w(TAG, "******  onTextChanged TextWatcher  ******" + s);
                 teleComment = String.valueOf(s);
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                Log.i(TAG, "******  beforeTextChanged TextWatcher  ******");
+                Log.w(TAG, "******  beforeTextChanged TextWatcher  ******");
                 // TODO Auto-generated method stub
             }
             @Override
             public void afterTextChanged(Editable s) {
-                Log.i(TAG, "******  onTextChanged TextWatcher  ******" + s );
+                Log.w(TAG, "******  onTextChanged TextWatcher  ******" + s );
                 teleComment = String.valueOf(s);
             }
         });
@@ -278,64 +221,41 @@ public class TeleopScoutActivity extends Activity {
     /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
     public void RadioClick_Lifted(View view) {
         Log.w(TAG, "@@ RadioClick_Lifted @@");
-        radgrp_Lifted = (RadioGroup) findViewById(R.id.radgrp_Lifted);
-        int selectedId = radgrp_Lifted.getCheckedRadioButtonId();
+        radgrp_HAB = (RadioGroup) findViewById(R.id.radgrp_HAB);
+        int selectedId = radgrp_HAB.getCheckedRadioButtonId();
 //        Log.w(TAG, "*** Selected=" + selectedId);
         radio_Lift = (RadioButton) findViewById(selectedId);
         String value = radio_Lift.getText().toString();
-//        radio_Lift.setChecked(false);
-        if (value.equals("One")) {           // One?
+        if (value.equals("Not On")) {        // Not On?
+            Log.w(TAG, "Not On");
+            end_HAB_Level = 0;
+        } else if (value.equals("One")){     // One?
             Log.w(TAG, "One");
-            lift_one = true;
-            lift_two = false;
-            lift_three = false;
+            end_HAB_Level = 1;
         } else if (value.equals("Two")){     // Two
             Log.w(TAG, "Two");
-            lift_three = false;
-            lift_two = true;
-            lift_one = false;
+            end_HAB_Level = 2;
         } else {                              // Three
             Log.w(TAG, "Three");
-            lift_three = true;
-            lift_two = false;
-            lift_one = false;
+            end_HAB_Level = 3;
         }
     }
 
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     private void storeTeleData() {
         Log.w(TAG, ">>>>  storeTeleData  <<<<");
-        Pearadox.Match_Data.setTele_cube_switch(cubeSwitch_placed);
-        Pearadox.Match_Data.setTele_switch_attempt(cubeSwitch_attempt);
-        Pearadox.Match_Data.setTele_cube_scale(cube_scale);
-        Pearadox.Match_Data.setTele_scale_attempt(scale_attempt);
-        Pearadox.Match_Data.setTele_their_switch(their_switch);
-        Pearadox.Match_Data.setTele_their_attempt(their_attempt);
-        Pearadox.Match_Data.setTele_cube_exchange(cube_exchange);
-        Pearadox.Match_Data.setTele_cube_portal(cube_portal);
-        Pearadox.Match_Data.setTele_cube_pwrzone(cube_pwrzone);
-        Pearadox.Match_Data.setTele_cube_floor(cube_floor);
-        Pearadox.Match_Data.setTele_their_floor(their_floor);
-        Pearadox.Match_Data.setTele_random_floor(random_floor);
         Pearadox.Match_Data.setTele_cube_pickup(cube_pickup);
-        Pearadox.Match_Data.setTele_on_platform(on_platform);
-        Pearadox.Match_Data.setTele_placed_cube(delPlace);
-        Pearadox.Match_Data.setTele_launched_cube(delLaunch);
-        Pearadox.Match_Data.setTele_climb_attempt(climb_attempt);
-        Pearadox.Match_Data.setTele_climb_success(climb_success);
-        Pearadox.Match_Data.setTele_grab_rung(grab_rung);
-        Pearadox.Match_Data.setTele_grab_side(grab_side);
-        Pearadox.Match_Data.setTele_lift_one(lift_one);
-        Pearadox.Match_Data.setTele_lift_two(lift_two);
+        Pearadox.Match_Data.setTele_Panel_pickup(panel_pickup);
+        Pearadox.Match_Data.setTele_level_num(end_HAB_Level);
         Pearadox.Match_Data.setTele_got_lift(got_lift);
-        Pearadox.Match_Data.setFinal_num_Penalties(final_num_Penalties);
+        Pearadox.Match_Data.setTele_num_Penalties(final_num_Penalties);
         // **
         Pearadox.Match_Data.setTele_comment(teleComment);
     }
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     private void updateDev(String phase) {     //
-        Log.i(TAG, "#### updateDev #### " + phase);
+        Log.w(TAG, "#### updateDev #### " + phase);
         switch (Pearadox.FRC514_Device) {
             case "Scout Master":         // Scout Master
                 key = "0";

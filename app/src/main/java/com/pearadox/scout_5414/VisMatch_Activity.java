@@ -162,39 +162,39 @@ public class VisMatch_Activity extends AppCompatActivity {
             if (match_inst.isAuto_mode()) {
                 noAuto++;
             }
-            if (match_inst.isAuto_baseline()) {
-                numAutoBaseline++;
-            }
-            if (match_inst.isAuto_cube_switch()) {
-                auto_SwCubesPlaced++;
-            }
-            if (match_inst.isAuto_cube_switch_att()) {
-                auto_SwCubesAttempted++;
-            }
-            if (match_inst.isAuto_xover_switch()) {
-                auto_SwCrossOver++;
-            }
-            if (match_inst.isAuto_wrong_switch()) {
-                Auto_SwWrong++;
-            }
-            if (match_inst.isAuto_switch_extra()) {
-                numExtraSw++;
-            }
-            if (match_inst.isAuto_cube_scale()) {
-                auto_ScCubesPlaced++;
-            }
-            if (match_inst.isAuto_cube_scale_att()) {
-                auto_ScCubesAttempted++;
-            }
-            if (match_inst.isAuto_scale_extra()) {
-                numExtraSc++;
-            }
-            if (match_inst.isAuto_xover_scale()) {
-                auto_ScCrossOver++;
-            }
-            if (match_inst.isAuto_wrong_scale()) {
-                Auto_ScWrong++;
-            }
+//            if (match_inst.isAuto_baseline()) {
+//                numAutoBaseline++;
+//            }
+//            if (match_inst.isAuto_cube_switch()) {
+//                auto_SwCubesPlaced++;
+//            }
+//            if (match_inst.isAuto_cube_switch_att()) {
+//                auto_SwCubesAttempted++;
+//            }
+//            if (match_inst.isAuto_xover_switch()) {
+//                auto_SwCrossOver++;
+//            }
+//            if (match_inst.isAuto_wrong_switch()) {
+//                Auto_SwWrong++;
+//            }
+//            if (match_inst.isAuto_switch_extra()) {
+//                numExtraSw++;
+//            }
+//            if (match_inst.isAuto_cube_scale()) {
+//                auto_ScCubesPlaced++;
+//            }
+//            if (match_inst.isAuto_cube_scale_att()) {
+//                auto_ScCubesAttempted++;
+//            }
+//            if (match_inst.isAuto_scale_extra()) {
+//                numExtraSc++;
+//            }
+//            if (match_inst.isAuto_xover_scale()) {
+//                auto_ScCrossOver++;
+//            }
+//            if (match_inst.isAuto_wrong_scale()) {
+//                Auto_ScWrong++;
+//            }
 
 //            Log.w(TAG, "Auto Comment = " + match_inst.getAuto_comment() + "  " + match_inst.getAuto_comment().length());
             if (match_inst.getAuto_comment().length() > 1) {
@@ -219,55 +219,55 @@ public class VisMatch_Activity extends AppCompatActivity {
 
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
             // Tele elements
-            tele_totalCubeSwPlaced = tele_totalCubeSwPlaced + match_inst.getTele_cube_switch();
-            mBarChart.addBar(new BarModel(match_inst.getTele_cube_switch(), 0xffff0000));       // Switch
-            tele_totalCubeSwAttempted = tele_totalCubeSwAttempted + match_inst.getTele_switch_attempt();
-            tele_totalCubeScPlaced = tele_totalCubeScPlaced + match_inst.getTele_cube_scale();
-            mBarChart.addBar(new BarModel(match_inst.getTele_cube_scale(),  0xff08457e));       // Scale
-            tele_totalCubeScAttempted = tele_totalCubeScAttempted + match_inst.getTele_scale_attempt();
-            portalNUM = portalNUM + match_inst.getTele_cube_portal();
-            tele_SwTheirs = tele_SwTheirs + match_inst.getTele_their_switch();
-            tele_SwTheirAtt = tele_SwTheirAtt + match_inst.getTele_their_attempt();
-            tele_their_floor = tele_their_floor + match_inst.getTele_their_floor();
-            randomNUM = randomNUM + match_inst.getTele_random_floor();
-
-            cubznNUM = cubznNUM + match_inst.getTele_cube_pwrzone();
-            cubplatNUM = cubplatNUM + match_inst.getTele_cube_floor();
-            cubPlatOthrNUM = cubPlatOthrNUM + match_inst.getTele_their_floor();
+//            tele_totalCubeSwPlaced = tele_totalCubeSwPlaced + match_inst.getTele_cube_switch();
+//            mBarChart.addBar(new BarModel(match_inst.getTele_cube_switch(), 0xffff0000));       // Switch
+//            tele_totalCubeSwAttempted = tele_totalCubeSwAttempted + match_inst.getTele_switch_attempt();
+//            tele_totalCubeScPlaced = tele_totalCubeScPlaced + match_inst.getTele_cube_scale();
+//            mBarChart.addBar(new BarModel(match_inst.getTele_cube_scale(),  0xff08457e));       // Scale
+//            tele_totalCubeScAttempted = tele_totalCubeScAttempted + match_inst.getTele_scale_attempt();
+//            portalNUM = portalNUM + match_inst.getTele_cube_portal();
+//            tele_SwTheirs = tele_SwTheirs + match_inst.getTele_their_switch();
+//            tele_SwTheirAtt = tele_SwTheirAtt + match_inst.getTele_their_attempt();
+//            tele_their_floor = tele_their_floor + match_inst.getTele_their_floor();
+//            randomNUM = randomNUM + match_inst.getTele_random_floor();
+//
+//            cubznNUM = cubznNUM + match_inst.getTele_cube_pwrzone();
+//            cubplatNUM = cubplatNUM + match_inst.getTele_cube_floor();
+//            cubPlatOthrNUM = cubPlatOthrNUM + match_inst.getTele_their_floor();
             if (match_inst.isTele_cube_pickup()) {
                 offFloorNUM++;
             }
-            numTeleExch = numTeleExch + match_inst.getTele_cube_exchange();
-            if (match_inst.isTele_lift_one()) {
-                Lift1num++;
-            }
-            if (match_inst.isTele_lift_two()) {
-                Lift2num++;
-            }
-            if (match_inst.isTele_got_lift()) {
-                WasLifted++;
-            }
-            if (match_inst.isTele_on_platform()) {
-                onPlatform++;
-            }
-            if (match_inst.isTele_grab_rung()) {
-                rungNum++;
-            }
-            if (match_inst.isTele_grab_side()) {
-                sideNum++;
-            }
-            if (match_inst.isTele_launched_cube()) {
-                numTeleLaunch++;
-            }
-            if (match_inst.isTele_placed_cube()) {
-                numTelePlace++;
-            }
-            if (match_inst.isTele_climb_attempt()) {
-                numTeleClimbAttempt++;
-            }
-            if (match_inst.isTele_climb_success()) {
-                numTeleClimbSuccess++;
-            }
+//            numTeleExch = numTeleExch + match_inst.getTele_cube_exchange();
+//            if (match_inst.isTele_lift_one()) {
+//                Lift1num++;
+//            }
+//            if (match_inst.isTele_lift_two()) {
+//                Lift2num++;
+//            }
+//            if (match_inst.isTele_got_lift()) {
+//                WasLifted++;
+//            }
+//            if (match_inst.isTele_on_platform()) {
+//                onPlatform++;
+//            }
+//            if (match_inst.isTele_grab_rung()) {
+//                rungNum++;
+//            }
+//            if (match_inst.isTele_grab_side()) {
+//                sideNum++;
+//            }
+//            if (match_inst.isTele_launched_cube()) {
+//                numTeleLaunch++;
+//            }
+//            if (match_inst.isTele_placed_cube()) {
+//                numTelePlace++;
+//            }
+//            if (match_inst.isTele_climb_attempt()) {
+//                numTeleClimbAttempt++;
+//            }
+//            if (match_inst.isTele_climb_success()) {
+//                numTeleClimbSuccess++;
+//            }
             if (match_inst.getTele_comment().length() > 1) {
                 tele_Comments = tele_Comments + match_inst.getMatch() + "-" + match_inst.getTele_comment() + "\n" + underScore  + "\n" ;
             }
@@ -289,8 +289,8 @@ public class VisMatch_Activity extends AppCompatActivity {
             if (match_inst.isFinal_def_Block()) {
                 final_DefBlock++;
             }
-            if (match_inst.getFinal_num_Penalties() > 0) {
-                final_NumPen = final_NumPen + match_inst.getFinal_num_Penalties();
+            if (match_inst.getTele_num_Penalties() > 0) {
+                final_NumPen = final_NumPen + match_inst.getTele_num_Penalties();
             }
 
 //            Log.w(TAG, "Final Comment = " + match_inst.getFinal_comment() + "  " + match_inst.getFinal_comment().length());
