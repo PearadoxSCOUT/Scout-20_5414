@@ -37,7 +37,7 @@ public class TeleopScoutActivity extends Activity {
     /* R Rocket */      CheckBox chk_RghtRocket_LPan1,chk_RghtRocket_LPan2,chk_RghtRocket_LPan3, chk_RghtRocket_LCarg1,chk_RghtRocket_LCarg2,chk_RghtRocket_LCarg3;
                         CheckBox chk_RghtRocket_RPan1,chk_RghtRocket_RPan2,chk_RghtRocket_RPan3, chk_RghtRocket_RCarg1,chk_RghtRocket_RCarg2,chk_RghtRocket_RCarg3;
     /* Comment */       EditText editText_TeleComments;
-    /* P/U Sect. */     CheckBox chkBox_PU_Cubes_floor;
+    /* P/U Sect. */     CheckBox chkBox_PU_Cargo_floor, chkBox_PU_Panel_floor;
     /* HAB */           RadioGroup  radgrp_HAB;      RadioButton  radio_Lift, radio_One, radio_Two, radio_Three, radio_Zero;
                         CheckBox chk_LiftedBy, chk_Lifted;
     /* Last Sect. */    Button button_GoToFinalActivity, button_Number_PenaltiesPlus, button_Number_PenaltiesUndo;
@@ -78,7 +78,8 @@ public class TeleopScoutActivity extends Activity {
 
         chk_LiftedBy              = (CheckBox) findViewById(R.id.chk_LiftedBy);
         chk_Lifted                = (CheckBox) findViewById(R.id.chk_Lifted);
-        chkBox_PU_Cubes_floor     = (CheckBox) findViewById(R.id.chkBox_PU_Cubes_floor);
+        chkBox_PU_Cargo_floor     = (CheckBox) findViewById(R.id.chkBox_PU_Cargo_floor);
+        chkBox_PU_Panel_floor     = (CheckBox) findViewById(R.id.chkBox_PU_Panel_floor);
         editText_TeleComments     = (EditText) findViewById(R.id.editText_teleComments);
         button_GoToFinalActivity  = (Button)   findViewById(R.id.button_GoToFinalActivity);
         lbl_Number_Penalties      = (TextView) findViewById(R.id.lbl_Number_Penalties);
@@ -122,100 +123,112 @@ public class TeleopScoutActivity extends Activity {
             }
         });
 
-        chkBox_PU_Cubes_floor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-            Log.w(TAG, "chkBox_PU_Cubes_floor Listener");
+    chkBox_PU_Cargo_floor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            Log.w(TAG, "chkBox_PU_Cargo_floor Listener");
             if (buttonView.isChecked()) {
                 Log.w(TAG,"PU_Cubes is checked.");
                 cube_pickup = true;
-
             } else {  //not checked
                 Log.w(TAG,"PU_Cubes is unchecked.");
                 cube_pickup = false;
             }
+        }
+    });
+
+    chkBox_PU_Panel_floor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            Log.w(TAG, "chkBox_PU_Panel_floor Listener");
+            if (buttonView.isChecked()) {
+                Log.w(TAG,"PU_Panel is checked.");
+                cube_pickup = true;
+            } else {  //not checked
+                Log.w(TAG,"PU_Panel is unchecked.");
+                cube_pickup = false;
             }
-        });
+        }
+    });
 
 
-
-        chk_LiftedBy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                Log.w(TAG, "chk_LiftedBy Listener");
-                    if (chk_LiftedBy.isChecked()) {
-                        //checked
-                    Log.w(TAG,"LiftedBy is checked.");
-                    got_lift = true;
-                    chk_Lifted.setChecked(false);       // Can't be both!!
-                    lifted = false;
-                }
-                else {
-                    //not checked
-                    Log.w(TAG,"LiftedBy is unchecked.");
-                    got_lift = false;
-                    //chkBox_Platform.setChecked(false);       // Have to be on platform to get lifted!
-                }
-            }
-        });
-
-        chk_Lifted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                Log.w(TAG, "chk_Lifted Listener");
-                if (chk_Lifted.isChecked()) {
+    chk_LiftedBy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            Log.w(TAG, "chk_LiftedBy Listener");
+                if (chk_LiftedBy.isChecked()) {
                     //checked
-                    Log.w(TAG,"Lifted is checked.");
-                    got_lift = true;
-                    chk_LiftedBy.setChecked(false);       // Can't be both!!
-                    lifted = false;
-                }
-                else {
-                    //not checked
-                    Log.w(TAG,"Lifted is unchecked.");
-                    got_lift = false;
-                }
+                Log.w(TAG,"LiftedBy is checked.");
+                got_lift = true;
+                chk_Lifted.setChecked(false);       // Can't be both!!
+                lifted = false;
             }
-        });
+            else {
+                //not checked
+                Log.w(TAG,"LiftedBy is unchecked.");
+                got_lift = false;
+                //chkBox_Platform.setChecked(false);       // Have to be on platform to get lifted!
+            }
+        }
+    });
+
+    chk_Lifted.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            Log.w(TAG, "chk_Lifted Listener");
+            if (chk_Lifted.isChecked()) {
+                //checked
+                Log.w(TAG,"Lifted is checked.");
+                got_lift = true;
+                chk_LiftedBy.setChecked(false);       // Can't be both!!
+                lifted = false;
+            }
+            else {
+                //not checked
+                Log.w(TAG,"Lifted is unchecked.");
+                got_lift = false;
+            }
+        }
+    });
 
 
-        button_Number_PenaltiesPlus.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                final_num_Penalties++;
+    button_Number_PenaltiesPlus.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View v) {
+            final_num_Penalties++;
 
-                Log.w(TAG, "Penalties = " + final_num_Penalties);      // ** DEBUG **
-                lbl_Number_Penalties.setText(Integer.toString(final_num_Penalties));    // Perform action on click
+            Log.w(TAG, "Penalties = " + final_num_Penalties);      // ** DEBUG **
+            lbl_Number_Penalties.setText(Integer.toString(final_num_Penalties));    // Perform action on click
+        }
+    });
+    button_Number_PenaltiesUndo.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View v) {
+            if (final_num_Penalties >= 1) {
+                final_num_Penalties--;
             }
-        });
-        button_Number_PenaltiesUndo.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (final_num_Penalties >= 1) {
-                    final_num_Penalties--;
-                }
-                Log.w(TAG, "Penalties = " + final_num_Penalties);      // ** DEBUG **
-                lbl_Number_Penalties.setText(Integer.toString(final_num_Penalties));    // Perform action on click
-            }
-        });
+            Log.w(TAG, "Penalties = " + final_num_Penalties);      // ** DEBUG **
+            lbl_Number_Penalties.setText(Integer.toString(final_num_Penalties));    // Perform action on click
+        }
+    });
 
 
-        editText_TeleComments.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.w(TAG, "******  onTextChanged TextWatcher  ******" + s);
-                teleComment = String.valueOf(s);
-            }
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                Log.w(TAG, "******  beforeTextChanged TextWatcher  ******");
-                // TODO Auto-generated method stub
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-                Log.w(TAG, "******  onTextChanged TextWatcher  ******" + s );
-                teleComment = String.valueOf(s);
-            }
-        });
-    }
+    editText_TeleComments.addTextChangedListener(new TextWatcher() {
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            Log.w(TAG, "******  onTextChanged TextWatcher  ******" + s);
+            teleComment = String.valueOf(s);
+        }
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            Log.w(TAG, "******  beforeTextChanged TextWatcher  ******");
+            // TODO Auto-generated method stub
+        }
+        @Override
+        public void afterTextChanged(Editable s) {
+            Log.w(TAG, "******  onTextChanged TextWatcher  ******" + s );
+            teleComment = String.valueOf(s);
+        }
+    });
+}
 
 
     /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
