@@ -219,6 +219,7 @@ public class VisMatch_Activity extends AppCompatActivity {
 
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
             // Tele elements
+            // New Match Data Object *** GLF 1/20/19
 //            tele_totalCubeSwPlaced = tele_totalCubeSwPlaced + match_inst.getTele_cube_switch();
 //            mBarChart.addBar(new BarModel(match_inst.getTele_cube_switch(), 0xffff0000));       // Switch
 //            tele_totalCubeSwAttempted = tele_totalCubeSwAttempted + match_inst.getTele_switch_attempt();

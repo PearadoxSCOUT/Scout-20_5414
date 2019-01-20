@@ -244,6 +244,7 @@ public class TeleopScoutActivity extends Activity {
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     private void storeTeleData() {
         Log.w(TAG, ">>>>  storeTeleData  <<<<");
+        // New Match Data Object *** GLF 1/20/19
         Pearadox.Match_Data.setTele_cube_pickup(cube_pickup);
         Pearadox.Match_Data.setTele_Panel_pickup(panel_pickup);
         Pearadox.Match_Data.setTele_level_num(end_HAB_Level);

@@ -952,6 +952,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
             if (match_inst.getTeam_num().matches(team)) {
 //                Log.e(TAG, i + "  " + match_inst.getMatch() + "  Team=" + team);
                 numMatches++;
+                // New Match Data Object *** GLF 1/20/19
 //                if (match_inst.isAuto_cube_switch()) {
 //                    autoCubeSw++;
 //                }

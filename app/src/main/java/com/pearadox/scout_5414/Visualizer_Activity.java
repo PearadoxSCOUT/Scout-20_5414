@@ -895,6 +895,7 @@ public class Visualizer_Activity extends AppCompatActivity {
                 if (mdt.matches(team)) {        // is this match data for the team we are working on?
                 Log.w(TAG, "GMFT TEAM  " + mdt);
                     numMDs++;       // increment # of MDs
+        // New Match Data Object *** GLF 1/20/19
 //                    if (match_inst.isAuto_baseline()) {
 //                        base++;
 //                    }

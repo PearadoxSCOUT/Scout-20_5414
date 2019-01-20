@@ -456,6 +456,7 @@ public class MainActivity extends AppCompatActivity {
                         InputStream buffer = new BufferedInputStream(file);
                         ObjectInput input = new ObjectInputStream(buffer);
                         matchData Match_Data = (matchData) input.readObject();
+                        // New Match Data Object *** GLF 1/20/19
                         Log.w(TAG, "#### Obect '" + matchData.getSerialVersionUID());
                         //      ToDo - Check to see if already in FB or Delete file from SD card
 

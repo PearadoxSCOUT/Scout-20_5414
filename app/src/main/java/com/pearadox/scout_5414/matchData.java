@@ -519,6 +519,7 @@ public matchData() {
         this.final_dateTime = final_dateTime;
     }
 
+    // New Match Data Object *** GLF 1/20/19
 
 // End of Getters/Setters
 
