@@ -303,7 +303,6 @@ public matchData() {
         this.pre_PlayerSta = pre_PlayerSta;
     }
 
-
     public boolean isSand_mode() {
         return sand_mode;
     }
