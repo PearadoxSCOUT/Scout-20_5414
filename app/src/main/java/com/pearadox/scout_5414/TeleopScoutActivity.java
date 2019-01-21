@@ -323,6 +323,7 @@ public class TeleopScoutActivity extends Activity {
         chk_LeftRocket_LPan1.setChecked(Pearadox.Match_Data.isSand_LeftRocket_RPan1());
         chk_LeftRocket_LPan2.setChecked(Pearadox.Match_Data.isSand_LeftRocket_RPan2());
         chk_LeftRocket_LPan3.setChecked(Pearadox.Match_Data.isSand_LeftRocket_RPan3());
+        Log.e(TAG, "Check=" + Pearadox.Match_Data.isSand_LeftRocket_RPan1());
 
     }
 
