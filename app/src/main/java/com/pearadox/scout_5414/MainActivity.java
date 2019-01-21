@@ -659,7 +659,7 @@ public class MainActivity extends AppCompatActivity {
 //        spinner_Student.setSelection(0, false);
 //        spinner_Student.setOnItemSelectedListener(new student_OnItemSelectedListener());
     }
-
+//
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 private void preReqs() {
     Log.w(TAG, "*** Checking preReqs *** ");

@@ -102,7 +102,7 @@ public class MatchScoutActivity extends AppCompatActivity {
         Pearadox.Match_Data.setPre_PlayerSta(device.charAt(device.length()-1));
         int p = Integer.valueOf((device.length()-1)%3);
         Log.w(TAG, device.charAt(device.length()-1) + "");
-
+//
         tn = bundle.getString("tnum");
 
         Pearadox.MatchData_Saved = false;    // Set flag to show need to saved

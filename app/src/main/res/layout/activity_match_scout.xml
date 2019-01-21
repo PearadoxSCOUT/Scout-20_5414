@@ -869,12 +869,12 @@
 
             </RadioGroup>
 
-        <TextView
-            android:id="@+id/lblThirdPieceLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/radgrp_thirdPiece"
-            android:text="Where was the piece retrieved from?" />
+            <TextView
+                android:id="@+id/lblThirdPieceLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/radgrp_thirdPiece"
+                android:text="TextView" />
 
             <RadioGroup
                 android:id="@+id/radgrp_thirdPieceLocation"
@@ -962,3 +962,4 @@
 
     </RelativeLayout>
 </ScrollView>
+//
