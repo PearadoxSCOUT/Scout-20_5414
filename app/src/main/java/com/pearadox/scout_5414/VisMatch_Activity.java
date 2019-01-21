@@ -159,9 +159,9 @@ public class VisMatch_Activity extends AppCompatActivity {
             match_inst = Pearadox.Matches_Data.get(i);      // Get instance of Match Data
             matches = matches + match_inst.getMatch() + "  ";
 
-//            if (match_inst.isAuto_mode()) {
-//                noAuto++;
-//            }
+            if (match_inst.isSand_mode()) {
+                noAuto++;
+            }
 //            if (match_inst.isAuto_baseline()) {
 //                numAutoBaseline++;
 //            }

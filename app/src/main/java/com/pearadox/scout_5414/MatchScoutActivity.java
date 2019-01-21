@@ -98,6 +98,10 @@ public class MatchScoutActivity extends AppCompatActivity {
         String device = bundle.getString("dev");
         studID = bundle.getString("stud");
         Log.w(TAG, device + " " + studID);      // ** DEBUG **
+        int ps = device.charAt(device.length()-1);
+        Pearadox.Match_Data.setPre_PlayerSta(device.charAt(device.length()-1));
+        int p = Integer.valueOf((device.length()-1)%3);
+        Log.w(TAG, device.charAt(device.length()-1) + "");
 
         tn = bundle.getString("tnum");
 
@@ -232,7 +236,7 @@ public class MatchScoutActivity extends AppCompatActivity {
 //        text_collected_balls = (TextView) findViewById(R.id.text_collected_balls);
 //        spinner_balls_collected = (Spinner) findViewById(R.id.spinner_balls_collected);
 //        txt_GearsAttempted = (TextView) findViewById(R.id.txt_GearsAttempted);
-        chk_baseline = (CheckBox) findViewById(R.id.chk_baseline);
+//        chk_baseline = (CheckBox) findViewById(R.id.chk_baseline);
 //        chk_highGoal = (CheckBox) findViewById(R.id.chk_highGoal);
 //        chk_lowGoal = (CheckBox) findViewById(R.id.chk_LowGoal);
 //        seekBar_HighGoal = (SeekBar) findViewById(R.id.seekBar_HighGoal);
@@ -242,8 +246,8 @@ public class MatchScoutActivity extends AppCompatActivity {
 //        chk_gears = (CheckBox) findViewById(R.id.chk_cube);
         button_GoToTeleopActivity = (Button) findViewById(R.id.button_GoToTeleopActivity);
         button_GoToArenaLayoutActivity = (Button) findViewById(R.id.button_GoToArenaLayoutActivity);
-        chk_ExtraSwitch = (CheckBox) findViewById(R.id.chk_ExtraSwitch);
-        chk_ExtraScale = (CheckBox) findViewById(R.id.chk_ExtraScale);
+//        chk_ExtraSwitch = (CheckBox) findViewById(R.id.chk_ExtraSwitch);
+//        chk_ExtraScale = (CheckBox) findViewById(R.id.chk_ExtraScale);
         chk_cube = (CheckBox) findViewById(R.id.chk_cube);
 //        txt_GearsPlaced.setText(Integer.toString(gearNum));
 //        txt_GearsAttempted.setText(Integer.toString(gearAttemptNum));
@@ -264,16 +268,16 @@ public class MatchScoutActivity extends AppCompatActivity {
 //        spinner_balls_collected.setVisibility(View.INVISIBLE);
 
 /* ========================Switch Ids======================== */
-        chk_cubeSwitch = (CheckBox) findViewById(R.id.chk_cubeSwitch);
-        chk_attemptSwitch = (CheckBox) findViewById(R.id.chk_attemptSwitch);
-        chk_XoverSwitch = (CheckBox) findViewById(R.id.chk_XoverSwitch);
-        chk_WrongSwitch = (CheckBox) findViewById(R.id.chk_WrongSwitch);
+//        chk_cubeSwitch = (CheckBox) findViewById(R.id.chk_cubeSwitch);
+//        chk_attemptSwitch = (CheckBox) findViewById(R.id.chk_attemptSwitch);
+//        chk_XoverSwitch = (CheckBox) findViewById(R.id.chk_XoverSwitch);
+//        chk_WrongSwitch = (CheckBox) findViewById(R.id.chk_WrongSwitch);
 
 /* ========================Scale Ids======================== */
-        chk_cubeScale = (CheckBox) findViewById(R.id.chk_cubeScale);
-        chk_attemptScale = (CheckBox) findViewById(R.id.chk_attemptScale);
-        chk_XoverScale = (CheckBox) findViewById(R.id.chk_XoverScale);
-        chk_WrongScale = (CheckBox) findViewById(R.id.chk_WrongScale);
+//        chk_cubeScale = (CheckBox) findViewById(R.id.chk_cubeScale);
+//        chk_attemptScale = (CheckBox) findViewById(R.id.chk_attemptScale);
+//        chk_XoverScale = (CheckBox) findViewById(R.id.chk_XoverScale);
+//        chk_WrongScale = (CheckBox) findViewById(R.id.chk_WrongScale);
 
 
         final Spinner spinner_startPos = (Spinner) findViewById(R.id.spinner_startPos);
@@ -335,250 +339,250 @@ public class MatchScoutActivity extends AppCompatActivity {
              }
             );
 
-        chk_baseline.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-                                                    @Override
-                                                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.w(TAG, "chk_baseline Listener");
-                if (buttonView.isChecked()) {
-                    //checked
-                    baseline = true;
-                    Log.w(TAG, "Crossed the Baseline = " + baseline);
-
-                } else {
-                    //not checked
-                    baseline = false;
-                    Log.w(TAG, "Crossed the Baseline = " + baseline);
-                }
-            }
-        }
-        );
-
-
-        chk_cubeSwitch.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.w(TAG, "chk_cubeSwitch Listener");
-                if (chk_cubeSwitch.isChecked()) {
-                    //checked
-                    cube_switch = true;
-                    cube_switch_att = true;
-                    chk_attemptSwitch.setChecked(true);
-                    baseline = true;            // set crossed baseline (Had to have!!)
-                    chk_baseline.setChecked(true);
-                    Log.w(TAG, "Cube in Switch = " + cube_switch);
-
-                } else {
-                    //not checked
-                    cube_switch = false;
-                    cube_switch_att = false;
-                    //chk_attemptSwitch.setChecked(false);
-                    xover_switch = false;
-                    //chk_XoverSwitch.setChecked(false);
-                    chk_baseline.setChecked(false);
-                    Log.w(TAG, "Cube in Switch = " + cube_switch);
-
-                }
-
-            }
-        });
-        chk_attemptSwitch.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.w(TAG, "chk_attemptSwitch Listener");
-                if (chk_attemptSwitch.isChecked()) {
-                    //checked
-                    cube_switch_att = true;
-                    baseline = true;            // set crossed baseline (Had to have!!)
-                    chk_baseline.setChecked(true);
-                    Log.w(TAG, "Attempted to place Cube in Switch = " + cube_switch_att);
-
-                } else {
-                    //not checked
-                    cube_switch_att = false;
-                    chk_cubeSwitch.setChecked(false);
-                    chk_baseline.setChecked(false);
-                    Log.w(TAG, "Attempted to place Cube in Switch = " + cube_switch_att);
-
-                }
-
-            }
-        });
-
-        chk_XoverSwitch.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.w(TAG, "chk_XoverSwitch Listener");
-                if (chk_XoverSwitch.isChecked()) {
-                    //checked
-                    xover_switch = true;
-                    Log.w(TAG, "Cross over Switch = " + xover_switch);
-
-                } else {
-                    //not checked
-                    xover_switch = false;
-                    Log.w(TAG, "Cross over Switch = " + xover_switch);
-
-                }
-
-            }
-        });
-
-        chk_WrongSwitch.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.w(TAG, "chk_WrongSwitch Listener");
-                if (chk_WrongSwitch.isChecked()) {
-                    //checked
-                    wrong_switch = true;
-                    Log.w(TAG, "Wrong switch = " + wrong_switch);
-
-                } else {
-                    //not checked
-                    wrong_switch = false;
-                    Log.w(TAG, "Wrong switch = " + wrong_switch);
-
-                }
-
-            }
-        });
+//        chk_baseline.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//
+//                                                    @Override
+//                                                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                Log.w(TAG, "chk_baseline Listener");
+//                if (buttonView.isChecked()) {
+//                    //checked
+//                    baseline = true;
+//                    Log.w(TAG, "Crossed the Baseline = " + baseline);
+//
+//                } else {
+//                    //not checked
+//                    baseline = false;
+//                    Log.w(TAG, "Crossed the Baseline = " + baseline);
+//                }
+//            }
+//        }
+//        );
 
 
-        chk_cubeScale.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.w(TAG, "chk_cubeScale Listener");
-                if (chk_cubeScale.isChecked()) {
-                    //checked
-                    cube_scale = true;
-                    cube_scale_att = true;
-                    chk_attemptScale.setChecked(true);
-                    baseline = true;            // set crossed baseline (Had to have!!)
-                    chk_baseline.setChecked(true);
-                    Log.w(TAG, "Cube in Scale = " + cube_scale);
-
-                } else {
-                    //not checked
-                    cube_scale = false;
-                    cube_scale_att = false;
-                    //chk_attemptScale.setChecked(false);
-                    xover_scale = false;
-                    //chk_XoverScale.setChecked(false);
-                    chk_baseline.setChecked(false);
-                    Log.w(TAG, "Cube in Scale = " + cube_scale);
-
-                }
-
-            }
-        });
-        chk_attemptScale.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.w(TAG, "chk_attemptSwitch Listener");
-                if (chk_attemptScale.isChecked()) {
-                    //checked
-                    cube_scale_att = true;
-                    baseline = true;            // set crossed baseline (Had to have!!)
-                    chk_baseline.setChecked(true);
-                    Log.w(TAG, "Attempted to place Cube in Scale = " + cube_scale_att);
-
-                } else {
-                    //not checked
-                    cube_scale_att = false;
-                    chk_cubeScale.setChecked(false);
-                    chk_baseline.setChecked(false);
-                    Log.w(TAG, "Attempted to place Cube in Scale = " + cube_scale_att);
-
-                }
-
-            }
-        });
-
-        chk_XoverScale.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.w(TAG, "chk_XoverScale Listener");
-                if (chk_XoverScale.isChecked()) {
-                    //checked
-                    xover_scale = true;
-                    Log.w(TAG, "Cross over Scale = " + xover_scale);
-
-                } else {
-                    //not checked
-                    xover_scale = false;
-                    Log.w(TAG, "Cross over Scale = " + xover_scale);
-
-                }
-
-            }
-        });
-
-        chk_WrongScale.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.w(TAG, "chk_WrongScale Listener");
-                if (chk_WrongScale.isChecked()) {
-                    //checked
-                    wrong_scale = true;
-                    Log.w(TAG, "Wrong Scale = " + wrong_scale);
-
-                } else {
-                    //not checked
-                    wrong_scale = false;
-                    Log.w(TAG, "Wrong Scale = " + wrong_scale);
-
-                }
-
-            }
-        });
-
-
-        chk_ExtraSwitch.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.w(TAG, "chk_ExtraSwitch Listener");
-                if (chk_ExtraSwitch.isChecked()) {
-                    //checked
-                    switch_extra = true;
-                    Log.w(TAG, "Extra Switch = " + switch_extra);
-
-                } else {
-                    //not checked
-                    switch_extra = false;
-                    Log.w(TAG, "Extra Switch = " + switch_extra);
-
-                }
-
-            }
-        });
-
-        chk_ExtraScale.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.w(TAG, "chk_ExtraScale Listener");
-                if (chk_ExtraScale.isChecked()) {
-                    //checked
-                    scale_extra = true;
-                    Log.w(TAG, "Extra Scale = " + scale_extra);
-
-                } else {
-                    //not checked
-                    scale_extra = false;
-                    Log.w(TAG, "Extra Scale = " + scale_extra);
-
-                }
-
-            }
-        });
-
-
-        chk_cube.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.w(TAG, "chk_cube Listener");
-                if (chk_cube.isChecked()) {
-                    //checked
-                    carry_cube = true;
-                    Log.w(TAG, "Carry Cube = " + carry_cube);
-
-                } else {
-                    //not checked
-                    carry_cube = false;
-                    Log.w(TAG, "Carry Cube = " + carry_cube);
-
-                }
-
-            }
-        });
+//        chk_cubeSwitch.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Log.w(TAG, "chk_cubeSwitch Listener");
+//                if (chk_cubeSwitch.isChecked()) {
+//                    //checked
+//                    cube_switch = true;
+//                    cube_switch_att = true;
+//                    chk_attemptSwitch.setChecked(true);
+//                    baseline = true;            // set crossed baseline (Had to have!!)
+//                    chk_baseline.setChecked(true);
+//                    Log.w(TAG, "Cube in Switch = " + cube_switch);
+//
+//                } else {
+//                    //not checked
+//                    cube_switch = false;
+//                    cube_switch_att = false;
+//                    //chk_attemptSwitch.setChecked(false);
+//                    xover_switch = false;
+//                    //chk_XoverSwitch.setChecked(false);
+//                    chk_baseline.setChecked(false);
+//                    Log.w(TAG, "Cube in Switch = " + cube_switch);
+//
+//                }
+//
+//            }
+//        });
+//        chk_attemptSwitch.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Log.w(TAG, "chk_attemptSwitch Listener");
+//                if (chk_attemptSwitch.isChecked()) {
+//                    //checked
+//                    cube_switch_att = true;
+//                    baseline = true;            // set crossed baseline (Had to have!!)
+//                    chk_baseline.setChecked(true);
+//                    Log.w(TAG, "Attempted to place Cube in Switch = " + cube_switch_att);
+//
+//                } else {
+//                    //not checked
+//                    cube_switch_att = false;
+//                    chk_cubeSwitch.setChecked(false);
+//                    chk_baseline.setChecked(false);
+//                    Log.w(TAG, "Attempted to place Cube in Switch = " + cube_switch_att);
+//
+//                }
+//
+//            }
+//        });
+//
+//        chk_XoverSwitch.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Log.w(TAG, "chk_XoverSwitch Listener");
+//                if (chk_XoverSwitch.isChecked()) {
+//                    //checked
+//                    xover_switch = true;
+//                    Log.w(TAG, "Cross over Switch = " + xover_switch);
+//
+//                } else {
+//                    //not checked
+//                    xover_switch = false;
+//                    Log.w(TAG, "Cross over Switch = " + xover_switch);
+//
+//                }
+//
+//            }
+//        });
+//
+//        chk_WrongSwitch.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Log.w(TAG, "chk_WrongSwitch Listener");
+//                if (chk_WrongSwitch.isChecked()) {
+//                    //checked
+//                    wrong_switch = true;
+//                    Log.w(TAG, "Wrong switch = " + wrong_switch);
+//
+//                } else {
+//                    //not checked
+//                    wrong_switch = false;
+//                    Log.w(TAG, "Wrong switch = " + wrong_switch);
+//
+//                }
+//
+//            }
+//        });
+//
+//
+//        chk_cubeScale.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Log.w(TAG, "chk_cubeScale Listener");
+//                if (chk_cubeScale.isChecked()) {
+//                    //checked
+//                    cube_scale = true;
+//                    cube_scale_att = true;
+//                    chk_attemptScale.setChecked(true);
+//                    baseline = true;            // set crossed baseline (Had to have!!)
+//                    chk_baseline.setChecked(true);
+//                    Log.w(TAG, "Cube in Scale = " + cube_scale);
+//
+//                } else {
+//                    //not checked
+//                    cube_scale = false;
+//                    cube_scale_att = false;
+//                    //chk_attemptScale.setChecked(false);
+//                    xover_scale = false;
+//                    //chk_XoverScale.setChecked(false);
+//                    chk_baseline.setChecked(false);
+//                    Log.w(TAG, "Cube in Scale = " + cube_scale);
+//
+//                }
+//
+//            }
+//        });
+//        chk_attemptScale.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Log.w(TAG, "chk_attemptSwitch Listener");
+//                if (chk_attemptScale.isChecked()) {
+//                    //checked
+//                    cube_scale_att = true;
+//                    baseline = true;            // set crossed baseline (Had to have!!)
+//                    chk_baseline.setChecked(true);
+//                    Log.w(TAG, "Attempted to place Cube in Scale = " + cube_scale_att);
+//
+//                } else {
+//                    //not checked
+//                    cube_scale_att = false;
+//                    chk_cubeScale.setChecked(false);
+//                    chk_baseline.setChecked(false);
+//                    Log.w(TAG, "Attempted to place Cube in Scale = " + cube_scale_att);
+//
+//                }
+//
+//            }
+//        });
+//
+//        chk_XoverScale.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Log.w(TAG, "chk_XoverScale Listener");
+//                if (chk_XoverScale.isChecked()) {
+//                    //checked
+//                    xover_scale = true;
+//                    Log.w(TAG, "Cross over Scale = " + xover_scale);
+//
+//                } else {
+//                    //not checked
+//                    xover_scale = false;
+//                    Log.w(TAG, "Cross over Scale = " + xover_scale);
+//
+//                }
+//
+//            }
+//        });
+//
+//        chk_WrongScale.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Log.w(TAG, "chk_WrongScale Listener");
+//                if (chk_WrongScale.isChecked()) {
+//                    //checked
+//                    wrong_scale = true;
+//                    Log.w(TAG, "Wrong Scale = " + wrong_scale);
+//
+//                } else {
+//                    //not checked
+//                    wrong_scale = false;
+//                    Log.w(TAG, "Wrong Scale = " + wrong_scale);
+//
+//                }
+//
+//            }
+//        });
+//
+//
+//        chk_ExtraSwitch.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Log.w(TAG, "chk_ExtraSwitch Listener");
+//                if (chk_ExtraSwitch.isChecked()) {
+//                    //checked
+//                    switch_extra = true;
+//                    Log.w(TAG, "Extra Switch = " + switch_extra);
+//
+//                } else {
+//                    //not checked
+//                    switch_extra = false;
+//                    Log.w(TAG, "Extra Switch = " + switch_extra);
+//
+//                }
+//
+//            }
+//        });
+//
+//        chk_ExtraScale.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Log.w(TAG, "chk_ExtraScale Listener");
+//                if (chk_ExtraScale.isChecked()) {
+//                    //checked
+//                    scale_extra = true;
+//                    Log.w(TAG, "Extra Scale = " + scale_extra);
+//
+//                } else {
+//                    //not checked
+//                    scale_extra = false;
+//                    Log.w(TAG, "Extra Scale = " + scale_extra);
+//
+//                }
+//
+//            }
+//        });
+//
+//
+//        chk_cube.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Log.w(TAG, "chk_cube Listener");
+//                if (chk_cube.isChecked()) {
+//                    //checked
+//                    carry_cube = true;
+//                    Log.w(TAG, "Carry Cube = " + carry_cube);
+//
+//                } else {
+//                    //not checked
+//                    carry_cube = false;
+//                    Log.w(TAG, "Carry Cube = " + carry_cube);
+//
+//                }
+//
+//            }
+//        });
 
 
 //        button_GearsAttemptedPlus.setOnClickListener(new View.OnClickListener() {
@@ -669,7 +673,7 @@ public class MatchScoutActivity extends AppCompatActivity {
 //        Pearadox.Match_Data.setAuto_xover_scale(xover_scale);
 //        Pearadox.Match_Data.setAuto_wrong_scale(wrong_scale);
         // --------------
-        Pearadox.Match_Data.setAuto_comment(autoComment);
+        Pearadox.Match_Data.setSand_comment(autoComment);
         Pearadox.Match_Data.setFinal_studID(studID);
         Log.w(TAG, "*******  All done with AUTO setters!!");
     }

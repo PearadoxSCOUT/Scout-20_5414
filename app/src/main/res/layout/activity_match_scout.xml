@@ -1,439 +1,964 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_match_scout"
+    android:id="@+id/scrollv_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.pearadox.scout_5414.MatchScoutActivity">
+    android:layout_alignParentStart="true"
+    android:layout_below="@+id/radgrp_thirdPiece"
+    android:isScrollContainer="false">
 
-    <ImageView
-        android:id="@+id/imageView_MS"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:contentDescription="Match Scout logo"
-        android:src="@drawable/red_scout" />
-
-    <TextView
-        android:id="@+id/txt_EventName"
-        android:text="Event Name which might be very long!!"
-        android:layout_width="270sp"
-        android:layout_height="25dp"
-        android:textSize="14dp"
-        android:textColor="@color/green"
-        android:textAlignment="viewEnd"
-        android:layout_below="@+id/lbl_Event"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:id="@+id/lbl_Event"
-        android:layout_width="50dp"
-        android:layout_height="25dp"
-        android:textSize="14dp"
-        android:textColor="@color/white"
-        android:text="Event"
-        android:textStyle="bold"
-        android:textAlignment="viewEnd"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:id="@+id/lbl_Dev"
-        android:layout_width="70dp"
-        android:layout_height="25dp"
-        android:layout_toEndOf="@+id/imageView_MS"
-        android:text="Device"
-        android:textColor="@color/white"
-        android:textSize="14dp" />
-
-    <TextView
-        android:id="@+id/txt_Dev"
-        android:text="Dev. Name"
-        android:layout_width="80dp"
-        android:layout_height="25dp"
-        android:textSize="14dp"
-        android:textColor="@color/magenta"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/lbl_Student"
-        android:layout_toEndOf="@+id/lbl_Student" />
-
-    <TextView
-        android:id="@+id/lbl_Match"
-        android:layout_width="70dp"
-        android:layout_height="25dp"
-        android:textSize="14dp"
-        android:textColor="@color/white"
-        android:text="Match"
-        android:layout_below="@+id/lbl_Student"
-        android:layout_alignLeft="@+id/lbl_Student"
-        android:layout_alignStart="@+id/lbl_Student" />
-
-    <TextView
-        android:id="@+id/txt_Match"
-        android:text="T00"
-        android:layout_width="50dp"
-        android:layout_height="25dp"
-        android:textSize="14dp"
-        android:textColor="@color/green"
-        android:layout_alignBaseline="@+id/lbl_Match"
-        android:layout_alignBottom="@+id/lbl_Match"
-        android:layout_toRightOf="@+id/lbl_Student"
-        android:layout_toEndOf="@+id/lbl_Student" />
-
-    <TextView
-        android:id="@+id/lbl_Student"
-        android:layout_width="70dp"
-        android:layout_height="25dp"
-        android:textSize="14dp"
-        android:textColor="@color/white"
-        android:text="Student"
-        android:layout_below="@+id/txt_Dev"
-        android:layout_alignStart="@+id/lbl_Dev" />
-
-    <TextView
-        android:id="@+id/txt_stud"
-        android:text="Student's Name"
-        android:layout_width="150dp"
-        android:layout_height="25dp"
-        android:textSize="14dp"
-        android:textColor="@color/yellow"
-        android:layout_below="@+id/txt_Dev"
-        android:layout_toEndOf="@+id/lbl_Match" />
-
-    <TextView
-        android:id="@+id/lbl_MyTeam"
-        android:layout_width="90dp"
-        android:layout_height="25dp"
-        android:textSize="14dp"
-        android:textColor="@color/white"
-        android:text="My Team"
-        android:layout_below="@+id/lbl_Match"
-        android:layout_alignStart="@+id/lbl_Match"
-        android:layout_toStartOf="@+id/txt_Match" />
-
-    <TextView
-        android:id="@+id/txt_MyTeam"
-        android:text="0000"
-        android:layout_width="50dp"
-        android:layout_height="25dp"
-        android:textSize="14dp"
-        android:textColor="@color/cyan"
-        android:layout_below="@+id/txt_Match"
-        android:layout_toEndOf="@+id/lbl_Match" />
-    <TextView
-        android:id="@+id/txt_TeamName"
-        android:text="Really Long Team Name 1234567890 Robotics Consortium"
-        android:layout_width="380sp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/cyan"
-        android:textSize="14dp"
-        android:layout_below="@+id/txt_Match"
-        android:layout_toEndOf="@+id/txt_MyTeam" />
-
-// =======  Either Team# from Firebase or EditText visible (depending on Internet status) =======
-    <EditText
-        android:id="@+id/editTxt_Match"
-        android:layout_width="35dp"
-        android:layout_height="38dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text=""
-        android:textColor="@color/green"
-        android:layout_below="@+id/txt_stud"
-        android:layout_alignEnd="@+id/txt_Dev" />
-
-    <EditText
-        android:id="@+id/editTxt_Team"
-        android:layout_width="50dp"
-        android:layout_height="38dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text=""
-        android:textColor="@color/brightblue"
-        android:layout_below="@+id/txt_Match" />
-
-    <TextView
-        android:id="@+id/lbl_space1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_MyTeam"
-        android:text=" " />
-
-
-    <ImageView
-        android:id="@+id/imgPearadox"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_below="@+id/lbl_MyTeam"
-        android:layout_toEndOf="@+id/lbl_space1"
-        android:src="@mipmap/p_logo" />
-
-    <TextView
-        android:id="@+id/txt_NextMatch"
-        android:layout_width="500sp"
-        android:layout_height="20sp"
-        android:layout_alignBottom="@+id/imgPearadox"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="11sp"
-        android:layout_toEndOf="@+id/imgPearadox"
-        android:text="Q001 Q002 Q003 Q004 Q005 Q006 Q007 Q008 Q009 Q010 Q011 Q012 Q013 Q014 Q015 Q016"
-        android:textColor="@color/yellow"
-        android:textSize="11sp"
-        android:textStyle="bold" />
-
-    // End Header
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-    <TextView
-        android:id="@+id/lbl_Auto"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView_MS"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="30dp"
-        android:text="Sandstorm period"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:textColor="@color/red"
-        tools:textAlignment="center" />
-
-    <TextView
-        android:id="@+id/lbl_PreMatch"
+    <RelativeLayout
+        android:id="@+id/activity_match_scout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/lbl_Auto"
-        android:text="______________________________Pre-Match_____________________________"
-        android:textColor="@color/orange" />
-
-    <CheckBox
-        android:id="@+id/chk_baseline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/lin_cubePlacedSwitch"
-        android:layout_toEndOf="@+id/lbl_startpos"
-        android:text="Crossed Baseline" />
-
-    <TextView
-        android:id="@+id/lbl_startpos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/chk_cube"
-        android:layout_alignBottom="@+id/chk_cube"
-        android:layout_toEndOf="@+id/chk_cube"
-        android:text="Start Position"
-        android:textColor="@color/grey"
-        android:textSize="16sp" />
-
-    <Spinner
-        android:id="@+id/spinner_startPos"
-        android:layout_width="120sp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/chk_cube"
-        android:layout_marginLeft="10sp"
-        android:layout_toEndOf="@+id/lbl_startpos" />
-
-    // ==============================================================================
-
-    <TextView
-        android:id="@+id/lbl_AfterStart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/spinner_startPos"
-        android:text="_____________________________After Start____________________________"
-        android:textColor="@color/red" />
-
-    <Button
-        android:id="@+id/button_GoToArenaLayoutActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignEnd="@+id/lbl_Auto"
-        android:layout_alignRight="@+id/button_GoToTeleopActivity"
-        android:layout_below="@+id/lbl_AfterStart"
-        android:text="ARENA" />
-
-    <CheckBox
-        android:id="@+id/checkbox_automode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/button_GoToArenaLayoutActivity"
-        android:text="No autonomous mode?" />
-
-    <CheckBox
-        android:id="@+id/chk_cube"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_below="@+id/lbl_PreMatch"
-        android:layout_toEndOf="@+id/lbl_space1"
-        android:layout_weight="1.38"
-        android:text="Carrying Cube?" />
-
-    // ==============================================================================
-    // Switch
-
-    <LinearLayout
-        android:id="@+id/lin_cubePlacedSwitch"
-        android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:layout_below="@+id/checkbox_automode"
-        android:layout_marginTop="6sp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.pearadox.scout_5414.MatchScoutActivity">
 
         <ImageView
-            android:id="@+id/imageView_Switch"
+            android:id="@+id/imageView_MS"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="Match Scout logo"
+            android:src="@drawable/red_scout" />
+
+        <TextView
+            android:id="@+id/txt_EventName"
+            android:text="Event Name which might be very long!!"
+            android:layout_width="270sp"
+            android:layout_height="25dp"
+            android:textSize="14dp"
+            android:textColor="@color/green"
+            android:textAlignment="viewEnd"
+            android:layout_below="@+id/lbl_Event"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/lbl_Event"
             android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:contentDescription="Switch"
-            android:src="@drawable/on_off_switch" />
+            android:layout_height="25dp"
+            android:textSize="14dp"
+            android:textColor="@color/white"
+            android:text="Event"
+            android:textStyle="bold"
+            android:textAlignment="viewEnd"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
 
-        <CheckBox
-            android:id="@+id/chk_cubeSwitch"
+        <TextView
+            android:id="@+id/lbl_Dev"
             android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:layout_weight="1.5"
-            android:text="Cube on the Switch" />
+            android:layout_height="25dp"
+            android:layout_toEndOf="@+id/imageView_MS"
+            android:text="Device"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
 
-        <CheckBox
-            android:id="@+id/chk_attemptSwitch"
-            android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:layout_weight="1.5"
-            android:text="Attempted Switch" />
-
-        <CheckBox
-            android:id="@+id/chk_XoverSwitch"
+        <TextView
+            android:id="@+id/txt_Dev"
+            android:text="Dev. Name"
             android:layout_width="80dp"
-            android:layout_height="50dp"
-            android:layout_weight="1.2"
-            android:text="Crossed-Over to Switch" />
+            android:layout_height="25dp"
+            android:textSize="14dp"
+            android:textColor="@color/magenta"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/lbl_Student"
+            android:layout_toEndOf="@+id/lbl_Student" />
 
-        <CheckBox
-            android:id="@+id/chk_WrongSwitch"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_weight="0.9"
-            android:text="Wrong Side!" />
+        <TextView
+            android:id="@+id/lbl_Match"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:textSize="14dp"
+            android:textColor="@color/white"
+            android:text="Match"
+            android:layout_below="@+id/lbl_Student"
+            android:layout_alignLeft="@+id/lbl_Student"
+            android:layout_alignStart="@+id/lbl_Student" />
 
-    </LinearLayout>
-
-    <CheckBox
-        android:id="@+id/chk_ExtraSwitch"
-        android:layout_width="150dp"
-        android:layout_height="25dp"
-        android:layout_alignEnd="@+id/spinner_startPos"
-        android:layout_below="@+id/lin_cubePlacedSwitch"
-        android:layout_toEndOf="@+id/editTxt_Team"
-        android:text="Scored extra cube on switch" />
-
-    // ==============================================================================
-    // Scale
-    <LinearLayout
-        android:id="@+id/lin_cubePlacedScale"
-        android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:layout_below="@+id/lin_cubePlacedSwitch"
-        android:layout_marginTop="30sp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/imageView_Scale"
+        <TextView
+            android:id="@+id/txt_Match"
+            android:text="T00"
             android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:contentDescription="Scale"
-            android:src="@drawable/scale" />
+            android:layout_height="25dp"
+            android:textSize="14dp"
+            android:textColor="@color/green"
+            android:layout_alignBaseline="@+id/lbl_Match"
+            android:layout_alignBottom="@+id/lbl_Match"
+            android:layout_toRightOf="@+id/lbl_Student"
+            android:layout_toEndOf="@+id/lbl_Student" />
 
-        <CheckBox
-            android:id="@+id/chk_cubeScale"
+        <TextView
+            android:id="@+id/lbl_Student"
             android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:layout_weight="1.5"
-            android:text="Cube on the Scale" />
+            android:layout_height="25dp"
+            android:textSize="14dp"
+            android:textColor="@color/white"
+            android:text="Student"
+            android:layout_below="@+id/txt_Dev"
+            android:layout_alignStart="@+id/lbl_Dev" />
 
-        <CheckBox
-            android:id="@+id/chk_attemptScale"
-            android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:layout_weight="1.5"
-            android:text="Attempted the Scale" />
+        <TextView
+            android:id="@+id/txt_stud"
+            android:text="Student's Name"
+            android:layout_width="150dp"
+            android:layout_height="25dp"
+            android:textSize="14dp"
+            android:textColor="@color/yellow"
+            android:layout_below="@+id/txt_Dev"
+            android:layout_toEndOf="@+id/lbl_Match" />
 
-        <CheckBox
-            android:id="@+id/chk_XoverScale"
-            android:layout_width="80dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10sp"
-            android:layout_weight="1.2"
-            android:text="Crossed-Over to Scale" />
+        <TextView
+            android:id="@+id/lbl_MyTeam"
+            android:layout_width="90dp"
+            android:layout_height="25dp"
+            android:textSize="14dp"
+            android:textColor="@color/white"
+            android:text="My Team"
+            android:layout_below="@+id/lbl_Match"
+            android:layout_alignStart="@+id/lbl_Match"
+            android:layout_toStartOf="@+id/txt_Match" />
 
-        <CheckBox
-            android:id="@+id/chk_WrongScale"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_weight="0.9"
-            android:text="Wrong Side!" />
+        <TextView
+            android:id="@+id/txt_MyTeam"
+            android:text="0000"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:textSize="14dp"
+            android:textColor="@color/cyan"
+            android:layout_below="@+id/txt_Match"
+            android:layout_toEndOf="@+id/lbl_Match" />
+        <TextView
+            android:id="@+id/txt_TeamName"
+            android:text="Really Long Team Name 1234567890 Robotics Consortium"
+            android:layout_width="380sp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/cyan"
+            android:textSize="14dp"
+            android:layout_below="@+id/txt_Match"
+            android:layout_toEndOf="@+id/txt_MyTeam" />
 
-    </LinearLayout>
-
-    <CheckBox
-        android:id="@+id/chk_ExtraScale"
-        android:layout_width="150dp"
-        android:layout_height="25dp"
-        android:layout_alignEnd="@+id/spinner_startPos"
-        android:layout_below="@+id/lin_cubePlacedScale"
-        android:layout_toEndOf="@+id/editTxt_Team"
-        android:text="Scored extra cube on scale" />
-
-    // ==============================================================================
-
-    <Button
-        android:text="TeleOps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_GoToTeleopActivity"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
-
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-    // "Dummy" layout to PREVENT Comment field getting focus
-    <LinearLayout
-        android:orientation="horizontal"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_width="0px"
-        android:layout_height="0px"
-        android:id="@+id/linearLayout" />
-
-    <ScrollView
-        android:id="@+id/scrollv_comm"
-        android:layout_width="500sp"
-        android:layout_height="100sp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/chk_ExtraScale"
-        android:isScrollContainer="false">
+    // =======  Either Team# from Firebase or EditText visible (depending on Internet status) =======
+        <EditText
+            android:id="@+id/editTxt_Match"
+            android:layout_width="35dp"
+            android:layout_height="38dp"
+            android:ems="10"
+            android:inputType="number"
+            android:text=""
+            android:textColor="@color/green"
+            android:layout_below="@+id/txt_stud"
+            android:layout_alignEnd="@+id/txt_Dev" />
 
         <EditText
-            android:id="@+id/editText_autoComment"
-            android:layout_width="match_parent"
+            android:id="@+id/editTxt_Team"
+            android:layout_width="50dp"
+            android:layout_height="38dp"
+            android:ems="10"
+            android:inputType="number"
+            android:text=""
+            android:textColor="@color/brightblue"
+            android:layout_below="@+id/txt_Match" />
+
+        <TextView
+            android:id="@+id/lbl_space1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/text_collected_balls"
-            android:layout_below="@+id/spinner_stopPos"
-            android:layout_marginTop="5dp"
-            android:layout_toStartOf="@+id/button_GoToArenaLayoutActivity"
-            android:background="@drawable/border"
-            android:ems="12"
-            android:hint="Tap to add any additional comments."
-            android:inputType="textMultiLine"
-            android:lines="2"
-            android:scrollbars="vertical"
-            android:textColor="@color/red" />
-
-    </ScrollView>
+            android:layout_below="@+id/txt_MyTeam"
+            android:text=" " />
 
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/imgPearadox"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/lbl_MyTeam"
+            android:layout_toEndOf="@+id/lbl_space1"
+            android:src="@mipmap/p_logo" />
+
+        <TextView
+            android:id="@+id/txt_NextMatch"
+            android:layout_width="500sp"
+            android:layout_height="20sp"
+            android:layout_alignBottom="@+id/imgPearadox"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="11sp"
+            android:layout_toEndOf="@+id/imgPearadox"
+            android:text="Q001 Q002 Q003 Q004 Q005 Q006 Q007 Q008 Q009 Q010 Q011 Q012 Q013 Q014 Q015 Q016"
+            android:textColor="@color/yellow"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        // End Header
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+            <TextView
+                android:id="@+id/lbl_Auto"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageView_MS"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="30dp"
+                android:text="Sandstorm period"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                android:textColor="@color/red"
+                tools:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/lbl_PreMatch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/lbl_Auto"
+                android:text="______________________________Pre-Match_____________________________"
+                android:textColor="@color/orange" />
+
+            <TextView
+                android:id="@+id/lbl_startpos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/chk_cube"
+                android:layout_alignBottom="@+id/chk_cube"
+                android:layout_toEndOf="@+id/chk_cube"
+                android:text="Start Position"
+                android:textColor="@color/grey"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/spinner_startPos"
+                android:layout_width="120sp"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/chk_cube"
+                android:layout_marginLeft="10sp"
+                android:layout_toEndOf="@+id/lbl_startpos" />
+
+            // ==============================================================================
+
+            <TextView
+                android:id="@+id/lbl_AfterStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/spinner_startPos"
+                android:text="_____________________________After Start____________________________"
+                android:textColor="@color/red" />
+
+            <Button
+                android:id="@+id/button_GoToArenaLayoutActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignEnd="@+id/lbl_Auto"
+                android:layout_alignRight="@+id/button_GoToTeleopActivity"
+                android:layout_below="@+id/lbl_AfterStart"
+                android:text="ARENA" />
+
+            <CheckBox
+                android:id="@+id/checkbox_automode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/button_GoToArenaLayoutActivity"
+                android:text="No autonomous mode?" />
+
+            <CheckBox
+                android:id="@+id/chk_cube"
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/lbl_PreMatch"
+                android:layout_toEndOf="@+id/lbl_space1"
+                android:layout_weight="1.38"
+                android:text="Carrying Cube?" />
+
+            <LinearLayout
+                android:id="@+id/lin_AllShips"
+                android:layout_width="match_parent"
+                android:layout_height="250sp"
+                android:layout_below="@+id/checkbox_automode"
+                android:layout_marginTop="12sp"
+                android:orientation="horizontal">
+
+                // Near Rocket Ship
+                <RelativeLayout
+                    android:id="@+id/rel_LeftRocketShip"
+                    android:layout_width="160dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView_LeftRocket"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:contentDescription="Near Rocket"
+                        android:src="@drawable/full_ship" />
+                    <TextView
+                        android:id="@+id/lblNear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:text="Left Rocket"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+                    // --------------- LEFT ----------------------------------
+
+                    <CheckBox
+                        android:id="@+id/chk_LeftRocket_LPan1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="90dp"
+                        android:buttonTint="@color/brightblue" />
+
+                    <CheckBox
+                        android:id="@+id/chk_LeftRocket_LCarg1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="45dp"
+                        android:layout_marginTop="90dp"
+                        android:buttonTint="@color/yellow" />
+                    <CheckBox
+                        android:id="@+id/chk_LeftRocket_LPan2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="130dp"
+                        android:buttonTint="@color/brightblue" />
+                    <CheckBox
+                        android:id="@+id/chk_LeftRocket_LCarg2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="45dp"
+                        android:layout_marginTop="130dp"
+                        android:buttonTint="@color/yellow" />
+
+                    <CheckBox
+                        android:id="@+id/chk_LeftRocket_LPan3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="175dp"
+                        android:buttonTint="@color/brightblue" />
+                    <CheckBox
+                        android:id="@+id/chk_LeftRocket_LCarg3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="45dp"
+                        android:layout_marginTop="175dp"
+                        android:buttonTint="@color/yellow" />
+                    // --------------- RIGHT ----------------------------------
+
+                    <CheckBox
+                        android:id="@+id/chk_LeftRocket_RPan1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="130dp"
+                        android:layout_marginTop="178dp"
+                        android:buttonTint="@color/brightblue" />
+                    <CheckBox
+                        android:id="@+id/chk_LeftRocket_RCarg1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="90dp"
+                        android:buttonTint="@color/yellow" />
+
+                    <CheckBox
+                        android:id="@+id/chk_LeftRocket_RPan2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="130dp"
+                        android:layout_marginTop="130dp"
+                        android:buttonTint="@color/brightblue" />
+
+                    <CheckBox
+                        android:id="@+id/chk_LeftRocket_RCarg2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="130dp"
+                        android:buttonTint="@color/yellow" />
+
+                    <CheckBox
+                        android:id="@+id/chk_LeftRocket_RPan3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="130dp"
+                        android:layout_marginTop="90dp"
+                        android:buttonTint="@color/brightblue" />
+
+                    <CheckBox
+                        android:id="@+id/chk_LeftRocket_RCarg3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="176dp"
+                        android:buttonTint="@color/yellow" />
+
+
+                </RelativeLayout>
+                <!--</LinearLayout>-->
+                // ==============================================================================
+                // Cargo Ship
+                <!--<LinearLayout-->
+                <!--android:id="@+id/lin_CargoShip"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="185dp"-->
+                <!--android:layout_below="@+id/lin_LeftRocketShip"-->
+                <!--android:layout_marginTop="12sp"-->
+                <!--android:orientation="horizontal">-->
+
+                <RelativeLayout
+                    android:id="@+id/rel_CargoShip"
+                    android:layout_width="250dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView_Switch"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:contentDescription="Cargo Ship"
+                        android:src="@drawable/cargo_ship" />
+
+                    <CheckBox
+                        android:id="@+id/chk_CargoRCarg1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="140sp"
+                        android:layout_marginTop="78dp"
+                        android:buttonTint="@color/yellow" />
+
+                    <CheckBox
+                        android:id="@+id/chk_CargoRPan1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="185dp"
+                        android:layout_marginTop="78dp"
+                        android:buttonTint="@color/brightblue" />
+
+                    <CheckBox
+                        android:id="@+id/chk_CargoRCarg2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="140dp"
+                        android:layout_marginTop="45dp"
+                        android:buttonTint="@color/yellow" />
+
+                    <CheckBox
+                        android:id="@+id/chk_CargoRPan2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="185sp"
+                        android:layout_marginTop="45dp"
+                        android:buttonTint="@color/brightblue" />
+
+                    <CheckBox
+                        android:id="@+id/chk_CargoRCarg3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="140dp"
+                        android:layout_marginTop="12dp"
+                        android:buttonTint="@color/yellow" />
+
+                    <CheckBox
+                        android:id="@+id/chk_CargoRPan3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="185dp"
+                        android:layout_marginTop="12dp"
+                        android:buttonTint="@color/brightblue" />
+
+                    // --------------- LEFT ----------------------------------
+                    <CheckBox
+                        android:id="@+id/chk_CargoLPan1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="78dp"
+                        android:buttonTint="@color/brightblue" />
+
+                    <CheckBox
+                        android:id="@+id/chk_CargoLCarg1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="82dp"
+                        android:layout_marginTop="78dp"
+                        android:buttonTint="@color/yellow" />
+                    <CheckBox
+                        android:id="@+id/chk_CargoLPan2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="30sp"
+                        android:layout_marginTop="45dp"
+                        android:buttonTint="@color/brightblue" />
+                    <CheckBox
+                        android:id="@+id/chk_CargoLCarg2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="82dp"
+                        android:layout_marginTop="45dp"
+                        android:buttonTint="@color/yellow" />
+                    <CheckBox
+                        android:id="@+id/chk_CargoLPan3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="12dp"
+                        android:buttonTint="@color/brightblue" />
+                    <CheckBox
+                        android:id="@+id/chk_CargoLCarg3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="82dp"
+                        android:layout_marginTop="12dp"
+                        android:buttonTint="@color/yellow" />
+                    // ----------------- END ----------------------------
+                    <CheckBox
+                        android:id="@+id/chk_CargoLELPan1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="170dp"
+                        android:buttonTint="@color/brightblue" />
+
+                    <CheckBox
+                        android:id="@+id/chk_CargoELCarg1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="130dp"
+                        android:buttonTint="@color/yellow" />
+                    <CheckBox
+                        android:id="@+id/chk_CargoLERPan1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="125dp"
+                        android:layout_marginTop="170dp"
+                        android:buttonTint="@color/brightblue" />
+                    <CheckBox
+                        android:id="@+id/chk_CargoERCarg1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="125dp"
+                        android:layout_marginTop="130dp"
+                        android:buttonTint="@color/yellow" />
+                </RelativeLayout>
+                <!--</LinearLayout>-->
+
+
+                // ==============================================================================
+                // Far Rocket Ship
+                <!--<LinearLayout-->
+                <!--android:id="@+id/lin_LeftRocketShip"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="185dp"-->
+                <!--android:layout_below="@+id/lin_CargoShip"-->
+                <!--android:layout_marginTop="12sp"-->
+                <!--android:orientation="horizontal">-->
+                <RelativeLayout
+                    android:id="@+id/rel_RghtRocketShip"
+                    android:layout_width="160dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView_RghtRocket"
+                        android:layout_width="400dp"
+                        android:layout_height="250dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:contentDescription="Far Rocket"
+                        android:src="@drawable/full_ship" />
+
+                    <TextView
+                        android:id="@+id/lblFar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:text="Right Rocket"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+                    // --------------- LEFT ----------------------------------
+
+                    <CheckBox
+                        android:id="@+id/chk_RghtRocket_LPan3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="90dp"
+                        android:buttonTint="@color/brightblue" />
+                    <CheckBox
+                        android:id="@+id/chk_RghtRocket_LP1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="45dp"
+                        android:layout_marginTop="90dp"
+                        android:buttonTint="@color/yellow" />
+                    <CheckBox
+                        android:id="@+id/chk_RghtRocket_LPan2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="130dp"
+                        android:buttonTint="@color/brightblue" />
+                    <CheckBox
+                        android:id="@+id/chk_RghtRocket_LCarg2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="45dp"
+                        android:layout_marginTop="130dp"
+                        android:buttonTint="@color/yellow" />
+
+                    <CheckBox
+                        android:id="@+id/chk_RghtRocket_LPan1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="175dp"
+                        android:buttonTint="@color/brightblue" />
+                    <CheckBox
+                        android:id="@+id/chk_RghtRocket_LCarg3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="45dp"
+                        android:layout_marginTop="175dp"
+                        android:buttonTint="@color/yellow" />
+                    // --------------- RIGHT ----------------------------------
+                    <CheckBox
+                        android:id="@+id/chk_RghtRocket_RPan1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="130dp"
+                        android:layout_marginTop="90dp"
+                        android:buttonTint="@color/brightblue" />
+
+                    <CheckBox
+                        android:id="@+id/chk_RghtRocket_RCarg1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="90dp"
+                        android:buttonTint="@color/yellow" />
+
+                    <CheckBox
+                        android:id="@+id/chk_RghtRocket_RPan2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="130dp"
+                        android:layout_marginTop="130dp"
+                        android:buttonTint="@color/brightblue" />
+
+                    <CheckBox
+                        android:id="@+id/chk_RghtRocket_RCarg2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="130dp"
+                        android:buttonTint="@color/yellow" />
+
+                    <CheckBox
+                        android:id="@+id/chk_RghtRocket_RPan3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="130dp"
+                        android:layout_marginTop="175dp"
+                        android:buttonTint="@color/brightblue" />
+
+                    <CheckBox
+                        android:id="@+id/chk_RghtRocket_RCarg3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="90dp"
+                        android:layout_marginTop="175dp"
+                        android:buttonTint="@color/yellow" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            // ==============================================================================
+            <LinearLayout
+                android:id="@+id/lin_Legend"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:layout_below="@+id/lin_AllShips"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lblDriver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="From Driver's Viewpoint"
+                    android:textColor="@color/green"
+                    android:textSize="16sp" />
+                <CheckBox
+                    android:id="@+id/chk_LegendPanel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:clickable="false"
+                    android:layout_marginStart="10dp"
+                    android:buttonTint="@color/brightblue"
+                    android:text="= Panel " />
+                <CheckBox
+                    android:id="@+id/chk_LegendCargo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:clickable="false"
+                    android:layout_marginStart="10dp"
+                    android:buttonTint="@color/yellow"
+                    android:text=" = Cargo" />
+
+            </LinearLayout>
+            // ======= End of Legend
+
+            <TextView
+                android:id="@+id/lblSecondPiece"
+                android:layout_width="248dp"
+                android:layout_height="39dp"
+                android:layout_below="@id/lin_Legend"
+                android:text="Did the robot pick up another piece?" />
+            <RadioGroup
+                android:id="@+id/radgrp_secondPiece"
+                android:layout_toRightOf="@+id/lblSecondPiece"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lin_Legend"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_hatch2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/radgrp_secondPiece"
+                    android:text="Panel"
+                    android:textColor="@color/cyan" />
+
+                <RadioButton
+                    android:id="@+id/radio_cargo2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cargo"
+                    android:textColor="@color/cyan" />
+
+            </RadioGroup>
+
+        <TextView
+            android:id="@+id/lblSecondPieceLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/radgrp_secondPiece"
+            android:text="Where was the piece retrieved from?" />
+
+            <RadioGroup
+                android:id="@+id/radgrp_secondPieceLocation"
+                android:layout_toRightOf="@+id/lblSecondPiece"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/radgrp_secondPiece"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_playerStation2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/radgrp_secondPiece"
+                    android:text="Player Station"
+                    android:textColor="@color/cyan" />
+
+                <RadioButton
+                    android:id="@+id/radio_corral2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Corral"
+                    android:textColor="@color/cyan" />
+
+                <RadioButton
+                    android:id="@+id/radio_floor2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Floor"
+                    android:textColor="@color/cyan" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/lblThirdPiece"
+                android:layout_width="248dp"
+                android:layout_height="39dp"
+                android:layout_below="@id/radgrp_secondPieceLocation"
+                android:text="Did the robot pick up a third piece?" />
+            <RadioGroup
+                android:id="@+id/radgrp_thirdPiece"
+                android:layout_toRightOf="@+id/lblThirdPiece"
+                android:layout_alignTop="@id/lblThirdPiece"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/radgrp_secondPieceLocation"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_hatch3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/radgrp_secondPiece"
+                    android:text="Panel"
+                    android:textColor="@color/cyan" />
+
+                <RadioButton
+                    android:id="@+id/radio_cargo3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cargo"
+                    android:textColor="@color/cyan" />
+
+            </RadioGroup>
+
+        <TextView
+            android:id="@+id/lblThirdPieceLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/radgrp_thirdPiece"
+            android:text="Where was the piece retrieved from?" />
+
+            <RadioGroup
+                android:id="@+id/radgrp_thirdPieceLocation"
+                android:layout_toRightOf="@+id/lblSecondPiece"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/radgrp_thirdPiece"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_playerStation3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/radgrp_secondPiece"
+                    android:text="Player Station"
+                    android:textColor="@color/cyan" />
+
+                <RadioButton
+                    android:id="@+id/radio_corral3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Corral"
+                    android:textColor="@color/cyan" />
+
+                <RadioButton
+                    android:id="@+id/radio_floor3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Floor"
+                    android:textColor="@color/cyan" />
+
+            </RadioGroup>
+
+            // ==============================================================================
+
+            <Button
+                android:text="TeleOps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_GoToTeleopActivity"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true" />
+
+        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+            // "Dummy" layout to PREVENT Comment field getting focus
+            <LinearLayout
+                android:orientation="horizontal"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="0px"
+                android:layout_height="0px"
+                android:id="@+id/linearLayout" />
+
+        <ScrollView
+            android:id="@+id/scrollv_comm"
+            android:layout_width="500sp"
+            android:layout_height="100sp"
+            android:layout_below="@+id/radgrp_thirdPieceLocation"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="16dp"
+            android:isScrollContainer="false">
+
+            <EditText
+                android:id="@+id/editText_autoComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spinner_stopPos"
+                android:layout_alignStart="@+id/text_collected_balls"
+                android:layout_marginTop="5dp"
+                android:layout_toStartOf="@+id/button_GoToArenaLayoutActivity"
+                android:background="@drawable/border"
+                android:ems="12"
+                android:hint="Tap to add any additional comments."
+                android:inputType="textMultiLine"
+                android:lines="2"
+                android:scrollbars="vertical"
+                android:textColor="@color/red" />
+
+        </ScrollView>
+
+
+    </RelativeLayout>
+</ScrollView>
