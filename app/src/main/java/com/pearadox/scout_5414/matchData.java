@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class matchData implements Serializable {
     private static final long serialVersionUID = -54145414541400L;
-    // ============= AUTO ================
+    // ============= SAND ================
     private String match;                   // Match ID (e.g., Qualifying) and '00' - match #)
     private String team_num;                // Team Number (e.g., '5414')
                                             // *** Pre-Game **
@@ -12,9 +12,53 @@ public class matchData implements Serializable {
     private boolean pre_panel;              // Do they carry a panel
     private String pre_startPos;            // Start Position
 
-    private boolean auto_mode;              // Do they have Autonomous mode?
-    private boolean auto_leftHAB;           // Did they leave HAB
-    private String auto_comment;            // Auto comment
+                                            // ---- AFTER Start ----
+    private boolean sand_mode;              // Do they have Autonomous mode?
+    private boolean sand_leftHAB;           // Did they leave HAB
+    private String  sand_comment;           // Auto comment
+
+    private boolean sand_LeftRocket_LPan1;  // L-Rocket L-Panel#1
+    private boolean sand_LeftRocket_LPan2;  // L-Rocket L-Panel#2
+    private boolean sand_LeftRocket_LPan3;  // L-Rocket L-Panel#3
+    private boolean sand_LeftRocket_RPan1;  // L-Rocket R-Panel#1
+    private boolean sand_LeftRocket_RPan2;  // L-Rocket R-Panel#2
+    private boolean sand_LeftRocket_RPan3;  // L-Rocket R-Panel#3
+    private boolean sand_LeftRocket_LCarg1; // L-Rocket L-Cargo#1
+    private boolean sand_LeftRocket_LCarg2; // L-Rocket L-Cargo#2
+    private boolean sand_LeftRocket_LCarg3; // L-Rocket L-Cargo#3
+    private boolean sand_LeftRocket_RCarg1; // L-Rocket R-Cargo#1
+    private boolean sand_LeftRocket_RCarg2; // L-Rocket R-Cargo#2
+    private boolean sand_LeftRocket_RCarg3; // L-Rocket R-Cargo#3
+
+    private boolean sand_CargoLPan1;        // Cargo L-Panel#1
+    private boolean sand_CargoLPan2;        // Cargo L-Panel#2
+    private boolean sand_CargoLPan3;        // Cargo L-Panel#3
+    private boolean sand_CargoRPan1;        // Cargo R-Panel#1
+    private boolean sand_CargoRPan2;        // Cargo R-Panel#2
+    private boolean sand_CargoRPan3;        // Cargo R-Panel#3
+    private boolean sand_CargoLCarg1;       // Cargo L-Cargo#1
+    private boolean sand_CargoLCarg2;       // Cargo L-Cargo#2
+    private boolean sand_CargoLCarg3;       // Cargo L-Cargo#3
+    private boolean sand_CargoRCarg1;       // Cargo R-Cargo#1
+    private boolean sand_CargoRCarg2;       // Cargo R-Cargo#2
+    private boolean sand_CargoRCarg3;       // Cargo R-Cargo#3
+    private boolean sand_CargoEndLPan1;     // Cargo End L-Panel#1
+    private boolean sand_CargoEndLCarg1;    // Cargo End L-Cargo#1
+    private boolean sand_CargoEndRPan1;     // Cargo End R-Panel#1
+    private boolean sand_CargoEndRCarg1;    // Cargo End R-Cargo#1
+
+    private boolean sand_RghtRocket_LPan1;  // R-Rocket L-Panel#1
+    private boolean sand_RghtRocket_LPan2;  // R-Rocket L-Panel#2
+    private boolean sand_RghtRocket_LPan3;  // R-Rocket L-Panel#3
+    private boolean sand_RghtRocket_RPan1;  // R-Rocket R-Panel#1
+    private boolean sand_RghtRocket_RPan2;  // R-Rocket R-Panel#2
+    private boolean sand_RghtRocket_RPan3;  // R-Rocket R-Panel#3
+    private boolean sand_RghtRocket_LCarg1; // R-Rocket L-Cargo#1
+    private boolean sand_RghtRocket_LCarg2; // R-Rocket L-Cargo#2
+    private boolean sand_RghtRocket_LCarg3; // R-Rocket L-Cargo#3
+    private boolean sand_RghtRocket_RCarg1; // R-Rocket R-Cargo#1
+    private boolean sand_RghtRocket_RCarg2; // R-Rocket R-Cargo#2
+    private boolean sand_RghtRocket_RCarg3; // R-Rocket R-Cargo#3
 
 
     // ============== TELE =================
@@ -30,6 +74,23 @@ public class matchData implements Serializable {
     private boolean tele_LeftRocket_RCarg1; // L-Rocket R-Cargo#1
     private boolean tele_LeftRocket_RCarg2; // L-Rocket R-Cargo#2
     private boolean tele_LeftRocket_RCarg3; // L-Rocket R-Cargo#3
+
+    private boolean tele_CargoLPan1;        // Cargo L-Panel#1
+    private boolean tele_CargoLPan2;        // Cargo L-Panel#2
+    private boolean tele_CargoLPan3;        // Cargo L-Panel#3
+    private boolean tele_CargoRPan1;        // Cargo R-Panel#1
+    private boolean tele_CargoRPan2;        // Cargo R-Panel#2
+    private boolean tele_CargoRPan3;        // Cargo R-Panel#3
+    private boolean tele_CargoLCarg1;       // Cargo L-Cargo#1
+    private boolean tele_CargoLCarg2;       // Cargo L-Cargo#2
+    private boolean tele_CargoLCarg3;       // Cargo L-Cargo#3
+    private boolean tele_CargoRCarg1;       // Cargo R-Cargo#1
+    private boolean tele_CargoRCarg2;       // Cargo R-Cargo#2
+    private boolean tele_CargoRCarg3;       // Cargo R-Cargo#3
+    private boolean tele_CargoEndLPan1;     // Cargo End L-Panel#1
+    private boolean tele_CargoEndLCarg1;    // Cargo End L-Cargo#1
+    private boolean tele_CargoEndRPan1;     // Cargo End R-Panel#1
+    private boolean tele_CargoEndRCarg1;    // Cargo End R-Cargo#1
 
     private boolean tele_RghtRocket_LPan1;  // R-Rocket L-Panel#1
     private boolean tele_RghtRocket_LPan2;  // R-Rocket L-Panel#2
@@ -68,15 +129,55 @@ public class matchData implements Serializable {
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
-    public matchData(String match, String team_num, boolean pre_cargo, boolean pre_panel, String pre_startPos, boolean auto_mode, boolean auto_leftHAB, String auto_comment, boolean tele_LeftRocket_LPan1, boolean tele_LeftRocket_LPan2, boolean tele_LeftRocket_LPan3, boolean tele_LeftRocket_RPan1, boolean tele_LeftRocket_RPan2, boolean tele_LeftRocket_RPan3, boolean tele_LeftRocket_LCarg1, boolean tele_LeftRocket_LCarg2, boolean tele_LeftRocket_LCarg3, boolean tele_LeftRocket_RCarg1, boolean tele_LeftRocket_RCarg2, boolean tele_LeftRocket_RCarg3, boolean tele_RghtRocket_LPan1, boolean tele_RghtRocket_LPan2, boolean tele_RghtRocket_LPan3, boolean tele_RghtRocket_RPan1, boolean tele_RghtRocket_RPan2, boolean tele_RghtRocket_RPan3, boolean tele_RghtRocket_LCarg1, boolean tele_RghtRocket_LCarg2, boolean tele_RghtRocket_LCarg3, boolean tele_RghtRocket_RCarg1, boolean tele_RghtRocket_RCarg2, boolean tele_RghtRocket_RCarg3, boolean tele_cube_pickup, boolean tele_Panel_pickup, boolean tele_got_lift, boolean tele_lifted, int tele_level_num, int tele_num_Penalties, String tele_comment, boolean final_lostParts, boolean final_lostComms, boolean final_defense_good, boolean final_def_Lane, boolean final_def_Block, boolean final_def_BlockSwitch, String final_comment, String final_studID, String final_dateTime) {
+    public matchData(String match, String team_num, boolean pre_cargo, boolean pre_panel, String pre_startPos, boolean sand_mode, boolean sand_leftHAB, String sand_comment, boolean sand_LeftRocket_LPan1, boolean sand_LeftRocket_LPan2, boolean sand_LeftRocket_LPan3, boolean sand_LeftRocket_RPan1, boolean sand_LeftRocket_RPan2, boolean sand_LeftRocket_RPan3, boolean sand_LeftRocket_LCarg1, boolean sand_LeftRocket_LCarg2, boolean sand_LeftRocket_LCarg3, boolean sand_LeftRocket_RCarg1, boolean sand_LeftRocket_RCarg2, boolean sand_LeftRocket_RCarg3, boolean sand_CargoLPan1, boolean sand_CargoLPan2, boolean sand_CargoLPan3, boolean sand_CargoRPan1, boolean sand_CargoRPan2, boolean sand_CargoRPan3, boolean sand_CargoLCarg1, boolean sand_CargoLCarg2, boolean sand_CargoLCarg3, boolean sand_CargoRCarg1, boolean sand_CargoRCarg2, boolean sand_CargoRCarg3, boolean sand_CargoEndLPan1, boolean sand_CargoEndLCarg1, boolean sand_CargoEndRPan1, boolean sand_CargoEndRCarg1, boolean sand_RghtRocket_LPan1, boolean sand_RghtRocket_LPan2, boolean sand_RghtRocket_LPan3, boolean sand_RghtRocket_RPan1, boolean sand_RghtRocket_RPan2, boolean sand_RghtRocket_RPan3, boolean sand_RghtRocket_LCarg1, boolean sand_RghtRocket_LCarg2, boolean sand_RghtRocket_LCarg3, boolean sand_RghtRocket_RCarg1, boolean sand_RghtRocket_RCarg2, boolean sand_RghtRocket_RCarg3, boolean tele_LeftRocket_LPan1, boolean tele_LeftRocket_LPan2, boolean tele_LeftRocket_LPan3, boolean tele_LeftRocket_RPan1, boolean tele_LeftRocket_RPan2, boolean tele_LeftRocket_RPan3, boolean tele_LeftRocket_LCarg1, boolean tele_LeftRocket_LCarg2, boolean tele_LeftRocket_LCarg3, boolean tele_LeftRocket_RCarg1, boolean tele_LeftRocket_RCarg2, boolean tele_LeftRocket_RCarg3, boolean tele_CargoLPan1, boolean tele_CargoLPan2, boolean tele_CargoLPan3, boolean tele_CargoRPan1, boolean tele_CargoRPan2, boolean tele_CargoRPan3, boolean tele_CargoLCarg1, boolean tele_CargoLCarg2, boolean tele_CargoLCarg3, boolean tele_CargoRCarg1, boolean tele_CargoRCarg2, boolean tele_CargoRCarg3, boolean tele_CargoEndLPan1, boolean tele_CargoEndLCarg1, boolean tele_CargoEndRPan1, boolean tele_CargoEndRCarg1, boolean tele_RghtRocket_LPan1, boolean tele_RghtRocket_LPan2, boolean tele_RghtRocket_LPan3, boolean tele_RghtRocket_RPan1, boolean tele_RghtRocket_RPan2, boolean tele_RghtRocket_RPan3, boolean tele_RghtRocket_LCarg1, boolean tele_RghtRocket_LCarg2, boolean tele_RghtRocket_LCarg3, boolean tele_RghtRocket_RCarg1, boolean tele_RghtRocket_RCarg2, boolean tele_RghtRocket_RCarg3, boolean tele_cube_pickup, boolean tele_Panel_pickup, boolean tele_got_lift, boolean tele_lifted, int tele_level_num, int tele_num_Penalties, String tele_comment, boolean final_lostParts, boolean final_lostComms, boolean final_defense_good, boolean final_def_Lane, boolean final_def_Block, boolean final_def_BlockSwitch, String final_comment, String final_studID, String final_dateTime) {
         this.match = match;
         this.team_num = team_num;
         this.pre_cargo = pre_cargo;
         this.pre_panel = pre_panel;
         this.pre_startPos = pre_startPos;
-        this.auto_mode = auto_mode;
-        this.auto_leftHAB = auto_leftHAB;
-        this.auto_comment = auto_comment;
+        this.sand_mode = sand_mode;
+        this.sand_leftHAB = sand_leftHAB;
+        this.sand_comment = sand_comment;
+        this.sand_LeftRocket_LPan1 = sand_LeftRocket_LPan1;
+        this.sand_LeftRocket_LPan2 = sand_LeftRocket_LPan2;
+        this.sand_LeftRocket_LPan3 = sand_LeftRocket_LPan3;
+        this.sand_LeftRocket_RPan1 = sand_LeftRocket_RPan1;
+        this.sand_LeftRocket_RPan2 = sand_LeftRocket_RPan2;
+        this.sand_LeftRocket_RPan3 = sand_LeftRocket_RPan3;
+        this.sand_LeftRocket_LCarg1 = sand_LeftRocket_LCarg1;
+        this.sand_LeftRocket_LCarg2 = sand_LeftRocket_LCarg2;
+        this.sand_LeftRocket_LCarg3 = sand_LeftRocket_LCarg3;
+        this.sand_LeftRocket_RCarg1 = sand_LeftRocket_RCarg1;
+        this.sand_LeftRocket_RCarg2 = sand_LeftRocket_RCarg2;
+        this.sand_LeftRocket_RCarg3 = sand_LeftRocket_RCarg3;
+        this.sand_CargoLPan1 = sand_CargoLPan1;
+        this.sand_CargoLPan2 = sand_CargoLPan2;
+        this.sand_CargoLPan3 = sand_CargoLPan3;
+        this.sand_CargoRPan1 = sand_CargoRPan1;
+        this.sand_CargoRPan2 = sand_CargoRPan2;
+        this.sand_CargoRPan3 = sand_CargoRPan3;
+        this.sand_CargoLCarg1 = sand_CargoLCarg1;
+        this.sand_CargoLCarg2 = sand_CargoLCarg2;
+        this.sand_CargoLCarg3 = sand_CargoLCarg3;
+        this.sand_CargoRCarg1 = sand_CargoRCarg1;
+        this.sand_CargoRCarg2 = sand_CargoRCarg2;
+        this.sand_CargoRCarg3 = sand_CargoRCarg3;
+        this.sand_CargoEndLPan1 = sand_CargoEndLPan1;
+        this.sand_CargoEndLCarg1 = sand_CargoEndLCarg1;
+        this.sand_CargoEndRPan1 = sand_CargoEndRPan1;
+        this.sand_CargoEndRCarg1 = sand_CargoEndRCarg1;
+        this.sand_RghtRocket_LPan1 = sand_RghtRocket_LPan1;
+        this.sand_RghtRocket_LPan2 = sand_RghtRocket_LPan2;
+        this.sand_RghtRocket_LPan3 = sand_RghtRocket_LPan3;
+        this.sand_RghtRocket_RPan1 = sand_RghtRocket_RPan1;
+        this.sand_RghtRocket_RPan2 = sand_RghtRocket_RPan2;
+        this.sand_RghtRocket_RPan3 = sand_RghtRocket_RPan3;
+        this.sand_RghtRocket_LCarg1 = sand_RghtRocket_LCarg1;
+        this.sand_RghtRocket_LCarg2 = sand_RghtRocket_LCarg2;
+        this.sand_RghtRocket_LCarg3 = sand_RghtRocket_LCarg3;
+        this.sand_RghtRocket_RCarg1 = sand_RghtRocket_RCarg1;
+        this.sand_RghtRocket_RCarg2 = sand_RghtRocket_RCarg2;
+        this.sand_RghtRocket_RCarg3 = sand_RghtRocket_RCarg3;
         this.tele_LeftRocket_LPan1 = tele_LeftRocket_LPan1;
         this.tele_LeftRocket_LPan2 = tele_LeftRocket_LPan2;
         this.tele_LeftRocket_LPan3 = tele_LeftRocket_LPan3;
@@ -89,6 +190,22 @@ public class matchData implements Serializable {
         this.tele_LeftRocket_RCarg1 = tele_LeftRocket_RCarg1;
         this.tele_LeftRocket_RCarg2 = tele_LeftRocket_RCarg2;
         this.tele_LeftRocket_RCarg3 = tele_LeftRocket_RCarg3;
+        this.tele_CargoLPan1 = tele_CargoLPan1;
+        this.tele_CargoLPan2 = tele_CargoLPan2;
+        this.tele_CargoLPan3 = tele_CargoLPan3;
+        this.tele_CargoRPan1 = tele_CargoRPan1;
+        this.tele_CargoRPan2 = tele_CargoRPan2;
+        this.tele_CargoRPan3 = tele_CargoRPan3;
+        this.tele_CargoLCarg1 = tele_CargoLCarg1;
+        this.tele_CargoLCarg2 = tele_CargoLCarg2;
+        this.tele_CargoLCarg3 = tele_CargoLCarg3;
+        this.tele_CargoRCarg1 = tele_CargoRCarg1;
+        this.tele_CargoRCarg2 = tele_CargoRCarg2;
+        this.tele_CargoRCarg3 = tele_CargoRCarg3;
+        this.tele_CargoEndLPan1 = tele_CargoEndLPan1;
+        this.tele_CargoEndLCarg1 = tele_CargoEndLCarg1;
+        this.tele_CargoEndRPan1 = tele_CargoEndRPan1;
+        this.tele_CargoEndRCarg1 = tele_CargoEndRCarg1;
         this.tele_RghtRocket_LPan1 = tele_RghtRocket_LPan1;
         this.tele_RghtRocket_LPan2 = tele_RghtRocket_LPan2;
         this.tele_RghtRocket_LPan3 = tele_RghtRocket_LPan3;
@@ -129,7 +246,6 @@ public matchData() {
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 // Getters & Setters
-
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -175,28 +291,348 @@ public matchData() {
         this.pre_startPos = pre_startPos;
     }
 
-    public boolean isAuto_mode() {
-        return auto_mode;
+    public boolean isSand_mode() {
+        return sand_mode;
     }
 
-    public void setAuto_mode(boolean auto_mode) {
-        this.auto_mode = auto_mode;
+    public void setSand_mode(boolean sand_mode) {
+        this.sand_mode = sand_mode;
     }
 
-    public boolean isAuto_leftHAB() {
-        return auto_leftHAB;
+    public boolean isSand_leftHAB() {
+        return sand_leftHAB;
     }
 
-    public void setAuto_leftHAB(boolean auto_leftHAB) {
-        this.auto_leftHAB = auto_leftHAB;
+    public void setSand_leftHAB(boolean sand_leftHAB) {
+        this.sand_leftHAB = sand_leftHAB;
     }
 
-    public String getAuto_comment() {
-        return auto_comment;
+    public String getSand_comment() {
+        return sand_comment;
     }
 
-    public void setAuto_comment(String auto_comment) {
-        this.auto_comment = auto_comment;
+    public void setSand_comment(String sand_comment) {
+        this.sand_comment = sand_comment;
+    }
+
+    public boolean isSand_LeftRocket_LPan1() {
+        return sand_LeftRocket_LPan1;
+    }
+
+    public void setSand_LeftRocket_LPan1(boolean sand_LeftRocket_LPan1) {
+        this.sand_LeftRocket_LPan1 = sand_LeftRocket_LPan1;
+    }
+
+    public boolean isSand_LeftRocket_LPan2() {
+        return sand_LeftRocket_LPan2;
+    }
+
+    public void setSand_LeftRocket_LPan2(boolean sand_LeftRocket_LPan2) {
+        this.sand_LeftRocket_LPan2 = sand_LeftRocket_LPan2;
+    }
+
+    public boolean isSand_LeftRocket_LPan3() {
+        return sand_LeftRocket_LPan3;
+    }
+
+    public void setSand_LeftRocket_LPan3(boolean sand_LeftRocket_LPan3) {
+        this.sand_LeftRocket_LPan3 = sand_LeftRocket_LPan3;
+    }
+
+    public boolean isSand_LeftRocket_RPan1() {
+        return sand_LeftRocket_RPan1;
+    }
+
+    public void setSand_LeftRocket_RPan1(boolean sand_LeftRocket_RPan1) {
+        this.sand_LeftRocket_RPan1 = sand_LeftRocket_RPan1;
+    }
+
+    public boolean isSand_LeftRocket_RPan2() {
+        return sand_LeftRocket_RPan2;
+    }
+
+    public void setSand_LeftRocket_RPan2(boolean sand_LeftRocket_RPan2) {
+        this.sand_LeftRocket_RPan2 = sand_LeftRocket_RPan2;
+    }
+
+    public boolean isSand_LeftRocket_RPan3() {
+        return sand_LeftRocket_RPan3;
+    }
+
+    public void setSand_LeftRocket_RPan3(boolean sand_LeftRocket_RPan3) {
+        this.sand_LeftRocket_RPan3 = sand_LeftRocket_RPan3;
+    }
+
+    public boolean isSand_LeftRocket_LCarg1() {
+        return sand_LeftRocket_LCarg1;
+    }
+
+    public void setSand_LeftRocket_LCarg1(boolean sand_LeftRocket_LCarg1) {
+        this.sand_LeftRocket_LCarg1 = sand_LeftRocket_LCarg1;
+    }
+
+    public boolean isSand_LeftRocket_LCarg2() {
+        return sand_LeftRocket_LCarg2;
+    }
+
+    public void setSand_LeftRocket_LCarg2(boolean sand_LeftRocket_LCarg2) {
+        this.sand_LeftRocket_LCarg2 = sand_LeftRocket_LCarg2;
+    }
+
+    public boolean isSand_LeftRocket_LCarg3() {
+        return sand_LeftRocket_LCarg3;
+    }
+
+    public void setSand_LeftRocket_LCarg3(boolean sand_LeftRocket_LCarg3) {
+        this.sand_LeftRocket_LCarg3 = sand_LeftRocket_LCarg3;
+    }
+
+    public boolean isSand_LeftRocket_RCarg1() {
+        return sand_LeftRocket_RCarg1;
+    }
+
+    public void setSand_LeftRocket_RCarg1(boolean sand_LeftRocket_RCarg1) {
+        this.sand_LeftRocket_RCarg1 = sand_LeftRocket_RCarg1;
+    }
+
+    public boolean isSand_LeftRocket_RCarg2() {
+        return sand_LeftRocket_RCarg2;
+    }
+
+    public void setSand_LeftRocket_RCarg2(boolean sand_LeftRocket_RCarg2) {
+        this.sand_LeftRocket_RCarg2 = sand_LeftRocket_RCarg2;
+    }
+
+    public boolean isSand_LeftRocket_RCarg3() {
+        return sand_LeftRocket_RCarg3;
+    }
+
+    public void setSand_LeftRocket_RCarg3(boolean sand_LeftRocket_RCarg3) {
+        this.sand_LeftRocket_RCarg3 = sand_LeftRocket_RCarg3;
+    }
+
+    public boolean isSand_CargoLPan1() {
+        return sand_CargoLPan1;
+    }
+
+    public void setSand_CargoLPan1(boolean sand_CargoLPan1) {
+        this.sand_CargoLPan1 = sand_CargoLPan1;
+    }
+
+    public boolean isSand_CargoLPan2() {
+        return sand_CargoLPan2;
+    }
+
+    public void setSand_CargoLPan2(boolean sand_CargoLPan2) {
+        this.sand_CargoLPan2 = sand_CargoLPan2;
+    }
+
+    public boolean isSand_CargoLPan3() {
+        return sand_CargoLPan3;
+    }
+
+    public void setSand_CargoLPan3(boolean sand_CargoLPan3) {
+        this.sand_CargoLPan3 = sand_CargoLPan3;
+    }
+
+    public boolean isSand_CargoRPan1() {
+        return sand_CargoRPan1;
+    }
+
+    public void setSand_CargoRPan1(boolean sand_CargoRPan1) {
+        this.sand_CargoRPan1 = sand_CargoRPan1;
+    }
+
+    public boolean isSand_CargoRPan2() {
+        return sand_CargoRPan2;
+    }
+
+    public void setSand_CargoRPan2(boolean sand_CargoRPan2) {
+        this.sand_CargoRPan2 = sand_CargoRPan2;
+    }
+
+    public boolean isSand_CargoRPan3() {
+        return sand_CargoRPan3;
+    }
+
+    public void setSand_CargoRPan3(boolean sand_CargoRPan3) {
+        this.sand_CargoRPan3 = sand_CargoRPan3;
+    }
+
+    public boolean isSand_CargoLCarg1() {
+        return sand_CargoLCarg1;
+    }
+
+    public void setSand_CargoLCarg1(boolean sand_CargoLCarg1) {
+        this.sand_CargoLCarg1 = sand_CargoLCarg1;
+    }
+
+    public boolean isSand_CargoLCarg2() {
+        return sand_CargoLCarg2;
+    }
+
+    public void setSand_CargoLCarg2(boolean sand_CargoLCarg2) {
+        this.sand_CargoLCarg2 = sand_CargoLCarg2;
+    }
+
+    public boolean isSand_CargoLCarg3() {
+        return sand_CargoLCarg3;
+    }
+
+    public void setSand_CargoLCarg3(boolean sand_CargoLCarg3) {
+        this.sand_CargoLCarg3 = sand_CargoLCarg3;
+    }
+
+    public boolean isSand_CargoRCarg1() {
+        return sand_CargoRCarg1;
+    }
+
+    public void setSand_CargoRCarg1(boolean sand_CargoRCarg1) {
+        this.sand_CargoRCarg1 = sand_CargoRCarg1;
+    }
+
+    public boolean isSand_CargoRCarg2() {
+        return sand_CargoRCarg2;
+    }
+
+    public void setSand_CargoRCarg2(boolean sand_CargoRCarg2) {
+        this.sand_CargoRCarg2 = sand_CargoRCarg2;
+    }
+
+    public boolean isSand_CargoRCarg3() {
+        return sand_CargoRCarg3;
+    }
+
+    public void setSand_CargoRCarg3(boolean sand_CargoRCarg3) {
+        this.sand_CargoRCarg3 = sand_CargoRCarg3;
+    }
+
+    public boolean isSand_CargoEndLPan1() {
+        return sand_CargoEndLPan1;
+    }
+
+    public void setSand_CargoEndLPan1(boolean sand_CargoEndLPan1) {
+        this.sand_CargoEndLPan1 = sand_CargoEndLPan1;
+    }
+
+    public boolean isSand_CargoEndLCarg1() {
+        return sand_CargoEndLCarg1;
+    }
+
+    public void setSand_CargoEndLCarg1(boolean sand_CargoEndLCarg1) {
+        this.sand_CargoEndLCarg1 = sand_CargoEndLCarg1;
+    }
+
+    public boolean isSand_CargoEndRPan1() {
+        return sand_CargoEndRPan1;
+    }
+
+    public void setSand_CargoEndRPan1(boolean sand_CargoEndRPan1) {
+        this.sand_CargoEndRPan1 = sand_CargoEndRPan1;
+    }
+
+    public boolean isSand_CargoEndRCarg1() {
+        return sand_CargoEndRCarg1;
+    }
+
+    public void setSand_CargoEndRCarg1(boolean sand_CargoEndRCarg1) {
+        this.sand_CargoEndRCarg1 = sand_CargoEndRCarg1;
+    }
+
+    public boolean isSand_RghtRocket_LPan1() {
+        return sand_RghtRocket_LPan1;
+    }
+
+    public void setSand_RghtRocket_LPan1(boolean sand_RghtRocket_LPan1) {
+        this.sand_RghtRocket_LPan1 = sand_RghtRocket_LPan1;
+    }
+
+    public boolean isSand_RghtRocket_LPan2() {
+        return sand_RghtRocket_LPan2;
+    }
+
+    public void setSand_RghtRocket_LPan2(boolean sand_RghtRocket_LPan2) {
+        this.sand_RghtRocket_LPan2 = sand_RghtRocket_LPan2;
+    }
+
+    public boolean isSand_RghtRocket_LPan3() {
+        return sand_RghtRocket_LPan3;
+    }
+
+    public void setSand_RghtRocket_LPan3(boolean sand_RghtRocket_LPan3) {
+        this.sand_RghtRocket_LPan3 = sand_RghtRocket_LPan3;
+    }
+
+    public boolean isSand_RghtRocket_RPan1() {
+        return sand_RghtRocket_RPan1;
+    }
+
+    public void setSand_RghtRocket_RPan1(boolean sand_RghtRocket_RPan1) {
+        this.sand_RghtRocket_RPan1 = sand_RghtRocket_RPan1;
+    }
+
+    public boolean isSand_RghtRocket_RPan2() {
+        return sand_RghtRocket_RPan2;
+    }
+
+    public void setSand_RghtRocket_RPan2(boolean sand_RghtRocket_RPan2) {
+        this.sand_RghtRocket_RPan2 = sand_RghtRocket_RPan2;
+    }
+
+    public boolean isSand_RghtRocket_RPan3() {
+        return sand_RghtRocket_RPan3;
+    }
+
+    public void setSand_RghtRocket_RPan3(boolean sand_RghtRocket_RPan3) {
+        this.sand_RghtRocket_RPan3 = sand_RghtRocket_RPan3;
+    }
+
+    public boolean isSand_RghtRocket_LCarg1() {
+        return sand_RghtRocket_LCarg1;
+    }
+
+    public void setSand_RghtRocket_LCarg1(boolean sand_RghtRocket_LCarg1) {
+        this.sand_RghtRocket_LCarg1 = sand_RghtRocket_LCarg1;
+    }
+
+    public boolean isSand_RghtRocket_LCarg2() {
+        return sand_RghtRocket_LCarg2;
+    }
+
+    public void setSand_RghtRocket_LCarg2(boolean sand_RghtRocket_LCarg2) {
+        this.sand_RghtRocket_LCarg2 = sand_RghtRocket_LCarg2;
+    }
+
+    public boolean isSand_RghtRocket_LCarg3() {
+        return sand_RghtRocket_LCarg3;
+    }
+
+    public void setSand_RghtRocket_LCarg3(boolean sand_RghtRocket_LCarg3) {
+        this.sand_RghtRocket_LCarg3 = sand_RghtRocket_LCarg3;
+    }
+
+    public boolean isSand_RghtRocket_RCarg1() {
+        return sand_RghtRocket_RCarg1;
+    }
+
+    public void setSand_RghtRocket_RCarg1(boolean sand_RghtRocket_RCarg1) {
+        this.sand_RghtRocket_RCarg1 = sand_RghtRocket_RCarg1;
+    }
+
+    public boolean isSand_RghtRocket_RCarg2() {
+        return sand_RghtRocket_RCarg2;
+    }
+
+    public void setSand_RghtRocket_RCarg2(boolean sand_RghtRocket_RCarg2) {
+        this.sand_RghtRocket_RCarg2 = sand_RghtRocket_RCarg2;
+    }
+
+    public boolean isSand_RghtRocket_RCarg3() {
+        return sand_RghtRocket_RCarg3;
+    }
+
+    public void setSand_RghtRocket_RCarg3(boolean sand_RghtRocket_RCarg3) {
+        this.sand_RghtRocket_RCarg3 = sand_RghtRocket_RCarg3;
     }
 
     public boolean isTele_LeftRocket_LPan1() {
@@ -293,6 +729,134 @@ public matchData() {
 
     public void setTele_LeftRocket_RCarg3(boolean tele_LeftRocket_RCarg3) {
         this.tele_LeftRocket_RCarg3 = tele_LeftRocket_RCarg3;
+    }
+
+    public boolean isTele_CargoLPan1() {
+        return tele_CargoLPan1;
+    }
+
+    public void setTele_CargoLPan1(boolean tele_CargoLPan1) {
+        this.tele_CargoLPan1 = tele_CargoLPan1;
+    }
+
+    public boolean isTele_CargoLPan2() {
+        return tele_CargoLPan2;
+    }
+
+    public void setTele_CargoLPan2(boolean tele_CargoLPan2) {
+        this.tele_CargoLPan2 = tele_CargoLPan2;
+    }
+
+    public boolean isTele_CargoLPan3() {
+        return tele_CargoLPan3;
+    }
+
+    public void setTele_CargoLPan3(boolean tele_CargoLPan3) {
+        this.tele_CargoLPan3 = tele_CargoLPan3;
+    }
+
+    public boolean isTele_CargoRPan1() {
+        return tele_CargoRPan1;
+    }
+
+    public void setTele_CargoRPan1(boolean tele_CargoRPan1) {
+        this.tele_CargoRPan1 = tele_CargoRPan1;
+    }
+
+    public boolean isTele_CargoRPan2() {
+        return tele_CargoRPan2;
+    }
+
+    public void setTele_CargoRPan2(boolean tele_CargoRPan2) {
+        this.tele_CargoRPan2 = tele_CargoRPan2;
+    }
+
+    public boolean isTele_CargoRPan3() {
+        return tele_CargoRPan3;
+    }
+
+    public void setTele_CargoRPan3(boolean tele_CargoRPan3) {
+        this.tele_CargoRPan3 = tele_CargoRPan3;
+    }
+
+    public boolean isTele_CargoLCarg1() {
+        return tele_CargoLCarg1;
+    }
+
+    public void setTele_CargoLCarg1(boolean tele_CargoLCarg1) {
+        this.tele_CargoLCarg1 = tele_CargoLCarg1;
+    }
+
+    public boolean isTele_CargoLCarg2() {
+        return tele_CargoLCarg2;
+    }
+
+    public void setTele_CargoLCarg2(boolean tele_CargoLCarg2) {
+        this.tele_CargoLCarg2 = tele_CargoLCarg2;
+    }
+
+    public boolean isTele_CargoLCarg3() {
+        return tele_CargoLCarg3;
+    }
+
+    public void setTele_CargoLCarg3(boolean tele_CargoLCarg3) {
+        this.tele_CargoLCarg3 = tele_CargoLCarg3;
+    }
+
+    public boolean isTele_CargoRCarg1() {
+        return tele_CargoRCarg1;
+    }
+
+    public void setTele_CargoRCarg1(boolean tele_CargoRCarg1) {
+        this.tele_CargoRCarg1 = tele_CargoRCarg1;
+    }
+
+    public boolean isTele_CargoRCarg2() {
+        return tele_CargoRCarg2;
+    }
+
+    public void setTele_CargoRCarg2(boolean tele_CargoRCarg2) {
+        this.tele_CargoRCarg2 = tele_CargoRCarg2;
+    }
+
+    public boolean isTele_CargoRCarg3() {
+        return tele_CargoRCarg3;
+    }
+
+    public void setTele_CargoRCarg3(boolean tele_CargoRCarg3) {
+        this.tele_CargoRCarg3 = tele_CargoRCarg3;
+    }
+
+    public boolean isTele_CargoEndLPan1() {
+        return tele_CargoEndLPan1;
+    }
+
+    public void setTele_CargoEndLPan1(boolean tele_CargoEndLPan1) {
+        this.tele_CargoEndLPan1 = tele_CargoEndLPan1;
+    }
+
+    public boolean isTele_CargoEndLCarg1() {
+        return tele_CargoEndLCarg1;
+    }
+
+    public void setTele_CargoEndLCarg1(boolean tele_CargoEndLCarg1) {
+        this.tele_CargoEndLCarg1 = tele_CargoEndLCarg1;
+    }
+
+    public boolean isTele_CargoEndRPan1() {
+        return tele_CargoEndRPan1;
+    }
+
+    public void setTele_CargoEndRPan1(boolean tele_CargoEndRPan1) {
+        this.tele_CargoEndRPan1 = tele_CargoEndRPan1;
+    }
+
+    public boolean isTele_CargoEndRCarg1() {
+        return tele_CargoEndRCarg1;
+    }
+
+    public void setTele_CargoEndRCarg1(boolean tele_CargoEndRCarg1) {
+        this.tele_CargoEndRCarg1 = tele_CargoEndRCarg1;
     }
 
     public boolean isTele_RghtRocket_LPan1() {
@@ -518,6 +1082,7 @@ public matchData() {
     public void setFinal_dateTime(String final_dateTime) {
         this.final_dateTime = final_dateTime;
     }
+
 
     // New Match Data Object *** GLF 1/20/19
 
