@@ -291,14 +291,6 @@ public matchData() {
         return pre_startPos;
     }
 
-    public void setPre_startPos(String pre_startPos) {
-        this.pre_startPos = pre_startPos;
-    }
-
-    public int getPre_PlayerSta() {
-        return pre_PlayerSta;
-    }
-
     public void setPre_PlayerSta(int pre_PlayerSta) {
         this.pre_PlayerSta = pre_PlayerSta;
     }
