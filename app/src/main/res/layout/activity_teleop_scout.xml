@@ -319,7 +319,7 @@
                 android:buttonTint="@color/yellow" />
             // ----------------- END ----------------------------
             <CheckBox
-                android:id="@+id/chk_CargoLELPan1"
+                android:id="@+id/chk_CargoEndLPan1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -328,7 +328,7 @@
                 android:buttonTint="@color/brightblue" />
 
             <CheckBox
-                android:id="@+id/chk_CargoELCarg1"
+                android:id="@+id/chk_CargoEndLCarg1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -336,7 +336,7 @@
                 android:layout_marginTop="130dp"
                 android:buttonTint="@color/yellow" />
             <CheckBox
-                android:id="@+id/chk_CargoLERPan1"
+                android:id="@+id/chk_CargoEndRPan1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -344,7 +344,7 @@
                 android:layout_marginTop="170dp"
                 android:buttonTint="@color/brightblue" />
             <CheckBox
-                android:id="@+id/chk_CargoERCarg1"
+                android:id="@+id/chk_CargoEndRCarg1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"

@@ -34,6 +34,9 @@ public class TeleopScoutActivity extends Activity {
     /* Header Sect. */  TextView txt_dev, txt_stud, txt_match, txt_tnum;
     /* L Rocket */      CheckBox chk_LeftRocket_LPan1,chk_LeftRocket_LPan2,chk_LeftRocket_LPan3, chk_LeftRocket_LCarg1,chk_LeftRocket_LCarg2,chk_LeftRocket_LCarg3;
                         CheckBox chk_LeftRocket_RPan1,chk_LeftRocket_RPan2,chk_LeftRocket_RPan3, chk_LeftRocket_RCarg1,chk_LeftRocket_RCarg2,chk_LeftRocket_RCarg3;
+    /* CargoShip */     CheckBox chk_CargoLPan1,chk_CargoLPan2,chk_CargoLPan3, chk_CargoLCarg1,chk_CargoLCarg2,chk_CargoLCarg3;
+                        CheckBox chk_CargoRPan1,chk_CargoRPan2,chk_CargoRPan3, chk_CargoRCarg1,chk_CargoRCarg2,chk_CargoRCarg3;
+                        CheckBox chk_CargoEndLPan1,chk_CargoEndRPan1,chk_CargoEndLCarg1,chk_CargoEndRCarg1;
     /* R Rocket */      CheckBox chk_RghtRocket_LPan1,chk_RghtRocket_LPan2,chk_RghtRocket_LPan3, chk_RghtRocket_LCarg1,chk_RghtRocket_LCarg2,chk_RghtRocket_LCarg3;
                         CheckBox chk_RghtRocket_RPan1,chk_RghtRocket_RPan2,chk_RghtRocket_RPan3, chk_RghtRocket_RCarg1,chk_RghtRocket_RCarg2,chk_RghtRocket_RCarg3;
     /* Comment */       EditText editText_TeleComments;
@@ -52,40 +55,58 @@ public class TeleopScoutActivity extends Activity {
     String tn  = " ";
 
     // ===================  TeleOps Elements for Match Scout Data object ===================
-    public boolean LeftRocket_LPan1    = false;  // L-Rocket L-Panel#1
-    public boolean LeftRocket_LPan2    = false;  // L-Rocket L-Panel#2
-    public boolean LeftRocket_LPan3    = false;  // L-Rocket L-Panel#3
-    public boolean LeftRocket_RPan1    = false;  // L-Rocket R-Panel#1
-    public boolean LeftRocket_RPan2    = false;  // L-Rocket R-Panel#2
-    public boolean LeftRocket_RPan3    = false;  // L-Rocket R-Panel#3
-    public boolean LeftRocket_LCarg1   = false; // L-Rocket L-Cargo#1
-    public boolean LeftRocket_LCarg2   = false; // L-Rocket L-Cargo#2
-    public boolean LeftRocket_LCarg3   = false; // L-Rocket L-Cargo#3
-    public boolean LeftRocket_RCarg1   = false; // L-Rocket R-Cargo#1
-    public boolean LeftRocket_RCarg2   = false; // L-Rocket R-Cargo#2
-    public boolean LeftRocket_RCarg3   = false; // L-Rocket R-Cargo#3
+    public boolean LeftRocket_LPan1   = false;  // L-Rocket L-Panel#1
+    public boolean LeftRocket_LPan2   = false;  // L-Rocket L-Panel#2
+    public boolean LeftRocket_LPan3   = false;  // L-Rocket L-Panel#3
+    public boolean LeftRocket_RPan1   = false;  // L-Rocket R-Panel#1
+    public boolean LeftRocket_RPan2   = false;  // L-Rocket R-Panel#2
+    public boolean LeftRocket_RPan3   = false;  // L-Rocket R-Panel#3
+    public boolean LeftRocket_LCarg1  = false; // L-Rocket L-Cargo#1
+    public boolean LeftRocket_LCarg2  = false; // L-Rocket L-Cargo#2
+    public boolean LeftRocket_LCarg3  = false; // L-Rocket L-Cargo#3
+    public boolean LeftRocket_RCarg1  = false; // L-Rocket R-Cargo#1
+    public boolean LeftRocket_RCarg2  = false; // L-Rocket R-Cargo#2
+    public boolean LeftRocket_RCarg3  = false; // L-Rocket R-Cargo#3
 
-    public boolean RghtRocket_LPan1    = false;  // R-Rocket L-Panel#1
-    public boolean RghtRocket_LPan2    = false;  // R-Rocket L-Panel#2
-    public boolean RghtRocket_LPan3    = false;  // R-Rocket L-Panel#3
-    public boolean RghtRocket_RPan1    = false;  // R-Rocket R-Panel#1
-    public boolean RghtRocket_RPan2    = false;  // R-Rocket R-Panel#2
-    public boolean RghtRocket_RPan3    = false;  // R-Rocket R-Panel#3
-    public boolean RghtRocket_LCarg1   = false; // R-Rocket L-Cargo#1
-    public boolean RghtRocket_LCarg2   = false; // R-Rocket L-Cargo#2
-    public boolean RghtRocket_LCarg3   = false; // R-Rocket L-Cargo#3
-    public boolean RghtRocket_RCarg1   = false; // R-Rocket R-Cargo#1
-    public boolean RghtRocket_RCarg2   = false; // R-Rocket R-Cargo#2
-    public boolean RghtRocket_RCarg3   = false; // R-Rocket R-Cargo#3
+    public boolean CargoLPan1         = false;; // Cargo L-Panel#1
+    public boolean CargoLPan2         = false;; // Cargo L-Panel#2
+    public boolean CargoLPan3         = false;; // Cargo L-Panel#3
+    public boolean CargoRPan1         = false;; // Cargo R-Panel#1
+    public boolean CargoRPan2         = false;; // Cargo R-Panel#2
+    public boolean CargoRPan3         = false;; // Cargo R-Panel#3
+    public boolean CargoLCarg1        = false;; // Cargo L-Cargo#1
+    public boolean CargoLCarg2        = false;; // Cargo L-Cargo#2
+    public boolean CargoLCarg3        = false;; // Cargo L-Cargo#3
+    public boolean CargoRCarg1        = false;; // Cargo R-Cargo#1
+    public boolean CargoRCarg2        = false;; // Cargo R-Cargo#2
+    public boolean CargoRCarg3        = false;; // Cargo R-Cargo#3
+    public boolean CargoEndLPan1      = false;; // Cargo End L-Panel#1
+    public boolean CargoEndLCarg1     = false;; // Cargo End L-Cargo#1
+    public boolean CargoEndRPan1      = false;; // Cargo End R-Panel#1
+    public boolean CargoEndRCarg1     = false;; // Cargo End R-Cargo#1
 
-    public boolean cube_pickup         = false; // Did they pickup cargo off the ground?
-    public boolean panel_pickup        = false; // Did they pickup panel off the ground?
-    public int end_HAB_Level           = 0;     // HAB Level
-    public boolean got_lift            = false; // Got Lifted by another robot
-    public boolean lifted              = false; // Got Lifted by another robot
-    public int final_num_Penalties     = 0;     // How many penalties received?
+
+    public boolean RghtRocket_LPan1   = false;  // R-Rocket L-Panel#1
+    public boolean RghtRocket_LPan2   = false;  // R-Rocket L-Panel#2
+    public boolean RghtRocket_LPan3   = false;  // R-Rocket L-Panel#3
+    public boolean RghtRocket_RPan1   = false;  // R-Rocket R-Panel#1
+    public boolean RghtRocket_RPan2   = false;  // R-Rocket R-Panel#2
+    public boolean RghtRocket_RPan3   = false;  // R-Rocket R-Panel#3
+    public boolean RghtRocket_LCarg1  = false;  // R-Rocket L-Cargo#1
+    public boolean RghtRocket_LCarg2  = false;  // R-Rocket L-Cargo#2
+    public boolean RghtRocket_LCarg3  = false;  // R-Rocket L-Cargo#3
+    public boolean RghtRocket_RCarg1  = false;  // R-Rocket R-Cargo#1
+    public boolean RghtRocket_RCarg2  = false;  // R-Rocket R-Cargo#2
+    public boolean RghtRocket_RCarg3  = false;  // R-Rocket R-Cargo#3
+
+    public boolean cube_pickup        = false;  // Did they pickup cargo off the ground?
+    public boolean panel_pickup       = false;  // Did they pickup panel off the ground?
+    public int end_HAB_Level          = 0;      // HAB Level
+    public boolean got_lift           = false;  // Got Lifted by another robot
+    public boolean lifted             = false;  // Got Lifted by another robot
+    public int final_num_Penalties    = 0;      // How many penalties received?
     /* */
-    public String  teleComment         = " ";   // Tele Comment
+    public String  teleComment        = " ";    // Tele Comment
     // ===========================================================================
     matchData match_cycle = new matchData();
 
