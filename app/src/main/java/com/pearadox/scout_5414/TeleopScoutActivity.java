@@ -111,6 +111,7 @@ public class TeleopScoutActivity extends Activity {
     matchData match_cycle = new matchData();
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,53 +123,91 @@ public class TeleopScoutActivity extends Activity {
 
         txt_tnum = (TextView) findViewById(R.id.txt_tnum);
         txt_tnum.setText(tn);
+        // Left Rocket
+        chk_LeftRocket_LPan1    = (CheckBox) findViewById(R.id.chk_LeftRocket_LPan1);
+        chk_LeftRocket_LPan2    = (CheckBox) findViewById(R.id.chk_LeftRocket_LPan2);
+        chk_LeftRocket_LPan3    = (CheckBox) findViewById(R.id.chk_LeftRocket_LPan3);
+        chk_LeftRocket_RPan1    = (CheckBox) findViewById(R.id.chk_LeftRocket_RPan1);
+        chk_LeftRocket_RPan2    = (CheckBox) findViewById(R.id.chk_LeftRocket_RPan2);
+        chk_LeftRocket_RPan3    = (CheckBox) findViewById(R.id.chk_LeftRocket_RPan3);
+        chk_LeftRocket_LCarg1   = (CheckBox) findViewById(R.id.chk_LeftRocket_LCarg1);
+        chk_LeftRocket_LCarg2   = (CheckBox) findViewById(R.id.chk_LeftRocket_LCarg2);
+        chk_LeftRocket_LCarg3   = (CheckBox) findViewById(R.id.chk_LeftRocket_LCarg3);
+        chk_LeftRocket_RCarg1   = (CheckBox) findViewById(R.id.chk_LeftRocket_RCarg1);
+        chk_LeftRocket_RCarg2   = (CheckBox) findViewById(R.id.chk_LeftRocket_RCarg2);
+        chk_LeftRocket_RCarg3   = (CheckBox) findViewById(R.id.chk_LeftRocket_RCarg3);
+        // Cargo Ship
+        chk_CargoLPan1          = (CheckBox) findViewById(R.id.chk_CargoLPan1);
+        chk_CargoLPan2          = (CheckBox) findViewById(R.id.chk_CargoLPan2);
+        chk_CargoLPan3          = (CheckBox) findViewById(R.id.chk_CargoLPan3);
+        chk_CargoRPan1          = (CheckBox) findViewById(R.id.chk_CargoRPan1);
+        chk_CargoRPan2          = (CheckBox) findViewById(R.id.chk_CargoRPan2);
+        chk_CargoRPan3          = (CheckBox) findViewById(R.id.chk_CargoRPan3);
+        chk_CargoLPan1          = (CheckBox) findViewById(R.id.chk_CargoLPan1);
+        chk_CargoLCarg1          = (CheckBox) findViewById(R.id.chk_CargoLCarg1);
+        chk_CargoLCarg2          = (CheckBox) findViewById(R.id.chk_CargoLCarg2);
+        chk_CargoLCarg3          = (CheckBox) findViewById(R.id.chk_CargoLCarg3);
 
-        chk_LiftedBy              = (CheckBox) findViewById(R.id.chk_LiftedBy);
-        chk_Lifted                = (CheckBox) findViewById(R.id.chk_Lifted);
-        chkBox_PU_Cargo_floor     = (CheckBox) findViewById(R.id.chkBox_PU_Cargo_floor);
-        chkBox_PU_Panel_floor     = (CheckBox) findViewById(R.id.chkBox_PU_Panel_floor);
-        editText_TeleComments     = (EditText) findViewById(R.id.editText_teleComments);
-        button_GoToFinalActivity  = (Button)   findViewById(R.id.button_GoToFinalActivity);
-        lbl_Number_Penalties      = (TextView) findViewById(R.id.lbl_Number_Penalties);
+        // Right Rocket
+        chk_RghtRocket_LPan1    = (CheckBox) findViewById(R.id.chk_RghtRocket_LPan1);
+        chk_RghtRocket_LPan2    = (CheckBox) findViewById(R.id.chk_RghtRocket_LPan2);
+        chk_RghtRocket_LPan3    = (CheckBox) findViewById(R.id.chk_RghtRocket_LPan3);
+        chk_RghtRocket_RPan1    = (CheckBox) findViewById(R.id.chk_RghtRocket_RPan1);
+        chk_RghtRocket_RPan2    = (CheckBox) findViewById(R.id.chk_RghtRocket_RPan2);
+        chk_RghtRocket_RPan3    = (CheckBox) findViewById(R.id.chk_RghtRocket_RPan3);
+        chk_RghtRocket_LCarg1   = (CheckBox) findViewById(R.id.chk_RghtRocket_LCarg1);
+        chk_RghtRocket_LCarg2   = (CheckBox) findViewById(R.id.chk_RghtRocket_LCarg2);
+        chk_RghtRocket_LCarg3   = (CheckBox) findViewById(R.id.chk_RghtRocket_LCarg3);
+        chk_RghtRocket_RCarg1   = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg1);
+        chk_RghtRocket_RCarg2   = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg2);
+        chk_RghtRocket_RCarg3   = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg3);
+
+        editText_TeleComments   = (EditText) findViewById(R.id.editText_teleComments);
+        chkBox_PU_Cargo_floor   = (CheckBox) findViewById(R.id.chkBox_PU_Cargo_floor);
+        chkBox_PU_Panel_floor   = (CheckBox) findViewById(R.id.chkBox_PU_Panel_floor);
+        radio_Zero              = (RadioButton) findViewById(R.id.radio_Zero);
+        radio_One               = (RadioButton) findViewById(R.id.radio_One);
+        radio_Two               = (RadioButton) findViewById(R.id.radio_Two);
+        radio_Three             = (RadioButton) findViewById(R.id.radio_Three);
+        chk_LiftedBy            = (CheckBox) findViewById(R.id.chk_LiftedBy);
+        chk_Lifted              = (CheckBox) findViewById(R.id.chk_Lifted);
         button_Number_PenaltiesPlus = (Button) findViewById(R.id.button_Number_PenaltiesPlus);
         button_Number_PenaltiesUndo = (Button) findViewById(R.id.button_Number_PenaltiesUndo);
+        button_GoToFinalActivity  = (Button)   findViewById(R.id.button_GoToFinalActivity);
 
-        pfDatabase                = FirebaseDatabase.getInstance();                 // Firebase
-        pfDevice_DBReference      = pfDatabase      .getReference("devices");    // List of Devices
+        pfDatabase                = FirebaseDatabase.getInstance();            // Firebase
+        pfDevice_DBReference      = pfDatabase.getReference("devices");     // List of Devices
 
-        radio_Zero = (RadioButton) findViewById(R.id.radio_Zero);
-        //radio_Zero.setEnabled(false);        // Don't let them choose if CLIMB not selected
-        radio_One = (RadioButton) findViewById(R.id.radio_One);
-        //radio_One.setEnabled(false);        // Don't let them choose if CLIMB not selected
-        radio_Two = (RadioButton) findViewById(R.id.radio_Two);
-        //radio_Two.setEnabled(false);        // Don't let them choose if CLIMB not selected
-        radio_Three = (RadioButton) findViewById(R.id.radio_Three);
+        Pearadox.Match_Data.setSand_LeftRocket_LPan1(true);  //DEBUG
+        Pearadox.Match_Data.setSand_LeftRocket_LPan3(true);  //DEBUG
+        carry_over_chks();              // Carry-over check boxes from SandStorm
+
 
 // *****************************************************************************************
 // *****************************************************************************************
 
 
-        button_GoToFinalActivity.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.w(TAG, "Clicked Final");
-                // ToDo - Check for ANY required fields
+    button_GoToFinalActivity.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View v) {
+        Log.w(TAG, "###  Clicked Final  ###");
+        // ToDo - Check for ANY required fields
 //                if (!climb_success || (climb_success && (radio_Rung.isChecked() || radio_Side.isChecked()))) {     // Gotta pick one!
-                    updateDev("Final");           // Update 'Phase' for stoplight indicator in ScoutM aster
-                    storeTeleData();                    // Put all the TeleOps data collected in Match object
+            updateDev("Final");           // Update 'Phase' for stoplight indicator in ScoutM aster
+            storeTeleData();                    // Put all the TeleOps data collected in Match object
 
-                    Intent smast_intent = new Intent(TeleopScoutActivity.this, FinalActivity.class);
-                    Bundle SMbundle = new Bundle();
-                    SMbundle.putString("tnum", tn);
-                    smast_intent.putExtras(SMbundle);
-                    startActivity(smast_intent);
+            Intent smast_intent = new Intent(TeleopScoutActivity.this, FinalActivity.class);
+            Bundle SMbundle = new Bundle();
+            SMbundle.putString("tnum", tn);
+            smast_intent.putExtras(SMbundle);
+            startActivity(smast_intent);
 //                } else {
 //                    Log.e(TAG, "ERROR - did not select lift type");
 //                    Toast.makeText(getBaseContext(), "** Climb _MUST_ have 'Rung' or 'Side' selected **", Toast.LENGTH_LONG).show();
 //                    final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
 //                    tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
 //                }
-            }
-        });
+        }
+    });
 
     chkBox_PU_Cargo_floor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
         @Override
@@ -276,6 +315,16 @@ public class TeleopScoutActivity extends Activity {
         }
     });
 }
+
+    /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+    // Carry-over check boxes from SandStorm to Tele
+    private void carry_over_chks() {
+        Log.w(TAG, "$$$ carry_over_chks $$$");
+        chk_LeftRocket_LPan1.setChecked(Pearadox.Match_Data.isSand_LeftRocket_RPan1());
+        chk_LeftRocket_LPan2.setChecked(Pearadox.Match_Data.isSand_LeftRocket_RPan2());
+        chk_LeftRocket_LPan3.setChecked(Pearadox.Match_Data.isSand_LeftRocket_RPan3());
+
+    }
 
 
     /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */

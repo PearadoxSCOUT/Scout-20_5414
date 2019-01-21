@@ -391,7 +391,7 @@
             // --------------- LEFT ----------------------------------
 
             <CheckBox
-                android:id="@+id/chk_RghtRocket_LPan3"
+                android:id="@+id/chk_RghtRocket_LPan1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -399,7 +399,7 @@
                 android:layout_marginTop="90dp"
                 android:buttonTint="@color/brightblue" />
             <CheckBox
-                android:id="@+id/chk_RghtRocket_LP1"
+                android:id="@+id/chk_RghtRocket_LCarg1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -424,7 +424,7 @@
                 android:buttonTint="@color/yellow" />
 
             <CheckBox
-                android:id="@+id/chk_RghtRocket_LPan1"
+                android:id="@+id/chk_RghtRocket_LPan3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"

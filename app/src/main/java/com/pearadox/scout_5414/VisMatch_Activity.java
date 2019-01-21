@@ -159,9 +159,9 @@ public class VisMatch_Activity extends AppCompatActivity {
             match_inst = Pearadox.Matches_Data.get(i);      // Get instance of Match Data
             matches = matches + match_inst.getMatch() + "  ";
 
-            if (match_inst.isAuto_mode()) {
-                noAuto++;
-            }
+//            if (match_inst.isAuto_mode()) {
+//                noAuto++;
+//            }
 //            if (match_inst.isAuto_baseline()) {
 //                numAutoBaseline++;
 //            }
@@ -197,8 +197,8 @@ public class VisMatch_Activity extends AppCompatActivity {
 //            }
 
 //            Log.w(TAG, "Auto Comment = " + match_inst.getAuto_comment() + "  " + match_inst.getAuto_comment().length());
-            if (match_inst.getAuto_comment().length() > 1) {
-                auto_Comments = auto_Comments + match_inst.getMatch() + "-" + match_inst.getAuto_comment() + "\n" + underScore  + "\n" ;
+            if (match_inst.getSand_comment().length() > 1) {
+                auto_Comments = auto_Comments + match_inst.getMatch() + "-" + match_inst.getSand_comment() + "\n" + underScore  + "\n" ;
             }
             String pos = match_inst.getPre_startPos().trim();
             Log.w(TAG, "Start Pos. " + pos);
