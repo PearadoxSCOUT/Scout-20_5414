@@ -78,14 +78,14 @@ public class TeleopScoutActivity extends Activity {
     public boolean RghtRocket_RCarg2   = false; // R-Rocket R-Cargo#2
     public boolean RghtRocket_RCarg3   = false; // R-Rocket R-Cargo#3
 
-    public boolean cube_pickup              = false; // Did they pickup cargo off the ground?
-    public boolean panel_pickup             = false; // Did they pickup panel off the ground?
-    public int end_HAB_Level                = 0;     // HAB Level
-    public boolean got_lift                 = false; // Got Lifted by another robot
-    public boolean lifted                   = false; // Got Lifted by another robot
-    public int final_num_Penalties          = 0;     // How many penalties received?
+    public boolean cube_pickup         = false; // Did they pickup cargo off the ground?
+    public boolean panel_pickup        = false; // Did they pickup panel off the ground?
+    public int end_HAB_Level           = 0;     // HAB Level
+    public boolean got_lift            = false; // Got Lifted by another robot
+    public boolean lifted              = false; // Got Lifted by another robot
+    public int final_num_Penalties     = 0;     // How many penalties received?
     /* */
-    public String  teleComment              = " ";   // Tele Comment
+    public String  teleComment         = " ";   // Tele Comment
     // ===========================================================================
     matchData match_cycle = new matchData();
 
