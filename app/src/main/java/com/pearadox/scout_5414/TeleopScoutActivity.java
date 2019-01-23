@@ -44,7 +44,7 @@ public class TeleopScoutActivity extends Activity {
     /* HAB */           RadioGroup  radgrp_HAB;      RadioButton  radio_Lift, radio_One, radio_Two, radio_Three, radio_Zero;
                         CheckBox chk_LiftedBy, chk_Lifted;
     /* Last Sect. */    Button button_GoToFinalActivity, button_Number_PenaltiesPlus, button_Number_PenaltiesUndo;
-                        TextView lbl_Number_Penalties;
+                        TextView txt_Number_Penalties;
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     private FirebaseDatabase  pfDatabase;
 //    private DatabaseReference pfTeam_DBReference;
@@ -55,6 +55,7 @@ public class TeleopScoutActivity extends Activity {
     String tn  = " ";
 
     // ===================  TeleOps Elements for Match Scout Data object ===================
+    // Declare & initialize
     public boolean LeftRocket_LPan1   = false;  // L-Rocket L-Panel#1
     public boolean LeftRocket_LPan2   = false;  // L-Rocket L-Panel#2
     public boolean LeftRocket_LPan3   = false;  // L-Rocket L-Panel#3
@@ -80,10 +81,10 @@ public class TeleopScoutActivity extends Activity {
     public boolean CargoRCarg1        = false;; // Cargo R-Cargo#1
     public boolean CargoRCarg2        = false;; // Cargo R-Cargo#2
     public boolean CargoRCarg3        = false;; // Cargo R-Cargo#3
-    public boolean CargoEndLPan1      = false;; // Cargo End L-Panel#1
-    public boolean CargoEndLCarg1     = false;; // Cargo End L-Cargo#1
-    public boolean CargoEndRPan1      = false;; // Cargo End R-Panel#1
-    public boolean CargoEndRCarg1     = false;; // Cargo End R-Cargo#1
+    public boolean CargoEndLPanel     = false;; // Cargo End L-Panel#1
+    public boolean CargoEndLCargo     = false;; // Cargo End L-Cargo#1
+    public boolean CargoEndRPanel     = false;; // Cargo End R-Panel#1
+    public boolean CargoEndRCargo     = false;; // Cargo End R-Cargo#1
 
 
     public boolean RghtRocket_LPan1   = false;  // R-Rocket L-Panel#1
@@ -144,16 +145,16 @@ public class TeleopScoutActivity extends Activity {
         chk_CargoRPan2          = (CheckBox) findViewById(R.id.chk_CargoRPan2);
         chk_CargoRPan3          = (CheckBox) findViewById(R.id.chk_CargoRPan3);
         chk_CargoLPan1          = (CheckBox) findViewById(R.id.chk_CargoLPan1);
-        chk_CargoLCarg1          = (CheckBox) findViewById(R.id.chk_CargoLCarg1);
-        chk_CargoLCarg2          = (CheckBox) findViewById(R.id.chk_CargoLCarg2);
-        chk_CargoLCarg3          = (CheckBox) findViewById(R.id.chk_CargoLCarg3);
-        chk_CargoRCarg1          = (CheckBox) findViewById(R.id.chk_CargoRCarg1);
-        chk_CargoRCarg2          = (CheckBox) findViewById(R.id.chk_CargoRCarg2);
-        chk_CargoRCarg3          = (CheckBox) findViewById(R.id.chk_CargoRCarg3);
-        chk_CargoEndLPanel       = (CheckBox) findViewById(R.id.chk_CargoEndLPanel);
-        chk_CargoEndRPanel       = (CheckBox) findViewById(R.id.chk_CargoEndRPanel);
-        chk_CargoEndLCargo       = (CheckBox) findViewById(R.id.chk_CargoEndLCargo);
-        chk_CargoEndRCargo       = (CheckBox) findViewById(R.id.chk_CargoEndRCargo);
+        chk_CargoLCarg1         = (CheckBox) findViewById(R.id.chk_CargoLCarg1);
+        chk_CargoLCarg2         = (CheckBox) findViewById(R.id.chk_CargoLCarg2);
+        chk_CargoLCarg3         = (CheckBox) findViewById(R.id.chk_CargoLCarg3);
+        chk_CargoRCarg1         = (CheckBox) findViewById(R.id.chk_CargoRCarg1);
+        chk_CargoRCarg2         = (CheckBox) findViewById(R.id.chk_CargoRCarg2);
+        chk_CargoRCarg3         = (CheckBox) findViewById(R.id.chk_CargoRCarg3);
+        chk_CargoEndLPanel      = (CheckBox) findViewById(R.id.chk_CargoEndLPanel);
+        chk_CargoEndRPanel      = (CheckBox) findViewById(R.id.chk_CargoEndRPanel);
+        chk_CargoEndLCargo      = (CheckBox) findViewById(R.id.chk_CargoEndLCargo);
+        chk_CargoEndRCargo      = (CheckBox) findViewById(R.id.chk_CargoEndRCargo);
         // Right Rocket
         chk_RghtRocket_LPan1    = (CheckBox) findViewById(R.id.chk_RghtRocket_LPan1);
         chk_RghtRocket_LPan2    = (CheckBox) findViewById(R.id.chk_RghtRocket_LPan2);
@@ -180,6 +181,8 @@ public class TeleopScoutActivity extends Activity {
         button_Number_PenaltiesPlus = (Button) findViewById(R.id.button_Number_PenaltiesPlus);
         button_Number_PenaltiesUndo = (Button) findViewById(R.id.button_Number_PenaltiesUndo);
         button_GoToFinalActivity  = (Button)   findViewById(R.id.button_GoToFinalActivity);
+        txt_Number_Penalties    = (TextView) findViewById(R.id.txt_Number_Penalties);
+
 
         pfDatabase                = FirebaseDatabase.getInstance();            // Firebase
         pfDevice_DBReference      = pfDatabase.getReference("devices");     // List of Devices
@@ -296,9 +299,8 @@ public class TeleopScoutActivity extends Activity {
     button_Number_PenaltiesPlus.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
             final_num_Penalties++;
-
-            Log.w(TAG, "Penalties = " + final_num_Penalties);      // ** DEBUG **
-            lbl_Number_Penalties.setText(Integer.toString(final_num_Penalties));    // Perform action on click
+            Log.w(TAG, "Penalties = " + Integer.toString(final_num_Penalties));      // ** DEBUG **
+            txt_Number_Penalties.setText(Integer.toString(final_num_Penalties));    // Perform action on click
         }
     });
     button_Number_PenaltiesUndo.setOnClickListener(new View.OnClickListener() {
@@ -306,8 +308,8 @@ public class TeleopScoutActivity extends Activity {
             if (final_num_Penalties >= 1) {
                 final_num_Penalties--;
             }
-            Log.w(TAG, "Penalties = " + final_num_Penalties);      // ** DEBUG **
-            lbl_Number_Penalties.setText(Integer.toString(final_num_Penalties));    // Perform action on click
+            Log.w(TAG, "Penalties = " + Integer.toString(final_num_Penalties));      // ** DEBUG **
+            txt_Number_Penalties.setText(Integer.toString(final_num_Penalties));    // Perform action on click
         }
     });
 
