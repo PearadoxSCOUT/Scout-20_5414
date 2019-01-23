@@ -36,7 +36,7 @@ public class TeleopScoutActivity extends Activity {
                         CheckBox chk_LeftRocket_RPan1,chk_LeftRocket_RPan2,chk_LeftRocket_RPan3, chk_LeftRocket_RCarg1,chk_LeftRocket_RCarg2,chk_LeftRocket_RCarg3;
     /* CargoShip */     CheckBox chk_CargoLPan1,chk_CargoLPan2,chk_CargoLPan3, chk_CargoLCarg1,chk_CargoLCarg2,chk_CargoLCarg3;
                         CheckBox chk_CargoRPan1,chk_CargoRPan2,chk_CargoRPan3, chk_CargoRCarg1,chk_CargoRCarg2,chk_CargoRCarg3;
-                        CheckBox chk_CargoEndLPan1,chk_CargoEndRPan1,chk_CargoEndLCarg1,chk_CargoEndRCarg1;
+                        CheckBox chk_CargoEndLPanel,chk_CargoEndRPanel,chk_CargoEndLCargo,chk_CargoEndRCargo;
     /* R Rocket */      CheckBox chk_RghtRocket_LPan1,chk_RghtRocket_LPan2,chk_RghtRocket_LPan3, chk_RghtRocket_LCarg1,chk_RghtRocket_LCarg2,chk_RghtRocket_LCarg3;
                         CheckBox chk_RghtRocket_RPan1,chk_RghtRocket_RPan2,chk_RghtRocket_RPan3, chk_RghtRocket_RCarg1,chk_RghtRocket_RCarg2,chk_RghtRocket_RCarg3;
     /* Comment */       EditText editText_TeleComments;
@@ -147,7 +147,13 @@ public class TeleopScoutActivity extends Activity {
         chk_CargoLCarg1          = (CheckBox) findViewById(R.id.chk_CargoLCarg1);
         chk_CargoLCarg2          = (CheckBox) findViewById(R.id.chk_CargoLCarg2);
         chk_CargoLCarg3          = (CheckBox) findViewById(R.id.chk_CargoLCarg3);
-
+        chk_CargoRCarg1          = (CheckBox) findViewById(R.id.chk_CargoRCarg1);
+        chk_CargoRCarg2          = (CheckBox) findViewById(R.id.chk_CargoRCarg2);
+        chk_CargoRCarg3          = (CheckBox) findViewById(R.id.chk_CargoRCarg3);
+        chk_CargoEndLPanel       = (CheckBox) findViewById(R.id.chk_CargoEndLPanel);
+        chk_CargoEndRPanel       = (CheckBox) findViewById(R.id.chk_CargoEndRPanel);
+        chk_CargoEndLCargo       = (CheckBox) findViewById(R.id.chk_CargoEndLCargo);
+        chk_CargoEndRCargo       = (CheckBox) findViewById(R.id.chk_CargoEndRCargo);
         // Right Rocket
         chk_RghtRocket_LPan1    = (CheckBox) findViewById(R.id.chk_RghtRocket_LPan1);
         chk_RghtRocket_LPan2    = (CheckBox) findViewById(R.id.chk_RghtRocket_LPan2);
@@ -178,8 +184,17 @@ public class TeleopScoutActivity extends Activity {
         pfDatabase                = FirebaseDatabase.getInstance();            // Firebase
         pfDevice_DBReference      = pfDatabase.getReference("devices");     // List of Devices
 
-        Pearadox.Match_Data.setSand_LeftRocket_LPan1(true);  //DEBUG
-        Pearadox.Match_Data.setSand_LeftRocket_LPan3(true);  //DEBUG
+//        Pearadox.Match_Data.setSand_LeftRocket_RPan1(true);  //DEBUG  .........................................
+//        Pearadox.Match_Data.setSand_LeftRocket_RPan3(true);  //DEBUG  .........................................
+//        Pearadox.Match_Data.setSand_CargoLPan1(true);  //DEBUG  .........................................
+//        Pearadox.Match_Data.setSand_CargoRPan3(true);  //DEBUG  .........................................
+//        Pearadox.Match_Data.setSand_CargoEndLPanel(true);  //DEBUG  .........................................
+//        Pearadox.Match_Data.setSand_CargoEndRPanel(true);  //DEBUG  .........................................
+//        Pearadox.Match_Data.setSand_CargoEndLCargo(true);  //DEBUG  .........................................
+//        Pearadox.Match_Data.setSand_CargoEndRCargo(true);  //DEBUG  .........................................
+//        Pearadox.Match_Data.setSand_RghtRocket_LPan1(true);  //DEBUG  .........................................
+//        Log.e(TAG, "First Check1=" + Pearadox.Match_Data.isSand_LeftRocket_RPan1());
+
         carry_over_chks();              // Carry-over check boxes from SandStorm
 
 
@@ -320,10 +335,49 @@ public class TeleopScoutActivity extends Activity {
     // Carry-over check boxes from SandStorm to Tele
     private void carry_over_chks() {
         Log.w(TAG, "$$$ carry_over_chks $$$");
-        chk_LeftRocket_LPan1.setChecked(Pearadox.Match_Data.isSand_LeftRocket_RPan1());
-        chk_LeftRocket_LPan2.setChecked(Pearadox.Match_Data.isSand_LeftRocket_RPan2());
-        chk_LeftRocket_LPan3.setChecked(Pearadox.Match_Data.isSand_LeftRocket_RPan3());
-        Log.e(TAG, "Check=" + Pearadox.Match_Data.isSand_LeftRocket_RPan1());
+        // Left Rocket
+        chk_LeftRocket_LPan1.setChecked(Pearadox.Match_Data.isSand_LeftRocket_LPan1());
+        chk_LeftRocket_LPan2.setChecked(Pearadox.Match_Data.isSand_LeftRocket_LPan2());
+        chk_LeftRocket_LPan3.setChecked(Pearadox.Match_Data.isSand_LeftRocket_LPan3());
+        chk_LeftRocket_RPan1.setChecked(Pearadox.Match_Data.isSand_LeftRocket_RPan1());
+        chk_LeftRocket_RPan2.setChecked(Pearadox.Match_Data.isSand_LeftRocket_RPan2());
+        chk_LeftRocket_RPan3.setChecked(Pearadox.Match_Data.isSand_LeftRocket_RPan3());
+        chk_LeftRocket_LCarg1.setChecked(Pearadox.Match_Data.isSand_LeftRocket_LCarg1());
+        chk_LeftRocket_LCarg2.setChecked(Pearadox.Match_Data.isSand_LeftRocket_LCarg2());
+        chk_LeftRocket_LCarg3.setChecked(Pearadox.Match_Data.isSand_LeftRocket_LCarg3());
+        chk_LeftRocket_RCarg1.setChecked(Pearadox.Match_Data.isSand_LeftRocket_RCarg1());
+        chk_LeftRocket_RCarg2.setChecked(Pearadox.Match_Data.isSand_LeftRocket_RCarg2());
+        chk_LeftRocket_RCarg3.setChecked(Pearadox.Match_Data.isSand_LeftRocket_RCarg3());
+        // Cargo Ship
+        chk_CargoLPan1.setChecked(Pearadox.Match_Data.isSand_CargoLPan1());
+        chk_CargoLPan2.setChecked(Pearadox.Match_Data.isSand_CargoLPan2());
+        chk_CargoLPan3.setChecked(Pearadox.Match_Data.isSand_CargoLPan3());
+        chk_CargoRPan1.setChecked(Pearadox.Match_Data.isSand_CargoRPan1());
+        chk_CargoRPan2.setChecked(Pearadox.Match_Data.isSand_CargoRPan2());
+        chk_CargoRPan3.setChecked(Pearadox.Match_Data.isSand_CargoRPan3());
+        chk_CargoLCarg1.setChecked(Pearadox.Match_Data.isSand_CargoLCarg1());
+        chk_CargoLCarg2.setChecked(Pearadox.Match_Data.isSand_CargoLCarg2());
+        chk_CargoLCarg3.setChecked(Pearadox.Match_Data.isSand_CargoLCarg3());
+        chk_CargoRCarg1.setChecked(Pearadox.Match_Data.isSand_CargoRCarg1());
+        chk_CargoRCarg2.setChecked(Pearadox.Match_Data.isSand_CargoRCarg2());
+        chk_CargoRCarg3.setChecked(Pearadox.Match_Data.isSand_CargoRCarg3());
+        chk_CargoEndLPanel.setChecked(Pearadox.Match_Data.isSand_CargoEndLPanel());
+        chk_CargoEndRPanel.setChecked(Pearadox.Match_Data.isSand_CargoEndRPanel());
+        chk_CargoEndLCargo.setChecked(Pearadox.Match_Data.isSand_CargoEndLCargo());
+        chk_CargoEndRCargo.setChecked(Pearadox.Match_Data.isSand_CargoEndRCargo());
+        // Left Rocket
+        chk_RghtRocket_LPan1.setChecked(Pearadox.Match_Data.isSand_RghtRocket_LPan1());
+        chk_RghtRocket_LPan2.setChecked(Pearadox.Match_Data.isSand_RghtRocket_LPan2());
+        chk_RghtRocket_LPan3.setChecked(Pearadox.Match_Data.isSand_RghtRocket_LPan3());
+        chk_RghtRocket_RPan1.setChecked(Pearadox.Match_Data.isSand_RghtRocket_RPan1());
+        chk_RghtRocket_RPan2.setChecked(Pearadox.Match_Data.isSand_RghtRocket_RPan2());
+        chk_RghtRocket_RPan3.setChecked(Pearadox.Match_Data.isSand_RghtRocket_RPan3());
+        chk_RghtRocket_LCarg1.setChecked(Pearadox.Match_Data.isSand_RghtRocket_LCarg1());
+        chk_RghtRocket_LCarg2.setChecked(Pearadox.Match_Data.isSand_RghtRocket_LCarg2());
+        chk_RghtRocket_LCarg3.setChecked(Pearadox.Match_Data.isSand_RghtRocket_LCarg3());
+        chk_RghtRocket_RCarg1.setChecked(Pearadox.Match_Data.isSand_RghtRocket_RCarg1());
+        chk_RghtRocket_RCarg2.setChecked(Pearadox.Match_Data.isSand_RghtRocket_RCarg2());
+        chk_RghtRocket_RCarg3.setChecked(Pearadox.Match_Data.isSand_RghtRocket_RCarg3());
 
     }
 

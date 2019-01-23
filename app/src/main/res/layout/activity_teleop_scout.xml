@@ -319,7 +319,7 @@
                 android:buttonTint="@color/yellow" />
             // ----------------- END ----------------------------
             <CheckBox
-                android:id="@+id/chk_CargoEndLPan1"
+                android:id="@+id/chk_CargoEndLPanel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -328,7 +328,7 @@
                 android:buttonTint="@color/brightblue" />
 
             <CheckBox
-                android:id="@+id/chk_CargoEndLCarg1"
+                android:id="@+id/chk_CargoEndLCargo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -336,7 +336,7 @@
                 android:layout_marginTop="130dp"
                 android:buttonTint="@color/yellow" />
             <CheckBox
-                android:id="@+id/chk_CargoEndRPan1"
+                android:id="@+id/chk_CargoEndRPanel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -344,7 +344,7 @@
                 android:layout_marginTop="170dp"
                 android:buttonTint="@color/brightblue" />
             <CheckBox
-                android:id="@+id/chk_CargoEndRCarg1"
+                android:id="@+id/chk_CargoEndRCargo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -389,14 +389,13 @@
                 android:textColor="@color/white"
                 android:textSize="16sp" />
             // --------------- LEFT ----------------------------------
-
             <CheckBox
                 android:id="@+id/chk_RghtRocket_LPan1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="90dp"
+                android:layout_marginTop="175dp"
                 android:buttonTint="@color/brightblue" />
             <CheckBox
                 android:id="@+id/chk_RghtRocket_LCarg1"
@@ -404,7 +403,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="45dp"
-                android:layout_marginTop="90dp"
+                android:layout_marginTop="175dp"
                 android:buttonTint="@color/yellow" />
             <CheckBox
                 android:id="@+id/chk_RghtRocket_LPan2"
@@ -429,7 +428,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="175dp"
+                android:layout_marginTop="90dp"
                 android:buttonTint="@color/brightblue" />
             <CheckBox
                 android:id="@+id/chk_RghtRocket_LCarg3"
@@ -437,7 +436,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="45dp"
-                android:layout_marginTop="175dp"
+                android:layout_marginTop="90dp"
                 android:buttonTint="@color/yellow" />
             // --------------- RIGHT ----------------------------------
             <CheckBox
@@ -446,7 +445,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="130dp"
-                android:layout_marginTop="90dp"
+                android:layout_marginTop="175dp"
                 android:buttonTint="@color/brightblue" />
 
             <CheckBox
@@ -455,7 +454,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="90dp"
-                android:layout_marginTop="90dp"
+                android:layout_marginTop="175dp"
                 android:buttonTint="@color/yellow" />
 
             <CheckBox
@@ -482,7 +481,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="130dp"
-                android:layout_marginTop="175dp"
+                android:layout_marginTop="90dp"
                 android:buttonTint="@color/brightblue" />
 
             <CheckBox
@@ -491,7 +490,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="90dp"
-                android:layout_marginTop="175dp"
+                android:layout_marginTop="90dp"
                 android:buttonTint="@color/yellow" />
 
         </RelativeLayout>
