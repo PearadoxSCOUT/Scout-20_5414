@@ -100,7 +100,7 @@ public class TeleopScoutActivity extends Activity {
     public boolean RghtRocket_RCarg2  = false;  // R-Rocket R-Cargo#2
     public boolean RghtRocket_RCarg3  = false;  // R-Rocket R-Cargo#3
 
-    public boolean cube_pickup        = false;  // Did they pickup cargo off the ground?
+    public boolean cargo_pickup       = false;  // Did they pickup cargo off the ground?
     public boolean panel_pickup       = false;  // Did they pickup panel off the ground?
     public int end_HAB_Level          = 0;      // HAB Level
     public boolean got_lift           = false;  // Got Lifted by another robot
@@ -232,11 +232,11 @@ public class TeleopScoutActivity extends Activity {
         public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
             Log.w(TAG, "chkBox_PU_Cargo_floor Listener");
             if (buttonView.isChecked()) {
-                Log.w(TAG,"PU_Cubes is checked.");
-                cube_pickup = true;
+                Log.w(TAG,"PU_Cargo is checked.");
+                cargo_pickup = true;
             } else {  //not checked
-                Log.w(TAG,"PU_Cubes is unchecked.");
-                cube_pickup = false;
+                Log.w(TAG,"PU_Cargo is unchecked.");
+                cargo_pickup = false;
             }
         }
     });
@@ -247,10 +247,10 @@ public class TeleopScoutActivity extends Activity {
             Log.w(TAG, "chkBox_PU_Panel_floor Listener");
             if (buttonView.isChecked()) {
                 Log.w(TAG,"PU_Panel is checked.");
-                cube_pickup = true;
+                panel_pickup = true;
             } else {  //not checked
                 Log.w(TAG,"PU_Panel is unchecked.");
-                cube_pickup = false;
+                panel_pickup = false;
             }
         }
     });
@@ -331,8 +331,104 @@ public class TeleopScoutActivity extends Activity {
             teleComment = String.valueOf(s);
         }
     });
-}
 
+
+
+
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑  Process _ALL_ the CheckBoxes  ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_LeftRocket_LPan1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+        if (chk_LeftRocket_LPan1.isChecked()) {     //checked
+            LeftRocket_LPan1 = true;
+        }
+        else {          //not checked
+            LeftRocket_LPan1 = false;
+        }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_LeftRocket_LPan2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+        if (chk_LeftRocket_LPan2.isChecked()) {     //checked
+            LeftRocket_LPan2 = true;
+        }
+        else {          //not checked
+            LeftRocket_LPan2 = false;
+        }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_LeftRocket_LPan3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+        if (chk_LeftRocket_LPan3.isChecked()) {     //checked
+            LeftRocket_LPan3 = true;
+        }
+        else {          //not checked
+            LeftRocket_LPan3 = false;
+        }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_LeftRocket_RPan1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_LeftRocket_RPan1.isChecked()) {     //checked
+                LeftRocket_RPan1 = true;
+            }
+            else {          //not checked
+                LeftRocket_RPan1 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_LeftRocket_RPan2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_LeftRocket_RPan2.isChecked()) {     //checked
+                LeftRocket_RPan2 = true;
+            }
+            else {          //not checked
+                LeftRocket_RPan2 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_LeftRocket_RPan3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_LeftRocket_RPan3.isChecked()) {     //checked
+                LeftRocket_RPan3 = true;
+            }
+            else {          //not checked
+                LeftRocket_RPan3 = false;
+            }
+        }
+    });
+
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_LeftRocket_LCarg1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+        if (chk_LeftRocket_LCarg1.isChecked()) {     //checked
+            LeftRocket_LPan1 = true;
+        }
+        else {          //not checked
+            LeftRocket_LPan1 = false;
+        }
+        }
+    });
+
+    // === End of OnCreate ===
+    }
+
+
+
+    /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
     /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
     // Carry-over check boxes from SandStorm to Tele
     private void carry_over_chks() {
@@ -407,11 +503,20 @@ public class TeleopScoutActivity extends Activity {
         }
     }
 
+
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     private void storeTeleData() {
         Log.w(TAG, ">>>>  storeTeleData  <<<<");
         // New Match Data Object *** GLF 1/20/19
-        Pearadox.Match_Data.setTele_cube_pickup(cube_pickup);
+        Pearadox.Match_Data.setTele_LeftRocket_LPan1(LeftRocket_LPan1);
+        Pearadox.Match_Data.setTele_LeftRocket_LPan2(LeftRocket_LPan2);
+        Pearadox.Match_Data.setTele_LeftRocket_LPan3(LeftRocket_LPan3);
+        Pearadox.Match_Data.setTele_LeftRocket_RPan1(LeftRocket_RPan1);
+        Pearadox.Match_Data.setTele_LeftRocket_RPan2(LeftRocket_RPan2);
+        Pearadox.Match_Data.setTele_LeftRocket_RPan3(LeftRocket_RPan3);
+
+        Pearadox.Match_Data.setTele_cargo_pickup(cargo_pickup);
         Pearadox.Match_Data.setTele_Panel_pickup(panel_pickup);
         Pearadox.Match_Data.setTele_level_num(end_HAB_Level);
         Pearadox.Match_Data.setTele_got_lift(got_lift);

@@ -235,9 +235,9 @@ public class VisMatch_Activity extends AppCompatActivity {
 //            cubznNUM = cubznNUM + match_inst.getTele_cube_pwrzone();
 //            cubplatNUM = cubplatNUM + match_inst.getTele_cube_floor();
 //            cubPlatOthrNUM = cubPlatOthrNUM + match_inst.getTele_their_floor();
-            if (match_inst.isTele_cube_pickup()) {
-                offFloorNUM++;
-            }
+//            if (match_inst.isTele_cube_pickup()) {
+//                offFloorNUM++;
+//            }
 //            numTeleExch = numTeleExch + match_inst.getTele_cube_exchange();
 //            if (match_inst.isTele_lift_one()) {
 //                Lift1num++;
