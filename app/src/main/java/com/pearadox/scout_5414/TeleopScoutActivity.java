@@ -415,14 +415,77 @@ public class TeleopScoutActivity extends Activity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
         if (chk_LeftRocket_LCarg1.isChecked()) {     //checked
-            LeftRocket_LPan1 = true;
+            LeftRocket_LCarg1 = true;
         }
         else {          //not checked
-            LeftRocket_LPan1 = false;
+            LeftRocket_LCarg1 = false;
         }
+    }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_LeftRocket_LCarg2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+        if (chk_LeftRocket_LCarg2.isChecked()) {     //checked
+            LeftRocket_LCarg2 = true;
+        }
+        else {          //not checked
+            LeftRocket_LCarg2 = false;
+        }
+    }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_LeftRocket_LCarg3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_LeftRocket_LCarg3.isChecked()) {     //checked
+                LeftRocket_LCarg3 = true;
+            }
+            else {          //not checked
+                LeftRocket_LCarg3 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_LeftRocket_RCarg1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_LeftRocket_RCarg1.isChecked()) {     //checked
+                LeftRocket_RCarg1 = true;
+            }
+            else {          //not checked
+                LeftRocket_RCarg1 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_LeftRocket_RCarg2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_LeftRocket_RCarg2.isChecked()) {     //checked
+                LeftRocket_RCarg2 = true;
+            }
+            else {          //not checked
+                LeftRocket_RCarg2 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_LeftRocket_RCarg3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_LeftRocket_RCarg3.isChecked()) {     //checked
+                LeftRocket_RCarg3 = true;
+            }
+            else {          //not checked
+                LeftRocket_RCarg3 = false;
+            }
         }
     });
 
+    
+    
+    
     // === End of OnCreate ===
     }
 
@@ -463,7 +526,7 @@ public class TeleopScoutActivity extends Activity {
         chk_CargoEndRPanel.setChecked(Pearadox.Match_Data.isSand_CargoEndRPanel());
         chk_CargoEndLCargo.setChecked(Pearadox.Match_Data.isSand_CargoEndLCargo());
         chk_CargoEndRCargo.setChecked(Pearadox.Match_Data.isSand_CargoEndRCargo());
-        // Left Rocket
+        // Right Rocket
         chk_RghtRocket_LPan1.setChecked(Pearadox.Match_Data.isSand_RghtRocket_LPan1());
         chk_RghtRocket_LPan2.setChecked(Pearadox.Match_Data.isSand_RghtRocket_LPan2());
         chk_RghtRocket_LPan3.setChecked(Pearadox.Match_Data.isSand_RghtRocket_LPan3());
@@ -476,7 +539,6 @@ public class TeleopScoutActivity extends Activity {
         chk_RghtRocket_RCarg1.setChecked(Pearadox.Match_Data.isSand_RghtRocket_RCarg1());
         chk_RghtRocket_RCarg2.setChecked(Pearadox.Match_Data.isSand_RghtRocket_RCarg2());
         chk_RghtRocket_RCarg3.setChecked(Pearadox.Match_Data.isSand_RghtRocket_RCarg3());
-
     }
 
 
@@ -515,6 +577,25 @@ public class TeleopScoutActivity extends Activity {
         Pearadox.Match_Data.setTele_LeftRocket_RPan1(LeftRocket_RPan1);
         Pearadox.Match_Data.setTele_LeftRocket_RPan2(LeftRocket_RPan2);
         Pearadox.Match_Data.setTele_LeftRocket_RPan3(LeftRocket_RPan3);
+        Pearadox.Match_Data.setTele_LeftRocket_LCarg1(LeftRocket_LCarg1);
+        Pearadox.Match_Data.setTele_LeftRocket_LCarg2(LeftRocket_LCarg2);
+        Pearadox.Match_Data.setTele_LeftRocket_LCarg3(LeftRocket_LCarg3);
+        Pearadox.Match_Data.setTele_LeftRocket_RCarg1(LeftRocket_RCarg1);
+        Pearadox.Match_Data.setTele_LeftRocket_RCarg2(LeftRocket_RCarg2);
+        Pearadox.Match_Data.setTele_LeftRocket_RCarg3(LeftRocket_RCarg3);
+
+        Pearadox.Match_Data.setTele_RghtRocket_LPan1(RghtRocket_LPan1);
+        Pearadox.Match_Data.setTele_RghtRocket_LPan2(RghtRocket_LPan2);
+        Pearadox.Match_Data.setTele_RghtRocket_LPan3(RghtRocket_LPan3);
+        Pearadox.Match_Data.setTele_RghtRocket_RPan1(RghtRocket_RPan1);
+        Pearadox.Match_Data.setTele_RghtRocket_RPan2(RghtRocket_RPan2);
+        Pearadox.Match_Data.setTele_RghtRocket_RPan3(RghtRocket_RPan3);
+        Pearadox.Match_Data.setTele_RghtRocket_LCarg1(RghtRocket_LCarg1);
+        Pearadox.Match_Data.setTele_RghtRocket_LCarg2(RghtRocket_LCarg2);
+        Pearadox.Match_Data.setTele_RghtRocket_LCarg3(RghtRocket_LCarg3);
+        Pearadox.Match_Data.setTele_RghtRocket_RCarg1(RghtRocket_RCarg1);
+        Pearadox.Match_Data.setTele_RghtRocket_RCarg2(RghtRocket_RCarg2);
+        Pearadox.Match_Data.setTele_RghtRocket_RCarg3(RghtRocket_RCarg3);
 
         Pearadox.Match_Data.setTele_cargo_pickup(cargo_pickup);
         Pearadox.Match_Data.setTele_Panel_pickup(panel_pickup);
