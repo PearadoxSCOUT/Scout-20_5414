@@ -144,7 +144,6 @@ public class TeleopScoutActivity extends Activity {
         chk_CargoRPan1          = (CheckBox) findViewById(R.id.chk_CargoRPan1);
         chk_CargoRPan2          = (CheckBox) findViewById(R.id.chk_CargoRPan2);
         chk_CargoRPan3          = (CheckBox) findViewById(R.id.chk_CargoRPan3);
-        chk_CargoLPan1          = (CheckBox) findViewById(R.id.chk_CargoLPan1);
         chk_CargoLCarg1         = (CheckBox) findViewById(R.id.chk_CargoLCarg1);
         chk_CargoLCarg2         = (CheckBox) findViewById(R.id.chk_CargoLCarg2);
         chk_CargoLCarg3         = (CheckBox) findViewById(R.id.chk_CargoLCarg3);
@@ -482,11 +481,277 @@ public class TeleopScoutActivity extends Activity {
             }
         }
     });
+    // RIGHT Rocket
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_RghtRocket_LPan1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_RghtRocket_LPan1.isChecked()) {     //checked
+                RghtRocket_LPan1 = true;
+            }
+            else {          //not checked
+                RghtRocket_LPan1 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_RghtRocket_LPan2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_RghtRocket_LPan2.isChecked()) {     //checked
+                RghtRocket_LPan2 = true;
+            }
+            else {          //not checked
+                RghtRocket_LPan2 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_RghtRocket_LPan3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_RghtRocket_LPan3.isChecked()) {     //checked
+                RghtRocket_LPan3 = true;
+            }
+            else {          //not checked
+                RghtRocket_LPan3 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_RghtRocket_RPan1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_RghtRocket_RPan1.isChecked()) {     //checked
+                RghtRocket_RPan1 = true;
+            }
+            else {          //not checked
+                RghtRocket_RPan1 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_RghtRocket_RPan2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_RghtRocket_RPan2.isChecked()) {     //checked
+                RghtRocket_RPan2 = true;
+            }
+            else {          //not checked
+                RghtRocket_RPan2 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_RghtRocket_RPan3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_RghtRocket_RPan3.isChecked()) {     //checked
+                RghtRocket_RPan3 = true;
+            }
+            else {          //not checked
+                RghtRocket_RPan3 = false;
+            }
+        }
+    });
 
-    
-    
-    
-    // === End of OnCreate ===
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_RghtRocket_LCarg1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_RghtRocket_LCarg1.isChecked()) {     //checked
+                RghtRocket_LCarg1 = true;
+            }
+            else {          //not checked
+                RghtRocket_LCarg1 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_RghtRocket_LCarg2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_RghtRocket_LCarg2.isChecked()) {     //checked
+                RghtRocket_LCarg2 = true;
+            }
+            else {          //not checked
+                RghtRocket_LCarg2 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_RghtRocket_LCarg3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_RghtRocket_LCarg3.isChecked()) {     //checked
+                RghtRocket_LCarg3 = true;
+            }
+            else {          //not checked
+                RghtRocket_LCarg3 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_RghtRocket_RCarg1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_RghtRocket_RCarg1.isChecked()) {     //checked
+                RghtRocket_RCarg1 = true;
+            }
+            else {          //not checked
+                RghtRocket_RCarg1 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_RghtRocket_RCarg2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_RghtRocket_RCarg2.isChecked()) {     //checked
+                RghtRocket_RCarg2 = true;
+            }
+            else {          //not checked
+                RghtRocket_RCarg2 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_RghtRocket_RCarg3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_RghtRocket_RCarg3.isChecked()) {     //checked
+                RghtRocket_RCarg3 = true;
+            }
+            else {          //not checked
+                RghtRocket_RCarg3 = false;
+            }
+        }
+    });
+// Cargo Ship
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_CargoLPan1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_CargoLPan1.isChecked()) {     //checked
+                CargoLPan1 = true;
+            }
+            else {          //not checked
+                CargoLPan1 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_CargoLPan2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_CargoLPan2.isChecked()) {     //checked
+                CargoLPan2 = true;
+            }
+            else {          //not checked
+                CargoLPan2 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_CargoLPan3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_CargoLPan3.isChecked()) {     //checked
+                CargoLPan3 = true;
+            }
+            else {          //not checked
+                CargoLPan3 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_CargoRPan1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_CargoRPan1.isChecked()) {     //checked
+                CargoRPan1 = true;
+            }
+            else {          //not checked
+                CargoRPan1 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_CargoRPan2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_CargoRPan2.isChecked()) {     //checked
+                CargoRPan2 = true;
+            }
+            else {          //not checked
+                CargoRPan2 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_CargoRPan3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_CargoRPan3.isChecked()) {     //checked
+                CargoRPan3 = true;
+            }
+            else {          //not checked
+                CargoRPan3 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_CargoEndLPanel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_CargoEndLPanel.isChecked()) {     //checked
+                CargoEndLPanel = true;
+            }
+            else {          //not checked
+                CargoEndLPanel = false;
+            }
+        }
+    });
+        // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_CargoEndRPanel.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_CargoEndRPanel.isChecked()) {     //checked
+                CargoEndRPanel = true;
+            }
+            else {          //not checked
+                CargoEndRPanel = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_CargoEndLCargo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_CargoEndLCargo.isChecked()) {     //checked
+                CargoEndLCargo = true;
+            }
+            else {          //not checked
+                CargoEndLCargo = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_CargoEndRCargo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_CargoEndRCargo.isChecked()) {     //checked
+                CargoEndRCargo = true;
+            }
+            else {          //not checked
+                CargoEndRCargo = false;
+            }
+        }
+    });
+
+
+
+        // === End of OnCreate ===
     }
 
 
@@ -584,6 +849,23 @@ public class TeleopScoutActivity extends Activity {
         Pearadox.Match_Data.setTele_LeftRocket_RCarg2(LeftRocket_RCarg2);
         Pearadox.Match_Data.setTele_LeftRocket_RCarg3(LeftRocket_RCarg3);
 
+        Pearadox.Match_Data.setTele_CargoLPan1(CargoLPan1);
+        Pearadox.Match_Data.setTele_CargoLPan2(CargoLPan2);
+        Pearadox.Match_Data.setTele_CargoLPan3(CargoLPan3);
+        Pearadox.Match_Data.setTele_CargoRPan1(CargoRPan1);
+        Pearadox.Match_Data.setTele_CargoRPan2(CargoRPan2);
+        Pearadox.Match_Data.setTele_CargoRPan3(CargoRPan3);
+        Pearadox.Match_Data.setTele_CargoLCarg1(CargoLCarg1);
+        Pearadox.Match_Data.setTele_CargoLCarg2(CargoLCarg2);
+        Pearadox.Match_Data.setTele_CargoLCarg3(CargoLCarg3);
+        Pearadox.Match_Data.setTele_CargoRCarg1(CargoRCarg1);
+        Pearadox.Match_Data.setTele_CargoRCarg2(CargoRCarg2);
+        Pearadox.Match_Data.setTele_CargoRCarg3(CargoRCarg3);
+        Pearadox.Match_Data.setTele_CargoEndLPanel(CargoEndLPanel);
+        Pearadox.Match_Data.setTele_CargoEndRPanel(CargoEndRPanel);
+        Pearadox.Match_Data.setTele_CargoEndLCargo(CargoEndLCargo);
+        Pearadox.Match_Data.setTele_CargoEndRCargo(CargoEndRCargo);
+
         Pearadox.Match_Data.setTele_RghtRocket_LPan1(RghtRocket_LPan1);
         Pearadox.Match_Data.setTele_RghtRocket_LPan2(RghtRocket_LPan2);
         Pearadox.Match_Data.setTele_RghtRocket_LPan3(RghtRocket_LPan3);
@@ -595,7 +877,10 @@ public class TeleopScoutActivity extends Activity {
         Pearadox.Match_Data.setTele_RghtRocket_LCarg3(RghtRocket_LCarg3);
         Pearadox.Match_Data.setTele_RghtRocket_RCarg1(RghtRocket_RCarg1);
         Pearadox.Match_Data.setTele_RghtRocket_RCarg2(RghtRocket_RCarg2);
-        Pearadox.Match_Data.setTele_RghtRocket_RCarg3(RghtRocket_RCarg3);
+        Pearadox.Match_Data.setTele_CargoEndLPanel(CargoEndLPanel);
+        Pearadox.Match_Data.setTele_CargoEndRPanel(CargoEndRPanel);
+        Pearadox.Match_Data.setTele_CargoEndLCargo(CargoEndLCargo);
+        Pearadox.Match_Data.setTele_CargoEndRCargo(CargoEndRCargo);
 
         Pearadox.Match_Data.setTele_cargo_pickup(cargo_pickup);
         Pearadox.Match_Data.setTele_Panel_pickup(panel_pickup);
