@@ -202,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imageView_MS"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:text="Sandstorm period"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                 android:textColor="@color/red"
@@ -276,7 +276,7 @@
         <LinearLayout
             android:id="@+id/lin_AllShips"
             android:layout_width="match_parent"
-            android:layout_height="250sp"
+            android:layout_height="220sp"
             android:layout_below="@+id/checkbox_automode"
             android:layout_marginTop="12sp"
             android:orientation="horizontal">
@@ -932,12 +932,12 @@
 
         <ScrollView
             android:id="@+id/scrollv_comm"
-            android:layout_width="500sp"
+            android:layout_width="400sp"
             android:layout_height="100sp"
             android:layout_below="@+id/radgrp_thirdPieceLocation"
             android:layout_alignParentStart="true"
             android:layout_marginStart="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:isScrollContainer="false">
 
             <EditText

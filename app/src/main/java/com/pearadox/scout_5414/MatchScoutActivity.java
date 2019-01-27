@@ -98,10 +98,9 @@ public class MatchScoutActivity extends AppCompatActivity {
         String device = bundle.getString("dev");
         studID = bundle.getString("stud");
         Log.w(TAG, device + " " + studID);      // ** DEBUG **
-        int ps = device.charAt(device.length()-1);
-        Pearadox.Match_Data.setPre_PlayerSta(device.charAt(device.length()-1));
-        int p = Integer.valueOf((device.length()-1)%3);
-        Log.w(TAG, device.charAt(device.length()-1) + "");
+        String ps = device.substring(device.length() - 1);
+        int p = Integer.valueOf(ps);
+        Pearadox.Match_Data.setPre_PlayerSta(p);
 //
         tn = bundle.getString("tnum");
 
