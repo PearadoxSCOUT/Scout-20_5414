@@ -73,10 +73,11 @@ public class PitScoutActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter_Trac, adapter_Omni, adapter_Mac, adapter_Pneu ;
     ArrayAdapter<String> adapter_driveMotor, adapter_progLang;
-    RadioGroup radgrp_Deliver;      RadioButton radio_Deliver, radio_Launch, radio_Place;
+//    RadioGroup radgrp_Deliver;      RadioButton radio_Deliver, radio_Launch, radio_Place;
     CheckBox chkBox_Ramp, chkBox_CanLift, chkBox_Hook, chkBox_Vision, chkBox_Pneumatics, chkBox_Climb, chkBox_Belt, chkBox_Box, chkBox_Other;
-    CheckBox chkBox_Arms, chkBox_ArmPress, chkBox_ArmIntake, chkBox_OffFloor;
-    CheckBox chkBox_Switch, chkBox_SwitchMulti, chkBox_Scale, chkBox_ScaleMulti;
+    CheckBox chkBox_OffFloor;
+    //    CheckBox chkBox_Arms, chkBox_ArmPress, chkBox_ArmIntake, chkBox_OffFloor;
+//    CheckBox chkBox_Switch, chkBox_SwitchMulti, chkBox_Scale, chkBox_ScaleMulti;
     Button btn_Save;
     Uri currentImageUri;
     String currentImagePath;
@@ -106,7 +107,7 @@ public class PitScoutActivity extends AppCompatActivity {
     public int numTraction = 0;                 // Num. of Traction wheels
     public int numOmnis = 0;                    // Num. of Omni wheels
     public int numMecanums = 0;                 // Num. of Mecanum wheels
-    public int numPneumatic = 0;               // Num. of Pneumatic wheels
+    public int numPneumatic = 0;                // Num. of Pneumatic wheels
     public boolean vision = false;              // presence of Vision Camera
     public boolean pneumatics = false;          // presence of Pneumatics
     public boolean cargoManip = false;          // presence of a way to pick up cargo from floor
@@ -250,23 +251,14 @@ pitData Pit_Data = new pitData();
         chkBox_Vision = (CheckBox) findViewById(R.id.chkBox_Vision);
         chkBox_Pneumatics = (CheckBox) findViewById(R.id.chkBox_Pneumatics);
         chkBox_CanLift = (CheckBox) findViewById(R.id.chkBox_CanLift);
-        chkBox_Arms = (CheckBox) findViewById(R.id.chkBox_Arms);
-        chkBox_ArmPress = (CheckBox) findViewById(R.id.chkBox_ArmPress);
-        chkBox_ArmIntake = (CheckBox) findViewById(R.id.chkBox_ArmIntake);
         chkBox_OffFloor = (CheckBox) findViewById(R.id.chkBox_OffFloor);
         chkBox_Climb = (CheckBox) findViewById(R.id.chkBox_Climb);
         chkBox_Belt = (CheckBox) findViewById(R.id.chkBox_Belt);
         chkBox_Box = (CheckBox) findViewById(R.id.chkBox_Box);
         chkBox_Other = (CheckBox) findViewById(R.id.chkBox_Other);
-        chkBox_Switch = (CheckBox) findViewById(R.id.chkBox_Switch);
-        chkBox_SwitchMulti = (CheckBox) findViewById(R.id.chkBox_SwitchMulti);
-        chkBox_Scale = (CheckBox) findViewById(R.id.chkBox_Scale);
-        chkBox_ScaleMulti = (CheckBox) findViewById(R.id.chkBox_ScaleMulti);
         editText_Comments = (EditText) findViewById(R.id.editText_Comments);
         editText_Comments.setClickable(true);
         txtEd_Speed = (EditText) findViewById(R.id.txtEd_Speed);
-        radio_Launch = (RadioButton) findViewById(R.id.radio_Launch);
-        radio_Place = (RadioButton) findViewById(R.id.radio_Place);
 //        final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 200);
 //        tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
         Toast toast = Toast.makeText(getBaseContext(), "*** Select a TEAM first before entering data ***", Toast.LENGTH_LONG);
