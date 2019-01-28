@@ -83,8 +83,7 @@ public class VisPit_Activity extends AppCompatActivity {
     public String pit_photoURL;                     // URL of the robot photo in Firebase
 
     // ===========================================================================
-    pitData Pit_Data = new pitData(teamSelected, tall, totalWheels, numTraction, numOmnis, numMecanums, vision, pneumatics, cubeManip, climb, canLift, numLifted, liftRamp, liftHook, speed, motor,  lang, autoSwitch, switchMulti, autoScale, scaleMulti, cubeArm, armIntake, armSqueeze, cubeBox, cubeBelt, cubeOhtr, delLaunch, delPlace, comments, scout, pit_photoURL);
-
+    pitData Pit_Data = new pitData();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -211,37 +210,6 @@ public class VisPit_Activity extends AppCompatActivity {
                     chkBox_Ramp.setVisibility(View.INVISIBLE);
                     chkBox_Hook.setVisibility(View.INVISIBLE);
                 }
-                chkBox_Arms.setChecked(Pit_Data.isPit_cubeArm());
-                if (Pit_Data.isPit_cubeArm()) {
-                    chkBox_ArmIntake.setVisibility(View.VISIBLE);
-                    chkBox_ArmIntake.setChecked(Pit_Data.isPit_armIntake());
-                    chkBox_ArmPress.setVisibility(View.VISIBLE);
-                    chkBox_ArmPress.setChecked(Pit_Data.isPit_armSqueeze());
-                    chkBox_OffFloor.setVisibility(View.VISIBLE);
-                    chkBox_OffFloor.setChecked(Pit_Data.isPit_cubeManip());
-                } else {
-                    chkBox_ArmIntake.setVisibility(View.INVISIBLE);
-                    chkBox_ArmPress.setVisibility(View.INVISIBLE);
-                    chkBox_OffFloor.setVisibility(View.INVISIBLE);
-                }
-                chkBox_Belt.setChecked(Pit_Data.isPit_cubeBelt());
-                chkBox_Box.setChecked(Pit_Data.isPit_cubeBox());
-                chkBox_Other.setChecked(Pit_Data.isPit_cubeOhtr());
-                Log.w(TAG, "Radio - Launch= " + Pit_Data.isPit_delLaunch());
-                if (Pit_Data.isPit_delLaunch()) {
-                    radio_Launch.setChecked(true);
-                    radio_Place.setChecked(false);      // ?
-                } else {
-                    radio_Place.setChecked(true);
-                    radio_Launch.setChecked(false);     // ?
-                }
-                txt_Speed.setText(String.valueOf(Pit_Data.getPit_speed()));
-                txt_DriveMotor.setText(Pit_Data.getPit_motor());
-                txt_ProgLang.setText(Pit_Data.getPit_lang());
-                chkBox_Switch.setChecked(Pit_Data.isPit_autoSwitch());
-                chkBox_SwitchMulti.setChecked(Pit_Data.isPit_switchMulti());
-                chkBox_Scale.setChecked(Pit_Data.isPit_autoScale());
-                chkBox_ScaleMulti.setChecked(Pit_Data.isPit_scaleMulti());
 
                 // Finally ...
                 txt_Scout.setText(Pit_Data.getPit_scout());

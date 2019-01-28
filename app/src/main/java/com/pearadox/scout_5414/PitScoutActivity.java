@@ -68,10 +68,10 @@ public class PitScoutActivity extends AppCompatActivity {
     TextView txt_EventName, txt_dev, txt_stud, txt_TeamName, txt_NumWheels;
     EditText editTxt_Team, txtEd_Height, editText_Comments, txtEd_Speed;
     ImageView imgScoutLogo, img_Photo;
-    Spinner spinner_Team, spinner_Traction, spinner_Omni, spinner_Mecanum;
+    Spinner spinner_Team, spinner_Traction, spinner_Omni, spinner_Mecanum, spinner_Pneumatic;
     Spinner spinner_numRobots, spinner_Motor, spinner_Lang;
     ArrayAdapter<String> adapter;
-    ArrayAdapter<String> adapter_Trac, adapter_Omni, adapter_Mac ;
+    ArrayAdapter<String> adapter_Trac, adapter_Omni, adapter_Mac, adapter_Pneu ;
     ArrayAdapter<String> adapter_driveMotor, adapter_progLang;
     RadioGroup radgrp_Deliver;      RadioButton radio_Deliver, radio_Launch, radio_Place;
     CheckBox chkBox_Ramp, chkBox_CanLift, chkBox_Hook, chkBox_Vision, chkBox_Pneumatics, chkBox_Climb, chkBox_Belt, chkBox_Box, chkBox_Other;
@@ -106,9 +106,10 @@ public class PitScoutActivity extends AppCompatActivity {
     public int numTraction = 0;                 // Num. of Traction wheels
     public int numOmnis = 0;                    // Num. of Omni wheels
     public int numMecanums = 0;                 // Num. of Mecanum wheels
+    public int numPneumatic = 0;               // Num. of Pneumatic wheels
     public boolean vision = false;              // presence of Vision Camera
     public boolean pneumatics = false;          // presence of Pneumatics
-    public boolean cubeManip = false;           // presence of a way to pick up cube from floor
+    public boolean cargoManip = false;          // presence of a way to pick up cargo from floor
     public boolean climb = false;               // presence of a Climbing mechanism
     public boolean canLift = false;             // Ability to lift other robots
     public int numLifted = 0;                   // Num. of robots can lift (1-2)
@@ -117,28 +118,14 @@ public class PitScoutActivity extends AppCompatActivity {
     public int speed = 0;                       // Speed (Ft. per Sec)
     public String motor;                        // Type of Motor
     public String lang;                         // Programming  Language
-    public boolean autoSwitch = false;          // Can do Switch in Autonomous
-    public boolean switchMulti = false;         // Multiple Switch in Autonomous
-    public boolean autoScale = false;           // Can do Scale in Autonomous
-    public boolean scaleMulti = false;         // Multiple Scale in Autonomous
-                                                //==== cube Mechanism
-    public boolean cubeArm = false;             // presence of a Cube arm
-    public boolean armIntake = false;           // ++ presence of a Cube intake device      \  Only if
-    public boolean armSqueeze = false;          // ++ presence of a Cube Squeeze mechanism  /   Arm
-    public boolean cubeBox = false;             // presence of a Cube box
-    public boolean cubeBelt = false;            // presence of a Cube Conveyer Belt
-    public boolean cubeOhtr = false;            // Other ?
-                                                //==== cube Delivery
-    public boolean delLaunch = false;           // Launch
-    public boolean delPlace = false;            // Placement
     /* */
     public String comments;                     // Comment(s)
     public String scout = " ";                  // Student who collected the data
     public String photoURL = "";                // URL of the robot photo in Firebase
 
 // ===========================================================================
-pitData Pit_Data = new pitData(teamSelected, tall, totalWheels, numTraction, numOmnis, numMecanums, vision, pneumatics, cubeManip, climb, canLift, numLifted, liftRamp, liftHook, speed, motor,  lang, autoSwitch, switchMulti, autoScale, scaleMulti, cubeArm, armIntake, armSqueeze, cubeBox, cubeBelt, cubeOhtr, delLaunch, delPlace, comments, scout, photoURL);
-pitData Pit_Load = new pitData();
+pitData Pit_Data = new pitData();
+    pitData Pit_Load = new pitData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,6 +222,13 @@ pitData Pit_Load = new pitData();
         spinner_Mecanum.setAdapter(adapter_Mac);
         spinner_Mecanum.setSelection(0, false);
         spinner_Mecanum.setOnItemSelectedListener(new PitScoutActivity.Mecanum_OnItemSelectedListener());
+        adapter_Mac.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner spinner_Pneumatic = (Spinner) findViewById(R.id.spinner_Pneumatic);
+        ArrayAdapter adapter_Pneu = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, wheels);
+        adapter_Mac.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_Pneumatic.setAdapter(adapter_Pneu);
+        spinner_Pneumatic.setSelection(0, false);
+        spinner_Pneumatic.setOnItemSelectedListener(new PitScoutActivity.Pneumatic_OnItemSelectedListener());
         spinner_Motor = (Spinner) findViewById(R.id.spinner_Motor);
         String[] driveMotor = getResources().getStringArray(R.array.drive_motor_array);
         adapter_driveMotor = new ArrayAdapter<String>(this, R.layout.dev_list_layout, driveMotor);
@@ -351,53 +345,7 @@ pitData Pit_Load = new pitData();
                 }
             }
         });
-        chkBox_Arms.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                Log.w(TAG, "chkBox_Arms Listener");
-                if (buttonView.isChecked()) {
-                    Log.w(TAG,"Arms is checked.");
-                    cubeArm = true;
-                    chkBox_ArmIntake.setVisibility(VISIBLE);
-                    chkBox_ArmPress.setVisibility(VISIBLE);
-                    chkBox_OffFloor.setVisibility(VISIBLE);
-                } else {
-                    Log.w(TAG,"Arms is unchecked.");
-                    cubeArm = false;
-                    chkBox_ArmIntake.setVisibility(View.INVISIBLE);
-                    chkBox_ArmPress.setVisibility(View.INVISIBLE);
-                    chkBox_OffFloor.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
 
-        chkBox_ArmIntake.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                Log.w(TAG, "chkBox_ArmIntake Listener");
-                if (buttonView.isChecked()) {
-                    Log.w(TAG,"Intake is checked.");
-                    armIntake = true;
-                } else {
-                    Log.w(TAG,"Intake is unchecked.");
-                    armIntake = false;
-                }
-            }
-        });
-
-        chkBox_ArmPress.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                Log.w(TAG, "chkBox_ArmPress Listener");
-                if (buttonView.isChecked()) {
-                    Log.w(TAG,"Pressure/Squeeze is checked.");
-                    armSqueeze = true;
-                } else {
-                    Log.w(TAG,"Pressure/Squeeze is unchecked.");
-                    armSqueeze = false;
-                }
-            }
-        });
 
         chkBox_OffFloor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -405,10 +353,10 @@ pitData Pit_Load = new pitData();
                 Log.w(TAG, "chkBox_OffFloor Listener");
                 if (buttonView.isChecked()) {
                     Log.w(TAG,"Off-floor is checked.");
-                    cubeManip = true;
+                    cargoManip = true;
                 } else {
                     Log.w(TAG,"Off-floor is unchecked.");
-                    cubeManip = false;
+                    cargoManip = false;
                 }
             }
         });
@@ -427,103 +375,6 @@ pitData Pit_Load = new pitData();
             }
         });
 
-        chkBox_Belt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                Log.w(TAG, "chkBox_Belt Listener");
-                if (buttonView.isChecked()) {
-                    Log.w(TAG,"Belt is checked.");
-                    cubeBelt = true;
-                } else {
-                    Log.w(TAG,"Belt is unchecked.");
-                    cubeBelt = false;
-                }
-            }
-        });
-
-        chkBox_Box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                Log.w(TAG, "chkBox_Box Listener");
-                if (buttonView.isChecked()) {
-                    Log.w(TAG,"Box is checked.");
-                    cubeBox = true;
-                } else {
-                    Log.w(TAG,"Box is unchecked.");
-                    cubeBox = false;
-                }
-            }
-        });
-
-        chkBox_Other.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                Log.w(TAG, "chkBox_Other Listener");
-                if (buttonView.isChecked()) {
-                    Log.w(TAG,"Other is checked.");
-                    cubeOhtr = true;
-                } else {
-                    Log.w(TAG,"Other is unchecked.");
-                    cubeOhtr = false;
-                }
-            }
-        });
-
-        chkBox_Switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                Log.w(TAG, "chkBox_Switch Listener");
-                if (buttonView.isChecked()) {
-                    Log.w(TAG,"Switch is checked.");
-                    autoSwitch = true;
-                } else {
-                    Log.w(TAG,"Switch is unchecked.");
-                    autoSwitch = false;
-                }
-            }
-        });
-
-        chkBox_SwitchMulti.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                Log.w(TAG, "chkBox_SwitchMulti Listener");
-                if (buttonView.isChecked()) {
-                    Log.w(TAG,"Switch Multiple is checked.");
-                    switchMulti = true;
-                } else {
-                    Log.w(TAG,"Switch Multiple is unchecked.");
-                    switchMulti = false;
-                }
-            }
-        });
-
-        chkBox_Scale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                Log.w(TAG, "chkBox_Scale Listener");
-                if (buttonView.isChecked()) {
-                    Log.w(TAG,"Scale is checked.");
-                    autoScale = true;
-                } else {
-                    Log.w(TAG,"Scale is unchecked.");
-                    autoScale = false;
-                }
-            }
-        });
-
-        chkBox_ScaleMulti.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                Log.w(TAG, "chkBox_ScaleMulti Listener");
-                if (buttonView.isChecked()) {
-                    Log.w(TAG,"Scale Multiple is checked.");
-                    scaleMulti = true;
-                } else {
-                    Log.w(TAG,"Scale Multiple is unchecked.");
-                    scaleMulti = false;
-                }
-            }
-        });
 
 //=================================================================
         editText_Comments.addTextChangedListener(new TextWatcher() {
@@ -882,39 +733,6 @@ pitData Pit_Load = new pitData();
                             chkBox_Ramp.setVisibility(View.INVISIBLE);
                             chkBox_Hook.setVisibility(View.INVISIBLE);
                         }
-                        chkBox_Arms.setChecked(Pit_Load.isPit_cubeArm());
-                        if (Pit_Load.isPit_cubeArm()) {
-                            chkBox_ArmIntake.setVisibility(View.VISIBLE);
-                            chkBox_ArmIntake.setChecked(Pit_Load.isPit_armIntake());
-                            chkBox_ArmPress.setVisibility(View.VISIBLE);
-                            chkBox_ArmPress.setChecked(Pit_Load.isPit_armSqueeze());
-                            chkBox_OffFloor.setVisibility(View.VISIBLE);
-                            chkBox_OffFloor.setChecked(Pit_Load.isPit_cubeManip());
-                        } else {
-                            chkBox_ArmIntake.setVisibility(View.INVISIBLE);
-                            chkBox_ArmPress.setVisibility(View.INVISIBLE);
-                            chkBox_OffFloor.setVisibility(View.INVISIBLE);
-                        }
-                        chkBox_Belt.setChecked(Pit_Load.isPit_cubeBelt());
-                        chkBox_Box.setChecked(Pit_Load.isPit_cubeBox());
-                        chkBox_Other.setChecked(Pit_Load.isPit_cubeOhtr());
-                        Log.w(TAG, "Radio - Launch= " + Pit_Load.isPit_delLaunch());
-                        if (Pit_Load.isPit_delLaunch()) {
-                            radio_Launch.setChecked(true);
-                            radio_Place.setChecked(false);      // ?
-                            delPlace = false;
-                            delLaunch = true;
-                        } else {
-                            radio_Place.setChecked(true);
-                            radio_Launch.setChecked(false);     // ?
-                            delPlace = true;
-                            delLaunch = false;
-                        }
-                        Log.w(TAG, "AUTO " + Pit_Load.isPit_autoSwitch() + " " + Pit_Load.isPit_switchMulti() + " " + Pit_Load.isPit_autoScale() + " " + Pit_Load.isPit_scaleMulti());
-                        chkBox_Switch.setChecked(Pit_Load.isPit_autoSwitch());
-                        chkBox_SwitchMulti.setChecked(Pit_Load.isPit_switchMulti());
-                        chkBox_Scale.setChecked(Pit_Load.isPit_autoScale());
-                        chkBox_ScaleMulti.setChecked(Pit_Load.isPit_scaleMulti());
 
                         String motr = Pit_Load.getPit_motor();
                         Log.w(TAG, "Motor = '" + motr + "'");
@@ -990,7 +808,7 @@ pitData Pit_Load = new pitData();
             imageOnFB = false;
 
             FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageReference = storage.getReferenceFromUrl("gs://paradox-2017.appspot.com/images/" + Pearadox.FRC_Event).child("robot_" + team.trim() + ".png");
+            StorageReference storageReference = storage.getReferenceFromUrl("gs://pearadox-2019.appspot.com/images/" + Pearadox.FRC_Event).child("robot_" + team.trim() + ".png");
             Log.e(TAG, "images/" + Pearadox.FRC_Event + "/robot_" + team.trim() + ".png" + "\n \n");
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
@@ -1076,10 +894,23 @@ pitData Pit_Load = new pitData();
             // Do nothing.
         }
     }
+    public class Pneumatic_OnItemSelectedListener implements OnItemSelectedListener {
+        public void onItemSelected(AdapterView<?> parent,
+                                   View view, int pos, long id) {
+            String num = " ";
+            num = parent.getItemAtPosition(pos).toString();
+            numPneumatic = Integer.parseInt(num);
+            Log.w(TAG, ">>>>> Pneumatic '" + numPneumatic + "'");
+            updateNumWhls();
+        }
+        public void onNothingSelected(AdapterView<?> parent) {
+            // Do nothing.
+        }
+    }
 
     private void updateNumWhls() {
         Log.w(TAG, "######  updateNumWhls ###### T-O-M = " + numTraction + numOmnis + numMecanums);
-        int x = numTraction + numOmnis + numMecanums;
+        int x = numTraction + numOmnis + numMecanums + numPneumatic;
         txt_NumWheels.setText(String.valueOf(x));      // Total # of wheels
         totalWheels = x;
         if (x < 4){
@@ -1132,34 +963,8 @@ pitData Pit_Load = new pitData();
         Log.w(TAG, "# of teams = " + tNum);
 
     }
-    /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
-    public void RadioClick_Del(View view) {
-        Log.w(TAG, "@@ RadioClick_Del @@");
-        radgrp_Deliver = (RadioGroup) findViewById(R.id.radgrp_Deliver);
-        int selectedId = radgrp_Deliver.getCheckedRadioButtonId();
-//        Log.w(TAG, "*** Selected=" + selectedId);
-        radio_Deliver = (RadioButton) findViewById(selectedId);
-        String value = radio_Deliver.getText().toString();
-        if (teamSelected.length() < 3) {        /// Make sure a Team is selected 1st
-            final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
-            tg.startTone(ToneGenerator.TONE_PROP_BEEP);
-            Toast toast = Toast.makeText(getBaseContext(), "*** Select a TEAM first before entering data ***", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            toast.show();
-                radio_Deliver.setChecked(false);
-            } else {
-                if (value.equals("Place")) {           // Place?
-                    Log.w(TAG, "Place");
-                    delPlace = true;
-                    delLaunch = false;
-                } else {                               // Launch
-                    Log.w(TAG, "Launch");
-                    delLaunch = true;
-                    delPlace = false;
-                }
-            Log.w(TAG, "RadioDel - Launch = '" + delLaunch + "'  Place = '" + delPlace + "'");
-        }
-    }
+
+
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     private void storePitData() {
         Log.w(TAG, ">>>>  storePitData  <<<< " + teamSelected );
@@ -1170,7 +975,7 @@ pitData Pit_Load = new pitData();
         Pit_Data.setPit_numTrac(numTraction);
         Pit_Data.setPit_numOmni(numOmnis);
         Pit_Data.setPit_numMecanum(numMecanums);
-        Pit_Data.setPit_cubeManip(cubeManip);
+        Pit_Data.setPit_cargoManip(cargoManip);
         Pit_Data.setPit_vision(vision);
         Pit_Data.setPit_pneumatics(pneumatics);
         Pit_Data.setPit_climb(climb);
@@ -1181,18 +986,6 @@ pitData Pit_Load = new pitData();
         Pit_Data.setPit_motor(motor);
         Pit_Data.setPit_speed(speed);
         Pit_Data.setPit_lang(lang);
-        Pit_Data.setPit_autoSwitch(autoSwitch);
-        Pit_Data.setPit_switchMulti(switchMulti);
-        Pit_Data.setPit_autoScale(autoScale);
-        Pit_Data.setPit_scaleMulti(scaleMulti);
-        Pit_Data.setPit_cubeArm(cubeArm);
-        Pit_Data.setPit_armIntake(armIntake);
-        Pit_Data.setPit_armSqueeze(armSqueeze);
-        Pit_Data.setPit_cubeBox(cubeBox);
-        Pit_Data.setPit_cubeBelt(cubeBelt);
-        Pit_Data.setPit_cubeOhtr(cubeOhtr);
-        Pit_Data.setPit_delLaunch(delLaunch);
-        Pit_Data.setPit_delPlace(delPlace);
          /* */
         Pit_Data.setPit_comment(comments);
         Pit_Data.setPit_scout(scout);
