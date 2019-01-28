@@ -975,6 +975,7 @@ pitData Pit_Data = new pitData();
         Pit_Data.setPit_numTrac(numTraction);
         Pit_Data.setPit_numOmni(numOmnis);
         Pit_Data.setPit_numMecanum(numMecanums);
+        Pit_Data.setPit_numPneumatic(numPneumatic);
         Pit_Data.setPit_cargoManip(cargoManip);
         Pit_Data.setPit_vision(vision);
         Pit_Data.setPit_pneumatics(pneumatics);
