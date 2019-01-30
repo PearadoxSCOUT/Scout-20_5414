@@ -481,6 +481,7 @@ public class TeleopScoutActivity extends Activity {
             }
         }
     });
+
     // RIGHT Rocket
     // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
     chk_RghtRocket_LPan1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -627,6 +628,7 @@ public class TeleopScoutActivity extends Activity {
             }
         }
     });
+
 // Cargo Ship
     // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
     chk_CargoLPan1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -697,6 +699,78 @@ public class TeleopScoutActivity extends Activity {
             }
             else {          //not checked
                 CargoRPan3 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_CargoLCarg1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_CargoLCarg1.isChecked()) {     //checked
+                CargoLCarg1 = true;
+            }
+            else {          //not checked
+                CargoLCarg1 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_CargoLCarg2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_CargoLCarg2.isChecked()) {     //checked
+                CargoLCarg2 = true;
+            }
+            else {          //not checked
+                CargoLCarg2 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_CargoLCarg3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_CargoLCarg3.isChecked()) {     //checked
+                CargoLCarg3 = true;
+            }
+            else {          //not checked
+                CargoLCarg3 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_CargoRCarg1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_CargoRCarg1.isChecked()) {     //checked
+                CargoRCarg1 = true;
+            }
+            else {          //not checked
+                CargoRCarg1 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_CargoRCarg2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_CargoRCarg2.isChecked()) {     //checked
+                CargoRCarg2 = true;
+            }
+            else {          //not checked
+                CargoRCarg2 = false;
+            }
+        }
+    });
+    // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
+    chk_CargoRCarg3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            if (chk_CargoRCarg3.isChecked()) {     //checked
+                CargoRCarg3 = true;
+            }
+            else {          //not checked
+                CargoRCarg3 = false;
             }
         }
     });
