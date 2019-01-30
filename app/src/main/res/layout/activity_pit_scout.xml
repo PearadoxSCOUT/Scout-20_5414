@@ -271,35 +271,56 @@
         android:id="@+id/chkBox_Pneumatics"
         android:layout_width="140sp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/lin_Wheels"
         android:text="Pneumatics" />
 
         <CheckBox
             android:id="@+id/chkBox_Vision"
             android:layout_width="140sp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lin_Wheels"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
-            android:layout_toEndOf="@+id/lbl_RoboHeight"
             android:text="Vision Camera" />
 
         <CheckBox
             android:id="@+id/chkBox_Climb"
             android:layout_width="120sp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lin_Wheels"
             android:layout_marginLeft="10dp"
-            android:layout_toEndOf="@+id/txt_stud"
             android:text="Can Climb" />
 </LinearLayout>
+    // ======================================================
+    <LinearLayout
+        android:id="@+id/lin_PickUp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/lin_Checks"
+        android:layout_marginTop="3dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/chkBox_OffFloor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/magenta"
+            android:buttonTint="@color/magenta"
+            android:text="Can get Cargo from Floor" />
+
+        <CheckBox
+            android:id="@+id/chkBox_PanelFloor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/magenta"
+            android:buttonTint="@color/magenta"
+            android:text="Can get Panel from Floor" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/lin_lift"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/lin_Checks"
+        android:layout_below="@+id/lin_PickUp"
         android:layout_marginTop="3dp"
         android:orientation="horizontal">
 
@@ -312,32 +333,26 @@
 
         <Spinner
             android:id="@+id/spinner_numRobots"
-            android:layout_width="40sp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/chkBox_Vision"
-            android:layout_alignStart="@+id/chkBox_Vision"
             android:layout_gravity="top"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
             android:textColor="@color/orange" />
 
         <CheckBox
             android:id="@+id/chkBox_Ramp"
-            android:layout_width="100sp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/chkBox_Hook"
-            android:layout_alignBottom="@+id/chkBox_Hook"
-            android:layout_marginLeft="75dp"
-            android:layout_toStartOf="@+id/chkBox_Hook"
+            android:layout_marginLeft="15dp"
             android:text="Ramp"
             android:textColor="@color/orange" />
 
         <CheckBox
             android:id="@+id/chkBox_Hook"
-            android:layout_width="90sp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/scrollv_comm"
-            android:layout_below="@+id/chkBox_Climb"
-            android:text="Hook"
+            android:layout_marginStart="10dp"
+            android:text="Fork/Hook"
             android:textColor="@color/orange" />
 
     </LinearLayout>
@@ -423,13 +438,19 @@
             android:id="@+id/lbl_Auto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Autonomous"
+            android:text="Sandstorm"
             android:textColor="@color/yellow"
             android:textStyle="bold"
             android:textSize="16sp">
         </TextView>
-
-
+        <CheckBox
+            android:id="@+id/chkBox_Hab2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Start HAB level 2"
+            android:buttonTint="@color/yellow"
+            android:textColor="@color/yellow" />
     </LinearLayout>
 
 

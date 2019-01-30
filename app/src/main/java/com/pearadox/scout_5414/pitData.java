@@ -16,10 +16,13 @@ public class pitData implements Serializable {
     public boolean pit_pneumatics = false;          // presence of Pneumatics
     public boolean pit_cargoManip = false;          // presence of a way to pick up cargo from floor
     public boolean pit_climb = false;               // presence of a Climbing mechanism
+    public boolean pit_floorPanel = false;          // can get Hatch Panel from floor
+    public boolean pit_floorCargo = false;          // can get Cargo from floor
     public boolean pit_canLift = false;             // Ability to lift other robots
     public int pit_numLifted = 0;                   // Num. of robots can lift (1-2)
     public boolean pit_liftRamp = false;            // lift type Ramp
     public boolean pit_liftHook = false;            // lift type Hook
+    public boolean pit_HAB2 = false;                 // Can leave from HAB level 2
     public int pit_speed = 0;                       // Speed (Ft. per Sec)
     public String pit_motor;                        // Type of Motor
     public String pit_lang;                         // Programming  Language
@@ -27,6 +30,7 @@ public class pitData implements Serializable {
     /* */
     public String pit_comment;                      // Comment(s)
     public String pit_scout = " ";                  // Student who collected the data
+    public String  pit_dateTime;                  // Date & Time data was saved
     public String pit_photoURL;                     // URL of the robot photo in Firebase
 
 
@@ -34,7 +38,7 @@ public class pitData implements Serializable {
     //  Constructor
 
 
-    public pitData(String pit_team, int pit_tall, int pit_totWheels, int pit_numTrac, int pit_numOmni, int pit_numMecanum, int pit_numPneumatic, boolean pit_vision, boolean pit_pneumatics, boolean pit_cargoManip, boolean pit_climb, boolean pit_canLift, int pit_numLifted, boolean pit_liftRamp, boolean pit_liftHook, int pit_speed, String pit_motor, String pit_lang, String pit_comment, String pit_scout, String pit_photoURL) {
+    public pitData(String pit_team, int pit_tall, int pit_totWheels, int pit_numTrac, int pit_numOmni, int pit_numMecanum, int pit_numPneumatic, boolean pit_vision, boolean pit_pneumatics, boolean pit_cargoManip, boolean pit_climb, boolean pit_canLift, int pit_numLifted, boolean pit_liftRamp, boolean pit_liftHook, boolean pit_HAB2, int pit_speed, String pit_motor, String pit_lang, String pit_comment, String pit_scout, String pit_dateTime, String pit_photoURL) {
         this.pit_team = pit_team;
         this.pit_tall = pit_tall;
         this.pit_totWheels = pit_totWheels;
@@ -50,11 +54,13 @@ public class pitData implements Serializable {
         this.pit_numLifted = pit_numLifted;
         this.pit_liftRamp = pit_liftRamp;
         this.pit_liftHook = pit_liftHook;
+        this.pit_HAB2 = pit_HAB2;
         this.pit_speed = pit_speed;
         this.pit_motor = pit_motor;
         this.pit_lang = pit_lang;
         this.pit_comment = pit_comment;
         this.pit_scout = pit_scout;
+        this.pit_dateTime = pit_dateTime;
         this.pit_photoURL = pit_photoURL;
     }
 
@@ -191,6 +197,14 @@ public pitData() {
         this.pit_liftHook = pit_liftHook;
     }
 
+    public boolean ispit_HAB2() {
+        return pit_HAB2;
+    }
+
+    public void setpit_HAB2(boolean pit_HAB2) {
+        this.pit_HAB2 = pit_HAB2;
+    }
+
     public int getPit_speed() {
         return pit_speed;
     }
@@ -229,6 +243,14 @@ public pitData() {
 
     public void setPit_scout(String pit_scout) {
         this.pit_scout = pit_scout;
+    }
+
+    public String getpit_dateTime() {
+        return pit_dateTime;
+    }
+
+    public void setpit_dateTime(String pit_dateTime) {
+        this.pit_dateTime = pit_dateTime;
     }
 
     public String getPit_photoURL() {

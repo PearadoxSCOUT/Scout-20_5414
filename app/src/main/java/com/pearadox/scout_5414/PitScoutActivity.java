@@ -58,6 +58,8 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static android.app.PendingIntent.getActivity;
 import static android.view.View.VISIBLE;
@@ -97,9 +99,10 @@ public class PitScoutActivity extends AppCompatActivity {
     StorageReference storageRef;
     String pitPlace = "";  Boolean pitSD = false;   Boolean pitFB = false;
     String URL = "";
+    public static String timeStamp = " ";
     Boolean imageOnFB = false;      // Does image already exist in Firebase
-
     boolean dataSaved = false;      // Make sure they save before exiting
+
     // ===================  Data Elements for Pit Scout object ===================
     public String teamSelected = " ";               // Team #
     public int tall = 0;                        // Height (inches)
@@ -112,16 +115,20 @@ public class PitScoutActivity extends AppCompatActivity {
     public boolean pneumatics = false;          // presence of Pneumatics
     public boolean cargoManip = false;          // presence of a way to pick up cargo from floor
     public boolean climb = false;               // presence of a Climbing mechanism
+    public boolean floorPanel = false;          // can get Hatch Panel from floor
+    public boolean floorCargo = false;          // can get Cargo from floor
     public boolean canLift = false;             // Ability to lift other robots
     public int numLifted = 0;                   // Num. of robots can lift (1-2)
     public boolean liftRamp = false;            // lift type Ramp
     public boolean liftHook = false;            // lift type Hook
+    public boolean HAB2 = false;                // Can leave from HAB level 2
     public int speed = 0;                       // Speed (Ft. per Sec)
     public String motor;                        // Type of Motor
     public String lang;                         // Programming  Language
     /* */
     public String comments;                     // Comment(s)
     public String scout = " ";                  // Student who collected the data
+    private String  final_dateTime;             // Date & Time data was saved
     public String photoURL = "";                // URL of the robot photo in Firebase
 
 // ===========================================================================
@@ -261,9 +268,10 @@ pitData Pit_Data = new pitData();
         txtEd_Speed = (EditText) findViewById(R.id.txtEd_Speed);
 //        final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 200);
 //        tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
-        Toast toast = Toast.makeText(getBaseContext(), "*** Select a TEAM first before entering data ***", Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(getBaseContext(), " \n *** Select a TEAM first before entering data *** \n", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         toast.show();
+        timeStamp = new SimpleDateFormat("yyyy.MM.dd  hh:mm:ss a").format(new Date());
 
 //===============================================================================================================
         chkBox_Ramp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -338,7 +346,7 @@ pitData Pit_Data = new pitData();
             }
         });
 
-
+// ToDo find out why this is causing error!!!!!!!
         chkBox_OffFloor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
@@ -976,11 +984,13 @@ pitData Pit_Data = new pitData();
         Pit_Data.setPit_numLifted (numLifted );
         Pit_Data.setPit_liftRamp(liftRamp);
         Pit_Data.setPit_liftHook(liftHook);
+        Pit_Data.setpit_HAB2(HAB2);
         Pit_Data.setPit_motor(motor);
         Pit_Data.setPit_speed(speed);
         Pit_Data.setPit_lang(lang);
          /* */
         Pit_Data.setPit_comment(comments);
+        Pit_Data.setpit_dateTime(timeStamp);
         Pit_Data.setPit_scout(scout);
         Pit_Data.setPit_photoURL(photoURL);
 // -----------------------------------------------
