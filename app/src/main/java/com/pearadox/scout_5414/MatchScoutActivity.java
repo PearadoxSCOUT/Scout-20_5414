@@ -46,7 +46,7 @@ public class MatchScoutActivity extends AppCompatActivity {
     EditText editTxt_Team, editTxt_Match;
     TextView txt_EventName, txt_dev, txt_stud, txt_Match, txt_MyTeam, txt_TeamName, text_HGSeekBarValue, text_LGSeekBarValue, text_collected_balls, txt_NextMatch;
     CheckBox chk_baseline, checkbox_automode, chk_cubeSwitch, chk_attemptSwitch, chk_XoverSwitch, chk_WrongSwitch, chk_cubeScale, chk_attemptScale, chk_XoverScale, chk_WrongScale, chk_highGoal, chk_gears, chk_lowGoal, chk_activate_hopper, chk_baselineINVIS;
-    CheckBox chk_ExtraSwitch, chk_cube, chk_ExtraScale;
+    CheckBox chk_ExtraSwitch, chk_ExtraScale;
     EditText editText_autoComment, editText_Fuel;
     Spinner spinner_startPos;
     private Button button_GoToTeleopActivity, button_GoToArenaLayoutActivity, button_GearsMinus, button_GearsPlus, button_GearsAttemptedMinus, button_GearsAttemptedPlus;
@@ -247,7 +247,7 @@ public class MatchScoutActivity extends AppCompatActivity {
         button_GoToArenaLayoutActivity = (Button) findViewById(R.id.button_GoToArenaLayoutActivity);
 //        chk_ExtraSwitch = (CheckBox) findViewById(R.id.chk_ExtraSwitch);
 //        chk_ExtraScale = (CheckBox) findViewById(R.id.chk_ExtraScale);
-        chk_cube = (CheckBox) findViewById(R.id.chk_cube);
+//        chk_cube = (CheckBox) findViewById(R.id.chk_cube);
 //        txt_GearsPlaced.setText(Integer.toString(gearNum));
 //        txt_GearsAttempted.setText(Integer.toString(gearAttemptNum));
 //        seekBar_HighGoal.setEnabled(false);
