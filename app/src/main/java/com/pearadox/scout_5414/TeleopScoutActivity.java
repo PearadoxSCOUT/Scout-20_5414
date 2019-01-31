@@ -40,7 +40,7 @@ public class TeleopScoutActivity extends Activity {
     /* R Rocket */      CheckBox chk_RghtRocket_LPan1,chk_RghtRocket_LPan2,chk_RghtRocket_LPan3, chk_RghtRocket_LCarg1,chk_RghtRocket_LCarg2,chk_RghtRocket_LCarg3;
                         CheckBox chk_RghtRocket_RPan1,chk_RghtRocket_RPan2,chk_RghtRocket_RPan3, chk_RghtRocket_RCarg1,chk_RghtRocket_RCarg2,chk_RghtRocket_RCarg3;
     /* Comment */       EditText editText_TeleComments;
-    /* P/U Sect. */     CheckBox chkBox_PU_Cargo_floor, chkBox_PU_Panel_floor;
+    /* P/U Sect. */     CheckBox chkBox_PU_Cargo_floor, chkBox_CargoPlayerSta, chkBox_Corral, chkBox_PU_Panel_floor, chkBox_PanelPlayerSta;
     /* HAB */           RadioGroup  radgrp_HAB;      RadioButton  radio_Lift, radio_One, radio_Two, radio_Three, radio_Zero;
                         CheckBox chk_LiftedBy, chk_Lifted;
     /* Last Sect. */    Button button_GoToFinalActivity, button_Number_PenaltiesPlus, button_Number_PenaltiesUndo;
@@ -100,8 +100,11 @@ public class TeleopScoutActivity extends Activity {
     public boolean RghtRocket_RCarg2  = false;  // R-Rocket R-Cargo#2
     public boolean RghtRocket_RCarg3  = false;  // R-Rocket R-Cargo#3
 
-    public boolean cargo_pickup       = false;  // Did they pickup cargo off the ground?
-    public boolean panel_pickup       = false;  // Did they pickup panel off the ground?
+    public boolean cargo_floor        = false;  // Did they pickup cargo off the ground?
+    public boolean cargo_playSta      = false;  // Did they pickup cargo from Player Station?
+    public boolean cargo_Corral       = false;  // Did they pickup cargo from Corral?
+    public boolean panel_floor        = false;  // Did they pickup panel off the ground?
+    public boolean panel_playSta      = false;  // Did they pickup panel off the ground?
     public int end_HAB_Level          = 0;      // HAB Level
     public boolean got_lift           = false;  // Got Lifted by another robot
     public boolean lifted             = false;  // Got Lifted by another robot
@@ -170,7 +173,10 @@ public class TeleopScoutActivity extends Activity {
 
         editText_TeleComments   = (EditText) findViewById(R.id.editText_teleComments);
         chkBox_PU_Cargo_floor   = (CheckBox) findViewById(R.id.chkBox_PU_Cargo_floor);
+        chkBox_CargoPlayerSta   = (CheckBox) findViewById(R.id.chkBox_CargoPlayerSta);
+        chkBox_Corral           = (CheckBox) findViewById(R.id.chkBox_Corral);
         chkBox_PU_Panel_floor   = (CheckBox) findViewById(R.id.chkBox_PU_Panel_floor);
+        chkBox_PanelPlayerSta   = (CheckBox) findViewById(R.id.chkBox_PanelPlayerSta);
         radio_Zero              = (RadioButton) findViewById(R.id.radio_Zero);
         radio_One               = (RadioButton) findViewById(R.id.radio_One);
         radio_Two               = (RadioButton) findViewById(R.id.radio_Two);
@@ -232,10 +238,36 @@ public class TeleopScoutActivity extends Activity {
             Log.w(TAG, "chkBox_PU_Cargo_floor Listener");
             if (buttonView.isChecked()) {
                 Log.w(TAG,"PU_Cargo is checked.");
-                cargo_pickup = true;
+                cargo_floor = true;
             } else {  //not checked
                 Log.w(TAG,"PU_Cargo is unchecked.");
-                cargo_pickup = false;
+                cargo_floor = false;
+            }
+        }
+    });
+    chkBox_CargoPlayerSta.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            Log.w(TAG, "chkBox_CargoPlayerSta Listener");
+            if (buttonView.isChecked()) {
+                Log.w(TAG,"chkBox_CargoPlayerSta is checked.");
+                cargo_playSta = true;
+            } else {  //not checked
+                Log.w(TAG,"chkBox_CargoPlayerSta is unchecked.");
+                cargo_playSta = false;
+            }
+        }
+    });
+    chkBox_Corral.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            Log.w(TAG, "chkBox_Corral Listener");
+            if (buttonView.isChecked()) {
+                Log.w(TAG,"chkBox_Corral is checked.");
+                cargo_Corral = true;
+            } else {  //not checked
+                Log.w(TAG,"chkBox_Corral is unchecked.");
+                cargo_Corral = false;
             }
         }
     });
@@ -246,14 +278,26 @@ public class TeleopScoutActivity extends Activity {
             Log.w(TAG, "chkBox_PU_Panel_floor Listener");
             if (buttonView.isChecked()) {
                 Log.w(TAG,"PU_Panel is checked.");
-                panel_pickup = true;
+                panel_floor = true;
             } else {  //not checked
                 Log.w(TAG,"PU_Panel is unchecked.");
-                panel_pickup = false;
+                panel_floor = false;
             }
         }
     });
-
+        chkBox_PanelPlayerSta.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                Log.w(TAG, "chkBox_PanelPlayerSta Listener");
+                if (buttonView.isChecked()) {
+                    Log.w(TAG,"panel_playSta is checked.");
+                    panel_playSta = true;
+                } else {  //not checked
+                    Log.w(TAG,"panel_playSta is unchecked.");
+                    panel_playSta = false;
+                }
+            }
+        });
 
     chk_LiftedBy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
         @Override
@@ -956,8 +1000,11 @@ public class TeleopScoutActivity extends Activity {
         Pearadox.Match_Data.setTele_CargoEndLCargo(CargoEndLCargo);
         Pearadox.Match_Data.setTele_CargoEndRCargo(CargoEndRCargo);
 
-        Pearadox.Match_Data.setTele_cargo_pickup(cargo_pickup);
-        Pearadox.Match_Data.setTele_Panel_pickup(panel_pickup);
+        Pearadox.Match_Data.setTele_cargo_floor(cargo_floor);
+        Pearadox.Match_Data.setTele_cargo_Corral(cargo_Corral);
+        Pearadox.Match_Data.setTele_cargo_playSta(cargo_playSta);
+        Pearadox.Match_Data.setTele_Panel_floor(panel_floor);
+        Pearadox.Match_Data.setTele_Panel_playSta(panel_playSta);
         Pearadox.Match_Data.setTele_level_num(end_HAB_Level);
         Pearadox.Match_Data.setTele_got_lift(got_lift);
         Pearadox.Match_Data.setTele_num_Penalties(final_num_Penalties);
