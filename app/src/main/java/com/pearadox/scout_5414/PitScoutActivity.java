@@ -75,11 +75,10 @@ public class PitScoutActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter_Trac, adapter_Omni, adapter_Mac, adapter_Pneu ;
     ArrayAdapter<String> adapter_driveMotor, adapter_progLang,adapter_ssMode;
-//    RadioGroup radgrp_Deliver;      RadioButton radio_Deliver, radio_Launch, radio_Place;
     CheckBox chkBox_Ramp, chkBox_CanLift, chkBox_Hook, chkBox_Vision, chkBox_Pneumatics, chkBox_Climb, chkBox_Belt, chkBox_Box, chkBox_Other;
     CheckBox chkBox_OffFloor;
-    //    CheckBox chkBox_Arms, chkBox_ArmPress, chkBox_ArmIntake, chkBox_OffFloor;
-//    CheckBox chkBox_Switch, chkBox_SwitchMulti, chkBox_Scale, chkBox_ScaleMulti;
+    //  Todo - new checkboxes
+
     Button btn_Save;
     Uri currentImageUri;
     String currentImagePath;
@@ -184,9 +183,6 @@ pitData Pit_Data = new pitData();
             editTxt_Team.setText("");
             editTxt_Team.setVisibility(View.VISIBLE);
             editTxt_Team.setEnabled(true);
-//            editTxt_Team.requestFocus();        // Don't let EditText mess up layout!!
-//            editTxt_Team.setFocusable(true);
-//            editTxt_Team.setFocusableInTouchMode(true);
             spinner_Team.setVisibility(View.GONE);
             editTxt_Team.setOnKeyListener(new View.OnKeyListener() {
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -254,7 +250,6 @@ pitData Pit_Data = new pitData();
         spinner_Lang.setAdapter(adapter_progLang);
         spinner_Lang.setSelection(0, false);
         spinner_Lang.setOnItemSelectedListener(new progLangOnClickListener());
-
         spinner_ssMode = (Spinner) findViewById(R.id.spinner_ssMode);
         String[] operMode = getResources().getStringArray(R.array.ss_Mode_array);
         adapter_ssMode = new ArrayAdapter<String>(this, R.layout.dev_list_layout, operMode);
@@ -262,7 +257,6 @@ pitData Pit_Data = new pitData();
         spinner_ssMode.setAdapter(adapter_ssMode);
         spinner_ssMode.setSelection(0, false);
         spinner_ssMode.setOnItemSelectedListener(new ssModeOnClickListener());
-
         chkBox_Ramp = (CheckBox) findViewById(R.id.chkBox_Ramp);
         chkBox_Hook = (CheckBox) findViewById(R.id.chkBox_Hook);
         chkBox_Ramp.setVisibility(View.GONE);
@@ -278,6 +272,9 @@ pitData Pit_Data = new pitData();
         editText_Comments = (EditText) findViewById(R.id.editText_Comments);
         editText_Comments.setClickable(true);
         txtEd_Speed = (EditText) findViewById(R.id.txtEd_Speed);
+        //  Todo - All new Refereneces
+
+
 //        final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 200);
 //        tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
         Toast toast = Toast.makeText(getBaseContext(), " \n *** Select a TEAM first before entering data *** \n", Toast.LENGTH_LONG);
@@ -358,7 +355,7 @@ pitData Pit_Data = new pitData();
             }
         });
 
-// ToDo find out why this is causing error!!!!!!!
+
         chkBox_OffFloor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
@@ -372,6 +369,7 @@ pitData Pit_Data = new pitData();
                 }
             }
         });
+        //  Todo - P/U  Panel Checkbox
 
         chkBox_Climb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -386,6 +384,8 @@ pitData Pit_Data = new pitData();
                 }
             }
         });
+
+        //  Todo - SS Leave HAB2 and HAB end 2&3 Checkboxes
 
 
 //=================================================================
@@ -697,10 +697,10 @@ pitData Pit_Data = new pitData();
                         Spinner spinner_Omni = (Spinner) findViewById(R.id.spinner_Omni);
                         Spinner spinner_Mecanum = (Spinner) findViewById(R.id.spinner_Mecanum);
                         Spinner spinner_numRobots = (Spinner) findViewById(R.id.spinner_numRobots);
+                        //  Todo - Pneumatic wheels & Oper. Mode Refereneces
                         if (pitFB) {
                             // Already loaded data from Firebase in Pit_Load
                         } else {
-                            // ToDo - Load data from SD
                             File direct_pit = new File(Environment.getExternalStorageDirectory() + "/download/FRC5414/pit/" + Pearadox.FRC_Event);
                             try {
                                 Log.w(TAG, "   Dir:" + direct_pit + "/" + teamSelected.trim() + ".dat");
@@ -721,6 +721,7 @@ pitData Pit_Data = new pitData();
                         }
                         // Now load the screen & variables
                         teamSelected = Pit_Load.getPit_team();
+                        //  Todo - Height _NOT_ coming back?
                         txtEd_Height.setText(String.valueOf(Pit_Load.getPit_tall()));
                         tall = Integer.valueOf(String.valueOf(txtEd_Height.getText()));
                         txt_NumWheels.setText(String.valueOf(Pit_Load.getPit_totWheels()));
@@ -728,10 +729,13 @@ pitData Pit_Data = new pitData();
                         spinner_Traction.setSelection((Pit_Load.getPit_numTrac()));
                         spinner_Omni.setSelection((Pit_Load.getPit_numOmni()));
                         spinner_Mecanum.setSelection((Pit_Load.getPit_numMecanum()));
+                        //  Todo - Pneumatic wheels
 
                         chkBox_Climb.setChecked(Pit_Load.isPit_climb());
                         chkBox_Vision.setChecked(Pit_Load.isPit_vision());
                         chkBox_Pneumatics.setChecked(Pit_Load.isPit_pneumatics());
+                        //  Todo - P/U Cargo & Panel
+
                         chkBox_CanLift.setChecked(Pit_Load.isPit_canLift());
                         if (Pit_Load.isPit_canLift()) {
                             spinner_numRobots.setVisibility(View.VISIBLE);
@@ -778,6 +782,9 @@ pitData Pit_Data = new pitData();
                                 Log.w(TAG, "►►►►►  E R R O R  ◄◄◄◄◄");
                                 break;
                         }
+                        //  Todo - add SS Oper. Mode
+
+                        //  Todo - Speed _NOT_ coming back?
                         txtEd_Speed.setText(String.valueOf(Pit_Load.getPit_speed()));
                         // Finally ...
                         scout = Pit_Load.getPit_scout();
