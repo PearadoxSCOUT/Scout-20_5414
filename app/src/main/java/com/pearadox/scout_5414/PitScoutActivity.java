@@ -546,7 +546,7 @@ pitData Pit_Data = new pitData();
         Log.w(TAG, "$$$$$  SaveToFirebase  $$$$$" + savedFile);
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageReference = storage.getReferenceFromUrl("gs://paradox-2017.appspot.com/images/"+ Pearadox.FRC_Event).child(picname);
+        StorageReference storageReference = storage.getReferenceFromUrl("gs://pearadox-2019.appspot.com/images/"+ Pearadox.FRC_Event).child(picname);
 
         UploadTask uploadTask = storageReference.putFile(currentImageUri);
 
