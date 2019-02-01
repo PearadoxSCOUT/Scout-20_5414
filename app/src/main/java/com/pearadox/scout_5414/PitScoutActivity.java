@@ -71,10 +71,10 @@ public class PitScoutActivity extends AppCompatActivity {
     EditText editTxt_Team, txtEd_Height, editText_Comments, txtEd_Speed;
     ImageView imgScoutLogo, img_Photo;
     Spinner spinner_Team, spinner_Traction, spinner_Omni, spinner_Mecanum, spinner_Pneumatic;
-    Spinner spinner_numRobots, spinner_Motor, spinner_Lang;
+    Spinner spinner_numRobots, spinner_Motor, spinner_Lang, spinner_ssMode;
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter_Trac, adapter_Omni, adapter_Mac, adapter_Pneu ;
-    ArrayAdapter<String> adapter_driveMotor, adapter_progLang;
+    ArrayAdapter<String> adapter_driveMotor, adapter_progLang,adapter_ssMode;
 //    RadioGroup radgrp_Deliver;      RadioButton radio_Deliver, radio_Launch, radio_Place;
     CheckBox chkBox_Ramp, chkBox_CanLift, chkBox_Hook, chkBox_Vision, chkBox_Pneumatics, chkBox_Climb, chkBox_Belt, chkBox_Box, chkBox_Other;
     CheckBox chkBox_OffFloor;
@@ -121,10 +121,13 @@ public class PitScoutActivity extends AppCompatActivity {
     public int numLifted = 0;                   // Num. of robots can lift (1-2)
     public boolean liftRamp = false;            // lift type Ramp
     public boolean liftHook = false;            // lift type Hook
-    public boolean HAB2 = false;                // Can leave from HAB level 2
+    public boolean leaveHAB2 = false;           // Can leave from HAB level 2
+    public boolean endHAB2 = false;             // Can climb to HAB level 2
+    public boolean endHAB3 = false;             // Can climb to HAB level 3
     public int speed = 0;                       // Speed (Ft. per Sec)
     public String motor;                        // Type of Motor
     public String lang;                         // Programming  Language
+    public String ssMode;                       // Sandstorm Operatong Mode
     /* */
     public String comments;                     // Comment(s)
     public String scout = " ";                  // Student who collected the data
@@ -251,6 +254,15 @@ pitData Pit_Data = new pitData();
         spinner_Lang.setAdapter(adapter_progLang);
         spinner_Lang.setSelection(0, false);
         spinner_Lang.setOnItemSelectedListener(new progLangOnClickListener());
+
+        spinner_ssMode = (Spinner) findViewById(R.id.spinner_ssMode);
+        String[] operMode = getResources().getStringArray(R.array.ss_Mode_array);
+        adapter_ssMode = new ArrayAdapter<String>(this, R.layout.dev_list_layout, operMode);
+        adapter_ssMode.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_ssMode.setAdapter(adapter_ssMode);
+        spinner_ssMode.setSelection(0, false);
+        spinner_ssMode.setOnItemSelectedListener(new ssModeOnClickListener());
+
         chkBox_Ramp = (CheckBox) findViewById(R.id.chkBox_Ramp);
         chkBox_Hook = (CheckBox) findViewById(R.id.chkBox_Hook);
         chkBox_Ramp.setVisibility(View.GONE);
@@ -836,7 +848,16 @@ pitData Pit_Data = new pitData();
                                    View view, int pos, long id) {
             lang = parent.getItemAtPosition(pos).toString();
             Log.d(TAG, ">>>>> Language  '" + lang + "' " + pos);
-
+        }
+        public void onNothingSelected(AdapterView<?> parent) {
+            // Do nothing.
+        }
+    }
+    private class ssModeOnClickListener implements android.widget.AdapterView.OnItemSelectedListener {
+        public void onItemSelected(AdapterView<?> parent,
+                                   View view, int pos, long id) {
+            ssMode = parent.getItemAtPosition(pos).toString();
+            Log.d(TAG, ">>>>> Oper.Mode  '" + ssMode + "' " + pos);
         }
         public void onNothingSelected(AdapterView<?> parent) {
             // Do nothing.
@@ -848,7 +869,6 @@ pitData Pit_Data = new pitData();
                                    View view, int pos, long id) {
             motor = parent.getItemAtPosition(pos).toString();
             Log.d(TAG, ">>>>> Motor  '" + motor + "' " + pos);
-
         }
         public void onNothingSelected(AdapterView<?> parent) {
             // Do nothing.
@@ -984,13 +1004,16 @@ pitData Pit_Data = new pitData();
         Pit_Data.setPit_numLifted (numLifted );
         Pit_Data.setPit_liftRamp(liftRamp);
         Pit_Data.setPit_liftHook(liftHook);
-        Pit_Data.setpit_HAB2(HAB2);
+        Pit_Data.setPit_leaveHAB2(leaveHAB2);
+        Pit_Data.setPit_endHAB2(endHAB2);
+        Pit_Data.setPit_endHAB3(endHAB3);
         Pit_Data.setPit_motor(motor);
         Pit_Data.setPit_speed(speed);
         Pit_Data.setPit_lang(lang);
+        Pit_Data.setPit_ssMode(ssMode);
          /* */
         Pit_Data.setPit_comment(comments);
-        Pit_Data.setpit_dateTime(timeStamp);
+        Pit_Data.setPit_dateTime(timeStamp);
         Pit_Data.setPit_scout(scout);
         Pit_Data.setPit_photoURL(photoURL);
 // -----------------------------------------------

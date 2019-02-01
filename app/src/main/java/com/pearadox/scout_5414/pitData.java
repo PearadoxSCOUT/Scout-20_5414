@@ -22,10 +22,13 @@ public class pitData implements Serializable {
     public int pit_numLifted = 0;                   // Num. of robots can lift (1-2)
     public boolean pit_liftRamp = false;            // lift type Ramp
     public boolean pit_liftHook = false;            // lift type Hook
-    public boolean pit_HAB2 = false;                // Can leave from HAB level 2
+    public boolean pit_leaveHAB2 = false;           // Can leave from HAB level 2
+    public boolean pit_endHAB2 = false;             // Can climb to HAB level 2
+    public boolean pit_endHAB3 = false;             // Can climb to HAB level 3
     public int pit_speed = 0;                       // Speed (Ft. per Sec)
     public String pit_motor;                        // Type of Motor
     public String pit_lang;                         // Programming  Language
+    public String pit_ssMode;                       // Sandstorm Operatong Mode
 
     /* */
     public String pit_comment;                      // Comment(s)
@@ -38,7 +41,7 @@ public class pitData implements Serializable {
     //  Constructor
 
 
-    public pitData(String pit_team, int pit_tall, int pit_totWheels, int pit_numTrac, int pit_numOmni, int pit_numMecanum, int pit_numPneumatic, boolean pit_vision, boolean pit_pneumatics, boolean pit_cargoManip, boolean pit_climb, boolean pit_canLift, int pit_numLifted, boolean pit_liftRamp, boolean pit_liftHook, boolean pit_HAB2, int pit_speed, String pit_motor, String pit_lang, String pit_comment, String pit_scout, String pit_dateTime, String pit_photoURL) {
+    public pitData(String pit_team, int pit_tall, int pit_totWheels, int pit_numTrac, int pit_numOmni, int pit_numMecanum, int pit_numPneumatic, boolean pit_vision, boolean pit_pneumatics, boolean pit_cargoManip, boolean pit_climb, boolean pit_floorPanel, boolean pit_floorCargo, boolean pit_canLift, int pit_numLifted, boolean pit_liftRamp, boolean pit_liftHook, boolean pit_leaveHAB2, boolean pit_endHAB2, boolean pit_endHAB3, int pit_speed, String pit_motor, String pit_lang, String pit_ssMode, String pit_comment, String pit_scout, String pit_dateTime, String pit_photoURL) {
         this.pit_team = pit_team;
         this.pit_tall = pit_tall;
         this.pit_totWheels = pit_totWheels;
@@ -50,14 +53,19 @@ public class pitData implements Serializable {
         this.pit_pneumatics = pit_pneumatics;
         this.pit_cargoManip = pit_cargoManip;
         this.pit_climb = pit_climb;
+        this.pit_floorPanel = pit_floorPanel;
+        this.pit_floorCargo = pit_floorCargo;
         this.pit_canLift = pit_canLift;
         this.pit_numLifted = pit_numLifted;
         this.pit_liftRamp = pit_liftRamp;
         this.pit_liftHook = pit_liftHook;
-        this.pit_HAB2 = pit_HAB2;
+        this.pit_leaveHAB2 = pit_leaveHAB2;
+        this.pit_endHAB2 = pit_endHAB2;
+        this.pit_endHAB3 = pit_endHAB3;
         this.pit_speed = pit_speed;
         this.pit_motor = pit_motor;
         this.pit_lang = pit_lang;
+        this.pit_ssMode = pit_ssMode;
         this.pit_comment = pit_comment;
         this.pit_scout = pit_scout;
         this.pit_dateTime = pit_dateTime;
@@ -165,6 +173,22 @@ public pitData() {
         this.pit_climb = pit_climb;
     }
 
+    public boolean isPit_floorPanel() {
+        return pit_floorPanel;
+    }
+
+    public void setPit_floorPanel(boolean pit_floorPanel) {
+        this.pit_floorPanel = pit_floorPanel;
+    }
+
+    public boolean isPit_floorCargo() {
+        return pit_floorCargo;
+    }
+
+    public void setPit_floorCargo(boolean pit_floorCargo) {
+        this.pit_floorCargo = pit_floorCargo;
+    }
+
     public boolean isPit_canLift() {
         return pit_canLift;
     }
@@ -197,12 +221,28 @@ public pitData() {
         this.pit_liftHook = pit_liftHook;
     }
 
-    public boolean ispit_HAB2() {
-        return pit_HAB2;
+    public boolean isPit_leaveHAB2() {
+        return pit_leaveHAB2;
     }
 
-    public void setpit_HAB2(boolean pit_HAB2) {
-        this.pit_HAB2 = pit_HAB2;
+    public void setPit_leaveHAB2(boolean pit_leaveHAB2) {
+        this.pit_leaveHAB2 = pit_leaveHAB2;
+    }
+
+    public boolean isPit_endHAB2() {
+        return pit_endHAB2;
+    }
+
+    public void setPit_endHAB2(boolean pit_endHAB2) {
+        this.pit_endHAB2 = pit_endHAB2;
+    }
+
+    public boolean isPit_endHAB3() {
+        return pit_endHAB3;
+    }
+
+    public void setPit_endHAB3(boolean pit_endHAB3) {
+        this.pit_endHAB3 = pit_endHAB3;
     }
 
     public int getPit_speed() {
@@ -229,6 +269,14 @@ public pitData() {
         this.pit_lang = pit_lang;
     }
 
+    public String getPit_ssMode() {
+        return pit_ssMode;
+    }
+
+    public void setPit_ssMode(String pit_ssMode) {
+        this.pit_ssMode = pit_ssMode;
+    }
+
     public String getPit_comment() {
         return pit_comment;
     }
@@ -245,11 +293,11 @@ public pitData() {
         this.pit_scout = pit_scout;
     }
 
-    public String getpit_dateTime() {
+    public String getPit_dateTime() {
         return pit_dateTime;
     }
 
-    public void setpit_dateTime(String pit_dateTime) {
+    public void setPit_dateTime(String pit_dateTime) {
         this.pit_dateTime = pit_dateTime;
     }
 

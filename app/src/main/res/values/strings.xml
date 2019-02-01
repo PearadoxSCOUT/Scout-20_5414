@@ -67,6 +67,14 @@
         <item>No Show</item>
     </string-array>
 
+    <!-- ##### Sandstorm Operating Mode ##### -->
+    <string-array name="ss_Mode_array">
+        <item> </item>
+        <item>Program Only</item>
+        <item>Vision Only</item>
+        <item>Hybrid (P+V)</item>
+    </string-array>
+
 
     <!-- -->
     <!-- @@@@@ COLORS @@@@@ -->
