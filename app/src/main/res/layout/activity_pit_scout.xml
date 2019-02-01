@@ -457,7 +457,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:text="HAB end"
-            android:textColor="@color/brightblue"
+            android:textColor="@color/blue"
             android:textSize="16sp"
             android:textStyle="bold"></TextView>
         <CheckBox
@@ -466,8 +466,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="Level 2"
-            android:buttonTint="@color/blue"
-            android:textColor="@color/blue" />
+            android:buttonTint="@color/brightblue"
+            android:textColor="@color/brightblue" />
         <CheckBox
             android:id="@+id/chkBox_HABLvl_3"
             android:layout_width="wrap_content"
