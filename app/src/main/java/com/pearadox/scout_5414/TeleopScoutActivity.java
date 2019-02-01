@@ -69,22 +69,22 @@ public class TeleopScoutActivity extends Activity {
     public boolean LeftRocket_RCarg2  = false; // L-Rocket R-Cargo#2
     public boolean LeftRocket_RCarg3  = false; // L-Rocket R-Cargo#3
 
-    public boolean CargoLPan1         = false;; // Cargo L-Panel#1
-    public boolean CargoLPan2         = false;; // Cargo L-Panel#2
-    public boolean CargoLPan3         = false;; // Cargo L-Panel#3
-    public boolean CargoRPan1         = false;; // Cargo R-Panel#1
-    public boolean CargoRPan2         = false;; // Cargo R-Panel#2
-    public boolean CargoRPan3         = false;; // Cargo R-Panel#3
-    public boolean CargoLCarg1        = false;; // Cargo L-Cargo#1
-    public boolean CargoLCarg2        = false;; // Cargo L-Cargo#2
-    public boolean CargoLCarg3        = false;; // Cargo L-Cargo#3
-    public boolean CargoRCarg1        = false;; // Cargo R-Cargo#1
-    public boolean CargoRCarg2        = false;; // Cargo R-Cargo#2
-    public boolean CargoRCarg3        = false;; // Cargo R-Cargo#3
-    public boolean CargoEndLPanel     = false;; // Cargo End L-Panel#1
-    public boolean CargoEndLCargo     = false;; // Cargo End L-Cargo#1
-    public boolean CargoEndRPanel     = false;; // Cargo End R-Panel#1
-    public boolean CargoEndRCargo     = false;; // Cargo End R-Cargo#1
+    public boolean CargoLPan1         = false; // Cargo L-Panel#1
+    public boolean CargoLPan2         = false; // Cargo L-Panel#2
+    public boolean CargoLPan3         = false; // Cargo L-Panel#3
+    public boolean CargoRPan1         = false; // Cargo R-Panel#1
+    public boolean CargoRPan2         = false; // Cargo R-Panel#2
+    public boolean CargoRPan3         = false; // Cargo R-Panel#3
+    public boolean CargoLCarg1        = false; // Cargo L-Cargo#1
+    public boolean CargoLCarg2        = false; // Cargo L-Cargo#2
+    public boolean CargoLCarg3        = false; // Cargo L-Cargo#3
+    public boolean CargoRCarg1        = false; // Cargo R-Cargo#1
+    public boolean CargoRCarg2        = false; // Cargo R-Cargo#2
+    public boolean CargoRCarg3        = false; // Cargo R-Cargo#3
+    public boolean CargoEndLPanel     = false; // Cargo End L-Panel#1
+    public boolean CargoEndLCargo     = false; // Cargo End L-Cargo#1
+    public boolean CargoEndRPanel     = false; // Cargo End R-Panel#1
+    public boolean CargoEndRCargo     = false; // Cargo End R-Cargo#1
 
 
     public boolean RghtRocket_LPan1   = false;  // R-Rocket L-Panel#1
