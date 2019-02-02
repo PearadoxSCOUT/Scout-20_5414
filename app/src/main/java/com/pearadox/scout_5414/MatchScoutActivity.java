@@ -779,9 +779,11 @@ public class MatchScoutActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
                 if (chk_CargoEndLPanel.isChecked()) {     //checked
                     CargoEndLPanel = true;
+                    chk_CargoEndLCargo.setChecked(true);    // Score the already set Cargo Ball
                 }
                 else {          //not checked
                     CargoEndLPanel = false;
+                    chk_CargoEndLCargo.setChecked(false);
                 }
             }
         });
@@ -791,9 +793,11 @@ public class MatchScoutActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
                 if (chk_CargoEndRPanel.isChecked()) {     //checked
                     CargoEndRPanel = true;
+                    chk_CargoEndRCargo.setChecked(true);    // Score the already set Cargo Ball
                 }
                 else {          //not checked
                     CargoEndRPanel = false;
+                    chk_CargoEndRCargo.setChecked(false);
                 }
             }
         });
