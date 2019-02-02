@@ -220,84 +220,28 @@ public class MatchScoutActivity extends AppCompatActivity {
             txt_MyTeam.setVisibility(View.GONE);
             txt_TeamName.setVisibility(View.GONE);
 
-            checkbox_automode = (CheckBox) findViewById(R.id.checkbox_automode);
-            editText_autoComment = (EditText) findViewById(R.id.editText_autoComment);
-            button_GoToTeleopActivity = (Button) findViewById(R.id.button_GoToTeleopActivity);
-            button_GoToArenaLayoutActivity = (Button) findViewById(R.id.button_GoToArenaLayoutActivity);
-            final Spinner spinner_startPos = (Spinner) findViewById(R.id.spinner_startPos);
-            String[] autostartPos = getResources().getStringArray(R.array.auto_start_array);
-            adapter_autostartpos = new ArrayAdapter<String>(this, R.layout.dev_list_layout, autostartPos);
-            adapter_autostartpos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner_startPos.setAdapter(adapter_autostartpos);
-            spinner_startPos.setSelection(0, false);
-            spinner_startPos.setOnItemSelectedListener(new startPosOnClickListener());
-
-            // Left Rocket
-            chk_LeftRocket_LPan1 = (CheckBox) findViewById(R.id.chk_LeftRocket_LPan1);
-            chk_LeftRocket_LPan2 = (CheckBox) findViewById(R.id.chk_LeftRocket_LPan2);
-            chk_LeftRocket_LPan3 = (CheckBox) findViewById(R.id.chk_LeftRocket_LPan3);
-            chk_LeftRocket_RPan1 = (CheckBox) findViewById(R.id.chk_LeftRocket_RPan1);
-            chk_LeftRocket_RPan2 = (CheckBox) findViewById(R.id.chk_LeftRocket_RPan2);
-            chk_LeftRocket_RPan3 = (CheckBox) findViewById(R.id.chk_LeftRocket_RPan3);
-            chk_LeftRocket_LCarg1 = (CheckBox) findViewById(R.id.chk_LeftRocket_LCarg1);
-            chk_LeftRocket_LCarg2 = (CheckBox) findViewById(R.id.chk_LeftRocket_LCarg2);
-            chk_LeftRocket_LCarg3 = (CheckBox) findViewById(R.id.chk_LeftRocket_LCarg3);
-            chk_LeftRocket_RCarg1 = (CheckBox) findViewById(R.id.chk_LeftRocket_RCarg1);
-            chk_LeftRocket_RCarg2 = (CheckBox) findViewById(R.id.chk_LeftRocket_RCarg2);
-            chk_LeftRocket_RCarg3 = (CheckBox) findViewById(R.id.chk_LeftRocket_RCarg3);
-            // Cargo Ship
-            chk_CargoLPan1 = (CheckBox) findViewById(R.id.chk_CargoLPan1);
-            chk_CargoLPan2 = (CheckBox) findViewById(R.id.chk_CargoLPan2);
-            chk_CargoLPan3 = (CheckBox) findViewById(R.id.chk_CargoLPan3);
-            chk_CargoRPan1 = (CheckBox) findViewById(R.id.chk_CargoRPan1);
-            chk_CargoRPan2 = (CheckBox) findViewById(R.id.chk_CargoRPan2);
-            chk_CargoRPan3 = (CheckBox) findViewById(R.id.chk_CargoRPan3);
-            chk_CargoLCarg1 = (CheckBox) findViewById(R.id.chk_CargoLCarg1);
-            chk_CargoLCarg2 = (CheckBox) findViewById(R.id.chk_CargoLCarg2);
-            chk_CargoLCarg3 = (CheckBox) findViewById(R.id.chk_CargoLCarg3);
-            chk_CargoRCarg1 = (CheckBox) findViewById(R.id.chk_CargoRCarg1);
-            chk_CargoRCarg2 = (CheckBox) findViewById(R.id.chk_CargoRCarg2);
-            chk_CargoRCarg3 = (CheckBox) findViewById(R.id.chk_CargoRCarg3);
-            chk_CargoEndLPanel = (CheckBox) findViewById(R.id.chk_CargoEndLPanel);
-            chk_CargoEndRPanel = (CheckBox) findViewById(R.id.chk_CargoEndRPanel);
-            chk_CargoEndLCargo = (CheckBox) findViewById(R.id.chk_CargoEndLCargo);
-            chk_CargoEndRCargo = (CheckBox) findViewById(R.id.chk_CargoEndRCargo);
-            // Right Rocket
-            chk_RghtRocket_LPan1 = (CheckBox) findViewById(R.id.chk_RghtRocket_LPan1);
-            chk_RghtRocket_LPan2 = (CheckBox) findViewById(R.id.chk_RghtRocket_LPan2);
-            chk_RghtRocket_LPan3 = (CheckBox) findViewById(R.id.chk_RghtRocket_LPan3);
-            chk_RghtRocket_RPan1 = (CheckBox) findViewById(R.id.chk_RghtRocket_RPan1);
-            chk_RghtRocket_RPan2 = (CheckBox) findViewById(R.id.chk_RghtRocket_RPan2);
-            chk_RghtRocket_RPan3 = (CheckBox) findViewById(R.id.chk_RghtRocket_RPan3);
-            chk_RghtRocket_LCarg1 = (CheckBox) findViewById(R.id.chk_RghtRocket_LCarg1);
-            chk_RghtRocket_LCarg2 = (CheckBox) findViewById(R.id.chk_RghtRocket_LCarg2);
-            chk_RghtRocket_LCarg3 = (CheckBox) findViewById(R.id.chk_RghtRocket_LCarg3);
-            chk_RghtRocket_RCarg1 = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg1);
-            chk_RghtRocket_RCarg2 = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg2);
-            chk_RghtRocket_RCarg3 = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg3);
-
-            // ToDo - all references to new Widgets
 
 // ******************
             editTxt_Match.setOnKeyListener(new View.OnKeyListener() {
-                public boolean onKey(View v, int keyCode, KeyEvent event) {
-                    if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-                            (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                        Log.d(TAG, " editTxt_Match listener; Match = " + editTxt_Match.getText());
-                        if (editTxt_Match.getText().length() < 2) {
-                            vibrate.vibrate(twice, -1);
-                            final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
-                            tg.startTone(ToneGenerator.TONE_PROP_BEEP);
-                            Toast.makeText(getBaseContext(), "*** Match number must be at least 2 characters  *** ", Toast.LENGTH_LONG).show();
-                        } else {
-                            matchID = "Q" + (String.valueOf(editTxt_Match.getText()));
-                        }
-                        Log.e(TAG, " Match ID = " + matchID);
-                        return true;
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    Log.d(TAG, " editTxt_Match listener; Match = " + editTxt_Match.getText());
+                    if (editTxt_Match.getText().length() < 2) {
+                        vibrate.vibrate(twice, -1);
+                        final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+                        tg.startTone(ToneGenerator.TONE_PROP_BEEP);
+                        Toast.makeText(getBaseContext(), "*** Match number must be at least 2 characters  *** ", Toast.LENGTH_LONG).show();
+                    } else {
+                        matchID = "Q" + (String.valueOf(editTxt_Match.getText()));
                     }
-                    return false;
+                    Log.e(TAG, " Match ID = " + matchID);
+                    return true;
                 }
+                return false;
+            }
             });
+
             editTxt_Team.setOnKeyListener(new View.OnKeyListener() {
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
                     if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
@@ -317,7 +261,8 @@ public class MatchScoutActivity extends AppCompatActivity {
                     return false;
                 }
             });
-        }
+        } //End if
+
         txt_TeamName.setText("");
         String devcol = device.substring(0, 3);
         Log.d(TAG, "color=" + devcol);
@@ -327,9 +272,67 @@ public class MatchScoutActivity extends AppCompatActivity {
             imgScoutLogo.setImageDrawable(getResources().getDrawable(R.drawable.blue_scout));
         }
 
+        checkbox_automode = (CheckBox) findViewById(R.id.checkbox_automode);
+        editText_autoComment = (EditText) findViewById(R.id.editText_autoComment);
+        button_GoToTeleopActivity = (Button) findViewById(R.id.button_GoToTeleopActivity);
+        button_GoToArenaLayoutActivity = (Button) findViewById(R.id.button_GoToArenaLayoutActivity);
+        final Spinner spinner_startPos = (Spinner) findViewById(R.id.spinner_startPos);
+        String[] autostartPos = getResources().getStringArray(R.array.auto_start_array);
+        adapter_autostartpos = new ArrayAdapter<String>(this, R.layout.dev_list_layout, autostartPos);
+        adapter_autostartpos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_startPos.setAdapter(adapter_autostartpos);
+        spinner_startPos.setSelection(0, false);
+        spinner_startPos.setOnItemSelectedListener(new startPosOnClickListener());
+
+        // Left Rocket
+        chk_LeftRocket_LPan1 = (CheckBox) findViewById(R.id.chk_LeftRocket_LPan1);
+        chk_LeftRocket_LPan2 = (CheckBox) findViewById(R.id.chk_LeftRocket_LPan2);
+        chk_LeftRocket_LPan3 = (CheckBox) findViewById(R.id.chk_LeftRocket_LPan3);
+        chk_LeftRocket_RPan1 = (CheckBox) findViewById(R.id.chk_LeftRocket_RPan1);
+        chk_LeftRocket_RPan2 = (CheckBox) findViewById(R.id.chk_LeftRocket_RPan2);
+        chk_LeftRocket_RPan3 = (CheckBox) findViewById(R.id.chk_LeftRocket_RPan3);
+        chk_LeftRocket_LCarg1 = (CheckBox) findViewById(R.id.chk_LeftRocket_LCarg1);
+        chk_LeftRocket_LCarg2 = (CheckBox) findViewById(R.id.chk_LeftRocket_LCarg2);
+        chk_LeftRocket_LCarg3 = (CheckBox) findViewById(R.id.chk_LeftRocket_LCarg3);
+        chk_LeftRocket_RCarg1 = (CheckBox) findViewById(R.id.chk_LeftRocket_RCarg1);
+        chk_LeftRocket_RCarg2 = (CheckBox) findViewById(R.id.chk_LeftRocket_RCarg2);
+        chk_LeftRocket_RCarg3 = (CheckBox) findViewById(R.id.chk_LeftRocket_RCarg3);
+        // Cargo Ship
+        chk_CargoLPan1 = (CheckBox) findViewById(R.id.chk_CargoLPan1);
+        chk_CargoLPan2 = (CheckBox) findViewById(R.id.chk_CargoLPan2);
+        chk_CargoLPan3 = (CheckBox) findViewById(R.id.chk_CargoLPan3);
+        chk_CargoRPan1 = (CheckBox) findViewById(R.id.chk_CargoRPan1);
+        chk_CargoRPan2 = (CheckBox) findViewById(R.id.chk_CargoRPan2);
+        chk_CargoRPan3 = (CheckBox) findViewById(R.id.chk_CargoRPan3);
+        chk_CargoLCarg1 = (CheckBox) findViewById(R.id.chk_CargoLCarg1);
+        chk_CargoLCarg2 = (CheckBox) findViewById(R.id.chk_CargoLCarg2);
+        chk_CargoLCarg3 = (CheckBox) findViewById(R.id.chk_CargoLCarg3);
+        chk_CargoRCarg1 = (CheckBox) findViewById(R.id.chk_CargoRCarg1);
+        chk_CargoRCarg2 = (CheckBox) findViewById(R.id.chk_CargoRCarg2);
+        chk_CargoRCarg3 = (CheckBox) findViewById(R.id.chk_CargoRCarg3);
+        chk_CargoEndLPanel = (CheckBox) findViewById(R.id.chk_CargoEndLPanel);
+        chk_CargoEndRPanel = (CheckBox) findViewById(R.id.chk_CargoEndRPanel);
+        chk_CargoEndLCargo = (CheckBox) findViewById(R.id.chk_CargoEndLCargo);
+        chk_CargoEndRCargo = (CheckBox) findViewById(R.id.chk_CargoEndRCargo);
+        // Right Rocket
+        chk_RghtRocket_LPan1 = (CheckBox) findViewById(R.id.chk_RghtRocket_LPan1);
+        chk_RghtRocket_LPan2 = (CheckBox) findViewById(R.id.chk_RghtRocket_LPan2);
+        chk_RghtRocket_LPan3 = (CheckBox) findViewById(R.id.chk_RghtRocket_LPan3);
+        chk_RghtRocket_RPan1 = (CheckBox) findViewById(R.id.chk_RghtRocket_RPan1);
+        chk_RghtRocket_RPan2 = (CheckBox) findViewById(R.id.chk_RghtRocket_RPan2);
+        chk_RghtRocket_RPan3 = (CheckBox) findViewById(R.id.chk_RghtRocket_RPan3);
+        chk_RghtRocket_LCarg1 = (CheckBox) findViewById(R.id.chk_RghtRocket_LCarg1);
+        chk_RghtRocket_LCarg2 = (CheckBox) findViewById(R.id.chk_RghtRocket_LCarg2);
+        chk_RghtRocket_LCarg3 = (CheckBox) findViewById(R.id.chk_RghtRocket_LCarg3);
+        chk_RghtRocket_RCarg1 = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg1);
+        chk_RghtRocket_RCarg2 = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg2);
+        chk_RghtRocket_RCarg3 = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg3);
+
+        // ToDo - all references to new Widgets
+
+
+
 // Start Listeners
-
-
         // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
         // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑  Process _ALL_ the CheckBoxes  ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
         // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
@@ -625,7 +628,7 @@ public class MatchScoutActivity extends AppCompatActivity {
             }
         });
 
-// Cargo Ship
+        // Cargo Ship
         // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
         chk_CargoLPan1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -909,9 +912,11 @@ public class MatchScoutActivity extends AppCompatActivity {
                 Bundle SMbundle = new Bundle();
                 smast_intent.putExtras(SMbundle);
                 startActivity(smast_intent);
-            }
-            });
         }
+        });
+
+        // === End of OnCreate ===
+    }
 
 
 
