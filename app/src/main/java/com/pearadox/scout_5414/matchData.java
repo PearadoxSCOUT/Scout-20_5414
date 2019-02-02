@@ -119,6 +119,8 @@ public class matchData implements Serializable {
     // ============= Final  ================
     private boolean final_lostParts;         // Did they lose parts
     private boolean final_lostComms;         // Did they lose communication
+    private boolean final_puCargoDef;        // Did they P/U Cargo on Defense
+    private boolean final_defLast30;         // Did they play Defense in Last 30 seconds?
     private boolean final_defense_good;      // Was their overall Defense Good (bad=false)
     private boolean final_def_Lane;          // Did they use Lane Defense
     private boolean final_def_Block;         // Did they use Blocking Defense
@@ -133,7 +135,7 @@ public class matchData implements Serializable {
 //  Constructor
 
 
-    public matchData(String match, String team_num, boolean pre_cargo, boolean pre_panel, String pre_startPos, int pre_PlayerSta, boolean sand_mode, boolean sand_leftHAB, String sand_comment, boolean sand_LeftRocket_LPan1, boolean sand_LeftRocket_LPan2, boolean sand_LeftRocket_LPan3, boolean sand_LeftRocket_RPan1, boolean sand_LeftRocket_RPan2, boolean sand_LeftRocket_RPan3, boolean sand_LeftRocket_LCarg1, boolean sand_LeftRocket_LCarg2, boolean sand_LeftRocket_LCarg3, boolean sand_LeftRocket_RCarg1, boolean sand_LeftRocket_RCarg2, boolean sand_LeftRocket_RCarg3, boolean sand_CargoLPan1, boolean sand_CargoLPan2, boolean sand_CargoLPan3, boolean sand_CargoRPan1, boolean sand_CargoRPan2, boolean sand_CargoRPan3, boolean sand_CargoLCarg1, boolean sand_CargoLCarg2, boolean sand_CargoLCarg3, boolean sand_CargoRCarg1, boolean sand_CargoRCarg2, boolean sand_CargoRCarg3, boolean sand_CargoEndLPanel, boolean sand_CargoEndLCargo, boolean sand_CargoEndRPanel, boolean sand_CargoEndRCargo, boolean sand_RghtRocket_LPan1, boolean sand_RghtRocket_LPan2, boolean sand_RghtRocket_LPan3, boolean sand_RghtRocket_RPan1, boolean sand_RghtRocket_RPan2, boolean sand_RghtRocket_RPan3, boolean sand_RghtRocket_LCarg1, boolean sand_RghtRocket_LCarg2, boolean sand_RghtRocket_LCarg3, boolean sand_RghtRocket_RCarg1, boolean sand_RghtRocket_RCarg2, boolean sand_RghtRocket_RCarg3, boolean tele_LeftRocket_LPan1, boolean tele_LeftRocket_LPan2, boolean tele_LeftRocket_LPan3, boolean tele_LeftRocket_RPan1, boolean tele_LeftRocket_RPan2, boolean tele_LeftRocket_RPan3, boolean tele_LeftRocket_LCarg1, boolean tele_LeftRocket_LCarg2, boolean tele_LeftRocket_LCarg3, boolean tele_LeftRocket_RCarg1, boolean tele_LeftRocket_RCarg2, boolean tele_LeftRocket_RCarg3, boolean tele_CargoLPan1, boolean tele_CargoLPan2, boolean tele_CargoLPan3, boolean tele_CargoRPan1, boolean tele_CargoRPan2, boolean tele_CargoRPan3, boolean tele_CargoLCarg1, boolean tele_CargoLCarg2, boolean tele_CargoLCarg3, boolean tele_CargoRCarg1, boolean tele_CargoRCarg2, boolean tele_CargoRCarg3, boolean tele_CargoEndLPanel, boolean tele_CargoEndLCargo, boolean tele_CargoEndRPanel, boolean tele_CargoEndRCargo, boolean tele_RghtRocket_LPan1, boolean tele_RghtRocket_LPan2, boolean tele_RghtRocket_LPan3, boolean tele_RghtRocket_RPan1, boolean tele_RghtRocket_RPan2, boolean tele_RghtRocket_RPan3, boolean tele_RghtRocket_LCarg1, boolean tele_RghtRocket_LCarg2, boolean tele_RghtRocket_LCarg3, boolean tele_RghtRocket_RCarg1, boolean tele_RghtRocket_RCarg2, boolean tele_RghtRocket_RCarg3, boolean tele_cargo_floor, boolean tele_cargo_playSta, boolean tele_cargo_Corral, boolean tele_Panel_floor, boolean tele_Panel_playSta, boolean tele_got_lift, boolean tele_lifted, int tele_level_num, int tele_num_Penalties, String tele_comment, boolean final_lostParts, boolean final_lostComms, boolean final_defense_good, boolean final_def_Lane, boolean final_def_Block, boolean final_def_BlockSwitch, String final_comment, String final_studID, String final_dateTime) {
+    public matchData(String match, String team_num, boolean pre_cargo, boolean pre_panel, String pre_startPos, int pre_PlayerSta, boolean sand_mode, boolean sand_leftHAB, String sand_comment, boolean sand_LeftRocket_LPan1, boolean sand_LeftRocket_LPan2, boolean sand_LeftRocket_LPan3, boolean sand_LeftRocket_RPan1, boolean sand_LeftRocket_RPan2, boolean sand_LeftRocket_RPan3, boolean sand_LeftRocket_LCarg1, boolean sand_LeftRocket_LCarg2, boolean sand_LeftRocket_LCarg3, boolean sand_LeftRocket_RCarg1, boolean sand_LeftRocket_RCarg2, boolean sand_LeftRocket_RCarg3, boolean sand_CargoLPan1, boolean sand_CargoLPan2, boolean sand_CargoLPan3, boolean sand_CargoRPan1, boolean sand_CargoRPan2, boolean sand_CargoRPan3, boolean sand_CargoLCarg1, boolean sand_CargoLCarg2, boolean sand_CargoLCarg3, boolean sand_CargoRCarg1, boolean sand_CargoRCarg2, boolean sand_CargoRCarg3, boolean sand_CargoEndLPanel, boolean sand_CargoEndLCargo, boolean sand_CargoEndRPanel, boolean sand_CargoEndRCargo, boolean sand_RghtRocket_LPan1, boolean sand_RghtRocket_LPan2, boolean sand_RghtRocket_LPan3, boolean sand_RghtRocket_RPan1, boolean sand_RghtRocket_RPan2, boolean sand_RghtRocket_RPan3, boolean sand_RghtRocket_LCarg1, boolean sand_RghtRocket_LCarg2, boolean sand_RghtRocket_LCarg3, boolean sand_RghtRocket_RCarg1, boolean sand_RghtRocket_RCarg2, boolean sand_RghtRocket_RCarg3, boolean tele_LeftRocket_LPan1, boolean tele_LeftRocket_LPan2, boolean tele_LeftRocket_LPan3, boolean tele_LeftRocket_RPan1, boolean tele_LeftRocket_RPan2, boolean tele_LeftRocket_RPan3, boolean tele_LeftRocket_LCarg1, boolean tele_LeftRocket_LCarg2, boolean tele_LeftRocket_LCarg3, boolean tele_LeftRocket_RCarg1, boolean tele_LeftRocket_RCarg2, boolean tele_LeftRocket_RCarg3, boolean tele_CargoLPan1, boolean tele_CargoLPan2, boolean tele_CargoLPan3, boolean tele_CargoRPan1, boolean tele_CargoRPan2, boolean tele_CargoRPan3, boolean tele_CargoLCarg1, boolean tele_CargoLCarg2, boolean tele_CargoLCarg3, boolean tele_CargoRCarg1, boolean tele_CargoRCarg2, boolean tele_CargoRCarg3, boolean tele_CargoEndLPanel, boolean tele_CargoEndLCargo, boolean tele_CargoEndRPanel, boolean tele_CargoEndRCargo, boolean tele_RghtRocket_LPan1, boolean tele_RghtRocket_LPan2, boolean tele_RghtRocket_LPan3, boolean tele_RghtRocket_RPan1, boolean tele_RghtRocket_RPan2, boolean tele_RghtRocket_RPan3, boolean tele_RghtRocket_LCarg1, boolean tele_RghtRocket_LCarg2, boolean tele_RghtRocket_LCarg3, boolean tele_RghtRocket_RCarg1, boolean tele_RghtRocket_RCarg2, boolean tele_RghtRocket_RCarg3, boolean tele_cargo_floor, boolean tele_cargo_playSta, boolean tele_cargo_Corral, boolean tele_Panel_floor, boolean tele_Panel_playSta, boolean tele_got_lift, boolean tele_lifted, int tele_level_num, int tele_num_Penalties, String tele_comment, boolean final_lostParts, boolean final_lostComms, boolean final_puCargoDef, boolean final_defLast30, boolean final_defense_good, boolean final_def_Lane, boolean final_def_Block, boolean final_def_BlockSwitch, String final_comment, String final_studID, String final_dateTime) {
         this.match = match;
         this.team_num = team_num;
         this.pre_cargo = pre_cargo;
@@ -235,6 +237,8 @@ public class matchData implements Serializable {
         this.tele_comment = tele_comment;
         this.final_lostParts = final_lostParts;
         this.final_lostComms = final_lostComms;
+        this.final_puCargoDef = final_puCargoDef;
+        this.final_defLast30 = final_defLast30;
         this.final_defense_good = final_defense_good;
         this.final_def_Lane = final_def_Lane;
         this.final_def_Block = final_def_Block;
@@ -1066,6 +1070,22 @@ public matchData() {
 
     public void setFinal_lostComms(boolean final_lostComms) {
         this.final_lostComms = final_lostComms;
+    }
+
+    public boolean isFinal_puCargoDef() {
+        return final_puCargoDef;
+    }
+
+    public void setFinal_puCargoDef(boolean final_puCargoDef) {
+        this.final_puCargoDef = final_puCargoDef;
+    }
+
+    public boolean isFinal_defLast30() {
+        return final_defLast30;
+    }
+
+    public void setFinal_defLast30(boolean final_defLast30) {
+        this.final_defLast30 = final_defLast30;
     }
 
     public boolean isFinal_defense_good() {
