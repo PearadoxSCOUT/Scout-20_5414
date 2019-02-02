@@ -76,8 +76,7 @@ public class PitScoutActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter_Trac, adapter_Omni, adapter_Mac, adapter_Pneu ;
     ArrayAdapter<String> adapter_driveMotor, adapter_progLang,adapter_ssMode;
     CheckBox chkBox_Ramp, chkBox_CanLift, chkBox_Hook, chkBox_Vision, chkBox_Pneumatics, chkBox_Climb, chkBox_Belt, chkBox_Box, chkBox_Other;
-    CheckBox chkBox_OffFloor;
-    //  Todo - new checkboxes
+    CheckBox chkBox_OffFloor, chkBox_PanelFloor, chkBox_Hab2, chkBox_HABLvl_2, chkBox_HABLvl_3;
 
     Button btn_Save;
     Uri currentImageUri;
@@ -115,7 +114,6 @@ public class PitScoutActivity extends AppCompatActivity {
     public boolean cargoManip = false;          // presence of a way to pick up cargo from floor
     public boolean climb = false;               // presence of a Climbing mechanism
     public boolean floorPanel = false;          // can get Hatch Panel from floor
-    public boolean floorCargo = false;          // can get Cargo from floor
     public boolean canLift = false;             // Ability to lift other robots
     public int numLifted = 0;                   // Num. of robots can lift (1-2)
     public boolean liftRamp = false;            // lift type Ramp
@@ -209,33 +207,33 @@ pitData Pit_Data = new pitData();
         adapter_Robs.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_numRobots.setAdapter(adapter_Robs);
         spinner_numRobots.setSelection(0, false);
-        spinner_numRobots.setOnItemSelectedListener(new PitScoutActivity.numRobots_OnItemSelectedListener());
+        spinner_numRobots.setOnItemSelectedListener(new numRobots_OnItemSelectedListener());
         spinner_numRobots.setVisibility(View.GONE);
         Spinner spinner_Traction = (Spinner) findViewById(R.id.spinner_Traction);
         ArrayAdapter adapter_Trac = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, wheels);
         adapter_Trac.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_Traction.setAdapter(adapter_Trac);
         spinner_Traction.setSelection(0, false);
-        spinner_Traction.setOnItemSelectedListener(new PitScoutActivity.Traction_OnItemSelectedListener());
+        spinner_Traction.setOnItemSelectedListener(new Traction_OnItemSelectedListener());
         Spinner spinner_Omni = (Spinner) findViewById(R.id.spinner_Omni);
         ArrayAdapter adapter_Omni = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, wheels);
         adapter_Omni.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_Omni.setAdapter(adapter_Trac);
         spinner_Omni.setSelection(0, false);
-        spinner_Omni.setOnItemSelectedListener(new PitScoutActivity.Omni_OnItemSelectedListener());
+        spinner_Omni.setOnItemSelectedListener(new Omni_OnItemSelectedListener());
         Spinner spinner_Mecanum = (Spinner) findViewById(R.id.spinner_Mecanum);
         ArrayAdapter adapter_Mac = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, wheels);
         adapter_Mac.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_Mecanum.setAdapter(adapter_Mac);
         spinner_Mecanum.setSelection(0, false);
-        spinner_Mecanum.setOnItemSelectedListener(new PitScoutActivity.Mecanum_OnItemSelectedListener());
+        spinner_Mecanum.setOnItemSelectedListener(new Mecanum_OnItemSelectedListener());
         adapter_Mac.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner spinner_Pneumatic = (Spinner) findViewById(R.id.spinner_Pneumatic);
         ArrayAdapter adapter_Pneu = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, wheels);
         adapter_Mac.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_Pneumatic.setAdapter(adapter_Pneu);
         spinner_Pneumatic.setSelection(0, false);
-        spinner_Pneumatic.setOnItemSelectedListener(new PitScoutActivity.Pneumatic_OnItemSelectedListener());
+        spinner_Pneumatic.setOnItemSelectedListener(new Pneumatic_OnItemSelectedListener());
         spinner_Motor = (Spinner) findViewById(R.id.spinner_Motor);
         String[] driveMotor = getResources().getStringArray(R.array.drive_motor_array);
         adapter_driveMotor = new ArrayAdapter<String>(this, R.layout.dev_list_layout, driveMotor);
@@ -269,10 +267,13 @@ pitData Pit_Data = new pitData();
         chkBox_Belt = (CheckBox) findViewById(R.id.chkBox_Belt);
         chkBox_Box = (CheckBox) findViewById(R.id.chkBox_Box);
         chkBox_Other = (CheckBox) findViewById(R.id.chkBox_Other);
+        chkBox_PanelFloor = (CheckBox) findViewById(R.id.chkBox_PanelFloor);
+        chkBox_Hab2 = (CheckBox) findViewById(R.id.chkBox_Hab2);
+        chkBox_HABLvl_2 = (CheckBox) findViewById(R.id.chkBox_HABLvl_2);
+        chkBox_HABLvl_3 = (CheckBox) findViewById(R.id.chkBox_HABLvl_3);
         editText_Comments = (EditText) findViewById(R.id.editText_Comments);
         editText_Comments.setClickable(true);
         txtEd_Speed = (EditText) findViewById(R.id.txtEd_Speed);
-        //  Todo - All new Refereneces
 
 
 //        final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 200);
@@ -357,19 +358,74 @@ pitData Pit_Data = new pitData();
 
 
         chkBox_OffFloor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-                Log.w(TAG, "chkBox_OffFloor Listener");
-                if (buttonView.isChecked()) {
-                    Log.w(TAG,"Off-floor is checked.");
-                    cargoManip = true;
-                } else {
-                    Log.w(TAG,"Off-floor is unchecked.");
-                    cargoManip = false;
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                            Log.w(TAG, "chkBox_OffFloor Listener");
+                            if (buttonView.isChecked()) {
+                                Log.w(TAG,"Off-floor is checked.");
+                                cargoManip = true;
+                            } else {
+                                Log.w(TAG,"Off-floor is unchecked.");
+                                cargoManip = false;
                 }
             }
         });
-        //  Todo - P/U  Panel Checkbox
+
+        chkBox_PanelFloor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                Log.w(TAG, "chkBox_PanelFloor Listener");
+                if (buttonView.isChecked()) {
+                    Log.w(TAG,"floorPanel is checked.");
+                    floorPanel = true;
+                } else {
+                    Log.w(TAG,"floorPanel is unchecked.");
+                    floorPanel = false;
+                }
+            }
+        });
+
+        chkBox_Hab2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                Log.w(TAG, "chkBox_Hab2 Listener");
+                if (buttonView.isChecked()) {
+                    Log.w(TAG,"leave_Hab2 is checked.");
+                    leaveHAB2 = true;
+                } else {
+                    Log.w(TAG,"leave_Hab2 is unchecked.");
+                    leaveHAB2 = false;
+                }
+            }
+        });
+
+        chkBox_HABLvl_2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                Log.w(TAG, "chkBox_HABLvl_2 Listener");
+                if (buttonView.isChecked()) {
+                    Log.w(TAG,"end_HABLvl_2 is checked.");
+                    endHAB2 = true;
+                } else {
+                    Log.w(TAG,"end_HABLvl_2 is unchecked.");
+                    endHAB2 = false;
+                }
+            }
+        });
+
+        chkBox_HABLvl_3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                Log.w(TAG, "chkBox_HABLvl_3 Listener");
+                if (buttonView.isChecked()) {
+                    Log.w(TAG,"end_Hab3 is checked.");
+                    endHAB3 = true;
+                } else {
+                    Log.w(TAG,"end_Hab3 is unchecked.");
+                    endHAB3 = false;
+                }
+            }
+        });
 
         chkBox_Climb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -385,7 +441,7 @@ pitData Pit_Data = new pitData();
             }
         });
 
-        //  Todo - SS Leave HAB2 and HAB end 2&3 Checkboxes
+
 
 
 //=================================================================
@@ -696,8 +752,9 @@ pitData Pit_Data = new pitData();
                         Spinner spinner_Traction = (Spinner) findViewById(R.id.spinner_Traction);
                         Spinner spinner_Omni = (Spinner) findViewById(R.id.spinner_Omni);
                         Spinner spinner_Mecanum = (Spinner) findViewById(R.id.spinner_Mecanum);
+                        Spinner spinner_Pneumatic = (Spinner) findViewById(R.id.spinner_Pneumatic);
                         Spinner spinner_numRobots = (Spinner) findViewById(R.id.spinner_numRobots);
-                        //  Todo - Pneumatic wheels & Oper. Mode Refereneces
+
                         if (pitFB) {
                             // Already loaded data from Firebase in Pit_Load
                         } else {
@@ -729,11 +786,20 @@ pitData Pit_Data = new pitData();
                         spinner_Traction.setSelection((Pit_Load.getPit_numTrac()));
                         spinner_Omni.setSelection((Pit_Load.getPit_numOmni()));
                         spinner_Mecanum.setSelection((Pit_Load.getPit_numMecanum()));
-                        //  Todo - Pneumatic wheels
+                        spinner_Pneumatic.setSelection((Pit_Load.getPit_numPneumatic()));
+
 
                         chkBox_Climb.setChecked(Pit_Load.isPit_climb());
                         chkBox_Vision.setChecked(Pit_Load.isPit_vision());
                         chkBox_Pneumatics.setChecked(Pit_Load.isPit_pneumatics());
+                        chkBox_OffFloor.setChecked(Pit_Load.isPit_cargoManip());
+                        chkBox_PanelFloor.setChecked(Pit_Load.isPit_floorPanel());
+                        chkBox_Hab2.setChecked(Pit_Load.isPit_leaveHAB2());
+                        chkBox_HABLvl_2.setChecked(Pit_Load.isPit_endHAB2());
+                        chkBox_HABLvl_3.setChecked(Pit_Load.isPit_endHAB3());
+
+
+
                         //  Todo - P/U Cargo & Panel
 
                         chkBox_CanLift.setChecked(Pit_Load.isPit_canLift());
@@ -777,6 +843,22 @@ pitData Pit_Data = new pitData();
                                 break;
                             case ("LabView"):
                                 spinner_Lang.setSelection(3);
+                                break;
+                            default:
+                                Log.w(TAG, "►►►►►  E R R O R  ◄◄◄◄◄");
+                                break;
+                        }
+                        String mode = Pit_Load.getPit_ssMode();
+                        Log.w(TAG, "Mode = '" + mode + "'");
+                        switch (mode) {
+                            case ("Program Only"):
+                                spinner_ssMode.setSelection(1);
+                                break;
+                            case ("Vision Only"):
+                                spinner_ssMode.setSelection(2);
+                                break;
+                            case ("Hybrid (P+V)"):
+                                spinner_ssMode.setSelection(3);
                                 break;
                             default:
                                 Log.w(TAG, "►►►►►  E R R O R  ◄◄◄◄◄");
@@ -850,7 +932,7 @@ pitData Pit_Data = new pitData();
 
     /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 
-    private class progLangOnClickListener implements android.widget.AdapterView.OnItemSelectedListener {
+    private class progLangOnClickListener implements OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent,
                                    View view, int pos, long id) {
             lang = parent.getItemAtPosition(pos).toString();
@@ -860,7 +942,7 @@ pitData Pit_Data = new pitData();
             // Do nothing.
         }
     }
-    private class ssModeOnClickListener implements android.widget.AdapterView.OnItemSelectedListener {
+    private class ssModeOnClickListener implements OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent,
                                    View view, int pos, long id) {
             ssMode = parent.getItemAtPosition(pos).toString();
@@ -871,7 +953,7 @@ pitData Pit_Data = new pitData();
         }
     }
 
-    private class driveMotorOnClickListener implements android.widget.AdapterView.OnItemSelectedListener {
+    private class driveMotorOnClickListener implements OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent,
                                    View view, int pos, long id) {
             motor = parent.getItemAtPosition(pos).toString();
@@ -1004,6 +1086,7 @@ pitData Pit_Data = new pitData();
         Pit_Data.setPit_numMecanum(numMecanums);
         Pit_Data.setPit_numPneumatic(numPneumatic);
         Pit_Data.setPit_cargoManip(cargoManip);
+        Pit_Data.setPit_floorPanel(floorPanel);
         Pit_Data.setPit_vision(vision);
         Pit_Data.setPit_pneumatics(pneumatics);
         Pit_Data.setPit_climb(climb);
