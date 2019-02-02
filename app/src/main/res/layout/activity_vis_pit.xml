@@ -197,7 +197,7 @@
         android:layout_marginStart="14dp"
         android:layout_toEndOf="@+id/chkBox_Lift"
         android:text="0"
-        android:textColor="@color/magenta"
+        android:textColor="@color/white"
         android:textSize="16dp" />
 
     <CheckBox
@@ -227,45 +227,48 @@
         android:id="@+id/cube_mech">
 
         <TextView
-            android:id="@+id/lbl_CubMech"
-            android:layout_width="40sp"
+            android:id="@+id/lbl_Sandstorm"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Cube Mech."
+            android:text="Sandstorm"
             android:textColor="@color/brightblue"
-            android:textSize="12sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
         <CheckBox
-            android:id="@+id/chkBox_Arms"
-            android:layout_width="150sp"
-            android:layout_height="wrap_content"
-            android:text="Grabber Arm(s)"
+            android:id="@+id/chkBox_Hab2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:clickable="false"
-            android:textColor="@color/blue" />
+            android:text="Leave HAB level 2"
+            android:textColor="@color/brightblue" />
+
+        <TextView
+            android:id="@+id/lbl_HAB_End"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:clickable="false"
+            android:text="HAB End"
+            android:textColor="@color/orange" />
+
 
         <CheckBox
-            android:id="@+id/chkBox_Belt"
-            android:layout_width="120sp"
+            android:id="@+id/chkBox_HABLvl_2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Conveyer Belt"
+            android:layout_marginRight="10dp"
             android:clickable="false"
-            android:textColor="@color/blue" />
+            android:text="Level 2"
+            android:textColor="@color/orange" />
 
         <CheckBox
-            android:id="@+id/chkBox_Box"
-            android:layout_width="120sp"
+            android:id="@+id/chkBox_HABLvl_3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Box/Platform"
+            android:text="Level 3"
             android:clickable="false"
-            android:textColor="@color/blue" />
-
-        <CheckBox
-            android:id="@+id/chkBox_Other"
-            android:layout_width="90sp"
-            android:layout_height="wrap_content"
-            android:text="Other"
-            android:clickable="false"
-            android:textColor="@color/blue" />
+            android:textColor="@color/orange" />
 
     </LinearLayout>
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -275,33 +278,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cube_mech"
-        android:id="@+id/arm_char">
+        android:id="@+id/arm_char"
+        >
 
-        <CheckBox
-            android:id="@+id/chkBox_ArmIntake"
-            android:layout_width="120sp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60sp"
-            android:visibility="invisible"
-            android:text="Intake device"
-            android:clickable="false"
-            android:textColor="@color/cyan" />
-
-        <CheckBox
-            android:id="@+id/chkBox_ArmPress"
-            android:layout_width="150sp"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:text="Pressure"
-            android:textColor="@color/cyan" />
-
-        <CheckBox
-            android:id="@+id/chkBox_OffFloor"
-            android:layout_width="170sp"
-            android:layout_height="wrap_content"
-            android:text="Can pick up off floor"
-            android:textColor="@color/cyan"
-            android:visibility="invisible" />
 
     </LinearLayout>
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -313,43 +292,25 @@
         android:layout_below="@+id/arm_char"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/lbl_Delivery"
-            android:layout_width="150sp"
-            android:layout_height="30sp"
-            android:layout_weight="2"
-            android:text=" Cube Delivery Type"
-            android:textColor="@color/limegreen"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <RadioGroup
-            android:id="@+id/radgrp_Deliver"
+        <CheckBox
+            android:id="@+id/chkBox_OffFloor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:text="Can get cargo off floor"
+            android:clickable= "false"
+            android:textColor="@color/grey"
             android:orientation="horizontal">
+        </CheckBox>
 
-            <RadioButton
-                android:id="@+id/radio_Launch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/chkBox_Arms"
-                android:layout_toEndOf="@+id/lbl_Delivery"
-                android:text="Launch"
-                android:textColor="@color/green"
-                android:clickable="false"
-                tools:layout_marginLeft="0dp" />
-
-            <RadioButton
-                android:id="@+id/radio_Place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/radgrp_Deliver"
-                android:text="Place"
-                android:clickable="false"
-                android:textColor="@color/green" />
-        </RadioGroup>
+        <CheckBox
+            android:id="@+id/chkBox_PanelFloor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Can get panel off floor"
+            android:clickable= "false"
+            android:textColor="@color/grey"
+            android:orientation="horizontal">
+        </CheckBox>
 
         <TextView
             android:id="@+id/lbl_ProgLang"
@@ -429,47 +390,29 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/lbl_Auto"
+        android:id="@+id/lbl_Mode"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:text="SS Oper. Mode"
+        android:textColor="@color/magenta"
+        android:textSize="16sp"
+        android:textStyle="bold"></TextView>
+
+        <TextView
+            android:id="@+id/txt_Mode"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Autonomous"
-            android:textColor="@color/yellow"
-            android:textStyle="bold"
-            android:textSize="16sp">
-        </TextView>
+            android:layout_height="25dp"
+            android:layout_marginStart="20dp"
+            android:text="Hybrid (P+V)"
+            android:textColor="@color/pink"
+            android:textSize="16sp"></TextView>
+    >
 
-        <CheckBox
-            android:id="@+id/chkBox_Switch"
-            android:layout_width="80sp"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:text="Switch"
-            android:textColor="@color/yellow" />
 
-        <CheckBox
-            android:id="@+id/chkBox_SwitchMulti"
-            android:layout_width="100sp"
-            android:layout_height="wrap_content"
-            android:text="Multiple?"
-            android:clickable="false"
-            android:textColor="@color/yellow" />
 
-        <CheckBox
-            android:id="@+id/chkBox_Scale"
-            android:layout_width="70sp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:text="Scale"
-            android:clickable="false"
-            android:textColor="@color/yellow" />
 
-        <CheckBox
-            android:id="@+id/chkBox_ScaleMulti"
-            android:layout_width="140sp"
-            android:layout_height="wrap_content"
-            android:text="Multiple?"
-            android:clickable="false"
-            android:textColor="@color/yellow" />
+
+
 
     </LinearLayout>
 

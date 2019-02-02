@@ -51,31 +51,25 @@ public class VisPit_Activity extends AppCompatActivity {
     public int numTraction = 0;                 // Num. of Traction wheels
     public int numOmnis = 0;                    // Num. of Omni wheels
     public int numMecanums = 0;                 // Num. of Mecanum wheels
+    public int numPneumatic = 0;                // Num. of Pneumatic wheels
     public boolean vision = false;              // presence of Vision Camera
     public boolean pneumatics = false;          // presence of Pneumatics
-    public boolean cubeManip = false;           // presence of a way to pick up cube from floor
     public boolean climb = false;               // presence of a Climbing mechanism
+    public boolean cargoManip = false;          // presence of a way to pick up cargo from floor
+    public boolean floorPanel = false;          // can get Hatch Panel from floor
+    public boolean floorCargo = false;          // can get Cargo from floor
     public boolean canLift = false;             // Ability to lift other robots
     public int numLifted = 0;                   // Num. of robots can lift (1-2)
     public boolean liftRamp = false;            // lift type Ramp
     public boolean liftHook = false;            // lift type Hook
+    public boolean leaveHAB2 = false;           // Can leave from HAB level 2
+    public boolean endHAB1 = false;             // Can climb to HAB level 1
+    public boolean endHAB2 = false;             // Can climb to HAB level 2
+    public boolean endHAB3 = false;             // Can climb to HAB level 3
     public int speed = 0;                       // Speed (Ft. per Sec)
     public String motor;                        // Type of Motor
     public String lang;                         // Programming  Language
-    public boolean autoSwitch = false;          // Can do Switch in Autonomous
-    public boolean switchMulti = false;         // Multiple Switch in Autonomous
-    public boolean autoScale = false;           // Can do Scale in Autonomous
-    public boolean scaleMulti = false;         // Multiple Scale in Autonomous
-                                                //==== cube Mechanism
-    public boolean cubeArm = false;             // presence of a Cube arm
-    public boolean armIntake = false;           // ++ presence of a Cube intake device      \  Only if
-    public boolean armSqueeze = false;          // ++ presence of a Cube Squeeze mechanism  /   Arm
-    public boolean cubeBox = false;             // presence of a Cube box
-    public boolean cubeBelt = false;            // presence of a Cube Conveyer Belt
-    public boolean cubeOhtr = false;            // Other ?
-    //==== cube Delivery
-    public boolean delLaunch = false;           // Launch
-    public boolean delPlace = false;            // Placement
+    public String ssMode;                       // Sandstorm Operatong Mode
     /* */
     /* */
     public String comments = "";                // Comment(s)
@@ -166,23 +160,10 @@ public class VisPit_Activity extends AppCompatActivity {
                 txt_LiftCap = (TextView) findViewById(R.id.txt_LiftCap);
                 chkBox_Ramp = (CheckBox) findViewById(R.id.chkBox_Ramp);
                 chkBox_Hook = (CheckBox) findViewById(R.id.chkBox_Hook);
-                chkBox_Arms = (CheckBox) findViewById(R.id.chkBox_Arms);
-                chkBox_ArmIntake = (CheckBox) findViewById(R.id.chkBox_ArmIntake);
-                chkBox_ArmPress = (CheckBox) findViewById(R.id.chkBox_ArmPress);
                 chkBox_OffFloor = (CheckBox) findViewById(R.id.chkBox_OffFloor);
-                chkBox_Belt = (CheckBox) findViewById(R.id.chkBox_Belt);
-                chkBox_Box = (CheckBox) findViewById(R.id.chkBox_Box);
-                chkBox_Other = (CheckBox) findViewById(R.id.chkBox_Other);
-                radgrp_Deliver = (RadioGroup) findViewById(R.id.radgrp_Deliver);
-                radio_Place = (RadioButton) findViewById(R.id.radio_Place);
-                radio_Launch = (RadioButton) findViewById(R.id.radio_Launch);
                 txt_DriveMotor = (TextView) findViewById(R.id.txt_DriveMotor);
                 txt_ProgLang = (TextView) findViewById(R.id.txt_ProgLang);
                 txt_Speed = (TextView) findViewById(R.id.txt_Speed);
-                chkBox_Switch = (CheckBox) findViewById(R.id.chkBox_Switch);
-                chkBox_SwitchMulti = (CheckBox) findViewById(R.id.chkBox_SwitchMulti);
-                chkBox_Scale = (CheckBox) findViewById(R.id.chkBox_Scale);
-                chkBox_ScaleMulti = (CheckBox) findViewById(R.id.chkBox_ScaleMulti);
 
                 txt_Scout = (TextView) findViewById(R.id.txt_Scout);
                 txt_Comments = (TextView) findViewById(R.id.txt_Comments);

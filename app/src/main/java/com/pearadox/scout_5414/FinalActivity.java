@@ -43,7 +43,7 @@ public class FinalActivity extends Activity {
     String TAG = "FinalActivity";      // This CLASS name
     TextView txt_dev, txt_stud, txt_match, txt_MyTeam, txt_robotnum;
     EditText editText_Comments;
-    CheckBox chk_lostPart, chk_lostComm, chk_block, chk_starve, chk_dump, chkBox_final_def_gear;
+    CheckBox chk_lostPart, chk_lostComm, chk_block, chk_starve, chk_dump, chkBox_final_def_gear, chk_defense30,chk_cargoDefense;
     Button button_Saved;
     RadioGroup radioGroup_defense;
     RadioButton rdBtn_def_good, radioButton_def_bad;
@@ -65,6 +65,8 @@ public class FinalActivity extends Activity {
     public boolean final_def_Block = false;                     // Did they use Blocking Defense?
     public boolean final_def_BlockSwitch;                       // Did they block the Switch
     public String final_studID = "";                            // set in Auto
+    public boolean final_cargoDefense = false;                  // pickup cargo when on defense
+    public boolean final_endDefense = false;                    // last 30 seconds defense
 
 
     /* */
@@ -118,6 +120,8 @@ public class FinalActivity extends Activity {
         chk_block = (CheckBox) findViewById(R.id.chk_block);
         chk_starve = (CheckBox) findViewById(R.id.chk_starve);
         chk_dump = (CheckBox) findViewById(R.id.chk_dump);
+        chk_cargoDefense = (CheckBox) findViewById(R.id.chk_cargoDefense);
+        chk_defense30 = (CheckBox) findViewById(R.id.chk_defense30);
         editText_Comments = (EditText) findViewById(R.id.editText_Comments);
         editText_Comments.setClickable(true);
         button_Saved = (Button) findViewById(R.id.button_Saved);
@@ -175,60 +179,98 @@ public class FinalActivity extends Activity {
         );
         chk_lostComm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-                                                    @Override
-                                                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                        Log.i(TAG, "chk_lostComm Listener");
-                                                        if (buttonView.isChecked()) {
-                                                            //checked
-                                                            Log.i(TAG, "TextBox is checked.");
-                                                            lost_Comms = true;
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i(TAG, "chk_lostComm Listener");
+                if (buttonView.isChecked()) {
+                    //checked
+                    Log.i(TAG, "TextBox is checked.");
+                    lost_Comms = true;
 
-                                                        } else {
-                                                            //not checked
-                                                            Log.i(TAG, "TextBox is unchecked.");
-                                                            lost_Comms = false;
+                } else {
+                    //not checked
+                    Log.i(TAG, "TextBox is unchecked.");
+                    lost_Comms = false;
 
-                                                        }
-                                                    }
-                                                }
+                }
+            }
+        }
+        );
+        chk_defense30.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i(TAG, "chk_defense30 Listener");
+                if (buttonView.isChecked()) {
+                    //checked
+                    Log.i(TAG, "TextBox is checked.");
+                    final_endDefense = true;
+
+                } else {
+                    //not checked
+                    Log.i(TAG, "TextBox is unchecked.");
+                    final_endDefense = false;
+
+                }
+            }
+        }
+        );
+        chk_cargoDefense.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+             @Override
+             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                 Log.i(TAG, "chk_cargoDefense Listener");
+                 if (buttonView.isChecked()) {
+                     //checked
+                     Log.i(TAG, "TextBox is checked.");
+                     final_cargoDefense = true;
+
+                 } else {
+                     //not checked
+                     Log.i(TAG, "TextBox is unchecked.");
+                     final_cargoDefense = false;
+
+                 }
+             }
+         }
         );
         chk_starve.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-                                                  @Override
-                                                  public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                      Log.i(TAG, "chk_starve Listener");
-                                                      if (buttonView.isChecked()) {
-                                                          //checked
-                                                          Log.i(TAG, "TextBox is checked.");
-                                                          final_def_Lane = true;
+          @Override
+          public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+              Log.i(TAG, "chk_starve Listener");
+              if (buttonView.isChecked()) {
+                  //checked
+                  Log.i(TAG, "TextBox is checked.");
+                  final_def_Lane = true;
 
-                                                      } else {
-                                                          //not checked
-                                                          Log.i(TAG, "TextBox is unchecked.");
-                                                          final_def_Lane = false;
+              } else {
+                  //not checked
+                  Log.i(TAG, "TextBox is unchecked.");
+                  final_def_Lane = false;
 
-                                                      }
-                                                  }
-                                              }
+              }
+          }
+      }
         );
         chk_block.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-                                                 @Override
-                                                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                     Log.i(TAG, "chk_block Listener");
-                                                     if (buttonView.isChecked()) {
-                                                         //checked
-                                                         Log.i(TAG, "TextBox is checked.");
-                                                         final_def_Block = true;
+         @Override
+         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+             Log.i(TAG, "chk_block Listener");
+             if (buttonView.isChecked()) {
+                 //checked
+                 Log.i(TAG, "TextBox is checked.");
+                 final_def_Block = true;
 
-                                                     } else {
-                                                         //not checked
-                                                         Log.i(TAG, "TextBox is unchecked.");
-                                                         final_def_Block = false;
+             } else {
+                 //not checked
+                 Log.i(TAG, "TextBox is unchecked.");
+                 final_def_Block = false;
 
-                                                     }
-                                                 }
-                                             }
+             }
+         }
+     }
         );
     }
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -237,6 +279,8 @@ public class FinalActivity extends Activity {
         Log.w(TAG, timeStamp + " is the current date and time.");
         Pearadox.Match_Data.setFinal_lostParts(lost_Parts);
         Pearadox.Match_Data.setFinal_lostComms(lost_Comms);
+        Pearadox.Match_Data.setFinal_puCargoDef(final_cargoDefense);
+        Pearadox.Match_Data.setFinal_defLast30(final_endDefense);
         Pearadox.Match_Data.setFinal_defense_good(final_defense_good);
         Pearadox.Match_Data.setFinal_def_Lane(final_def_Lane);
         Pearadox.Match_Data.setFinal_def_Block(final_def_Block);

@@ -20,12 +20,12 @@
 
     <CheckBox
         android:id="@+id/chk_lostPart"
-        android:text="Lost Parts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/TeleOps"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="58dp" />
+        android:layout_marginTop="58dp"
+        android:text="Lost Parts" />
 
     <CheckBox
         android:id="@+id/chk_lostComm"
@@ -36,6 +36,25 @@
         android:layout_alignBaseline="@+id/chk_lostPart"
         android:layout_alignBottom="@+id/chk_lostPart"
         android:layout_toEndOf="@+id/chk_lostPart" />
+
+    <CheckBox
+        android:id="@+id/chk_cargoDefense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chk_lostPart"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp"
+        android:text="P/U Cargo on Defense" />
+
+    <CheckBox
+        android:id="@+id/chk_defense30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chk_lostPart"
+        android:layout_marginStart="210dp"
+        android:layout_marginTop="1dp"
+        android:text="last 30sec. Defense" />
+
 
     //============ DEFENSE==============
     <TextView
