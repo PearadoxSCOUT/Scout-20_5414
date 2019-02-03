@@ -886,7 +886,7 @@ public class Visualizer_Activity extends AppCompatActivity {
                 Log.w(TAG, "TEAM  " + team);
                 ndx = x;
                 Log.w(TAG, "NDX  " + ndx);
-                int numMDs = 0; int swNum = 0; int swAtt = 0; int scNum = 0; int scAtt = 0; int base = 0; int extra=0;
+                int numMDs = 0; int cgNum = 0; int cgGt1 = 0; int scNum = 0; int scAtt = 0; int base = 0; int HAB2=0; int extra=0;
                 int tswNum = 0; int tswAtt = 0; int tscNum = 0; int tscAtt = 0; int othr=0; int o_att = 0;
                 int climb=0; int c_att=0; int lift1=0; int lift2=0; int was=0; int exch=0; int portal=0; int zone=0; int floor=0; int tfloor=0;
                 for (int i = 0; i < md; i++) {
@@ -896,25 +896,50 @@ public class Visualizer_Activity extends AppCompatActivity {
                 Log.w(TAG, "GMFT TEAM  " + mdt);
                     numMDs++;       // increment # of MDs
         // New Match Data Object *** GLF 1/20/19
-//                    if (match_inst.isAuto_baseline()) {
-//                        base++;
-//                    }
-//                    if (match_inst.isAuto_cube_switch()) {
-//                        swNum++;
-//                    }
-//                    if (match_inst.isAuto_cube_switch_att()) {
-//                        swAtt++;
-//                    }
-//                    if (match_inst.isAuto_cube_scale()) {
-//                        scNum++;
-//                    }
-//                    if (match_inst.isAuto_cube_scale_att()) {
-//                        scAtt++;
-//                    }
-//                    if (match_inst.isAuto_switch_extra()) {
-//                        extra++;
-//                    }
-                    // =================== TeleOps ============
+                    if (match_inst.isSand_leftHAB()) {
+                        base++;
+                    }
+                    if (match_inst.isSand_leftHAB2()) {
+                        HAB2++;
+                    }
+                    // =================== Cargo ============
+                    if (match_inst.isSand_LeftRocket_LCarg1()) {
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_LeftRocket_LCarg2()) {
+                        cgGt1++;
+                    }
+                    if (match_inst.isSand_LeftRocket_LCarg3()) {
+                        cgGt1++;
+                    }
+                    if (match_inst.isSand_LeftRocket_RCarg1()) {
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_LeftRocket_RCarg2()) {
+                        cgGt1++;
+                    }
+                    if (match_inst.isSand_LeftRocket_RCarg3()) {
+                        cgGt1++;
+                    }
+                    if (match_inst.isSand_RghtRocket_LCarg1()) {
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_RghtRocket_LCarg2()) {
+                        cgGt1++;
+                    }
+                    if (match_inst.isSand_RghtRocket_LCarg3()) {
+                        cgGt1++;
+                    }
+                    if (match_inst.isSand_RghtRocket_RCarg1()) {
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_RghtRocket_RCarg2()) {
+                        cgGt1++;
+                    }
+                    if (match_inst.isSand_RghtRocket_RCarg3()) {
+                        cgGt1++;
+                    }
+                    // =================== Panels ============
 //                    tswNum = tswNum + match_inst.getTele_cube_switch();
 //                    tswAtt = tswAtt + match_inst.getTele_switch_attempt();
 //                    tscNum = tscNum + match_inst.getTele_cube_scale();
@@ -943,7 +968,7 @@ public class Visualizer_Activity extends AppCompatActivity {
                     }
                 } // EndIf teams match
             } // End for #teams
-            Log.e(TAG, team + " ==== Match Data " +  base + "  " +  swNum + "/" +  swAtt + "  " +  scNum + "/" +  scAtt + " ");
+            Log.e(TAG, team + " ==== Match Data " +  base + "  " +  cgNum + "/" +  cgGt1 + "  " +  scNum + "/" +  scAtt + " ");
             tbl_event1R1 = (TextView) findViewById(R.id.tbl_event1R1);
             tbl_event1R2 = (TextView) findViewById(R.id.tbl_event1R2);
             tbl_event1R3 = (TextView) findViewById(R.id.tbl_event1R3);
@@ -979,42 +1004,42 @@ public class Visualizer_Activity extends AppCompatActivity {
             case 0:
                 txt_MatchesR1.setText(String.valueOf(numMDs));
                 tbl_event1R1.setText("Sand" + " \n" + "Tele");
-                tbl_rate1R1.setText( "∴" + base + "  ◯  " + swNum + "/" + swAtt + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
+                tbl_rate1R1.setText( "∴" + base + "  ◯  " + cgNum + "◯>1" + cgGt1 + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
                 tbl_event2R1.setText("Climb" + " \n" + "▉");
                 tbl_rate2R1.setText(climb + "/" + c_att + "  ↕One" + lift1 + "  ↕Two" + lift2 + " ↑ " + was+ " \n Ex " + exch + "   Prt " + portal + "  Zn " + zone + "  FL  " + floor + " ➤ " +tfloor);
                 break;
             case 1:
                 txt_MatchesR2.setText(String.valueOf(numMDs));
                 tbl_event1R2.setText("Sand" + " \n" + "Tele");
-                tbl_rate1R2.setText( "∴" + base + "  ◯  " + swNum + "/" + swAtt + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
+                tbl_rate1R2.setText( "∴" + base + "  ◯  " + cgNum + "◯>1" + cgGt1 + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
                 tbl_event2R2.setText("Climb" + " \n" + "▉");
                 tbl_rate2R2.setText(climb + "/" + c_att + "  ↕One" + lift1 + "  ↕Two" + lift2 + " ↑ " + was+ " \n Ex " + exch + "   Prt " + portal + "  Zn " + zone + "  FL  " + floor + " ➤ " +tfloor);
                 break;
             case 2:
                 txt_MatchesR3.setText(String.valueOf(numMDs));
                 tbl_event1R3.setText("Sand" + " \n" + "Tele");
-                tbl_rate1R3.setText( "∴" + base + "  ◯  " + swNum + "/" + swAtt + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
+                tbl_rate1R3.setText( "∴" + base + "  ◯  " + cgNum + "◯>1" + cgGt1 + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
                 tbl_event2R3.setText("Climb" + " \n" + "▉");
                 tbl_rate2R3.setText(climb + "/" + c_att + "  ↕One" + lift1 + "  ↕Two" + lift2 + " ↑ " + was+ " \n Ex " + exch + "   Prt " + portal + "  Zn " + zone + "  FL  " + floor + " ➤ " +tfloor);
                 break;
             case 3:
                 txt_MatchesB1.setText(String.valueOf(numMDs));
                 tbl_event1B1.setText("Sand" + " \n" + "Tele");
-                tbl_rate1B1.setText( "∴" + base + "  ◯  " + swNum + "/" + swAtt + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
+                tbl_rate1B1.setText( "∴" + base + "  ◯  " + cgNum + "◯>1" + cgGt1 + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
                 tbl_event2B1.setText("Climb" + " \n" + "▉");
                 tbl_rate2B1.setText(climb + "/" + c_att + "  ↕One" + lift1 + "  ↕Two" + lift2 + " ↑ " + was+ " \n Ex " + exch + "   Prt " + portal + "  Zn " + zone + "  FL  " + floor + " ➤ " +tfloor);
                 break;
             case 4:
                 txt_MatchesB2.setText(String.valueOf(numMDs));
                 tbl_event1B2.setText("Sand" + " \n" + "Tele");
-                tbl_rate1B2.setText( "∴" + base + "  ◯  " + swNum + "/" + swAtt + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
+                tbl_rate1B2.setText( "∴" + base + "  ◯  " + cgNum + "◯>1" + cgGt1 + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
                 tbl_event2B2.setText("Climb" + " \n" + "▉");
                 tbl_rate2B2.setText(climb + "/" + c_att + "  ↕One" + lift1 + "  ↕Two" + lift2 + " ↑ " + was+ " \n Ex " + exch + "   Prt " + portal + "  Zn " + zone + "  FL  " + floor + " ➤ " +tfloor);
                 break;
             case 5:
                 txt_MatchesB3.setText(String.valueOf(numMDs));
                 tbl_event1B3.setText("Sand" + " \n" + "Tele");
-                tbl_rate1B3.setText( "∴" + base + "  ◯  " + swNum + "/" + swAtt + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
+                tbl_rate1B3.setText( "∴" + base + "  ◯  " + cgNum + "◯>1" + cgGt1 + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
                 tbl_event2B3.setText("Climb" + " \n" + "▉");
                 tbl_rate2B3.setText(climb + "/" + c_att + "  ↕One" + lift1 + "  ↕Two" + lift2 + " ↑ " + was+ " \n Ex " + exch + "   Prt " + portal + "  Zn " + zone + "  FL  " + floor + " ➤ " +tfloor);
                 break;
