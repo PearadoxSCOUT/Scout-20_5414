@@ -33,13 +33,13 @@ public class VisPit_Activity extends AppCompatActivity {
     String TAG = "VisPit_Activity";        // This CLASS name
     String tnum = "", tname = "", imgURL = "";
     TextView txt_team, txt_teamName;
-    TextView txt_Ht, txt_TotWheels, txt_NumTrac, txt_NumOmni, txt_NumMecanum, txt_LiftCap, txt_Scout, txt_Comments;
+    TextView txt_Ht, txt_TotWheels, txt_NumTrac, txt_NumOmni, txt_NumMecanum, txt_NumPneumatic, txt_LiftCap, txt_Scout, txt_Comments;
     TextView txt_DriveMotor, txt_ProgLang, txt_Speed;
+    TextView txt_SSMode;
     ImageView imgView_Robot, imgView_LARGE;                // Robot image
     CheckBox chkBox_Vision, chkBox_Pneumatics, chkBox_Climb, chkBox_Lift, chkBox_Hook, chkBox_Ramp;
-    CheckBox chkBox_Arms, chkBox_ArmIntake, chkBox_ArmPress, chkBox_OffFloor, chkBox_Belt, chkBox_Box, chkBox_Other;
-    CheckBox chkBox_Switch, chkBox_SwitchMulti, chkBox_Scale, chkBox_ScaleMulti;
-    RadioGroup radgrp_Deliver;      RadioButton radio_Launch, radio_Place;
+    CheckBox chkBox_Hab2, chkBox_HABLvl_2, chkBox_HABLvl_3;
+    CheckBox chkBox_OffFloor, chkBox_PanelFloor;
     private FirebaseDatabase pfDatabase;
     private DatabaseReference pfPitData_DBReference;
 
@@ -63,7 +63,6 @@ public class VisPit_Activity extends AppCompatActivity {
     public boolean liftRamp = false;            // lift type Ramp
     public boolean liftHook = false;            // lift type Hook
     public boolean leaveHAB2 = false;           // Can leave from HAB level 2
-    public boolean endHAB1 = false;             // Can climb to HAB level 1
     public boolean endHAB2 = false;             // Can climb to HAB level 2
     public boolean endHAB3 = false;             // Can climb to HAB level 3
     public int speed = 0;                       // Speed (Ft. per Sec)
@@ -153,6 +152,7 @@ public class VisPit_Activity extends AppCompatActivity {
                 txt_NumTrac = (TextView) findViewById(R.id.txt_NumTrac);
                 txt_NumOmni = (TextView) findViewById(R.id.txt_NumOmni);
                 txt_NumMecanum = (TextView) findViewById(R.id.txt_NumMecanum);
+                txt_NumPneumatic = (TextView) findViewById(R.id.txt_NumPneumatic);
                 chkBox_Climb = (CheckBox) findViewById(R.id.chkBox_Climb);
                 chkBox_Vision = (CheckBox) findViewById(R.id.chkBox_Vision);
                 chkBox_Pneumatics = (CheckBox) findViewById(R.id.chkBox_Pneumatics);
@@ -161,9 +161,14 @@ public class VisPit_Activity extends AppCompatActivity {
                 chkBox_Ramp = (CheckBox) findViewById(R.id.chkBox_Ramp);
                 chkBox_Hook = (CheckBox) findViewById(R.id.chkBox_Hook);
                 chkBox_OffFloor = (CheckBox) findViewById(R.id.chkBox_OffFloor);
+                chkBox_PanelFloor = (CheckBox) findViewById(R.id.chkBox_PanelFloor);
+                chkBox_Hab2 = (CheckBox) findViewById(R.id.chkBox_Hab2);
+                chkBox_HABLvl_2 = (CheckBox) findViewById(R.id.chkBox_HABLvl_2);
+                chkBox_HABLvl_3 = (CheckBox) findViewById(R.id.chkBox_HABLvl_3);
                 txt_DriveMotor = (TextView) findViewById(R.id.txt_DriveMotor);
                 txt_ProgLang = (TextView) findViewById(R.id.txt_ProgLang);
                 txt_Speed = (TextView) findViewById(R.id.txt_Speed);
+                txt_SSMode = (TextView) findViewById(R.id.txt_Mode);
 
                 txt_Scout = (TextView) findViewById(R.id.txt_Scout);
                 txt_Comments = (TextView) findViewById(R.id.txt_Comments);
@@ -174,11 +179,22 @@ public class VisPit_Activity extends AppCompatActivity {
                 txt_NumTrac.setText(String.valueOf(Pit_Data.getPit_numTrac()));
                 txt_NumOmni.setText(String.valueOf(Pit_Data.getPit_numOmni()));
                 txt_NumMecanum.setText(String.valueOf(Pit_Data.getPit_numMecanum()));
+                txt_NumPneumatic.setText(String.valueOf(Pit_Data.getPit_numPneumatic()));
+
+                txt_SSMode.setText(String.valueOf(Pit_Data.getPit_ssMode()));
+                txt_ProgLang.setText(String.valueOf(Pit_Data.getPit_lang()));
+                txt_DriveMotor.setText(String.valueOf(Pit_Data.getPit_motor()));
+                txt_Speed.setText(String.valueOf(Pit_Data.getPit_speed()));
 
                 chkBox_Climb.setChecked(Pit_Data.isPit_climb());
                 chkBox_Vision.setChecked(Pit_Data.isPit_vision());
                 chkBox_Pneumatics.setChecked(Pit_Data.isPit_pneumatics());
                 chkBox_Lift.setChecked(Pit_Data.isPit_canLift());
+                chkBox_Hab2.setChecked(Pit_Data.isPit_leaveHAB2());
+                chkBox_HABLvl_2.setChecked(Pit_Data.isPit_endHAB2());
+                chkBox_HABLvl_3.setChecked(Pit_Data.isPit_endHAB3());
+                chkBox_OffFloor.setChecked(Pit_Data.isPit_cargoManip());
+                chkBox_PanelFloor.setChecked(Pit_Data.isPit_floorPanel());
                 if (Pit_Data.isPit_canLift()) {
                     txt_LiftCap.setVisibility(View.VISIBLE);
                     txt_LiftCap.setText(String.valueOf(Pit_Data.getPit_numLifted()));
