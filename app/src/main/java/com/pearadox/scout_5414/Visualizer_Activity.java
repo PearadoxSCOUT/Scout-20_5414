@@ -886,22 +886,22 @@ public class Visualizer_Activity extends AppCompatActivity {
                 Log.w(TAG, "TEAM  " + team);
                 ndx = x;
                 Log.w(TAG, "NDX  " + ndx);
-                int numMDs = 0; int cgNum = 0; int cgGt1 = 0; int scNum = 0; int scAtt = 0; int base = 0; int HAB2=0; int extra=0;
-                int tswNum = 0; int tswAtt = 0; int tscNum = 0; int tscAtt = 0; int othr=0; int o_att = 0;
-                int climb=0; int c_att=0; int lift1=0; int lift2=0; int was=0; int exch=0; int portal=0; int zone=0; int floor=0; int tfloor=0;
+                int numMDs = 0; int cgNum = 0; int cgGt1 = 0; int pnNum = 0; int pnGt1 = 0; int base = 0; int leaveHAB2=0;;
+                int TcgNum = 0; int TcgGt1 = 0; int TpnNum = 0; int TpnGt1 = 0; int othr=0; int o_att = 0;
+                int HAB0=0; int HAB1=0; int HAB2=0; int HAB3=0; int lift1=0; int was=0; int dropped=0; int portal=0; int zone=0; int floor=0; int tfloor=0;
                 for (int i = 0; i < md; i++) {
                 match_inst = Vis_MD.get(i);      // Get instance of Match Data
                 String mdt = match_inst.getTeam_num();
                 if (mdt.matches(team)) {        // is this match data for the team we are working on?
                 Log.w(TAG, "GMFT TEAM  " + mdt);
                     numMDs++;       // increment # of MDs
-        // New Match Data Object *** GLF 1/20/19
-                    if (match_inst.isSand_leftHAB()) {
+                    if (match_inst.isSand_leftHAB()) {      // Left HAB (crossed baseline)
                         base++;
                     }
-                    if (match_inst.isSand_leftHAB2()) {
-                        HAB2++;
+                    if (match_inst.isSand_leftHAB2()) {     // Leave from HAB 2
+                        leaveHAB2++;
                     }
+                    dropped = dropped + match_inst.getSand_num_Dropped();
                     // =================== Cargo ============
                     if (match_inst.isSand_LeftRocket_LCarg1()) {
                         cgNum++;
@@ -939,36 +939,246 @@ public class Visualizer_Activity extends AppCompatActivity {
                     if (match_inst.isSand_RghtRocket_RCarg3()) {
                         cgGt1++;
                     }
+                    if (match_inst.isSand_CargoLCarg1()) {              // Cargo Ship
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_CargoLCarg2()) {
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_CargoLCarg3()) {
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_CargoRCarg1()) {
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_CargoRCarg2()) {
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_CargoRCarg3()) {
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_CargoEndLCargo()) {      // End
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_CargoEndRCargo()) {      // End
+                        cgNum++;
+                    }
                     // =================== Panels ============
-//                    tswNum = tswNum + match_inst.getTele_cube_switch();
-//                    tswAtt = tswAtt + match_inst.getTele_switch_attempt();
-//                    tscNum = tscNum + match_inst.getTele_cube_scale();
-//                    tscAtt = tscAtt + match_inst.getTele_scale_attempt();
-//                    exch = exch + match_inst.getTele_cube_exchange();
-//                    othr = othr + match_inst.getTele_their_switch();
-//                    o_att = o_att + match_inst.getTele_their_attempt();
-//                    portal = portal + match_inst.getTele_cube_portal();
-//                    zone = zone + match_inst.getTele_cube_pwrzone();
-//                    floor = floor + match_inst.getTele_cube_floor();
-//                    tfloor = tfloor + match_inst.getTele_their_floor();
-//                    if (match_inst.isTele_climb_success()) {
-//                        climb++;
-//                    }
-//                    if (match_inst.isTele_climb_attempt()) {
-//                        c_att++;
-//                    }
-//                    if (match_inst.isTele_lift_one()) {
-//                        lift1++;
-//                    }
-//                    if (match_inst.isTele_lift_two()) {
-//                        lift2++;
-//                    }
+                    if (match_inst.isSand_LeftRocket_LPan1()) {
+                        pnNum++;
+                    }
+                    if (match_inst.isSand_LeftRocket_LPan2()) {
+                        pnGt1++;
+                    }
+                    if (match_inst.isSand_LeftRocket_LPan3()) {
+                        pnGt1++;
+                    }
+                    if (match_inst.isSand_LeftRocket_RPan1()) {
+                        pnNum++;
+                    }
+                    if (match_inst.isSand_LeftRocket_RPan2()) {
+                        pnGt1++;
+                    }
+                    if (match_inst.isSand_LeftRocket_RPan3()) {
+                        pnGt1++;
+                    }
+                    if (match_inst.isSand_RghtRocket_LPan1()) {
+                        pnNum++;
+                    }
+                    if (match_inst.isSand_RghtRocket_LPan2()) {
+                        pnGt1++;
+                    }
+                    if (match_inst.isSand_RghtRocket_LPan3()) {
+                        pnGt1++;
+                    }
+                    if (match_inst.isSand_RghtRocket_RPan1()) {
+                        pnNum++;
+                    }
+                    if (match_inst.isSand_RghtRocket_RPan2()) {
+                        pnGt1++;
+                    }
+                    if (match_inst.isSand_RghtRocket_RPan3()) {
+                        pnGt1++;
+                    }
+                    if (match_inst.isSand_CargoLPan1()) {              // Cargo Ship
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_CargoLPan2()) {
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_CargoLPan3()) {
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_CargoRPan1()) {
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_CargoRPan2()) {
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_CargoRPan3()) {
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_CargoEndLPanel()) {      // End
+                        cgNum++;
+                    }
+                    if (match_inst.isSand_CargoEndRPanel()) {      // End
+                        cgNum++;
+                    }
+
+                // *************************************************
+                // ******************** TeleOps ********************
+                // *************************************************
+                    dropped = dropped + match_inst.getTele_num_Dropped();
+                    // =================== Cargo ============
+                    if (match_inst.isTele_LeftRocket_LCarg1()) {
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_LeftRocket_LCarg2()) {
+                        TcgGt1++;
+                    }
+                    if (match_inst.isTele_LeftRocket_LCarg3()) {
+                        TcgGt1++;
+                    }
+                    if (match_inst.isTele_LeftRocket_RCarg1()) {
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_LeftRocket_RCarg2()) {
+                        TcgGt1++;
+                    }
+                    if (match_inst.isTele_LeftRocket_RCarg3()) {
+                        TcgGt1++;
+                    }
+                    if (match_inst.isTele_RghtRocket_LCarg1()) {
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_RghtRocket_LCarg2()) {
+                        TcgGt1++;
+                    }
+                    if (match_inst.isTele_RghtRocket_LCarg3()) {
+                        TcgGt1++;
+                    }
+                    if (match_inst.isTele_RghtRocket_RCarg1()) {
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_RghtRocket_RCarg2()) {
+                        TcgGt1++;
+                    }
+                    if (match_inst.isTele_RghtRocket_RCarg3()) {
+                        TcgGt1++;
+                    }
+                    if (match_inst.isTele_CargoLCarg1()) {              // Cargo Ship
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_CargoLCarg2()) {
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_CargoLCarg3()) {
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_CargoRCarg1()) {
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_CargoRCarg2()) {
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_CargoRCarg3()) {
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_CargoEndLCargo()) {      // End
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_CargoEndRCargo()) {      // End
+                        TcgNum++;
+                    }
+                    // =================== Panels ============
+                    if (match_inst.isTele_LeftRocket_LPan1()) {
+                        TpnNum++;
+                    }
+                    if (match_inst.isTele_LeftRocket_LPan2()) {
+                        TpnGt1++;
+                    }
+                    if (match_inst.isTele_LeftRocket_LPan3()) {
+                        TpnGt1++;
+                    }
+                    if (match_inst.isTele_LeftRocket_RPan1()) {
+                        TpnNum++;
+                    }
+                    if (match_inst.isTele_LeftRocket_RPan2()) {
+                        TpnGt1++;
+                    }
+                    if (match_inst.isTele_LeftRocket_RPan3()) {
+                        TpnGt1++;
+                    }
+                    if (match_inst.isTele_RghtRocket_LPan1()) {
+                        TpnNum++;
+                    }
+                    if (match_inst.isTele_RghtRocket_LPan2()) {
+                        TpnGt1++;
+                    }
+                    if (match_inst.isTele_RghtRocket_LPan3()) {
+                        TpnGt1++;
+                    }
+                    if (match_inst.isTele_RghtRocket_RPan1()) {
+                        TpnNum++;
+                    }
+                    if (match_inst.isTele_RghtRocket_RPan2()) {
+                        TpnGt1++;
+                    }
+                    if (match_inst.isTele_RghtRocket_RPan3()) {
+                        TpnGt1++;
+                    }
+                    if (match_inst.isTele_CargoLPan1()) {              // Cargo Ship
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_CargoLPan2()) {
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_CargoLPan3()) {
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_CargoRPan1()) {
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_CargoRPan2()) {
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_CargoRPan3()) {
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_CargoEndLPanel()) {      // End
+                        TcgNum++;
+                    }
+                    if (match_inst.isTele_CargoEndRPanel()) {      // End
+                        TcgNum++;
+                    }
+
+                    int endHAB = match_inst.getTele_level_num();        // end HAB Level
+                    switch (endHAB) {
+                        case 0:         // Practice round
+                            HAB0++;
+                            break;
+                        case 1:         // Qualifying round
+                            HAB1++;
+                            break;
+                        case 2:         // Playoff round
+                            HAB1++;
+                            break;
+                        case 3:         // Playoff round
+                            HAB3++;
+                            break;
+                        default:                // ????
+                            e(TAG, "*** Error - bad HAB Level indicator  ***");
+                    }
+
+                    if (match_inst.isTele_lifted()) {
+                        lift1++;
+                    }
                     if (match_inst.isTele_got_lift()) {
                         was++;
                     }
                 } // EndIf teams match
             } // End for #teams
-            Log.e(TAG, team + " ==== Match Data " +  base + "  " +  cgNum + "/" +  cgGt1 + "  " +  scNum + "/" +  scAtt + " ");
+            Log.e(TAG, team + " ==== Match Data " +  base + "  " +  cgNum + "/" +  cgGt1 + "  " +  pnNum + "/" +  pnGt1 + " ");
             tbl_event1R1 = (TextView) findViewById(R.id.tbl_event1R1);
             tbl_event1R2 = (TextView) findViewById(R.id.tbl_event1R2);
             tbl_event1R3 = (TextView) findViewById(R.id.tbl_event1R3);
@@ -1004,44 +1214,44 @@ public class Visualizer_Activity extends AppCompatActivity {
             case 0:
                 txt_MatchesR1.setText(String.valueOf(numMDs));
                 tbl_event1R1.setText("Sand" + " \n" + "Tele");
-                tbl_rate1R1.setText( "∴" + base + "  ◯  " + cgNum + "◯>1" + cgGt1 + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
-                tbl_event2R1.setText("Climb" + " \n" + "▉");
-                tbl_rate2R1.setText(climb + "/" + c_att + "  ↕One" + lift1 + "  ↕Two" + lift2 + " ↑ " + was+ " \n Ex " + exch + "   Prt " + portal + "  Zn " + zone + "  FL  " + floor + " ➤ " +tfloor);
+                tbl_rate1R1.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
+                tbl_event2R1.setText("HAB" + " \n" + "Final");
+                tbl_rate2R1.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n☢Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
                 break;
             case 1:
                 txt_MatchesR2.setText(String.valueOf(numMDs));
                 tbl_event1R2.setText("Sand" + " \n" + "Tele");
-                tbl_rate1R2.setText( "∴" + base + "  ◯  " + cgNum + "◯>1" + cgGt1 + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
-                tbl_event2R2.setText("Climb" + " \n" + "▉");
-                tbl_rate2R2.setText(climb + "/" + c_att + "  ↕One" + lift1 + "  ↕Two" + lift2 + " ↑ " + was+ " \n Ex " + exch + "   Prt " + portal + "  Zn " + zone + "  FL  " + floor + " ➤ " +tfloor);
+                tbl_rate1R2.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
+                tbl_event2R2.setText("HAB" + " \n" + "Final");
+                tbl_rate2R2.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n☢Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
                 break;
             case 2:
                 txt_MatchesR3.setText(String.valueOf(numMDs));
                 tbl_event1R3.setText("Sand" + " \n" + "Tele");
-                tbl_rate1R3.setText( "∴" + base + "  ◯  " + cgNum + "◯>1" + cgGt1 + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
-                tbl_event2R3.setText("Climb" + " \n" + "▉");
-                tbl_rate2R3.setText(climb + "/" + c_att + "  ↕One" + lift1 + "  ↕Two" + lift2 + " ↑ " + was+ " \n Ex " + exch + "   Prt " + portal + "  Zn " + zone + "  FL  " + floor + " ➤ " +tfloor);
+                tbl_rate1R3.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
+                tbl_event2R3.setText("HAB" + " \n" + "Final");
+                tbl_rate2R3.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n☢Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
                 break;
             case 3:
                 txt_MatchesB1.setText(String.valueOf(numMDs));
                 tbl_event1B1.setText("Sand" + " \n" + "Tele");
-                tbl_rate1B1.setText( "∴" + base + "  ◯  " + cgNum + "◯>1" + cgGt1 + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
-                tbl_event2B1.setText("Climb" + " \n" + "▉");
-                tbl_rate2B1.setText(climb + "/" + c_att + "  ↕One" + lift1 + "  ↕Two" + lift2 + " ↑ " + was+ " \n Ex " + exch + "   Prt " + portal + "  Zn " + zone + "  FL  " + floor + " ➤ " +tfloor);
+                tbl_rate1B1.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
+                tbl_event2B1.setText("HAB" + " \n" + "Final");
+                tbl_rate2B1.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n☢Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
                 break;
             case 4:
                 txt_MatchesB2.setText(String.valueOf(numMDs));
                 tbl_event1B2.setText("Sand" + " \n" + "Tele");
-                tbl_rate1B2.setText( "∴" + base + "  ◯  " + cgNum + "◯>1" + cgGt1 + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
-                tbl_event2B2.setText("Climb" + " \n" + "▉");
-                tbl_rate2B2.setText(climb + "/" + c_att + "  ↕One" + lift1 + "  ↕Two" + lift2 + " ↑ " + was+ " \n Ex " + exch + "   Prt " + portal + "  Zn " + zone + "  FL  " + floor + " ➤ " +tfloor);
+                tbl_rate1B2.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
+                tbl_event2B2.setText("HAB" + " \n" + "Final");
+                tbl_rate2B2.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n☢Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
                 break;
             case 5:
                 txt_MatchesB3.setText(String.valueOf(numMDs));
                 tbl_event1B3.setText("Sand" + " \n" + "Tele");
-                tbl_rate1B3.setText( "∴" + base + "  ◯  " + cgNum + "◯>1" + cgGt1 + "  ☢ " + scNum + "/" + scAtt + "   +" + extra + " \n" + "◯  " + tswNum + "/" + tswAtt + "   ☢ " + tscNum + "/" + tscAtt + "   Oth◯ " + othr + "/" + o_att);
-                tbl_event2B3.setText("Climb" + " \n" + "▉");
-                tbl_rate2B3.setText(climb + "/" + c_att + "  ↕One" + lift1 + "  ↕Two" + lift2 + " ↑ " + was+ " \n Ex " + exch + "   Prt " + portal + "  Zn " + zone + "  FL  " + floor + " ➤ " +tfloor);
+                tbl_rate1B3.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
+                tbl_event2B3.setText("HAB" + " \n" + "Final");
+                tbl_rate2B3.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n☢Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
                 break;
             default:                // ????
                 Log.e(TAG, "*** Error - bad NDX  ***");

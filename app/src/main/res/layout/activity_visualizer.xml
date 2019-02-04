@@ -450,7 +450,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.06"
                 android:gravity="left"
-                android:padding="3dip"
+                android:padding="1dip"
                 android:text="        "
                 android:textSize="10sp"
                 android:textStyle="bold" />
@@ -461,7 +461,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.66"
                 android:gravity="left"
-                android:padding="3dip"
+                android:padding="1dip"
                 android:text="                                                       ATTRIBUTES"
                 android:textSize="10sp"
                 android:textStyle="bold" />
@@ -507,9 +507,9 @@
 
                 <Button
                     android:id="@+id/btn_MatchR1"
-                    android:layout_width="12sp"
+                    android:layout_width="10sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.6"
+                    android:layout_weight="0.5"
                     android:gravity="center_vertical|center_horizontal|center"
                     android:onClick="btn_MatchR1_Click"
                     android:text="Match Data"
@@ -519,7 +519,7 @@
                     android:id="@+id/txt_MatchesR1"
                     android:layout_width="8sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.12"
+                    android:layout_weight="0.15"
                     android:padding="1dip"
                     android:text="99"
                     android:textColor="@color/white" />
@@ -587,31 +587,7 @@
                         android:text="OPR 000.0   DPR 00.0  \nStatistics from other \ndata"
                         android:textColor="@color/red" />
                 </LinearLayout>
-
             </LinearLayout>
-            <!--<LinearLayout-->
-            <!--android:id="@+id/teamR1_Stats"-->
-            <!--android:orientation="vertical"-->
-            <!--android:layout_weight="0.70"-->
-            <!--android:layout_below="@+id/tbl_rateR1"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content" >-->
-            <!--<TextView-->
-            <!--android:id="@+id/tbl_statR1"-->
-            <!--android:text="Statistics - Now is the time for all good men to come to the aid of their party"-->
-            <!--android:layout_width="60sp"-->
-            <!--android:layout_height="25sp"-->
-            <!--android:gravity="start"-->
-            <!--android:background="@drawable/border"-->
-            <!--android:layout_weight="1"-->
-            <!--android:padding="3dip" />-->
-            <!--</LinearLayout>-->
-            <!--<TextView-->
-            <!--android:text="???????"-->
-            <!--android:gravity="start"-->
-            <!--android:background="@drawable/border"-->
-            <!--android:layout_weight="0.22"-->
-            <!--android:padding="3dip" />-->
         </TableRow>
         // ==================================================================
         /* Row #2 */
@@ -645,7 +621,7 @@
 
                 <Button
                     android:id="@+id/btn_PitR2"
-                    android:layout_width="20sp"
+                    android:layout_width="10sp"
                     android:layout_height="41sp"
                     android:layout_weight="0.4"
                     android:onClick="btn_PitR2_Click"
@@ -654,9 +630,9 @@
 
                 <Button
                     android:id="@+id/btn_MatchR2"
-                    android:layout_width="12sp"
+                    android:layout_width="10sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.6"
+                    android:layout_weight="0.5"
                     android:onClick="btn_MatchR2_Click"
                     android:text="Match Data"
                     android:textSize="8sp" />
@@ -665,7 +641,7 @@
                     android:id="@+id/txt_MatchesR2"
                     android:layout_width="8sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.12"
+                    android:layout_weight="0.15"
                     android:padding="1dip"
                     android:text="99"
                     android:textColor="@color/white" />
@@ -733,13 +709,6 @@
                         android:textColor="@color/red" />
                 </LinearLayout>
             </LinearLayout>
-            <!--android:background="@drawable/border"-->
-            <!--<TextView-->
-            <!--android:text="Gears Placed"-->
-            <!--android:gravity="start"-->
-            <!--android:background="@drawable/border"-->
-            <!--android:layout_weight="0.22"-->
-            <!--android:padding="3dip" />-->
         </TableRow>
         // ==================================================================
         /* Row #3 */
@@ -773,7 +742,7 @@
 
                 <Button
                     android:id="@+id/btn_PitR3"
-                    android:layout_width="20sp"
+                    android:layout_width="10sp"
                     android:layout_height="41sp"
                     android:layout_weight="0.4"
                     android:onClick="btn_PitR3_Click"
@@ -782,9 +751,9 @@
 
                 <Button
                     android:id="@+id/btn_MatchR3"
-                    android:layout_width="12sp"
+                    android:layout_width="10sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.6"
+                    android:layout_weight="0.5"
                     android:onClick="btn_MatchR3_Click"
                     android:text="Match Data"
                     android:textSize="8sp" />
@@ -793,7 +762,7 @@
                     android:id="@+id/txt_MatchesR3"
                     android:layout_width="8sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.12"
+                    android:layout_weight="0.15"
                     android:padding="1dip"
                     android:text="99"
                     android:textColor="@color/white" />
@@ -861,12 +830,6 @@
                         android:textColor="@color/red" />
                 </LinearLayout>
             </LinearLayout>
-            <!--<TextView-->
-            <!--android:text="Gears Placed"-->
-            <!--android:gravity="start"-->
-            <!--android:background="@drawable/border"-->
-            <!--android:layout_weight="0.22"-->
-            <!--android:padding="3dip" />-->
         </TableRow>
         // ==================================================================
         /* Row #4 */
@@ -901,7 +864,7 @@
 
                 <Button
                     android:id="@+id/btn_PitB1"
-                    android:layout_width="20sp"
+                    android:layout_width="10sp"
                     android:layout_height="41sp"
                     android:layout_weight="0.4"
                     android:onClick="btn_PitB1_Click"
@@ -910,9 +873,9 @@
 
                 <Button
                     android:id="@+id/btn_MatchB1"
-                    android:layout_width="12sp"
+                    android:layout_width="10sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.6"
+                    android:layout_weight="0.5"
                     android:onClick="btn_MatchB1_Click"
                     android:text="Match Data"
                     android:textSize="8sp" />
@@ -921,7 +884,7 @@
                     android:id="@+id/txt_MatchesB1"
                     android:layout_width="8sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.12"
+                    android:layout_weight="0.15"
                     android:padding="1dip"
                     android:text="99"
                     android:textColor="@color/white" />
@@ -989,12 +952,6 @@
                         android:textColor="@color/cyan" />
                 </LinearLayout>
             </LinearLayout>
-            <!--<TextView-->
-            <!--android:text="Gears Placed"-->
-            <!--android:gravity="start"-->
-            <!--android:background="@drawable/border"-->
-            <!--android:layout_weight="0.22"-->
-            <!--android:padding="3dip" />-->
         </TableRow>
         // ==================================================================
         /* Row #5 */
@@ -1029,7 +986,7 @@
 
                 <Button
                     android:id="@+id/btn_PitB2"
-                    android:layout_width="20sp"
+                    android:layout_width="10sp"
                     android:layout_height="41sp"
                     android:layout_weight="0.4"
                     android:onClick="btn_PitB2_Click"
@@ -1038,9 +995,9 @@
 
                 <Button
                     android:id="@+id/btn_MatchB2"
-                    android:layout_width="12sp"
+                    android:layout_width="10sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.6"
+                    android:layout_weight="0.5"
                     android:onClick="btn_MatchB2_Click"
                     android:text="Match Data"
                     android:textSize="8sp" />
@@ -1049,7 +1006,7 @@
                     android:id="@+id/txt_MatchesB2"
                     android:layout_width="8sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.12"
+                    android:layout_weight="0.15"
                     android:padding="1dip"
                     android:text="99"
                     android:textColor="@color/white" />
@@ -1102,7 +1059,7 @@
                         android:layout_height="41sp"
                         android:layout_weight="0.20"
                         android:gravity="start"
-                        android:padding="3dip"
+                        android:padding="1dip"
                         android:text="Auto \nTele"
                         android:textColor="@color/cyan" />
 
@@ -1112,17 +1069,11 @@
                         android:layout_height="41sp"
                         android:layout_weight="0.80"
                         android:gravity="start"
-                        android:padding="3dip"
+                        android:padding="1dip"
                         android:text="OPR 000.0   DPR 00.0  \nStatistics from other \ndata"
                         android:textColor="@color/cyan" />
                 </LinearLayout>
             </LinearLayout>
-            <!--<TextView-->
-            <!--android:text="Gears Placed"-->
-            <!--android:gravity="start"-->
-            <!--android:background="@drawable/border"-->
-            <!--android:layout_weight="0.22"-->
-            <!--android:padding="3dip" />-->
         </TableRow>
         // ==================================================================
 
@@ -1157,7 +1108,7 @@
 
                 <Button
                     android:id="@+id/btn_PitB3"
-                    android:layout_width="20sp"
+                    android:layout_width="10sp"
                     android:layout_height="41sp"
                     android:layout_weight="0.4"
                     android:onClick="btn_PitB3_Click"
@@ -1166,9 +1117,9 @@
 
                 <Button
                     android:id="@+id/btn_MatchB3"
-                    android:layout_width="12sp"
+                    android:layout_width="10sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.6"
+                    android:layout_weight="0.5"
                     android:onClick="btn_MatchB3_Click"
                     android:text="Match Data"
                     android:textSize="8sp" />
@@ -1177,7 +1128,7 @@
                     android:id="@+id/txt_MatchesB3"
                     android:layout_width="8sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.12"
+                    android:layout_weight="0.15"
                     android:padding="1dip"
                     android:text="99"
                     android:textColor="@color/white" />
@@ -1202,7 +1153,7 @@
                         android:layout_height="41sp"
                         android:layout_weight="0.20"
                         android:gravity="start"
-                        android:padding="3dip"
+                        android:padding="1dip"
                         android:text="Auto \nTele"
                         android:textColor="@color/brightblue" />
 
@@ -1212,7 +1163,7 @@
                         android:layout_height="41sp"
                         android:layout_weight="0.80"
                         android:gravity="start"
-                        android:padding="3dip"
+                        android:padding="1dip"
                         android:text="OPR 000.0   DPR 00.0  \nStatistics from other \ndata"
                         android:textColor="@color/brightblue" />
                 </LinearLayout>
@@ -1226,11 +1177,11 @@
 
                     <TextView
                         android:id="@+id/tbl_event2B3"
-                        android:layout_width="20sp"
+                        android:layout_width="17sp"
                         android:layout_height="41sp"
                         android:layout_weight="0.20"
                         android:gravity="start"
-                        android:padding="3dip"
+                        android:padding="1dip"
                         android:text="Auto \nTele"
                         android:textColor="@color/cyan" />
 
@@ -1240,17 +1191,11 @@
                         android:layout_height="41sp"
                         android:layout_weight="0.80"
                         android:gravity="start"
-                        android:padding="3dip"
+                        android:padding="1dip"
                         android:text="OPR 000.0   DPR 00.0  \nStatistics from other \ndata"
                         android:textColor="@color/cyan" />
                 </LinearLayout>
             </LinearLayout>
-            <!--<TextView-->
-            <!--android:text="Gears Placed"-->
-            <!--android:gravity="start"-->
-            <!--android:background="@drawable/border"-->
-            <!--android:layout_weight="0.22"-->
-            <!--android:padding="3dip" />-->
         </TableRow>
     </TableLayout>
 
