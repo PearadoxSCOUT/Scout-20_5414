@@ -1216,42 +1216,42 @@ public class Visualizer_Activity extends AppCompatActivity {
                 tbl_event1R1.setText("Sand" + " \n" + "Tele");
                 tbl_rate1R1.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
                 tbl_event2R1.setText("HAB" + " \n" + "Final");
-                tbl_rate2R1.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n☢Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
+                tbl_rate2R1.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
                 break;
             case 1:
                 txt_MatchesR2.setText(String.valueOf(numMDs));
                 tbl_event1R2.setText("Sand" + " \n" + "Tele");
                 tbl_rate1R2.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
                 tbl_event2R2.setText("HAB" + " \n" + "Final");
-                tbl_rate2R2.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n☢Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
+                tbl_rate2R2.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
                 break;
             case 2:
                 txt_MatchesR3.setText(String.valueOf(numMDs));
                 tbl_event1R3.setText("Sand" + " \n" + "Tele");
                 tbl_rate1R3.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
                 tbl_event2R3.setText("HAB" + " \n" + "Final");
-                tbl_rate2R3.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n☢Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
+                tbl_rate2R3.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
                 break;
             case 3:
                 txt_MatchesB1.setText(String.valueOf(numMDs));
                 tbl_event1B1.setText("Sand" + " \n" + "Tele");
                 tbl_rate1B1.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
                 tbl_event2B1.setText("HAB" + " \n" + "Final");
-                tbl_rate2B1.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n☢Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
+                tbl_rate2B1.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
                 break;
             case 4:
                 txt_MatchesB2.setText(String.valueOf(numMDs));
                 tbl_event1B2.setText("Sand" + " \n" + "Tele");
                 tbl_rate1B2.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
                 tbl_event2B2.setText("HAB" + " \n" + "Final");
-                tbl_rate2B2.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n☢Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
+                tbl_rate2B2.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
                 break;
             case 5:
                 txt_MatchesB3.setText(String.valueOf(numMDs));
                 tbl_event1B3.setText("Sand" + " \n" + "Tele");
                 tbl_rate1B3.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
                 tbl_event2B3.setText("HAB" + " \n" + "Final");
-                tbl_rate2B3.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n☢Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
+                tbl_rate2B3.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
                 break;
             default:                // ????
                 Log.e(TAG, "*** Error - bad NDX  ***");
