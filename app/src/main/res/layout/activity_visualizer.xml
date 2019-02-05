@@ -419,52 +419,52 @@
         android:stretchColumns="*">
 
         /*** HEADER ***/
-        <!--<TableRow>-->
+        <TableRow>
 
-            <!--<TextView-->
-                <!--android:id="@+id/hdr_team"-->
-                <!--android:layout_width="0px"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0.12"-->
-                <!--android:gravity="left"-->
-                <!--android:padding="0dip"-->
-                <!--android:text="TEAM  PHOTO"-->
-                <!--android:textSize="10sp"-->
-                <!--android:textStyle="bold" />-->
+            <TextView
+                android:id="@+id/hdr_team"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.12"
+                android:gravity="left"
+                android:padding="0dip"
+                android:text="TEAM "
+                android:textSize="10sp"
+                android:textStyle="bold" />
 
-            <!--<TextView-->
-                <!--android:id="@+id/hdr_robot"-->
-                <!--android:layout_width="0px"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0.08"-->
-                <!--android:gravity="left"-->
-                <!--android:padding="3dip"-->
-                <!--android:text="X"-->
-                <!--android:textSize="10sp"-->
-                <!--android:textStyle="bold" />-->
+            <TextView
+                android:id="@+id/hdr_robot"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.08"
+                android:gravity="left"
+                android:padding="3dip"
+                android:text="PHOTO"
+                android:textSize="10sp"
+                android:textStyle="bold" />
 
-            <!--<TextView-->
-                <!--android:id="@+id/hdr_buttons"-->
-                <!--android:layout_width="0px"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0.06"-->
-                <!--android:gravity="left"-->
-                <!--android:padding="1dip"-->
-                <!--android:text="        "-->
-                <!--android:textSize="10sp"-->
-                <!--android:textStyle="bold" />-->
+            <TextView
+                android:id="@+id/hdr_buttons"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.05"
+                android:gravity="left"
+                android:padding="1dip"
+                android:text="        "
+                android:textSize="10sp"
+                android:textStyle="bold" />
 
-            <!--<TextView-->
-                <!--android:id="@+id/hdr_attr"-->
-                <!--android:layout_width="0px"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="0.66"-->
-                <!--android:gravity="left"-->
-                <!--android:padding="1dip"-->
-                <!--android:text="                                                       ATTRIBUTES"-->
-                <!--android:textSize="10sp"-->
-                <!--android:textStyle="bold" />-->
-        <!--</TableRow>-->
+            <TextView
+                android:id="@+id/hdr_attr"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.66"
+                android:gravity="left"
+                android:padding="1dip"
+                android:text="                                                       ATTRIBUTES"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </TableRow>
         // ==================================================================
         /* Row #1 */
 
@@ -480,18 +480,18 @@
 
             <ImageView
                 android:id="@+id/tbl_robotR1"
-                android:layout_width="40dp"
+                android:layout_width="50dp"
                 android:layout_height="80dp"
                 android:layout_weight="0.02"
                 android:background="@drawable/border"
                 android:gravity="start"
-                android:padding="0dip" />
+                android:padding="2dip" />
 
             <LinearLayout
                 android:id="@+id/teamR1_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.06"
+                android:layout_weight="0.05"
                 android:orientation="horizontal">
 
                 <Button
@@ -519,6 +519,7 @@
                     android:layout_height="41sp"
                     android:layout_weight="0.15"
                     android:padding="1dip"
+                    android:paddingLeft="1dip"
                     android:text="99"
                     android:textColor="@color/white" />
 
@@ -544,7 +545,7 @@
                         android:layout_weight="0.20"
                         android:gravity="start"
                         android:padding="1dip"
-                        android:text="Auto \nTele"
+                        android:text="Sand \nTele"
                         android:textColor="@color/orange" />
 
                     <TextView
@@ -572,7 +573,7 @@
                         android:layout_weight="0.20"
                         android:gravity="start"
                         android:padding="1dip"
-                        android:text="Climb \nTele"
+                        android:text="Sand \nTele"
                         android:textColor="@color/red" />
 
                     <TextView
@@ -602,18 +603,18 @@
 
             <ImageView
                 android:id="@+id/tbl_robotR2"
-                android:layout_width="48dp"
+                android:layout_width="50dp"
                 android:layout_height="80dp"
                 android:layout_weight="0.03"
                 android:background="@drawable/border"
                 android:gravity="start"
-                android:padding="0dip" />
+                android:padding="2dip" />
 
             <LinearLayout
                 android:id="@+id/teamR2_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.06"
+                android:layout_weight="0.05"
                 android:orientation="horizontal">
 
                 <Button
@@ -664,7 +665,7 @@
                         android:layout_weight="0.20"
                         android:gravity="start"
                         android:padding="1dip"
-                        android:text="Auto \nTele"
+                        android:text="Sand \nTele"
                         android:textColor="@color/orange" />
 
                     <TextView
@@ -692,7 +693,7 @@
                         android:layout_weight="0.20"
                         android:gravity="start"
                         android:padding="1dip"
-                        android:text="Auto \nTele"
+                        android:text="Sand \nTele"
                         android:textColor="@color/red" />
 
                     <TextView
@@ -723,18 +724,18 @@
 
             <ImageView
                 android:id="@+id/tbl_robotR3"
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:layout_height="80dp"
                 android:layout_weight="0.03"
                 android:background="@drawable/border"
                 android:gravity="start"
-                android:padding="0dip" />
+                android:padding="2dip" />
 
             <LinearLayout
                 android:id="@+id/teamR3_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.06"
+                android:layout_weight="0.05"
                 android:orientation="horizontal">
 
                 <Button
@@ -785,7 +786,7 @@
                         android:layout_weight="0.20"
                         android:gravity="start"
                         android:padding="1dip"
-                        android:text="Auto \nTele"
+                        android:text="Sand \nTele"
                         android:textColor="@color/orange" />
 
                     <TextView
@@ -813,7 +814,7 @@
                         android:layout_weight="0.20"
                         android:gravity="start"
                         android:padding="1dip"
-                        android:text="Auto \nTele"
+                        android:text="Sand \nTele"
                         android:textColor="@color/red" />
 
                     <TextView
@@ -844,19 +845,19 @@
 
             <ImageView
                 android:id="@+id/tbl_robotB1"
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:layout_height="80dp"
                 android:layout_weight="0.03"
                 android:background="@drawable/border"
                 android:gravity="start"
-                android:padding="0dip"
+                android:padding="2dip"
                 android:text="second" />
 
             <LinearLayout
                 android:id="@+id/teamB1_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.06"
+                android:layout_weight="0.05"
                 android:orientation="horizontal">
 
                 <Button
@@ -907,7 +908,7 @@
                         android:layout_weight="0.20"
                         android:gravity="start"
                         android:padding="1dip"
-                        android:text="Auto \nTele"
+                        android:text="Sand \nTele"
                         android:textColor="@color/brightblue" />
 
                     <TextView
@@ -935,7 +936,7 @@
                         android:layout_weight="0.20"
                         android:gravity="start"
                         android:padding="1dip"
-                        android:text="Auto \nTele"
+                        android:text="Sand \nTele"
                         android:textColor="@color/cyan" />
 
                     <TextView
@@ -966,19 +967,19 @@
 
             <ImageView
                 android:id="@+id/tbl_robotB2"
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:layout_height="80dp"
                 android:layout_weight="0.03"
                 android:background="@drawable/border"
                 android:gravity="start"
-                android:padding="0dip"
+                android:padding="2dip"
                 android:text="second" />
 
             <LinearLayout
                 android:id="@+id/teamB2_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.06"
+                android:layout_weight="0.05"
                 android:orientation="horizontal">
 
                 <Button
@@ -1029,7 +1030,7 @@
                         android:layout_weight="0.20"
                         android:gravity="start"
                         android:padding="1dip"
-                        android:text="Auto \nTele"
+                        android:text="Sand \nTele"
                         android:textColor="@color/brightblue" />
 
                     <TextView
@@ -1057,7 +1058,7 @@
                         android:layout_weight="0.20"
                         android:gravity="start"
                         android:padding="1dip"
-                        android:text="Auto \nTele"
+                        android:text="Sand \nTele"
                         android:textColor="@color/cyan" />
 
                     <TextView
@@ -1088,19 +1089,19 @@
 
             <ImageView
                 android:id="@+id/tbl_robotB3"
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:layout_height="80dp"
                 android:layout_weight="0.03"
                 android:background="@drawable/border"
                 android:gravity="start"
-                android:padding="0dip"
+                android:padding="2dip"
                 android:text="second" />
 
             <LinearLayout
                 android:id="@+id/teamB3_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.06"
+                android:layout_weight="0.05"
                 android:orientation="horizontal">
 
                 <Button
@@ -1151,7 +1152,7 @@
                         android:layout_weight="0.20"
                         android:gravity="start"
                         android:padding="1dip"
-                        android:text="Auto \nTele"
+                        android:text="Sand \nTele"
                         android:textColor="@color/brightblue" />
 
                     <TextView
@@ -1179,7 +1180,7 @@
                         android:layout_weight="0.20"
                         android:gravity="start"
                         android:padding="1dip"
-                        android:text="Auto \nTele"
+                        android:text="Sand \nTele"
                         android:textColor="@color/cyan" />
 
                     <TextView
