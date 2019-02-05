@@ -419,58 +419,56 @@
         android:stretchColumns="*">
 
         /*** HEADER ***/
+        <!--<TableRow>-->
 
-        <TableRow>
+            <!--<TextView-->
+                <!--android:id="@+id/hdr_team"-->
+                <!--android:layout_width="0px"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0.12"-->
+                <!--android:gravity="left"-->
+                <!--android:padding="0dip"-->
+                <!--android:text="TEAM  PHOTO"-->
+                <!--android:textSize="10sp"-->
+                <!--android:textStyle="bold" />-->
 
-            <TextView
-                android:id="@+id/hdr_team"
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.12"
-                android:gravity="left"
-                android:padding="0dip"
-                android:text="TEAM"
-                android:textSize="10sp"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:id="@+id/hdr_robot"-->
+                <!--android:layout_width="0px"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0.08"-->
+                <!--android:gravity="left"-->
+                <!--android:padding="3dip"-->
+                <!--android:text="X"-->
+                <!--android:textSize="10sp"-->
+                <!--android:textStyle="bold" />-->
 
-            <TextView
-                android:id="@+id/hdr_robot"
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.08"
-                android:gravity="left"
-                android:padding="3dip"
-                android:text="PHOTO"
-                android:textSize="10sp"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:id="@+id/hdr_buttons"-->
+                <!--android:layout_width="0px"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0.06"-->
+                <!--android:gravity="left"-->
+                <!--android:padding="1dip"-->
+                <!--android:text="        "-->
+                <!--android:textSize="10sp"-->
+                <!--android:textStyle="bold" />-->
 
-            <TextView
-                android:id="@+id/hdr_buttons"
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.06"
-                android:gravity="left"
-                android:padding="1dip"
-                android:text="        "
-                android:textSize="10sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/hdr_attr"
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.66"
-                android:gravity="left"
-                android:padding="1dip"
-                android:text="                                                       ATTRIBUTES"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-        </TableRow>
+            <!--<TextView-->
+                <!--android:id="@+id/hdr_attr"-->
+                <!--android:layout_width="0px"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="0.66"-->
+                <!--android:gravity="left"-->
+                <!--android:padding="1dip"-->
+                <!--android:text="                                                       ATTRIBUTES"-->
+                <!--android:textSize="10sp"-->
+                <!--android:textStyle="bold" />-->
+        <!--</TableRow>-->
         // ==================================================================
         /* Row #1 */
 
         <TableRow>
-
             <TextView
                 android:id="@+id/tbl_teamR1"
                 android:layout_width="0px"
@@ -482,12 +480,12 @@
 
             <ImageView
                 android:id="@+id/tbl_robotR1"
-                android:layout_width="80dp"
+                android:layout_width="40dp"
                 android:layout_height="80dp"
-                android:layout_weight="0.03"
+                android:layout_weight="0.02"
                 android:background="@drawable/border"
                 android:gravity="start"
-                android:padding="3dip" />
+                android:padding="0dip" />
 
             <LinearLayout
                 android:id="@+id/teamR1_buttons"
@@ -498,7 +496,7 @@
 
                 <Button
                     android:id="@+id/btn_PitR1"
-                    android:layout_width="20sp"
+                    android:layout_width="10sp"
                     android:layout_height="41sp"
                     android:layout_weight="0.4"
                     android:onClick="btn_PitR1_Click"
@@ -509,7 +507,7 @@
                     android:id="@+id/btn_MatchR1"
                     android:layout_width="10sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.45"
                     android:gravity="center_vertical|center_horizontal|center"
                     android:onClick="btn_MatchR1_Click"
                     android:text="Match Data"
@@ -541,7 +539,7 @@
 
                     <TextView
                         android:id="@+id/tbl_event1R1"
-                        android:layout_width="17sp"
+                        android:layout_width="10sp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.20"
                         android:gravity="start"
@@ -569,7 +567,7 @@
 
                     <TextView
                         android:id="@+id/tbl_event2R1"
-                        android:layout_width="17sp"
+                        android:layout_width="10sp"
                         android:layout_height="41sp"
                         android:layout_weight="0.20"
                         android:gravity="start"
@@ -593,7 +591,6 @@
         /* Row #2 */
 
         <TableRow>
-
             <TextView
                 android:id="@+id/tbl_teamR2"
                 android:layout_width="0px"
@@ -605,12 +602,12 @@
 
             <ImageView
                 android:id="@+id/tbl_robotR2"
-                android:layout_width="100dp"
+                android:layout_width="48dp"
                 android:layout_height="80dp"
                 android:layout_weight="0.03"
                 android:background="@drawable/border"
                 android:gravity="start"
-                android:padding="3dip" />
+                android:padding="0dip" />
 
             <LinearLayout
                 android:id="@+id/teamR2_buttons"
@@ -632,7 +629,7 @@
                     android:id="@+id/btn_MatchR2"
                     android:layout_width="10sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.45"
                     android:onClick="btn_MatchR2_Click"
                     android:text="Match Data"
                     android:textSize="8sp" />
@@ -662,7 +659,7 @@
 
                     <TextView
                         android:id="@+id/tbl_event1R2"
-                        android:layout_width="17sp"
+                        android:layout_width="10sp"
                         android:layout_height="41sp"
                         android:layout_weight="0.20"
                         android:gravity="start"
@@ -690,7 +687,7 @@
 
                     <TextView
                         android:id="@+id/tbl_event2R2"
-                        android:layout_width="17sp"
+                        android:layout_width="10sp"
                         android:layout_height="41sp"
                         android:layout_weight="0.20"
                         android:gravity="start"
@@ -731,7 +728,7 @@
                 android:layout_weight="0.03"
                 android:background="@drawable/border"
                 android:gravity="start"
-                android:padding="3dip" />
+                android:padding="0dip" />
 
             <LinearLayout
                 android:id="@+id/teamR3_buttons"
@@ -753,7 +750,7 @@
                     android:id="@+id/btn_MatchR3"
                     android:layout_width="10sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.45"
                     android:onClick="btn_MatchR3_Click"
                     android:text="Match Data"
                     android:textSize="8sp" />
@@ -783,7 +780,7 @@
 
                     <TextView
                         android:id="@+id/tbl_event1R3"
-                        android:layout_width="17sp"
+                        android:layout_width="10sp"
                         android:layout_height="41sp"
                         android:layout_weight="0.20"
                         android:gravity="start"
@@ -811,7 +808,7 @@
 
                     <TextView
                         android:id="@+id/tbl_event2R3"
-                        android:layout_width="17sp"
+                        android:layout_width="10sp"
                         android:layout_height="41sp"
                         android:layout_weight="0.20"
                         android:gravity="start"
@@ -852,7 +849,7 @@
                 android:layout_weight="0.03"
                 android:background="@drawable/border"
                 android:gravity="start"
-                android:padding="3dip"
+                android:padding="0dip"
                 android:text="second" />
 
             <LinearLayout
@@ -875,7 +872,7 @@
                     android:id="@+id/btn_MatchB1"
                     android:layout_width="10sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.45"
                     android:onClick="btn_MatchB1_Click"
                     android:text="Match Data"
                     android:textSize="8sp" />
@@ -905,7 +902,7 @@
 
                     <TextView
                         android:id="@+id/tbl_event1B1"
-                        android:layout_width="17sp"
+                        android:layout_width="10sp"
                         android:layout_height="41sp"
                         android:layout_weight="0.20"
                         android:gravity="start"
@@ -933,7 +930,7 @@
 
                     <TextView
                         android:id="@+id/tbl_event2B1"
-                        android:layout_width="17sp"
+                        android:layout_width="10sp"
                         android:layout_height="41sp"
                         android:layout_weight="0.20"
                         android:gravity="start"
@@ -974,7 +971,7 @@
                 android:layout_weight="0.03"
                 android:background="@drawable/border"
                 android:gravity="start"
-                android:padding="3dip"
+                android:padding="0dip"
                 android:text="second" />
 
             <LinearLayout
@@ -997,7 +994,7 @@
                     android:id="@+id/btn_MatchB2"
                     android:layout_width="10sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.45"
                     android:onClick="btn_MatchB2_Click"
                     android:text="Match Data"
                     android:textSize="8sp" />
@@ -1027,7 +1024,7 @@
 
                     <TextView
                         android:id="@+id/tbl_event1B2"
-                        android:layout_width="20sp"
+                        android:layout_width="10sp"
                         android:layout_height="41sp"
                         android:layout_weight="0.20"
                         android:gravity="start"
@@ -1055,7 +1052,7 @@
 
                     <TextView
                         android:id="@+id/tbl_event2B2"
-                        android:layout_width="17sp"
+                        android:layout_width="10sp"
                         android:layout_height="41sp"
                         android:layout_weight="0.20"
                         android:gravity="start"
@@ -1096,7 +1093,7 @@
                 android:layout_weight="0.03"
                 android:background="@drawable/border"
                 android:gravity="start"
-                android:padding="3dip"
+                android:padding="0dip"
                 android:text="second" />
 
             <LinearLayout
@@ -1119,7 +1116,7 @@
                     android:id="@+id/btn_MatchB3"
                     android:layout_width="10sp"
                     android:layout_height="41sp"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.45"
                     android:onClick="btn_MatchB3_Click"
                     android:text="Match Data"
                     android:textSize="8sp" />
@@ -1149,7 +1146,7 @@
 
                     <TextView
                         android:id="@+id/tbl_event1B3"
-                        android:layout_width="20sp"
+                        android:layout_width="10sp"
                         android:layout_height="41sp"
                         android:layout_weight="0.20"
                         android:gravity="start"
@@ -1177,7 +1174,7 @@
 
                     <TextView
                         android:id="@+id/tbl_event2B3"
-                        android:layout_width="17sp"
+                        android:layout_width="10sp"
                         android:layout_height="41sp"
                         android:layout_weight="0.20"
                         android:gravity="start"
