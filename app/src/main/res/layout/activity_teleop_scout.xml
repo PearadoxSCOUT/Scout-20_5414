@@ -585,7 +585,7 @@
         android:layout_height="wrap_content"
         android:text="Retrieved from:"
         android:layout_below="@+id/scrollv_comm"
-        android:textColor="@color/red"
+        android:textColor="@color/magenta"
         android:textSize="16sp" />
 
 
@@ -740,19 +740,21 @@
         android:layout_height="40sp"
         android:layout_below="@+id/lin_Lift"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/lbl_Number_Penalties"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Number of Penalties"
-            android:textColor="@color/white" />
+            android:textColor="@color/red" />
 
         <TextView
             android:id="@+id/txt_Number_Penalties"
             android:layout_width="25dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
             android:text="0"
             android:textColor="@color/yellow"
             android:textSize="16dp" />
@@ -768,8 +770,40 @@
             android:layout_height="40dp"
             android:layout_marginStart="15dp"
             android:text="-" />
+
+        <TextView
+            android:id="@+id/lbl_Number_Dropped"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:text="Dropped Panels"
+            android:textColor="@color/orange" />
+
+        <TextView
+            android:id="@+id/txt_Num_Dropped"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:text="0"
+            android:textColor="@color/yellow"
+            android:textSize="16dp" />
+        <Button
+            android:id="@+id/btn_DropPlus"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:text="+" />
+        <Button
+            android:id="@+id/btn_DropMinus"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="15dp"
+            android:text="-" />
     </LinearLayout>
 
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     <Button
         android:id="@+id/button_GoToFinalActivity"
         android:layout_width="162dp"
@@ -777,9 +811,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:text="Final" />
-
-
-    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 

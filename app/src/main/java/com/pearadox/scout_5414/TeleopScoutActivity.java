@@ -43,8 +43,8 @@ public class TeleopScoutActivity extends Activity {
     /* P/U Sect. */     CheckBox chkBox_PU_Cargo_floor, chkBox_CargoPlayerSta, chkBox_Corral, chkBox_PU_Panel_floor, chkBox_PanelPlayerSta;
     /* HAB */           RadioGroup  radgrp_HAB;      RadioButton  radio_Lift, radio_One, radio_Two, radio_Three, radio_Zero;
                         CheckBox chk_LiftedBy, chk_Lifted;
-    /* Last Sect. */    Button button_GoToFinalActivity, button_Number_PenaltiesPlus, button_Number_PenaltiesUndo;
-                        TextView txt_Number_Penalties;
+    /* Last Sect. */    Button button_GoToFinalActivity, button_Number_PenaltiesPlus, button_Number_PenaltiesUndo, btn_DropPlus, btn_DropMinus;
+                        TextView txt_Number_Penalties, txt_Num_Dropped;
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     private FirebaseDatabase  pfDatabase;
 //    private DatabaseReference pfTeam_DBReference;
@@ -105,10 +105,11 @@ public class TeleopScoutActivity extends Activity {
     public boolean cargo_Corral       = false;  // Did they pickup cargo from Corral?
     public boolean panel_floor        = false;  // Did they pickup panel off the ground?
     public boolean panel_playSta      = false;  // Did they pickup panel off the ground?
-    public int end_HAB_Level          = 0;      // HAB Level
+    public int end_HAB_Level          = 99;     // HAB Level
     public boolean got_lift           = false;  // Got Lifted by another robot
     public boolean lifted             = false;  // Got Lifted by another robot
-    public int final_num_Penalties    = 0;      // How many penalties received?
+    public int num_Penalties          = 0;      // How many penalties received?
+    public int num_Dropped            = 0;      // How many Panels dropped?
     /* */
     public String  teleComment        = " ";    // Tele Comment
     // ===========================================================================
@@ -185,23 +186,14 @@ public class TeleopScoutActivity extends Activity {
         chk_Lifted              = (CheckBox) findViewById(R.id.chk_Lifted);
         button_Number_PenaltiesPlus = (Button) findViewById(R.id.button_Number_PenaltiesPlus);
         button_Number_PenaltiesUndo = (Button) findViewById(R.id.button_Number_PenaltiesUndo);
+        btn_DropPlus            = (Button) findViewById(R.id.btn_DropPlus);
+        btn_DropMinus           = (Button) findViewById(R.id.btn_DropMinus);
         button_GoToFinalActivity  = (Button)   findViewById(R.id.button_GoToFinalActivity);
         txt_Number_Penalties    = (TextView) findViewById(R.id.txt_Number_Penalties);
-
+        txt_Num_Dropped         = (TextView) findViewById(R.id.txt_Num_Dropped);
 
         pfDatabase                = FirebaseDatabase.getInstance();            // Firebase
         pfDevice_DBReference      = pfDatabase.getReference("devices");     // List of Devices
-
-//        Pearadox.Match_Data.setSand_LeftRocket_RPan1(true);  //DEBUG  .........................................
-//        Pearadox.Match_Data.setSand_LeftRocket_RPan3(true);  //DEBUG  .........................................
-//        Pearadox.Match_Data.setSand_CargoLPan1(true);  //DEBUG  .........................................
-//        Pearadox.Match_Data.setSand_CargoRPan3(true);  //DEBUG  .........................................
-//        Pearadox.Match_Data.setSand_CargoEndLPanel(true);  //DEBUG  .........................................
-//        Pearadox.Match_Data.setSand_CargoEndRPanel(true);  //DEBUG  .........................................
-//        Pearadox.Match_Data.setSand_CargoEndLCargo(true);  //DEBUG  .........................................
-//        Pearadox.Match_Data.setSand_CargoEndRCargo(true);  //DEBUG  .........................................
-//        Pearadox.Match_Data.setSand_RghtRocket_LPan1(true);  //DEBUG  .........................................
-//        Log.e(TAG, "First Check1=" + Pearadox.Match_Data.isSand_LeftRocket_RPan1());
 
         carry_over_chks();              // Carry-over check boxes from SandStorm
 
@@ -213,22 +205,21 @@ public class TeleopScoutActivity extends Activity {
     button_GoToFinalActivity.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
         Log.w(TAG, "###  Clicked Final  ###");
-        // ToDo - Check for ANY required fields
-//                if (!climb_success || (climb_success && (radio_Rung.isChecked() || radio_Side.isChecked()))) {     // Gotta pick one!
-            updateDev("Final");           // Update 'Phase' for stoplight indicator in ScoutM aster
-            storeTeleData();                    // Put all the TeleOps data collected in Match object
+            if (end_HAB_Level < 4) {        // Gotta pick one!
+                updateDev("Final");           // Update 'Phase' for stoplight indicator in ScoutM aster
+                storeTeleData();                    // Put all the TeleOps data collected in Match object
 
-            Intent smast_intent = new Intent(TeleopScoutActivity.this, FinalActivity.class);
-            Bundle SMbundle = new Bundle();
-            SMbundle.putString("tnum", tn);
-            smast_intent.putExtras(SMbundle);
-            startActivity(smast_intent);
-//                } else {
-//                    Log.e(TAG, "ERROR - did not select lift type");
-//                    Toast.makeText(getBaseContext(), "** Climb _MUST_ have 'Rung' or 'Side' selected **", Toast.LENGTH_LONG).show();
-//                    final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
-//                    tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
-//                }
+                Intent smast_intent = new Intent(TeleopScoutActivity.this, FinalActivity.class);
+                Bundle SMbundle = new Bundle();
+                SMbundle.putString("tnum", tn);
+                smast_intent.putExtras(SMbundle);
+                startActivity(smast_intent);
+            } else {
+                Log.e(TAG, "ERROR - did not select lift type");
+                Toast.makeText(getBaseContext(), "*** End HAB level _MUST_ be selected ***", Toast.LENGTH_LONG).show();
+                final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+                tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
+            }
         }
     });
 
@@ -339,25 +330,42 @@ public class TeleopScoutActivity extends Activity {
     });
 
 
-    button_Number_PenaltiesPlus.setOnClickListener(new View.OnClickListener() {
-        public void onClick(View v) {
-            final_num_Penalties++;
-            Log.w(TAG, "Penalties = " + Integer.toString(final_num_Penalties));      // ** DEBUG **
-            txt_Number_Penalties.setText(Integer.toString(final_num_Penalties));    // Perform action on click
-        }
-    });
-    button_Number_PenaltiesUndo.setOnClickListener(new View.OnClickListener() {
-        public void onClick(View v) {
-            if (final_num_Penalties >= 1) {
-                final_num_Penalties--;
+        button_Number_PenaltiesPlus.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                num_Penalties++;
+                Log.w(TAG, "Penalties = " + Integer.toString(num_Penalties));      // ** DEBUG **
+                txt_Number_Penalties.setText(Integer.toString(num_Penalties));    // Perform action on click
             }
-            Log.w(TAG, "Penalties = " + Integer.toString(final_num_Penalties));      // ** DEBUG **
-            txt_Number_Penalties.setText(Integer.toString(final_num_Penalties));    // Perform action on click
-        }
-    });
+        });
+        button_Number_PenaltiesUndo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (num_Penalties >= 1) {
+                    num_Penalties--;
+                }
+                Log.w(TAG, "Penalties = " + Integer.toString(num_Penalties));      // ** DEBUG **
+                txt_Number_Penalties.setText(Integer.toString(num_Penalties));    // Perform action on click
+            }
+        });
+
+        btn_DropPlus.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                num_Dropped++;
+                Log.w(TAG, "Dropped = " + Integer.toString(num_Dropped));      // ** DEBUG **
+                txt_Num_Dropped.setText(Integer.toString(num_Dropped));
+            }
+        });
+        btn_DropMinus.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (num_Dropped >= 1) {     // Don't go below zero
+                    num_Dropped--;
+                }
+                Log.w(TAG, "Dropped = " + Integer.toString(num_Dropped));      // ** DEBUG **
+                txt_Num_Dropped.setText(Integer.toString(num_Dropped));
+            }
+        });
 
 
-    editText_TeleComments.addTextChangedListener(new TextWatcher() {
+        editText_TeleComments.addTextChangedListener(new TextWatcher() {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             Log.w(TAG, "******  onTextChanged TextWatcher  ******" + s);
@@ -1007,7 +1015,8 @@ public class TeleopScoutActivity extends Activity {
         Pearadox.Match_Data.setTele_Panel_playSta(panel_playSta);
         Pearadox.Match_Data.setTele_level_num(end_HAB_Level);
         Pearadox.Match_Data.setTele_got_lift(got_lift);
-        Pearadox.Match_Data.setTele_num_Penalties(final_num_Penalties);
+        Pearadox.Match_Data.setTele_num_Penalties(num_Penalties);
+        Pearadox.Match_Data.setTele_num_Dropped(num_Dropped);
         // **
         Pearadox.Match_Data.setTele_comment(teleComment);
     }

@@ -151,7 +151,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/chk_starve"
         android:layout_below="@+id/chk_starve"
-        android:text="Switch Blocking" />
+        android:text="Rocket Interference" />
 
     <RadioGroup
         android:id="@+id/radioGroup_defense"
