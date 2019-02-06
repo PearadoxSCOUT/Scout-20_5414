@@ -132,19 +132,6 @@ public class Visualizer_Activity extends AppCompatActivity {
         pfMatch_DBReference = pfDatabase.getReference("matches/" + Pearadox.FRC_Event); // List of Matches
         pfMatchData_DBReference = pfDatabase.getReference("match-data/" + Pearadox.FRC_Event);    // Match Data
 
-//        Spinner spinner_MatchType = (Spinner) findViewById(R.id.spinner_MatchType);
-//        String[] devices = getResources().getStringArray(R.array.mtchtyp_array);
-//        adapter_typ = new ArrayAdapter<String>(this, R.layout.dev_list_layout, devices);
-//        adapter_typ.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner_MatchType.setAdapter(adapter_typ);
-//        spinner_MatchType.setSelection(0, false);
-//        spinner_MatchType.setOnItemSelectedListener(new Visualizer_Activity.type_OnItemSelectedListener());
-//        Spinner spinner_MatchNum = (Spinner) findViewById(R.id.spinner_MatchNum);
-//        ArrayAdapter adapter_Num = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Pearadox.matches);
-//        adapter_Num.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner_MatchNum.setAdapter(adapter_Num);
-//        spinner_MatchNum.setSelection(0, false);
-//        spinner_MatchNum.setOnItemSelectedListener(new Visualizer_Activity.mNum_OnItemSelectedListener());
         clearTeams();
         Button button_View = (Button) findViewById(R.id.button_View);   // Listner defined in Layout XML
 //        button_View.setOnClickListener(buttonView_Click);
@@ -204,9 +191,11 @@ public class Visualizer_Activity extends AppCompatActivity {
                 fos.flush();
                 fos.close();
                 bitmap.recycle();           //release memory
-                Toast toast = Toast.makeText(getBaseContext(), "☢☢  Screen captured in Download/FRC5414  ☢☢", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(getBaseContext(), "✪✪✪  Screen captured in Download/FRC5414  ✪✪✪", Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
+                // ToDo - bluetooth transfer to paired Phones
+
             } catch (Throwable e) {
                 // Several error may come out with file handling or DOM
                 e.printStackTrace();
@@ -888,7 +877,7 @@ public class Visualizer_Activity extends AppCompatActivity {
                 Log.w(TAG, "NDX  " + ndx);
                 int numMDs = 0; int cgNum = 0; int cgGt1 = 0; int pnNum = 0; int pnGt1 = 0; int base = 0; int leaveHAB2=0;;
                 int TcgNum = 0; int TcgGt1 = 0; int TpnNum = 0; int TpnGt1 = 0; int othr=0; int o_att = 0;
-                int HAB0=0; int HAB1=0; int HAB2=0; int HAB3=0; int lift1=0; int was=0; int dropped=0; int portal=0; int zone=0; int floor=0; int tfloor=0;
+                int HAB0=0; int HAB1=0; int HAB2=0; int HAB3=0; int lift1=0; int was=0; int dropped=0; int def30=0; int pen=0; int floor=0; int tfloor=0;
                 for (int i = 0; i < md; i++) {
                 match_inst = Vis_MD.get(i);      // Get instance of Match Data
                 String mdt = match_inst.getTeam_num();
@@ -1176,6 +1165,15 @@ public class Visualizer_Activity extends AppCompatActivity {
                     if (match_inst.isTele_got_lift()) {
                         was++;
                     }
+                    pen = pen + match_inst.getTele_num_Penalties(); ;
+
+                    // *************************************************
+                    // ********************  Final  ********************
+                    // *************************************************
+                    if (match_inst.isFinal_defLast30()) {
+                        def30++;
+                    }
+
                 } // EndIf teams match
             } // End for #teams
             Log.e(TAG, team + " ==== Match Data " +  base + "  " +  cgNum + "/" +  cgGt1 + "  " +  pnNum + "/" +  pnGt1 + " ");
@@ -1214,44 +1212,44 @@ public class Visualizer_Activity extends AppCompatActivity {
             case 0:
                 txt_MatchesR1.setText(String.valueOf(numMDs));
                 tbl_event1R1.setText("Sand" + " \n" + "Tele");
-                tbl_rate1R1.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
+                tbl_rate1R1.setText( "∴" + base + "  ⚫ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "⚫ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
                 tbl_event2R1.setText("HAB" + " \n" + "Final");
-                tbl_rate2R1.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
+                tbl_rate2R1.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   D₃₀ " + def30 + "  ⚑ " + pen);
                 break;
             case 1:
                 txt_MatchesR2.setText(String.valueOf(numMDs));
                 tbl_event1R2.setText("Sand" + " \n" + "Tele");
-                tbl_rate1R2.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
+                tbl_rate1R2.setText( "∴" + base + "  ⚫ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "⚫ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
                 tbl_event2R2.setText("HAB" + " \n" + "Final");
-                tbl_rate2R2.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
+                tbl_rate2R2.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   D₃₀ " + def30 + "  ⚑ " + pen);
                 break;
             case 2:
                 txt_MatchesR3.setText(String.valueOf(numMDs));
                 tbl_event1R3.setText("Sand" + " \n" + "Tele");
-                tbl_rate1R3.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
+                tbl_rate1R3.setText( "∴" + base + "  ⚫ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "⚫ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
                 tbl_event2R3.setText("HAB" + " \n" + "Final");
-                tbl_rate2R3.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
+                tbl_rate2R3.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   D₃₀ " + def30 + "  ⚑ " + pen);
                 break;
             case 3:
                 txt_MatchesB1.setText(String.valueOf(numMDs));
                 tbl_event1B1.setText("Sand" + " \n" + "Tele");
-                tbl_rate1B1.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
+                tbl_rate1B1.setText( "∴" + base + "  ⚫ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "⚫ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
                 tbl_event2B1.setText("HAB" + " \n" + "Final");
-                tbl_rate2B1.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
+                tbl_rate2B1.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   D₃₀ " + def30 + "  ⚑ " + pen);
                 break;
             case 4:
                 txt_MatchesB2.setText(String.valueOf(numMDs));
                 tbl_event1B2.setText("Sand" + " \n" + "Tele");
-                tbl_rate1B2.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
+                tbl_rate1B2.setText( "∴" + base + "  ⚫ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "⚫ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
                 tbl_event2B2.setText("HAB" + " \n" + "Final");
-                tbl_rate2B2.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
+                tbl_rate2B2.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   D₃₀ " + def30 + "  ⚑ " + pen);
                 break;
             case 5:
                 txt_MatchesB3.setText(String.valueOf(numMDs));
                 tbl_event1B3.setText("Sand" + " \n" + "Tele");
-                tbl_rate1B3.setText( "∴" + base + "  ◯ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "◯ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
+                tbl_rate1B3.setText( "∴" + base + "  ⚫ " + cgNum + " △ " + cgGt1 + "  ☢ " + pnNum + " △ " + pnGt1 + "  ☵" + leaveHAB2 + " \n" + "⚫ " + TcgNum + " △ " + TcgGt1 + "   ☢ " + TpnNum + " △ " + TpnGt1 );
                 tbl_event2B3.setText("HAB" + " \n" + "Final");
-                tbl_rate2B3.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   Prt " + portal + "  Zn " + zone);
+                tbl_rate2B3.setText(HAB0 + " " + HAB1  + " " +HAB2 + " " + HAB3 + "  Lift " + lift1 + "  ↕ " + was+ " \n❂Drop " + dropped + "   D₃₀ " + def30 + "  ⚑ " + pen);
                 break;
             default:                // ????
                 Log.e(TAG, "*** Error - bad NDX  ***");
