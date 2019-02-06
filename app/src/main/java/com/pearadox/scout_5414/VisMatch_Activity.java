@@ -284,9 +284,10 @@ public class VisMatch_Activity extends AppCompatActivity {
             if (match_inst.isFinal_defense_good()) {
                 final_DefGood++;
             }
-            if (match_inst.isFinal_def_Lane()) {
-                final_DefStarve++;
-            }
+            // Todo Rocket Int.
+//            if (match_inst.isFinal_def_Lane()) {
+//                final_DefStarve++;
+//            }
             if (match_inst.isFinal_def_Block()) {
                 final_DefBlock++;
             }

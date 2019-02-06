@@ -57,34 +57,41 @@
 
 
     //============ DEFENSE==============
+
     <TextView
         android:id="@+id/lbl_Defense"
-        android:text="Defense(s)"
         android:layout_width="80dp"
         android:layout_height="35dp"
-        android:textSize="16sp"
-        android:textColor="@color/green"
-        android:layout_marginTop="46dp"
         android:layout_below="@+id/chk_lostPart"
-        android:layout_alignStart="@+id/chk_lostPart" />
+        android:layout_alignStart="@+id/chk_lostPart"
+        android:layout_marginTop="70dp"
+        android:text="Defense(s)"
+        android:textColor="@color/green"
+        android:textSize="16sp" />
+
+    <CheckBox
+        android:id="@+id/chkBox_final_int_Rocket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lbl_Defense"
+        android:text="Rocket Interference" />
 
     <CheckBox
         android:id="@+id/chk_block"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/chk_starve"
-        android:layout_alignBottom="@+id/chk_starve"
-        android:layout_alignStart="@+id/chk_lostComm"
+        android:layout_alignStart="@+id/chk_defense30"
+        android:layout_alignBottom="@+id/chkBox_final_int_Rocket"
         android:text="Blocking" />
 
-    <CheckBox
-        android:id="@+id/chk_starve"
-        android:text="Lane Starvation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lbl_Defense"
-        android:layout_alignStart="@+id/lbl_Defense"
-        android:layout_marginTop="21dp" />
+    <!--<CheckBox-->
+        <!--android:id="@+id/chk_starve"-->
+        <!--android:text="Lane Starvation"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/lbl_Defense"-->
+        <!--android:layout_alignStart="@+id/lbl_Defense"-->
+        <!--android:layout_marginTop="21dp" />-->
 
     <CheckBox
         android:id="@+id/chk_whatever"
@@ -124,8 +131,8 @@
         android:id="@+id/scrollv_comm"
         android:layout_width="500sp"
         android:layout_height="200sp"
-        android:layout_alignStart="@+id/chkBox_final_def_gear"
-        android:layout_below="@+id/chkBox_final_def_gear"
+        android:layout_alignStart="@+id/chkBox_final_int_Rocket"
+        android:layout_below="@+id/chkBox_final_int_Rocket"
         android:layout_marginTop="29dp"
         android:isScrollContainer="false">
 
@@ -145,13 +152,6 @@
 
     </ScrollView>
 
-    <CheckBox
-        android:id="@+id/chkBox_final_def_gear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/chk_starve"
-        android:layout_below="@+id/chk_starve"
-        android:text="Rocket Interference" />
 
     <RadioGroup
         android:id="@+id/radioGroup_defense"

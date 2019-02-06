@@ -43,7 +43,7 @@ public class FinalActivity extends Activity {
     String TAG = "FinalActivity";      // This CLASS name
     TextView txt_dev, txt_stud, txt_match, txt_MyTeam, txt_robotnum;
     EditText editText_Comments;
-    CheckBox chk_lostPart, chk_lostComm, chk_block, chk_starve, chk_dump, chkBox_final_def_gear, chk_defense30,chk_cargoDefense;
+    CheckBox chk_lostPart, chk_lostComm, chk_block, chkBox_final_int_Rocket, chk_defense30,chk_cargoDefense;
     Button button_Saved;
     RadioGroup radioGroup_defense;
     RadioButton rdBtn_def_good, radioButton_def_bad;
@@ -61,9 +61,8 @@ public class FinalActivity extends Activity {
     public boolean lost_Parts = false;                          // Did they lose parts?
     public boolean lost_Comms = false;                          // Did they lose communication?
     public boolean final_defense_good = false;                  // Was their overall Defense Good (bad = false)?
-    public boolean final_def_Lane = false;                      // Did they use Lane Defense?
     public boolean final_def_Block = false;                     // Did they use Blocking Defense?
-    public boolean final_def_BlockSwitch;                       // Did they block the Switch
+    public boolean final_def_RocketInt;                         // Did they block the Rocket
     public String final_studID = "";                            // set in Auto
     public boolean final_cargoDefense = false;                  // pickup cargo when on defense
     public boolean final_endDefense = false;                    // last 30 seconds defense
@@ -95,31 +94,17 @@ public class FinalActivity extends Activity {
         txt_robotnum = (TextView) findViewById(R.id.txt_robotnum);
         txt_robotnum.setText(tn);
 
-        //TODO create field for firebase!!!!
-        //currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-
-        //Log.w(TAG, currentDateTimeString);
-
-
-//        String oldstring = "2011-01-18 00:00:00.0";
-//        try {
-//            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(oldstring);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
         timeStamp = new SimpleDateFormat("yyyy.MM.dd  hh:mm:ss a").format(new Date());
         Log.w(TAG, timeStamp);
 
         radioButton_def_bad = (RadioButton) findViewById(R.id.radioButton_def_bad);
         rdBtn_def_good = (RadioButton) findViewById(R.id.rdBtn_def_good);
         radioGroup_defense = (RadioGroup) findViewById(R.id.radioGroup_defense);
-        chkBox_final_def_gear = (CheckBox) findViewById(R.id.chkBox_final_def_gear);
         chk_lostPart = (CheckBox) findViewById(R.id.chk_lostPart);
         chk_lostPart.requestFocus();        // Don't let EditText mess up layout!!
         chk_lostComm = (CheckBox) findViewById(R.id.chk_lostComm);
         chk_block = (CheckBox) findViewById(R.id.chk_block);
-        chk_starve = (CheckBox) findViewById(R.id.chk_starve);
-        chk_dump = (CheckBox) findViewById(R.id.chk_dump);
+        chkBox_final_int_Rocket = (CheckBox) findViewById(R.id.chkBox_final_int_Rocket);
         chk_cargoDefense = (CheckBox) findViewById(R.id.chk_cargoDefense);
         chk_defense30 = (CheckBox) findViewById(R.id.chk_defense30);
         editText_Comments = (EditText) findViewById(R.id.editText_Comments);
@@ -222,57 +207,51 @@ public class FinalActivity extends Activity {
                  Log.i(TAG, "chk_cargoDefense Listener");
                  if (buttonView.isChecked()) {
                      //checked
-                     Log.i(TAG, "TextBox is checked.");
+                     Log.i(TAG, "CargoDef is checked.");
                      final_cargoDefense = true;
 
                  } else {
                      //not checked
-                     Log.i(TAG, "TextBox is unchecked.");
+                     Log.i(TAG, "CargoDef is unchecked.");
                      final_cargoDefense = false;
 
                  }
              }
          }
         );
-        chk_starve.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-          @Override
-          public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-              Log.i(TAG, "chk_starve Listener");
-              if (buttonView.isChecked()) {
-                  //checked
-                  Log.i(TAG, "TextBox is checked.");
-                  final_def_Lane = true;
-
-              } else {
-                  //not checked
-                  Log.i(TAG, "TextBox is unchecked.");
-                  final_def_Lane = false;
-
-              }
-          }
-      }
-        );
-        chk_block.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
+    chk_block.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
          @Override
          public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
              Log.i(TAG, "chk_block Listener");
              if (buttonView.isChecked()) {
                  //checked
-                 Log.i(TAG, "TextBox is checked.");
+                 Log.i(TAG, "chk_block is checked.");
                  final_def_Block = true;
-
              } else {
                  //not checked
-                 Log.i(TAG, "TextBox is unchecked.");
+                 Log.i(TAG, "chk_block is unchecked.");
                  final_def_Block = false;
-
              }
          }
      }
-        );
-    }
+    );
+        chkBox_final_int_Rocket.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+         @Override
+         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+             Log.i(TAG, "chkBox_final_int_Rocket Listener");
+             if (buttonView.isChecked()) {
+                 Log.i(TAG, "Rocket is checked.");  //checked
+                 final_def_RocketInt = true;
+             } else {       //not checked
+                 Log.i(TAG, "Rocket is unchecked.");
+                 final_def_RocketInt = false;
+             }
+         }
+     }
+    );
+
+}
+
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     private void storeFinalData() {
         Log.i(TAG, ">>>>  storeFinalData  <<<<");
@@ -282,10 +261,8 @@ public class FinalActivity extends Activity {
         Pearadox.Match_Data.setFinal_puCargoDef(final_cargoDefense);
         Pearadox.Match_Data.setFinal_defLast30(final_endDefense);
         Pearadox.Match_Data.setFinal_defense_good(final_defense_good);
-        Pearadox.Match_Data.setFinal_def_Lane(final_def_Lane);
         Pearadox.Match_Data.setFinal_def_Block(final_def_Block);
-        Pearadox.Match_Data.setFinal_def_BlockSwitch(final_def_BlockSwitch);
-
+        Pearadox.Match_Data.setFinal_def_RocketInt(final_def_RocketInt);
 
          /* */
         Pearadox.Match_Data.setFinal_dateTime(timeStamp);
