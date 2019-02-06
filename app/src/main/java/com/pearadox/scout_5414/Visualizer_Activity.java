@@ -1,5 +1,7 @@
 package com.pearadox.scout_5414;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -18,10 +20,12 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Set;
 
 import android.widget.Toast;
 import android.util.Log;
@@ -92,6 +96,7 @@ public class Visualizer_Activity extends AppCompatActivity {
     ImageView tbl_robotR1, tbl_robotR2, tbl_robotR3, tbl_robotB1, tbl_robotB2, tbl_robotB3;
     String tnum = "";
     Bitmap img;
+    FileOutputStream fos;
     String URL = "";
     String FB_teams[] = new String[]{"","","","","",""};
     String FB_url[] = new String[]{"","","","","",""};
@@ -195,6 +200,7 @@ public class Visualizer_Activity extends AppCompatActivity {
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
                 // ToDo - bluetooth transfer to paired Phones
+                blueTooth_Xfer(filNam);
 
             } catch (Throwable e) {
                 // Several error may come out with file handling or DOM
@@ -206,7 +212,45 @@ public class Visualizer_Activity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void blueTooth_Xfer(String imgFile) {
+        w(TAG,"*** blueTooth_Xfer ***   file: " + imgFile);
+        BluetoothAdapter BA;
+        Set<BluetoothDevice> pairedDevices;
 
+        BA = BluetoothAdapter.getDefaultAdapter();
+        if (!BA.isEnabled()) {
+            Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(turnOn, 0);
+            Toast.makeText(getApplicationContext(), "Turned on",Toast.LENGTH_LONG).show();
+        } else {
+//            Toast.makeText(getApplicationContext(), "Already on", Toast.LENGTH_LONG).show();
+        }
+
+        pairedDevices = BA.getBondedDevices();
+
+        ArrayList list = new ArrayList();
+        for(BluetoothDevice bt : pairedDevices) {
+            list.add(bt.getName());
+            Log.v(TAG, "PairedDevices: " + bt.getName() + " " + bt.getAddress() + " |" + bt.getBluetoothClass()+ "| ");
+        }
+        Toast.makeText(getApplicationContext(), "Paired Devices = " + list.size(),Toast.LENGTH_SHORT).show();
+        try
+        {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.setType("image/png");
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(imgFile)) );
+            startActivity(intent);
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(Visualizer_Activity.this, " " + e.getMessage(), Toast.LENGTH_LONG).show();
+
+        }
+
+    }
+
+// =================================================================
     private void clearTeams() {
         i(TAG, "Clearing Team data");
         txt_teamR1 = (TextView) findViewById(R.id.txt_teamR1);
@@ -1143,16 +1187,16 @@ public class Visualizer_Activity extends AppCompatActivity {
 
                     int endHAB = match_inst.getTele_level_num();        // end HAB Level
                     switch (endHAB) {
-                        case 0:         // Practice round
+                        case 0:         // Not On
                             HAB0++;
                             break;
-                        case 1:         // Qualifying round
+                        case 1:         // Level 1
                             HAB1++;
                             break;
-                        case 2:         // Playoff round
+                        case 2:         // Level 2
                             HAB1++;
                             break;
-                        case 3:         // Playoff round
+                        case 3:         // Level 3
                             HAB3++;
                             break;
                         default:                // ????
