@@ -74,7 +74,11 @@ public class MatchScoutActivity extends AppCompatActivity {
     public boolean carry_cargo        = false;  // Do they carry cargo
     public boolean carry_panel        = false;  // Do they carry panel
     public String  startPos           = " ";    // Start Position
+    // ---- AFTER Start ----
     public boolean auto               = false;  // Do they have Autonomous mode?
+    public boolean leftHAB            = false;  // Did they leave HAB
+    public boolean leftHAB2           = false;  // Did they start from Hab level 2
+    public int num_Dropped            = 0;      // How many Panels dropped?
 
     public boolean LeftRocket_LPan1   = false;  // L-Rocket L-Panel#1
     public boolean LeftRocket_LPan2   = false;  // L-Rocket L-Panel#2
@@ -830,6 +834,11 @@ public class MatchScoutActivity extends AppCompatActivity {
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+        //ToDo - Listners for left HAB & left HAB2
+
+        //ToDo - Listners for cargo & Panel Radio Buttons
+
         checkbox_automode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
              @Override
              public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -930,6 +939,14 @@ public class MatchScoutActivity extends AppCompatActivity {
         Pearadox.Match_Data.setMatch(matchID);
         Pearadox.Match_Data.setTeam_num(tn);
 
+//        Pearadox.Match_Data.setPre_PlayerSta(p);      // Set at start-up
+        Pearadox.Match_Data.setPre_startPos(startPos);
+        Pearadox.Match_Data.setSand_mode(auto);
+        Pearadox.Match_Data.setPre_cargo(carry_cargo);
+        Pearadox.Match_Data.setPre_panel(carry_panel);
+
+        Pearadox.Match_Data.setSand_leftHAB(leftHAB);
+        Pearadox.Match_Data.setSand_leftHAB2(leftHAB2);
         Pearadox.Match_Data.setSand_LeftRocket_LPan1(LeftRocket_LPan1);
         Pearadox.Match_Data.setSand_LeftRocket_LPan2(LeftRocket_LPan2);
         Pearadox.Match_Data.setSand_LeftRocket_LPan3(LeftRocket_LPan3);

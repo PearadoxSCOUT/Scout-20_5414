@@ -43,7 +43,7 @@ public class VisMatch_Activity extends AppCompatActivity {
             {"ALL","Last","Last 2","Last 3"};
     BarChart mBarChart;
     //----------------------------------
-    int numAutoBaseline = 0; int noAuto = 0; int numExtraSw = 0; int numExtraSc = 0;
+    int numLeftHAB = 0; int noAuto = 0; int numExtraSw = 0; int numExtraSc = 0;
     int auto_SwCubesAttempted = 0; int auto_SwCubesPlaced = 0; int auto_SwCrossOver = 0; int Auto_SwWrong = 0;
     int auto_ScCubesAttempted = 0; int auto_ScCubesPlaced = 0; int auto_ScCrossOver = 0; int Auto_ScWrong = 0;
     int auto_B1 = 0; int auto_B2 = 0; int auto_B3 = 0;
@@ -162,9 +162,9 @@ public class VisMatch_Activity extends AppCompatActivity {
             if (match_inst.isSand_mode()) {
                 noAuto++;
             }
-//            if (match_inst.isAuto_baseline()) {
-//                numAutoBaseline++;
-//            }
+            if (match_inst.isSand_leftHAB()) {
+                numLeftHAB++;
+            }
 //            if (match_inst.isAuto_cube_switch()) {
 //                auto_SwCubesPlaced++;
 //            }
@@ -307,7 +307,7 @@ public class VisMatch_Activity extends AppCompatActivity {
 // ================================================================
         txt_Matches.setText(matches);
 
-        txt_auto_baselineRatio.setText(numAutoBaseline +  "/" + numProcessed);
+        txt_auto_baselineRatio.setText(numLeftHAB +  "/" + numProcessed);
         txt_noAuto.setText(noAuto +  "/" + numProcessed);
 //        Log.w(TAG, "Ratio of Placed to Attempted Gears in Auto = " + auto_SwCubesPlaced + "/" + auto_SwCubesAttempted);
         txt_auto_cubeSwRatio.setText(auto_SwCubesPlaced + "/" + auto_SwCubesAttempted);
@@ -405,7 +405,7 @@ public class VisMatch_Activity extends AppCompatActivity {
 //******************************
     private void init_Values() {
         noAuto = 0;
-        numAutoBaseline = 0;
+        numLeftHAB = 0;
         auto_SwCubesPlaced = 0;
         auto_SwCubesAttempted = 0;
         auto_SwCrossOver = 0;
