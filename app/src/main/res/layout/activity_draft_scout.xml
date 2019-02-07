@@ -230,49 +230,52 @@
             android:text="Team#" />
 
         <RadioButton
-            android:id="@+id/radio_Climb"
+            android:id="@+id/radio_Cargo"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:text="Climb" />
+            android:layout_marginStart="3dp"
+            android:text="Cargo" />
 
         <RadioButton
-            android:id="@+id/radio_Cubes"
-            android:layout_width="80dp"
+            android:id="@+id/radio_Panels"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cubes" />
+            android:layout_marginStart="3dp"
+            android:text="Panels" />
 
         <RadioButton
             android:id="@+id/radio_Weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
             android:text="Combined" />
         //-----------------------------------
 
         <RadioButton
-            android:id="@+id/radio_Switch"
-            android:layout_width="80dp"
+            android:id="@+id/radio_pGt1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/btn_Pit"
             android:layout_marginStart="-300dp"
             android:layout_marginTop="30dp"
             android:layout_toStartOf="@+id/btn_Pit"
-            android:text="Switch" />
+            android:text="☢ >1" />
 
         <RadioButton
-            android:id="@+id/radio_Scale"
-            android:layout_width="80dp"
+            android:id="@+id/radio_cGt1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
             android:layout_marginTop="30dp"
-            android:text="Scale" />
+            android:text="⚫ >1" />
 
         <RadioButton
-            android:id="@+id/radio_Exchange"
-            android:layout_width="100dp"
+            android:id="@+id/radio_Climb"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
             android:layout_marginTop="30dp"
-            android:text="Exchange" />
+            android:text="Climb (HAB end)" />
 
     </RadioGroup>
 
