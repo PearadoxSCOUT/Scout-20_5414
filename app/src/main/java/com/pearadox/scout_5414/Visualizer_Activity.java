@@ -623,25 +623,37 @@ public class Visualizer_Activity extends AppCompatActivity {
         ImageView tbl_robotB1 = (ImageView) findViewById(R.id.tbl_robotB1);
         ImageView tbl_robotB2 = (ImageView) findViewById(R.id.tbl_robotB2);
         ImageView tbl_robotB3 = (ImageView) findViewById(R.id.tbl_robotB3);
+        btn_PitR1 = (Button) findViewById(R.id.btn_PitR1);
+        btn_PitR2 = (Button) findViewById(R.id.btn_PitR2);
+        btn_PitR3 = (Button) findViewById(R.id.btn_PitR3);
+        btn_PitB1 = (Button) findViewById(R.id.btn_PitB1);
+        btn_PitB2 = (Button) findViewById(R.id.btn_PitB2);
+        btn_PitB3 = (Button) findViewById(R.id.btn_PitB3);
 
         tnum = (String) txt_teamR1.getText();
 //        FB_teams[0] = tnum;
         tbl_robotR1.setImageDrawable(getResources().getDrawable(R.drawable.photo_missing));
+        btn_PitR1.setEnabled(false);
         getURL0(tnum);       // Get URLs for Robot photos (if they exist) and load them
         tnum = (String) txt_teamR2.getText();
         tbl_robotR2.setImageDrawable(getResources().getDrawable(R.drawable.photo_missing));
+        btn_PitR2.setEnabled(false);
         getURL1(tnum);       // Get URLs for Robot photos (if they exist) and load them
         tnum = (String) txt_teamR3.getText();
         tbl_robotR3.setImageDrawable(getResources().getDrawable(R.drawable.photo_missing));
+        btn_PitR3.setEnabled(false);
         getURL2(tnum);       // Get URLs for Robot photos (if they exist) and load them
         tnum = (String) txt_teamB1.getText();
         tbl_robotB1.setImageDrawable(getResources().getDrawable(R.drawable.photo_missing));
+        btn_PitB1.setEnabled(false);
         getURL3(tnum);       // Get URLs for Robot photos (if they exist) and load them
         tnum = (String) txt_teamB2.getText();
         tbl_robotB2.setImageDrawable(getResources().getDrawable(R.drawable.photo_missing));
+        btn_PitB2.setEnabled(false);
         getURL4(tnum);       // Get URLs for Robot photos (if they exist) and load them
         tnum = (String) txt_teamB3.getText();
         tbl_robotB3.setImageDrawable(getResources().getDrawable(R.drawable.photo_missing));
+        btn_PitB3.setEnabled(false);
         getURL5(tnum);       // Get URLs for Robot photos (if they exist) and load them
 
     }
@@ -666,13 +678,15 @@ public class Visualizer_Activity extends AppCompatActivity {
             public void onSuccess(Uri uri) {
                 e(TAG,  FB_num + "  uri: " + uri.toString());
                 ImageView tbl_robotR1 = (ImageView) findViewById(R.id.tbl_robotR1);
+                btn_PitR1 = (Button) findViewById(R.id.btn_PitR1);
                 URL = uri.toString();
                 FB_url[0] = URL;
                 if (URL.length() > 0) {
                     Picasso.with(Visualizer_Activity.this).load(URL).into(tbl_robotR1);
+                    btn_PitR1.setEnabled(true);
                 } else {
                     // ToDo - GLF turn off Pit button
-
+                    btn_PitR1.setEnabled(false);
                 }
             }
         });
@@ -691,10 +705,13 @@ public class Visualizer_Activity extends AppCompatActivity {
             public void onSuccess(Uri uri) {
                 e(TAG,  FB_num + "  uri: " + uri.toString());
                 ImageView tbl_robotR2 = (ImageView) findViewById(R.id.tbl_robotR2);
+                btn_PitR2 = (Button) findViewById(R.id.btn_PitR2);
                 URL = uri.toString();
                 FB_url[1] = URL;
                 if (URL.length() > 0) {
                     Picasso.with(Visualizer_Activity.this).load(URL).into(tbl_robotR2);
+                    btn_PitR2.setEnabled(true);
+                } else {
                 }
             }
         });
@@ -711,10 +728,14 @@ public class Visualizer_Activity extends AppCompatActivity {
             public void onSuccess(Uri uri) {
                 e(TAG,  FB_num + "  uri: " + uri.toString());
                 ImageView tbl_robotR3 = (ImageView) findViewById(R.id.tbl_robotR3);
+                btn_PitR3 = (Button) findViewById(R.id.btn_PitR3);
                 URL = uri.toString();
                 FB_url[2] = URL;
                 if (URL.length() > 0) {
                     Picasso.with(Visualizer_Activity.this).load(URL).into(tbl_robotR3);
+                    btn_PitR3.setEnabled(true);
+                } else {
+                    btn_PitR3.setEnabled(false);
                 }
             }
         });
@@ -731,10 +752,13 @@ public class Visualizer_Activity extends AppCompatActivity {
             public void onSuccess(Uri uri) {
                 e(TAG,  FB_num + "  uri: " + uri.toString());
                 ImageView tbl_robotB1 = (ImageView) findViewById(R.id.tbl_robotB1);
+                btn_PitB1 = (Button) findViewById(R.id.btn_PitB1);
                 URL = uri.toString();
                 FB_url[3] = URL;
                 if (URL.length() > 0) {
                     Picasso.with(Visualizer_Activity.this).load(URL).into(tbl_robotB1);
+                    btn_PitB1.setEnabled(true);
+                } else {
                 }
             }
         });
@@ -751,10 +775,13 @@ public class Visualizer_Activity extends AppCompatActivity {
             public void onSuccess(Uri uri) {
                 e(TAG,  FB_num + "  uri: " + uri.toString());
                 ImageView tbl_robotB2 = (ImageView) findViewById(R.id.tbl_robotB2);
+                btn_PitB2 = (Button) findViewById(R.id.btn_PitB2);
                 URL = uri.toString();
                 FB_url[4] = URL;
                 if (URL.length() > 0) {
                     Picasso.with(Visualizer_Activity.this).load(URL).into(tbl_robotB2);
+                    btn_PitB2.setEnabled(true);
+                } else {
                 }
             }
         });
@@ -771,10 +798,13 @@ public class Visualizer_Activity extends AppCompatActivity {
             public void onSuccess(Uri uri) {
                 e(TAG,  FB_num + "  uri: " + uri.toString());
                 ImageView tbl_robotB3 = (ImageView) findViewById(R.id.tbl_robotB3);
+                btn_PitB3 = (Button) findViewById(R.id.btn_PitB3);
                 URL = uri.toString();
                 FB_url[5] = URL;
                 if (URL.length() > 0) {
                     Picasso.with(Visualizer_Activity.this).load(URL).into(tbl_robotB3);
+                    btn_PitB3.setEnabled(true);
+                } else {
                 }
             }
         });
@@ -853,13 +883,6 @@ public class Visualizer_Activity extends AppCompatActivity {
                     tbl_teamB1 = (TextView) findViewById(R.id.tbl_teamB1);
                     tbl_teamB2 = (TextView) findViewById(R.id.tbl_teamB2);
                     tbl_teamB3 = (TextView) findViewById(R.id.tbl_teamB3);
-                    btn_PitR1 = (Button) findViewById(R.id.btn_PitR1);
-                    btn_PitR2 = (Button) findViewById(R.id.btn_PitR2);
-                    btn_PitR3 = (Button) findViewById(R.id.btn_PitR3);
-                    btn_PitB1 = (Button) findViewById(R.id.btn_PitB1);
-                    btn_PitB2 = (Button) findViewById(R.id.btn_PitB2);
-                    btn_PitB3 = (Button) findViewById(R.id.btn_PitB3);
-
 
                     w(TAG, "@@@@@@@@@@@@@@@@@@@ GET TEAM DATA  @@@@@@@@@@@@@@@@@@@");  //** DEBUG
 
@@ -867,44 +890,26 @@ public class Visualizer_Activity extends AppCompatActivity {
                     txt_teamR1.setText(team_inst.getTeam_num());
                     txt_teamR1_Name.setText(team_inst.getTeam_name());
                     tbl_teamR1.setText(team_inst.getTeam_num());
-                    if(!checkPit(txt_teamR1.getText())){       // see if it has Pit data
-                        btn_PitR1.setEnabled(false);
-                    };
                     team_inst = Scout_teams.get(1);       // Team#R2
                     txt_teamR2.setText(team_inst.getTeam_num());
                     txt_teamR2_Name.setText(team_inst.getTeam_name());
                     tbl_teamR2.setText(team_inst.getTeam_num());
-                    if(!checkPit(txt_teamR2.getText())){       // see if it has Pit data
-                        btn_PitR2.setEnabled(false);
-                    };
                     team_inst = Scout_teams.get(2);       // Team#R3
                     txt_teamR3.setText(team_inst.getTeam_num());
                     txt_teamR3_Name.setText(team_inst.getTeam_name());
                     tbl_teamR3.setText(team_inst.getTeam_num());
-                    if(!checkPit(txt_teamR3.getText())){       // see if it has Pit data
-                        btn_PitR3.setEnabled(false);
-                    };
                     team_inst = Scout_teams.get(3);       // Team#B1
                     txt_teamB1.setText(team_inst.getTeam_num());
                     txt_teamB1_Name.setText(team_inst.getTeam_name());
                     tbl_teamB1.setText(team_inst.getTeam_num());
-                    if(!checkPit(txt_teamB1.getText())){       // see if it has Pit data
-                        btn_PitB1.setEnabled(false);
-                    };
                     team_inst = Scout_teams.get(4);       // Team#B2
                     txt_teamB2.setText(team_inst.getTeam_num());
                     txt_teamB2_Name.setText(team_inst.getTeam_name());
                     tbl_teamB2.setText(team_inst.getTeam_num());
-                    if(!checkPit(txt_teamB2.getText())){       // see if it has Pit data
-                        btn_PitB2.setEnabled(false);
-                    };
                     team_inst = Scout_teams.get(5);       // Team#B3
                     txt_teamB3.setText(team_inst.getTeam_num());
                     txt_teamB3_Name.setText(team_inst.getTeam_name());
                     tbl_teamB3.setText(team_inst.getTeam_num());
-                    if(!checkPit(txt_teamB3.getText())){       // see if it has Pit data
-                        btn_PitB3.setEnabled(false);
-                    };
                     Log.w(TAG, "+++++++++; size = " + Scout_teams.size());
 
 //                    w(TAG, "***  Calling Async class  ***");  //** DEBUG
@@ -935,39 +940,39 @@ public class Visualizer_Activity extends AppCompatActivity {
         Log.e(TAG, "<<<<<< End of getteams; size = " + Scout_teams.size());
     }
 
-    private boolean checkPit(CharSequence text) {
-        Log.w(TAG, "@@@@ Check PitData for Team " + text);
-        pit = false;
-        String child = "pit_team";
-        String key = (String) text;
-        Log.w(TAG, "   Q U E R Y  " + child + "  '" + key + "' \n ");
-        Query query = pfPitData_DBReference.orderByChild(child).equalTo(key);
-        query.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.w(TAG, "##########  Pit Data Found!!");
-                pit = true;
-            }
-        @Override
-        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            Log.w(TAG, "%%%  ChildChanged");
-        }
-        @Override
-        public void onChildRemoved(DataSnapshot dataSnapshot) {
-            Log.w(TAG, "%%%  ChildRemoved");
-        }
-        @Override
-        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            Log.w(TAG, "%%%  ChildMoved");
-        }
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            Log.e(TAG, "%%%  DatabaseError");
-        }
-        });
-
-        return pit;
-    }
+//    private boolean checkPit(CharSequence text) {
+//        Log.w(TAG, "@@@@ Check PitData for Team " + text);
+//        pit = false;
+//        String child = "pit_team";
+//        String key = (String) text;
+//        Log.w(TAG, "   Q U E R Y  " + child + "  '" + key + "' \n ");
+//        Query query = pfPitData_DBReference.orderByChild(child).equalTo(key);
+//        query.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                Log.w(TAG, "##########  Pit Data Found!!");
+//                pit = true;
+//            }
+//        @Override
+//        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//            Log.w(TAG, "%%%  ChildChanged");
+//        }
+//        @Override
+//        public void onChildRemoved(DataSnapshot dataSnapshot) {
+//            Log.w(TAG, "%%%  ChildRemoved");
+//        }
+//        @Override
+//        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//            Log.w(TAG, "%%%  ChildMoved");
+//        }
+//        @Override
+//        public void onCancelled(DatabaseError databaseError) {
+//            Log.e(TAG, "%%%  DatabaseError");
+//        }
+//        });
+//
+//        return pit;
+//    }
 
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
