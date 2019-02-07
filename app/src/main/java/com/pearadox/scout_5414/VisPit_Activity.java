@@ -83,29 +83,7 @@ public class VisPit_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_vis_pit);
         Log.i(TAG, "@@@@@@@@  VisPit_Activity started  @@@@@@@@");
         Bundle bundle = this.getIntent().getExtras();
-        tnum = bundle.getString("teamfun shareFile(context: Context, filePath: File?, fileShareInfo: FileShareInfo) {\n" +
-                "\n" +
-                "    val intentFileShare = Intent(Intent.ACTION_SEND)\n" +
-                "\n" +
-                "    if (filePath!!.exists()) {\n" +
-                "        intentFileShare.type = fileShareInfo.fileType\n" +
-                "        val uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + \".provider\", filePath)\n" +
-                "        intentFileShare.putExtra(Intent.EXTRA_STREAM, uri)\n" +
-                "        fileShareInfo.recipients?.let {\n" +
-                "            intentFileShare.putExtra(Intent.EXTRA_EMAIL, fileShareInfo.recipients)\n" +
-                "        }\n" +
-                "        intentFileShare.putExtra(Intent.EXTRA_SUBJECT, fileShareInfo.shareSubjectText)\n" +
-                "        fileShareInfo.shareExtraText?.let {\n" +
-                "            intentFileShare.putExtra(Intent.EXTRA_TEXT, AppViewUtil.fromHtml(fileShareInfo.shareExtraText!!))\n" +
-                "        }\n" +
-                "        try {\n" +
-                "            ContextCompat.startActivity(context, Intent.createChooser(intentFileShare, fileShareInfo.shareTitle), null)\n" +
-                "        } catch (e: ActivityNotFoundException) {\n" +
-                "            Toast.makeText(context, context.getString(R.string.sharing_no_app_found), Toast.LENGTH_LONG).show()\n" +
-                "        }\n" +
-                "\n" +
-                "    }\n" +
-                "}");
+        tnum = bundle.getString("team");
         tname = bundle.getString("name");
         imgURL = bundle.getString("url");
         Log.w(TAG, "\n >>>>>>>> " + tnum + " " + tname + " " + imgURL);      // ** DEBUG **
