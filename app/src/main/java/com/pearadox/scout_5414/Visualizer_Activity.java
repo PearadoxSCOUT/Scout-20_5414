@@ -200,7 +200,7 @@ public class Visualizer_Activity extends AppCompatActivity {
                 toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 toast.show();
                 // ToDo - bluetooth transfer to paired Phones
-                blueTooth_Xfer(filNam);
+                blueTooth_Xfer(imageFile);
 
             } catch (Throwable e) {
                 // Several error may come out with file handling or DOM
@@ -212,7 +212,7 @@ public class Visualizer_Activity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void blueTooth_Xfer(String imgFile) {
+    private void blueTooth_Xfer(File imgFile) {
         w(TAG,"*** blueTooth_Xfer ***   file: " + imgFile);
         BluetoothAdapter BA;
         Set<BluetoothDevice> pairedDevices;
@@ -233,13 +233,13 @@ public class Visualizer_Activity extends AppCompatActivity {
             list.add(bt.getName());
             Log.v(TAG, "PairedDevices: " + bt.getName() + " " + bt.getAddress() + " |" + bt.getBluetoothClass()+ "| ");
         }
-        Toast.makeText(getApplicationContext(), "Paired Devices = " + list.size(),Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "Paired Devices = " + list.size(),Toast.LENGTH_SHORT).show();
         try
         {
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_SEND);
             intent.setType("image/png");
-            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(imgFile)) );
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(imgFile) );
             startActivity(intent);
         }
         catch (Exception e)
