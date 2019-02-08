@@ -216,9 +216,11 @@
 
     <RadioGroup
         android:id="@+id/radgrp_Sort"
-        android:layout_width="350dp"
+        android:layout_width="400dp"
         android:layout_height="60dp"
         android:layout_below="@+id/lbl_Selected"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="-2dp"
         android:layout_toEndOf="@+id/imageView_DS"
         android:orientation="horizontal">
 
@@ -244,38 +246,40 @@
             android:text="Panels" />
 
         <RadioButton
-            android:id="@+id/radio_Weight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:text="Combined" />
-        //-----------------------------------
-
-        <RadioButton
-            android:id="@+id/radio_pGt1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btn_Pit"
-            android:layout_marginStart="-300dp"
-            android:layout_marginTop="30dp"
-            android:layout_toStartOf="@+id/btn_Pit"
-            android:text="☢ >1" />
-
-        <RadioButton
-            android:id="@+id/radio_cGt1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="30dp"
-            android:text="⚫ >1" />
-
-        <RadioButton
             android:id="@+id/radio_Climb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
+            android:text="Climb" />
+
+        //-----------------------------------
+
+        <RadioButton
+            android:id="@+id/radio_Weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_Pit"
+            android:layout_marginStart="-280dp"
             android:layout_marginTop="30dp"
-            android:text="Climb (HAB end)" />
+            android:text="Combined" />
+
+        <!--<RadioButton-->
+        <!--android:id="@+id/radio_pGt1"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/btn_Pit"-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--android:layout_toStartOf="@+id/btn_Pit"-->
+        <!--android:text="☢ >1" />-->
+
+        <!--<RadioButton-->
+        <!--android:id="@+id/radio_cGt1"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="3dp"-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--android:text="⚫ >1" />-->
+
 
     </RadioGroup>
 

@@ -51,6 +51,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import static android.util.Log.e;
 import static android.util.Log.i;
 
 public class DraftScout_Activity extends AppCompatActivity {
@@ -58,17 +59,17 @@ public class DraftScout_Activity extends AppCompatActivity {
     String TAG = "DraftScout_Activity";        // This CLASS name
     Boolean is_Resumed = false;
     int numPicks = 24;              // # of picks to show for Alliance Picks (actually get from Preferences)
-    /*Shared Prefs-Scored Cubes*/ public String cubeAutoSw  = ""; public String cubeAutoSc  = ""; public String cubeTeleSw  = ""; public String cubeTeleSc  = ""; public String teleOthr  = ""; public String cubeExch = "";
-    /*Shared Prefs-Retrieved Cbs*/ public String cubeColPort = ""; public String cubeColZone  = ""; public String cubeColFloor  = ""; public String cubeColStolen  = "";  public String cubeColRandom  = "";
-    /*Shared Prefs-Climbing*/ public String climbClimbs = ""; public String climbLift1 = ""; public String climbLift2 = ""; public String climbPlat = ""; public String climbLifted = "";
-    /*Weight factors*/ public String wtClimb = ""; public String wtCubeScore = ""; public String wtCubeCollct = "";
+    /*Shared Prefs-Scored Cargo*/ public String cargo_L1  = ""; public String cargo_L2  = ""; public String cargo_L3  = "";
+    /*Shared Prefs-Panels*/ public String panels_L1 = ""; public String panels_L2  = ""; public String panels_L3  = ""; public String panels_Drop  = "";
+    /*Shared Prefs-Climbing*/  public String climbLift1 = ""; public String climbLift2 = "";  public String climbLifted = ""; public String climbHAB0 = ""; public String climbHAB1 = ""; public String climbHAB2 = ""; public String climbHAB3 = "";
+    /*Weight factors*/ public String wtClimb = ""; public String wtCargo = ""; public String wtPanels = "";
     ImageView imgStat_Load;
     TextView txt_EventName, txt_NumTeams, txt_Formula, lbl_Formula, txt_LoadStatus, txt_SelNum;
     ListView lstView_Teams;
     TextView TeamData, BA, Stats;
     Button btn_Match, btn_Default;
     RadioGroup radgrp_Sort;
-    RadioButton radio_Climb, radio_Cubes, radio_Weight, radio_Team, radio_Switch, radio_Scale, radio_Exchange;
+    RadioButton radio_Climb, radio_Cargo, radio_Weight, radio_Team, radio_pGt1, radio_cGt1, radio_Panels;
     //    Button btn_Up, btn_Down, btn_Delete;
     public ArrayAdapter<String> adaptTeams;
     //    ArrayList<String> draftList = new ArrayList<String>();
@@ -86,17 +87,17 @@ public class DraftScout_Activity extends AppCompatActivity {
     String cubeChk = "";
     String climbChk = "";
     String climbRatio = "";
-    String autoSwRatio = "";
-    String autoScRatio = "-/-";
-    String autoSwXover = "";
-    String autoSwExtra = "";
-    String autoScXover = "";
-    String autoScExtra = "";
-    String teleSwRatio = "-/-";
-    String teleScRatio = "-/-";
+    String sandCargL1 = "";
+    String sandCargL2 = "";
+    String sandCargL3 = "";
+    String sandPanelL1 = "";
+    String sandPanelL2 = "";
+    String sandPanelL3 = "";
+    String teleCargoL1 = "";
+    String teleCargoL3 = "";
     String mdNumMatches = "";
     String teleExch = "";
-    String teleOthrRatio = "";
+    String teleCargoL2 = "";
     String telePort = "";
     String teleZone = "";
     String cubeRandom = "";
@@ -117,26 +118,27 @@ public class DraftScout_Activity extends AppCompatActivity {
     public static class Scores {
         private String teamNum;
         private String teamName;
-        private float cubeScore;
+        private float cargoScore;
+        private float panelsScore;
         private float climbScore;
-        private float weightedScore;
-        private float switchScore;
-        private float scaleScore;
-        private float exchangeScore;
+        private float combinedScore;
+//        private float switchScore;
+//        private float scaleScore;
 
         public Scores() {
         }
 
-        public Scores(String teamNum, String teamName, float cubeScore, float climbScore, float weightedScore, float switchScore, float scaleScore, float exchangeScore) {
+// ** Constuctor **
+        public Scores(String teamNum, String teamName, float cargoScore, float panelsScore, float climbScore, float combinedScore) {
             this.teamNum = teamNum;
             this.teamName = teamName;
-            this.cubeScore = cubeScore;
+            this.cargoScore = cargoScore;
+            this.panelsScore = panelsScore;
             this.climbScore = climbScore;
-            this.weightedScore = weightedScore;
-            this.switchScore = switchScore;
-            this.scaleScore = scaleScore;
-            this.exchangeScore = exchangeScore;
+            this.combinedScore = combinedScore;
         }
+
+// ** Getters/Setters **
 
         public String getTeamNum() {
             return teamNum;
@@ -154,12 +156,20 @@ public class DraftScout_Activity extends AppCompatActivity {
             this.teamName = teamName;
         }
 
-        public float getCubeScore() {
-            return cubeScore;
+        public float getCargoScore() {
+            return cargoScore;
         }
 
-        public void setCubeScore(float cubeScore) {
-            this.cubeScore = cubeScore;
+        public void setCargoScore(float cargoScore) {
+            this.cargoScore = cargoScore;
+        }
+
+        public float getPanelsScore() {
+            return panelsScore;
+        }
+
+        public void setPanelsScore(float panelsScore) {
+            this.panelsScore = panelsScore;
         }
 
         public float getClimbScore() {
@@ -170,37 +180,16 @@ public class DraftScout_Activity extends AppCompatActivity {
             this.climbScore = climbScore;
         }
 
-        public float getWeightedScore() {
-            return weightedScore;
+        public float getCombinedScore() {
+            return combinedScore;
         }
 
-        public void setWeightedScore(float weightedScore) {
-            this.weightedScore = weightedScore;
+        public void setCombinedScore(float combinedScore) {
+            this.combinedScore = combinedScore;
         }
 
-        public float getSwitchScore() {
-            return switchScore;
-        }
 
-        public void setSwitchScore(float switchScore) {
-            this.switchScore = switchScore;
-        }
-
-        public float getScaleScore() {
-            return scaleScore;
-        }
-
-        public void setScaleScore(float scaleScore) {
-            this.scaleScore = scaleScore;
-        }
-
-        public float getExchangeScore() {
-            return exchangeScore;
-        }
-
-        public void setExchangeScore(float exchangeScore) {
-            this.exchangeScore = exchangeScore;
-        }
+// ** END - Getters/Setters **
 
         public static Comparator<Scores> teamComp = new Comparator<Scores>() {
             public int compare(Scores t1, Scores t2) {
@@ -222,14 +211,17 @@ public class DraftScout_Activity extends AppCompatActivity {
                 return (int) (climbNum2 - climbNum1);
             }
         };
-    }
 
+    }
     //==========================
     public ArrayList<Scores> team_Scores = new ArrayList<Scores>();
     Scores score_inst = new Scores();
 
-
-    @Override
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draft_scout);
@@ -244,7 +236,6 @@ public class DraftScout_Activity extends AppCompatActivity {
         }
         Log.e(TAG, "After - " + sortType);
         getprefs();         // Get multiplier values from Preferences
-        Log.e(TAG, " 1st cubeAutoSc=" + cubeAutoSc);
 
         txt_EventName = (TextView) findViewById(R.id.txt_EventName);
         txt_NumTeams = (TextView) findViewById(R.id.txt_NumTeams);
@@ -287,17 +278,17 @@ public class DraftScout_Activity extends AppCompatActivity {
                         showFormula(sortType);              // update the formula
                         loadTeams();
                         break;
-                    case "Cubes":
-                        sortType = "Cubes";
+                    case "Cargo":
+                        sortType = "Cargo";
 //                      Log.w(TAG, "Cube sort");
                         Collections.sort(team_Scores, new Comparator<Scores>() {
                             @Override
                             public int compare(Scores c1, Scores c2) {
-                                return Float.compare(c1.getCubeScore(), c2.getCubeScore());
+                                return Float.compare(c1.getCargoScore(), c2.getCargoScore());
                             }
                         });
                         Collections.reverse(team_Scores);   // Descending
-                        showFormula("Cubes");              // update the formula
+                        showFormula("Cargo");              // update the formula
                         loadTeams();
                         break;
                     case "Combined":
@@ -306,46 +297,46 @@ public class DraftScout_Activity extends AppCompatActivity {
                         Collections.sort(team_Scores, new Comparator<Scores>() {
                             @Override
                             public int compare(Scores c1, Scores c2) {
-                                return Float.compare(c1.getWeightedScore(), c2.getWeightedScore());
+                                return Float.compare(c1.getCombinedScore(), c2.getCombinedScore());
                             }
                         });
                         Collections.reverse(team_Scores);   // Descending
                         showFormula(sortType);              // update the formula
                         loadTeams();
                         break;
-                    case "Switch":
-                        sortType = "Switch";
-//                        Log.w(TAG, "Switch sort");
+//                    case "Switch":
+//                        sortType = "Switch";
+////                        Log.w(TAG, "Switch sort");
+//                        Collections.sort(team_Scores, new Comparator<Scores>() {
+//                            @Override
+//                            public int compare(Scores c1, Scores c2) {
+//                                return Float.compare(c1.getSwitchScore(), c2.getSwitchScore());
+//                            }
+//                        });
+//                        Collections.reverse(team_Scores);   // Descending
+//                        showFormula(sortType);              // update the formula
+//                        loadTeams();
+//                        break;
+//                    case "Scale":
+//                        sortType = "Scale";
+////                        Log.w(TAG, "Scale sort");
+//                        Collections.sort(team_Scores, new Comparator<Scores>() {
+//                            @Override
+//                            public int compare(Scores c1, Scores c2) {
+//                                return Float.compare(c1.getScaleScore(), c2.getScaleScore());
+//                            }
+//                        });
+//                        Collections.reverse(team_Scores);   // Descending
+//                        showFormula(sortType);              // update the formula
+//                        loadTeams();
+//                        break;
+                    case "Panels":
+                        sortType = "Panels";
+//                        Log.w(TAG, "Panels sort");
                         Collections.sort(team_Scores, new Comparator<Scores>() {
                             @Override
                             public int compare(Scores c1, Scores c2) {
-                                return Float.compare(c1.getSwitchScore(), c2.getSwitchScore());
-                            }
-                        });
-                        Collections.reverse(team_Scores);   // Descending
-                        showFormula(sortType);              // update the formula
-                        loadTeams();
-                        break;
-                    case "Scale":
-                        sortType = "Scale";
-//                        Log.w(TAG, "Scale sort");
-                        Collections.sort(team_Scores, new Comparator<Scores>() {
-                            @Override
-                            public int compare(Scores c1, Scores c2) {
-                                return Float.compare(c1.getScaleScore(), c2.getScaleScore());
-                            }
-                        });
-                        Collections.reverse(team_Scores);   // Descending
-                        showFormula(sortType);              // update the formula
-                        loadTeams();
-                        break;
-                    case "Exchange":
-                        sortType = "Exchange";
-//                        Log.w(TAG, "Exchange sort");
-                        Collections.sort(team_Scores, new Comparator<Scores>() {
-                            @Override
-                            public int compare(Scores c1, Scores c2) {
-                                return Float.compare(c1.getExchangeScore(), c2.getExchangeScore());
+                                return Float.compare(c1.getPanelsScore(), c2.getPanelsScore());
                             }
                         });
                         Collections.reverse(team_Scores);   // Descending
@@ -409,30 +400,27 @@ public class DraftScout_Activity extends AppCompatActivity {
         SharedPreferences sharedPref =
                 PreferenceManager.getDefaultSharedPreferences(this);
 
-        cubeAutoSw = sharedPref.getString("prefCube_autoSw", "3.5");
-        Log.e(TAG, "cubeAutoSw=" + cubeAutoSw);
-        cubeAutoSc = sharedPref.getString("prefCube_autoSc", "3.5");
-        Log.e(TAG, "cubeAutoSc=" + cubeAutoSc);
-        cubeTeleSw = sharedPref.getString("prefCube_teleSw", "1.0");
-        cubeTeleSc = sharedPref.getString("prefCube_teleSc", "1.0");
-        teleOthr =   sharedPref.getString("prefCube_othr", "1.5");
-        cubeExch =   sharedPref.getString("prefCube_exchange", "1.0");
+        cargo_L1 = sharedPref.getString("prefCargo_L1", "1.0");
+        cargo_L2 = sharedPref.getString("prefCargo_L2", "2.0");
+        cargo_L3 = sharedPref.getString("prefCargo_L3", "3.0");
+        Log.e(TAG, "cargo_L1=" + cargo_L1);
 
-        cubeColPort = sharedPref.getString("prefCubeCol_portal", "1.0");
-        cubeColZone = sharedPref.getString("prefCubeCol_zone", "1.0");
-        cubeColFloor = sharedPref.getString("prefCubeCol_floor", "1.0");
-        cubeColStolen = sharedPref.getString("prefCubeCol_stolen", "1.0");
-        cubeColRandom = sharedPref.getString("prefCubeCol_random", "1.0");
+        panels_L1 = sharedPref.getString("prefPanel_L1", "1.0");
+        panels_L2 = sharedPref.getString("prefPanel_L2", "2.0");
+        panels_L3 = sharedPref.getString("prefPanel_L3", "3.0");
+        panels_Drop = sharedPref.getString("prefPanel_Drop", "-1.0");
 
-        climbClimbs = sharedPref.getString("prefClimb_NumClimbs", "1.0");
         climbLift1 = sharedPref.getString("prefClimb_lift1", "1.5");
         climbLift2 = sharedPref.getString("prefClimb_lift2", "2.0");
-        climbPlat = sharedPref.getString("prefClimb_onPlat", "0.3");
         climbLifted = sharedPref.getString("prefClimb_lifted", "0.3");
+        climbHAB0 = sharedPref.getString("prefClimb_HAB0", "-1.0");
+        climbHAB1 = sharedPref.getString("prefClimb_HAB1", "1.0");
+        climbHAB2 = sharedPref.getString("prefClimb_HAB2", "2.5");
+        climbHAB3 = sharedPref.getString("prefClimb_HAB3", "5.0");
 
-        wtCubeScore = sharedPref.getString("prefWeight_cubesSwitch", "2.0");
-        wtCubeCollct = sharedPref.getString("prefWeight_cubesScale", "3.0");
-        wtClimb = sharedPref.getString("prefWeight_climb", "1.5");
+        wtCargo  = sharedPref.getString("prefWeight_cargo", "1.0");
+        wtPanels = sharedPref.getString("prefWeight_panels", "1.0");
+        wtClimb  = sharedPref.getString("prefWeight_climb", "1.5");
 
         numPicks = Integer.parseInt(sharedPref.getString("prefAlliance_num", "24"));
 
@@ -446,36 +434,35 @@ public class DraftScout_Activity extends AppCompatActivity {
         switch (typ) {
             case "Climb":
 //                Log.e(TAG, "*** CLIMB   cl=" + climbClimbs + " 1=" + climbLift1 + " 2=" + climbLift2 + " pl=" + climbPlat + " was=" + climbLifted);
-                form = "(" + climbClimbs + "*(climbs) + " +"(Lift1*" + climbLift1 + ") + " +"(Lift2*" + climbLift2 + ") + (Plat*" + climbPlat + ") + (WasLifted*" + climbLifted + ")) / # matches";
+                form = "(" + climbHAB1 + "*HAB1 + " + climbHAB2 + "*HAB2 + " + climbHAB3 + "*HAB3 + " + climbHAB0 + "*HAB0 + " +"(Lift1*" + climbLift1 + ") + " +"(Lift2*" + climbLift2 + ") + (WasLifted*" + climbLifted + ")) / # matches";
                 lbl_Formula.setTextColor(Color.parseColor("#4169e1"));      // blue
                 txt_Formula.setText(form);
                 break;
-            case "Cubes":
-                form = "SCR:(" + cubeAutoSw +"*((aCSw*Aex)+➽*.5)+" + cubeAutoSc + "*(aCSc*Tex)+➽*.5)+" + cubeTeleSw + "*(tCSw)+" + cubeTeleSc + "*(tCSc)+" + teleOthr + "*(oth)+" + cubeExch + "*(Exc))/# matches ✚ \n";
-                form = form + "COL:  (" + cubeColPort +"*(Port) + " + cubeColZone + "*(zone) + " + cubeColFloor + "*(flr) + " + cubeColStolen + "*(Their) " + cubeColRandom + "*(Random)) / # matches";
+            case "Cargo":
+                form = cargo_L1 +"* cargL1 +" + cargo_L2 + "* cargL2+" + cargo_L3 + "* cargL3+ /# matches";
                 lbl_Formula.setTextColor(Color.parseColor("#ee00ee"));      // magenta
                 txt_Formula.setText(form);
                 break;
             case "Combined":
-                form = "((" + wtClimb + "*(climbScore) + " + wtCubeScore + "*(Switch) + " + wtCubeScore + "*(Scale) + (Exc) / #matches";
+                form = "((" + wtClimb + "*(climbScore) + " + wtCargo + "*(cargoScore) + " + wtPanels + "*(panelScore) / #matches";
                 lbl_Formula.setTextColor(Color.parseColor("#ff0000"));      // red
                 txt_Formula.setText(form);
                 break;
-            case "Switch":
-                form = "(" + cubeAutoSw +"*((aCSw * Aex) + ➽*.5) + " + cubeTeleSw + "*(tCSw) + " + teleOthr + "*(oth)) / #matches";
-                lbl_Formula.setTextColor(Color.parseColor("#00eeee"));          // cyan
-                txt_Formula.setText(form);
-                break;
-            case "Scale":
-                form = "(" + cubeAutoSc + "*((aCSc * Tex) + ➽*.5) + " + cubeTeleSc + "*(tCSc) / #matches";
-                lbl_Formula.setTextColor(Color.parseColor("#32cd32"));      // lime green
-                txt_Formula.setText(form);
-                break;
-            case "Exchange":
-                form = cubeExch + " * (Exc) / #matches";
+            case "Panels":
+                form = "(" + panels_L1 +"* panL1 +" + panels_L2 + "* panL2+" + panels_L3 + "* panL3) + (" +panels_Drop +")" + "/# matches";
                 lbl_Formula.setTextColor(Color.parseColor("#a8a8a8"));      /// grey
                 txt_Formula.setText(form);
                 break;
+//            case "Switch":
+//                form = "(" + cargo_L1 +"*((aCSw * Aex) + ➽*.5) + " + cubeTeleSw + "*(tCSw) + " + teleOthr + "*(oth)) / #matches";
+//                lbl_Formula.setTextColor(Color.parseColor("#00eeee"));          // cyan
+//                txt_Formula.setText(form);
+//                break;
+//            case "Scale":
+//                form = "(" + cubeAutoSc + "*((aCSc * Tex) + ➽*.5) + " + cubeTeleSc + "*(tCSc) / #matches";
+//                lbl_Formula.setTextColor(Color.parseColor("#32cd32"));      // lime green
+//                txt_Formula.setText(form);
+//                break;
             default:                //
                 Log.e(TAG, "*** Invalid Type " + typ);
         }
@@ -538,7 +525,7 @@ public class DraftScout_Activity extends AppCompatActivity {
             teamNum = teamHash.substring(0, 4);
             teamName = teamHash.substring(7, teamHash.indexOf("("));  // UP TO # MATCHES
             FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageReference = storage.getReferenceFromUrl("gs://paradox-2017.appspot.com/images/" + Pearadox.FRC_Event).child("robot_" + teamNum.trim() + ".png");
+            StorageReference storageReference = storage.getReferenceFromUrl("gs://pearadox-2019.appspot.com/images/" + Pearadox.FRC_Event).child("robot_" + teamNum.trim() + ".png");
 //            Log.e(TAG, "gs://paradox-2017.appspot.com/images/" + Pearadox.FRC_Event + ".child(robot_" + teamNum.trim() + ".png)");
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
@@ -641,32 +628,32 @@ public class DraftScout_Activity extends AppCompatActivity {
                 case "Climb":
                     totalScore = "[" + String.format("%3.2f", score_inst.getClimbScore()) + "]";
                     break;
-                case "Cubes":
-                    totalScore = "[" + String.format("%3.2f", score_inst.getCubeScore()) + "]";
+                case "Cargo":
+                    totalScore = "[" + String.format("%3.2f", score_inst.getCargoScore()) + "]";
                     break;
                 case "Combined":
-                    totalScore = "[" + String.format("%3.2f", score_inst.getWeightedScore()) + "]";
+                    totalScore = "[" + String.format("%3.2f", score_inst.getCombinedScore()) + "]";
                     break;
-                case "Switch":
-                    totalScore = "[" + String.format("%3.2f", score_inst.getSwitchScore()) + "]";
-                    break;
-                case "Scale":
-                    totalScore = "[" + String.format("%3.2f", score_inst.getScaleScore()) + "]";
-                    break;
-                case "Exchange":
-                    totalScore = "[" + String.format("%3.2f", score_inst.getExchangeScore()) + "]";
+                case "Panels":
+                    totalScore = "[" + String.format("%3.2f", score_inst.getPanelsScore()) + "]";
                     break;
                 case "Team#":
                     totalScore=" ";
                     break;
+//                case "Switch":
+//                    totalScore = "[" + String.format("%3.2f", score_inst.getSwitchScore()) + "]";
+//                    break;
+//                case "Scale":
+//                    totalScore = "[" + String.format("%3.2f", score_inst.getScaleScore()) + "]";
+//                    break;
                 default:                //
                     Log.e(TAG, "Invalid Sort - " + sortType);
             }
 
             temp.put("team", tn + " - " + score_inst.getTeamName() + "   (" + mdNumMatches + ")   " +  totalScore);
 //            temp.put("BA", "Rank=" + teams[i].rank + "  " + teams[i].record + "   OPR=" + String.format("%3.1f", (teams[i].opr)) + "    ↑ " + String.format("%3.1f", (teams[i].touchpad)) + "   kPa=" + String.format("%3.1f", (teams[i].pressure)));
-            temp.put("Stats", "Auto⚻ " + autoSwRatio + " ➽" + autoSwXover + "✚" + autoSwExtra + "  ⚖ " + autoScRatio + " ➽" + autoScXover + "✚" + autoScExtra + "  Tele⚻ " + teleSwRatio + " Oth⚻ " + teleOthrRatio +  "  ⚖ " + teleScRatio + "  Exch " + teleExch + " Port " + telePort + " Zone " + teleZone);
-            temp.put("BA",  "Climb " + "  " + climbRatio + "  ↕One " + liftOne + "  ↕Two " + liftTwo + "   onPlat⚌" + onPlatform+ "    Was↑ " + gotLifted + "    ▉P/U  " + cubeChk);
+            temp.put("Stats", "Sand ⚫ ¹" + sandCargL1 + " ²" + sandCargL2 + " ³" + sandCargL2 + "  ☢ ¹" + sandPanelL1 + " ²" + sandPanelL2 + " ³" + sandPanelL3 + "  Tele ⚫ ¹" + teleCargoL1 + " ²" + teleCargoL2 +  "  ³" + teleCargoL3 + "  ☢ ¹" + teleExch + " ²" + telePort + " ³" + teleZone);
+            temp.put("BA",  "Climb " + "  " + climbRatio + "  ↕One " + liftOne + "  ↕Two " + liftTwo + "    Was↑ " + gotLifted + "    ▉P/U  " + cubeChk);
             draftList.add(temp);
         } // End For
         Log.w(TAG, "### Teams ###  : " + draftList.size());
@@ -710,7 +697,7 @@ public class DraftScout_Activity extends AppCompatActivity {
 //
 //                temp.put("team", tn + " - " + teams[i].nickname);
 //                temp.put("BA", "Rank=" + teams[i].rank + "  " + teams[i].record + "   OPR=" + String.format("%3.1f", (teams[i].opr)) + "    ↑ " + String.format("%3.1f", (teams[i].touchpad)) + "   kPa=" + String.format("%3.1f", (teams[i].pressure)));
-//                temp.put("Stats", "Auto Gears=" + autoSwRatio + "  Tele Gears=" + teleSwRatio + "   Pick up Gears " + cubeChk + "   Climb " + climbChk + "  " + climbRatio);
+//                temp.put("Stats", "Auto Gears=" + sandCargL1 + "  Tele Gears=" + teleCargoL1 + "   Pick up Gears " + cubeChk + "   Climb " + climbChk + "  " + climbRatio);
 //                draftList.add(temp);
 //                                                      } // End For
 //                Log.w(TAG, "### Teams ###  : " + draftList.size());
@@ -785,6 +772,9 @@ public boolean onCreateOptionsMenu(Menu menu) {
         return super.onOptionsItemSelected(item);
     }
 
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     private void alliance_Picks() {
         Toast toast = Toast.makeText(getBaseContext(), "Generating Alliance Picks file - Please wait ...", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
@@ -797,7 +787,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
         Collections.sort(team_Scores, new Comparator<Scores>() {
             @Override
             public int compare(Scores c1, Scores c2) {
-                return Float.compare(c1.getWeightedScore(), c2.getWeightedScore());
+                return Float.compare(c1.getCombinedScore(), c2.getCombinedScore());
             }
         });
         Collections.reverse(team_Scores);   // Descending
@@ -822,75 +812,76 @@ public boolean onCreateOptionsMenu(Menu menu) {
             BufferedWriter bW = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(prt), "UTF-8"
             ));
-            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
-            bW.write(underScore + "  SWITCH  " + underScore +  "\n \n");
-            //  Switch sort
-            sortType = "Switch";
+            //Todo Cargo & Climb
+//            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
+//            bW.write(underScore + "  SWITCH  " + underScore +  "\n \n");
+//            //  Switch sort
+//            sortType = "Switch";
+//            Collections.sort(team_Scores, new Comparator<Scores>() {
+//                @Override
+//                public int compare(Scores c1, Scores c2) {
+//                    return Float.compare(c1.getSwitchScore(), c2.getSwitchScore());
+//                }
+//            });
+//            Collections.reverse(team_Scores);   // Descending
+//            loadTeams();
+//            for (int i = 0; i < numPicks; i++) {    // load by sorted scores
+//                score_inst = team_Scores.get(i);
+////                Log.w(TAG, " Scores = " + score_inst.teamNum + " " + score_inst.switchScore + " " + score_inst.scaleScore + " " + score_inst.panelsScore );
+//                tNumb = score_inst.getTeamNum();
+//                tName = score_inst.getTeamName();
+//                tName = tName + blanks.substring(0, (36 - tName.length()));
+//                totalScore = "[" + String.format("%3.2f", score_inst.getSwitchScore()) + "]";
+//                teamData(tNumb);   // Get Team's Match Data
+//                bW.write(String.format("%2d", i+1) + ") " + tNumb + "-" + tName + " \t (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ") " +  totalScore + "\t");
+//                bW.write("A⚻ " + sandCargL1 + " ➽ " + sandCargL3 + "  T⚻ " + teleCargoL1 + " Oth⚻ " + teleCargoL2+ "\n" + DS);
+//            } // end For # teams
+//            bW.write(" \n" + "\n" + (char)12);        // NL & FF
+//            //=====================================================================
+//
+//            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
+//            bW.write(underScore + "  SCALE  " + underScore +  "\n \n");
+//            //  Scale sort
+//            sortType = "Scale";
+//            Collections.sort(team_Scores, new Comparator<Scores>() {
+//                @Override
+//                public int compare(Scores c1, Scores c2) {
+//                    return Float.compare(c1.getScaleScore(), c2.getScaleScore());
+//                }
+//            });
+//            Collections.reverse(team_Scores);   // Descending
+//            loadTeams();
+//            for (int i = 0; i < numPicks; i++) {    // load by sorted scores
+//                score_inst = team_Scores.get(i);
+//                tNumb = score_inst.getTeamNum();
+//                tName = score_inst.getTeamName();
+//                tName = tName + blanks.substring(0, (36 - tName.length()));
+//                totalScore = "[" + String.format("%3.2f", score_inst.getScaleScore()) + "]";
+//                teamData(tNumb);   // Get Team's Match Data
+//                bW.write(String.format("%2d", i+1) +") " + tNumb + " - " + tName + " \t  (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ") " +  totalScore + " \t");
+//                bW.write(" A⚖ " + sandCargL2 + " ➽ " + sandPanelL2 + "  T⚖ " + teleCargoL3+ "\n" + DS);
+//            } // end For # teams
+//            bW.write(" \n" + "\n" + (char)12);        // NL & FF
+//            //=====================================================================
+//
+//            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
+//            bW.write(underScore + "  EXCHANGE  " + underScore +  "\n " + DS);
+            //  Panels sort
+            sortType = "Panels";
             Collections.sort(team_Scores, new Comparator<Scores>() {
                 @Override
                 public int compare(Scores c1, Scores c2) {
-                    return Float.compare(c1.getSwitchScore(), c2.getSwitchScore());
+                    return Float.compare(c1.getPanelsScore(), c2.getPanelsScore());
                 }
             });
             Collections.reverse(team_Scores);   // Descending
             loadTeams();
             for (int i = 0; i < numPicks; i++) {    // load by sorted scores
                 score_inst = team_Scores.get(i);
-//                Log.w(TAG, " Scores = " + score_inst.teamNum + " " + score_inst.switchScore + " " + score_inst.scaleScore + " " + score_inst.exchangeScore );
                 tNumb = score_inst.getTeamNum();
                 tName = score_inst.getTeamName();
                 tName = tName + blanks.substring(0, (36 - tName.length()));
-                totalScore = "[" + String.format("%3.2f", score_inst.getSwitchScore()) + "]";
-                teamData(tNumb);   // Get Team's Match Data
-                bW.write(String.format("%2d", i+1) + ") " + tNumb + "-" + tName + " \t (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ") " +  totalScore + "\t");
-                bW.write("A⚻ " + autoSwRatio + " ➽ " + autoSwXover + "  T⚻ " + teleSwRatio + " Oth⚻ " + teleOthrRatio+ "\n" + DS);
-            } // end For # teams
-            bW.write(" \n" + "\n" + (char)12);        // NL & FF
-            //=====================================================================
-
-            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
-            bW.write(underScore + "  SCALE  " + underScore +  "\n \n");
-            //  Scale sort
-            sortType = "Scale";
-            Collections.sort(team_Scores, new Comparator<Scores>() {
-                @Override
-                public int compare(Scores c1, Scores c2) {
-                    return Float.compare(c1.getScaleScore(), c2.getScaleScore());
-                }
-            });
-            Collections.reverse(team_Scores);   // Descending
-            loadTeams();
-            for (int i = 0; i < numPicks; i++) {    // load by sorted scores
-                score_inst = team_Scores.get(i);
-                tNumb = score_inst.getTeamNum();
-                tName = score_inst.getTeamName();
-                tName = tName + blanks.substring(0, (36 - tName.length()));
-                totalScore = "[" + String.format("%3.2f", score_inst.getScaleScore()) + "]";
-                teamData(tNumb);   // Get Team's Match Data
-                bW.write(String.format("%2d", i+1) +") " + tNumb + " - " + tName + " \t  (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ") " +  totalScore + " \t");
-                bW.write(" A⚖ " + autoScRatio + " ➽ " + autoScXover + "  T⚖ " + teleScRatio+ "\n" + DS);
-            } // end For # teams
-            bW.write(" \n" + "\n" + (char)12);        // NL & FF
-            //=====================================================================
-
-            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
-            bW.write(underScore + "  EXCHANGE  " + underScore +  "\n " + DS);
-            //  Exchange sort
-            sortType = "Exchange";
-            Collections.sort(team_Scores, new Comparator<Scores>() {
-                @Override
-                public int compare(Scores c1, Scores c2) {
-                    return Float.compare(c1.getExchangeScore(), c2.getExchangeScore());
-                }
-            });
-            Collections.reverse(team_Scores);   // Descending
-            loadTeams();
-            for (int i = 0; i < numPicks; i++) {    // load by sorted scores
-                score_inst = team_Scores.get(i);
-                tNumb = score_inst.getTeamNum();
-                tName = score_inst.getTeamName();
-                tName = tName + blanks.substring(0, (36 - tName.length()));
-                totalScore = "[" + String.format("%3.2f", score_inst.getExchangeScore()) + "]";
+                totalScore = "[" + String.format("%3.2f", score_inst.getPanelsScore()) + "]";
                 teamData(tNumb);   // Get Team's Match Data
                 bW.write(String.format("%2d", i+1) +") " + tNumb + " - " + tName + " \t  (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ")   " +  totalScore + "  \t");
                 bW.write( "Exch " + teleExch + "\n" + DS);
@@ -904,7 +895,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
             Collections.sort(team_Scores, new Comparator<Scores>() {
                 @Override
                 public int compare(Scores c1, Scores c2) {
-                    return Float.compare(c1.getWeightedScore(), c2.getWeightedScore());
+                    return Float.compare(c1.getCombinedScore(), c2.getCombinedScore());
                 }
             });
             Collections.reverse(team_Scores);   // Descending
@@ -914,7 +905,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
                 tNumb = score_inst.getTeamNum();
                 tName = score_inst.getTeamName();
                 tName = tName + blanks.substring(0, (36 - tName.length()));
-                totalScore = "[" + String.format("%3.2f", score_inst.getWeightedScore()) + "]";
+                totalScore = "[" + String.format("%3.2f", score_inst.getCombinedScore()) + "]";
                 teamData(tNumb);   // Get Team's Match Data
                 bW.write(String.format("%2d", i+1) +") " + tNumb + " - " + tName + " \t  (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ")   " +  totalScore + "  \t");
                 bW.write( "\n" + DS);
@@ -943,73 +934,296 @@ public boolean onCreateOptionsMenu(Menu menu) {
         int autoCubeSw = 0; int autoCubeSwAtt = 0; int autoCubeSc = 0; int autoCubeScAtt = 0; int autoSwXnum = 0;  int autoScXnum = 0; int autoCubeSwExtra = 0; int autoCubeScExtra = 0;
         int teleCubeSw = 0; int teleCubeSwAtt = 0; int teleCubeSc = 0; int teleCubeScAtt = 0;
         int teleCubeExch = 0; int teleOthrNUM = 0;  int teleOthrATT = 0; int telePortalNUM = 0; int teleZoneNUM = 0; int teleFloorNUM = 0; int teleTheirNUM = 0; int teleRandomNUM = 0;
-        int climbs = 0; int climbAttemps = 0; int platNum = 0; int lift1Num = 0; int lift2Num = 0; int liftedNum = 0;
-        int numMatches = 0;
+        int climbH0 = 0; int climbH1 = 0; int climbH2 = 0; int climbH3 = 0; int lift1Num = 0; int lift2Num = 0; int liftedNum = 0;
+        int cargL1 = 0; int cargL2 = 0; int cargL3 =0; int TcargL1 = 0; int TcargL2 = 0; int TcargL3 = 0; int TpanL1 = 0; int TpanL2 = 0; int TpanL3 = 0;
+        int numMatches = 0; int panL1 = 0; int panL2 = 0; int panL3 = 0; int dropped=0;
         boolean cube_pu =false;
 
         for (int i = 0; i < All_Matches.size(); i++) {
             match_inst = All_Matches.get(i);      // Get instance of Match Data
             if (match_inst.getTeam_num().matches(team)) {
-//                Log.e(TAG, i + "  " + match_inst.getMatch() + "  Team=" + team);
+                Log.e(TAG, i + "  " + match_inst.getMatch() + "  Team=" + team);
                 numMatches++;
                 // New Match Data Object *** GLF 1/20/19
-//                if (match_inst.isAuto_cube_switch()) {
-//                    autoCubeSw++;
-//                }
-//                if (match_inst.isAuto_cube_switch_att()) {
-//                    autoCubeSwAtt++;
-//                }
-//                if (match_inst.isAuto_xover_switch()) {
-//                    autoSwXnum++;
-//                }
-//                if (match_inst.isAuto_switch_extra()) {
-//                    autoCubeSwExtra++;
-//                }
-//                if (match_inst.isAuto_scale_extra()) {
-//                    autoCubeScExtra++;
-//                }
-//                if (match_inst.isAuto_cube_scale()) {
-//                    autoCubeSc++;
-//                }
-//                if (match_inst.isAuto_cube_scale_att()) {
-//                    autoCubeScAtt++;
-//                }
-//                if (match_inst.isAuto_xover_scale()) {
-//                    autoScXnum++;
-//                }
-//                teleCubeSw = teleCubeSw + match_inst.getTele_cube_switch();
-//                teleCubeSwAtt = teleCubeSwAtt + match_inst.getTele_switch_attempt();
-//                teleCubeSc = teleCubeSc + match_inst.getTele_cube_scale();
-//                teleCubeScAtt = teleCubeScAtt + match_inst.getTele_scale_attempt();
-//                teleCubeExch = teleCubeExch + match_inst.getTele_cube_exchange();
-//                telePortalNUM = telePortalNUM + match_inst.getTele_cube_portal();
-//                teleZoneNUM = teleZoneNUM + match_inst.getTele_cube_pwrzone();
-//                teleFloorNUM = teleFloorNUM + match_inst.getTele_cube_floor();
-//                teleTheirNUM = teleTheirNUM + match_inst.getTele_their_floor();
-//                teleRandomNUM = teleRandomNUM + match_inst.getTele_random_floor();
-//                teleOthrNUM = teleOthrNUM + match_inst.getTele_their_switch();
-//                teleOthrATT = teleOthrATT + match_inst.getTele_their_attempt();
-//                if (match_inst.isTele_cube_pickup()) {
-//                    cube_pu = true;
-//                }
-//                if (match_inst.isTele_climb_success()) {
-//                    climbs++;
-//                }
-//                if (match_inst.isTele_climb_attempt()) {
-//                    climbAttemps++;
-//                }
-//                if (match_inst.isTele_lift_one()) {
-//                    lift1Num++;
-//                }
+                dropped = dropped + match_inst.getSand_num_Dropped();
+                // =================== Cargo ============
+                if (match_inst.isSand_LeftRocket_LCarg1()) {
+                    cargL1++;
+                }
+                if (match_inst.isSand_LeftRocket_LCarg2()) {
+                    cargL2++;
+                }
+                if (match_inst.isSand_LeftRocket_LCarg3()) {
+                    cargL3++;
+                }
+                if (match_inst.isSand_LeftRocket_RCarg1()) {
+                    cargL1++;
+                }
+                if (match_inst.isSand_LeftRocket_RCarg2()) {
+                    cargL2++;
+                }
+                if (match_inst.isSand_LeftRocket_RCarg3()) {
+                    cargL3++;
+                }
+                if (match_inst.isSand_RghtRocket_LCarg1()) {
+                    cargL1++;
+                }
+                if (match_inst.isSand_RghtRocket_LCarg2()) {
+                    cargL2++;
+                }
+                if (match_inst.isSand_RghtRocket_LCarg3()) {
+                    cargL3++;
+                }
+                if (match_inst.isSand_RghtRocket_RCarg1()) {
+                    cargL1++;
+                }
+                if (match_inst.isSand_RghtRocket_RCarg2()) {
+                    cargL2++;
+                }
+                if (match_inst.isSand_RghtRocket_RCarg3()) {
+                    cargL3++;
+                }
+                if (match_inst.isSand_CargoLCarg1()) {              // Cargo Ship
+                    cargL1++;
+                }
+                if (match_inst.isSand_CargoLCarg2()) {
+                    cargL1++;
+                }
+                if (match_inst.isSand_CargoLCarg3()) {
+                    cargL1++;
+                }
+                if (match_inst.isSand_CargoRCarg1()) {
+                    cargL1++;
+                }
+                if (match_inst.isSand_CargoRCarg2()) {
+                    cargL1++;
+                }
+                if (match_inst.isSand_CargoRCarg3()) {
+                    cargL1++;
+                }
+                if (match_inst.isSand_CargoEndLCargo()) {      // End
+                    cargL1++;
+                }
+                if (match_inst.isSand_CargoEndRCargo()) {      // End
+                    cargL1++;
+                }
+                // =================== Panels ============
+                if (match_inst.isSand_LeftRocket_LPan1()) {
+                    panL1++;
+                }
+                if (match_inst.isSand_LeftRocket_LPan2()) {
+                    panL2++;
+                }
+                if (match_inst.isSand_LeftRocket_LPan3()) {
+                    panL3++;
+                }
+                if (match_inst.isSand_LeftRocket_RPan1()) {
+                    panL1++;
+                }
+                if (match_inst.isSand_LeftRocket_RPan2()) {
+                    panL2++;
+                }
+                if (match_inst.isSand_LeftRocket_RPan3()) {
+                    panL3++;
+                }
+                if (match_inst.isSand_RghtRocket_LPan1()) {
+                    panL1++;
+                }
+                if (match_inst.isSand_RghtRocket_LPan2()) {
+                    panL2++;
+                }
+                if (match_inst.isSand_RghtRocket_LPan3()) {
+                    panL3++;
+                }
+                if (match_inst.isSand_RghtRocket_RPan1()) {
+                    panL1++;
+                }
+                if (match_inst.isSand_RghtRocket_RPan2()) {
+                    panL2++;
+                }
+                if (match_inst.isSand_RghtRocket_RPan3()) {
+                    panL3++;
+                }
+                if (match_inst.isSand_CargoLPan1()) {              // Cargo Ship
+                    cargL1++;
+                }
+                if (match_inst.isSand_CargoLPan2()) {
+                    cargL1++;
+                }
+                if (match_inst.isSand_CargoLPan3()) {
+                    cargL1++;
+                }
+                if (match_inst.isSand_CargoRPan1()) {
+                    cargL1++;
+                }
+                if (match_inst.isSand_CargoRPan2()) {
+                    cargL1++;
+                }
+                if (match_inst.isSand_CargoRPan3()) {
+                    cargL1++;
+                }
+                if (match_inst.isSand_CargoEndLPanel()) {      // End
+                    cargL1++;
+                }
+                if (match_inst.isSand_CargoEndRPanel()) {      // End
+                    cargL1++;
+                }
+
+
+                // *************************************************
+                // ******************** TeleOps ********************
+                // *************************************************
+                dropped = dropped + match_inst.getTele_num_Dropped();
+                // =================== Cargo ============
+                if (match_inst.isTele_LeftRocket_LCarg1()) {
+                    TcargL1++;
+                }
+                if (match_inst.isTele_LeftRocket_LCarg2()) {
+                    TcargL2++;
+                }
+                if (match_inst.isTele_LeftRocket_LCarg3()) {
+                    TcargL3++;
+                }
+                if (match_inst.isTele_LeftRocket_RCarg1()) {
+                    TcargL1++;
+                }
+                if (match_inst.isTele_LeftRocket_RCarg2()) {
+                    TcargL2++;
+                }
+                if (match_inst.isTele_LeftRocket_RCarg3()) {
+                    TcargL3++;
+                }
+                if (match_inst.isTele_RghtRocket_LCarg1()) {
+                    TcargL1++;
+                }
+                if (match_inst.isTele_RghtRocket_LCarg2()) {
+                    TcargL2++;
+                }
+                if (match_inst.isTele_RghtRocket_LCarg3()) {
+                    TcargL3++;
+                }
+                if (match_inst.isTele_RghtRocket_RCarg1()) {
+                    TcargL1++;
+                }
+                if (match_inst.isTele_RghtRocket_RCarg2()) {
+                    TcargL2++;
+                }
+                if (match_inst.isTele_RghtRocket_RCarg3()) {
+                    TcargL3++;
+                }
+                if (match_inst.isTele_CargoLCarg1()) {              // Cargo Ship
+                    TcargL1++;
+                }
+                if (match_inst.isTele_CargoLCarg2()) {
+                    TcargL1++;
+                }
+                if (match_inst.isTele_CargoLCarg3()) {
+                    TcargL1++;
+                }
+                if (match_inst.isTele_CargoRCarg1()) {
+                    TcargL1++;
+                }
+                if (match_inst.isTele_CargoRCarg2()) {
+                    TcargL1++;
+                }
+                if (match_inst.isTele_CargoRCarg3()) {
+                    TcargL1++;
+                }
+                if (match_inst.isTele_CargoEndLCargo()) {      // End
+                    TcargL1++;
+                }
+                if (match_inst.isTele_CargoEndRCargo()) {      // End
+                    TcargL1++;
+                }
+                // =================== Panels ============
+                if (match_inst.isTele_LeftRocket_LPan1()) {
+                    TpanL1++;
+                }
+                if (match_inst.isTele_LeftRocket_LPan2()) {
+                    TpanL2++;
+                }
+                if (match_inst.isTele_LeftRocket_LPan3()) {
+                    TpanL3++;
+                }
+                if (match_inst.isTele_LeftRocket_RPan1()) {
+                    TpanL1++;
+                }
+                if (match_inst.isTele_LeftRocket_RPan2()) {
+                    TpanL2++;
+                }
+                if (match_inst.isTele_LeftRocket_RPan3()) {
+                    TpanL3++;
+                }
+                if (match_inst.isTele_RghtRocket_LPan1()) {
+                    TpanL1++;
+                }
+                if (match_inst.isTele_RghtRocket_LPan2()) {
+                    TpanL2++;
+                }
+                if (match_inst.isTele_RghtRocket_LPan3()) {
+                    TpanL3++;
+                }
+                if (match_inst.isTele_RghtRocket_RPan1()) {
+                    TpanL1++;
+                }
+                if (match_inst.isTele_RghtRocket_RPan2()) {
+                    TpanL2++;
+                }
+                if (match_inst.isTele_RghtRocket_RPan3()) {
+                    TpanL3++;
+                }
+                if (match_inst.isTele_CargoLPan1()) {              // Cargo Ship
+                    TpanL1++;
+                }
+                if (match_inst.isTele_CargoLPan2()) {
+                    TpanL1++;
+                }
+                if (match_inst.isTele_CargoLPan3()) {
+                    TpanL1++;
+                }
+                if (match_inst.isTele_CargoRPan1()) {
+                    TpanL1++;
+                }
+                if (match_inst.isTele_CargoRPan2()) {
+                    TpanL1++;
+                }
+                if (match_inst.isTele_CargoRPan3()) {
+                    TpanL1++;
+                }
+                if (match_inst.isTele_CargoEndLPanel()) {      // End
+                    TpanL1++;
+                }
+                if (match_inst.isTele_CargoEndRPanel()) {      // End
+                    TpanL1++;
+                }
+
+                int endHAB = match_inst.getTele_level_num();        // end HAB Level
+                switch (endHAB) {
+                    case 0:         // Not On
+                        climbH0++;
+                        break;
+                    case 1:         // Level 1
+                        climbH1++;
+                        break;
+                    case 2:         // Level 2
+                        climbH2++;
+                        break;
+                    case 3:         // Level 3
+                        climbH3++;
+                        break;
+                    default:                // ????
+                        e(TAG, "*** Error - bad HAB Level indicator  ***");
+                }
+
+                if (match_inst.isTele_lifted()) {
+                    lift1Num++;
+                }
 //                if (match_inst.isTele_lift_two()) {
 //                    lift2Num++;
 //                }
-//                if (match_inst.isTele_on_platform()) {
-//                    platNum++;
-//                }
-//                if (match_inst.isTele_got_lift()) {
-//                    liftedNum++;
-//                }
+                if (match_inst.isTele_got_lift()) {
+                    liftedNum++;
+                }
                 Log.w(TAG, "Accum. matches = " + numMatches);
             } //End if teams equal
         } // End For _ALL_ matches
@@ -1021,35 +1235,34 @@ public boolean onCreateOptionsMenu(Menu menu) {
             } else {
                 cubeChk = "⎕";
             }
-            autoSwRatio = autoCubeSw + "/" + autoCubeSwAtt;
-            autoScRatio = autoCubeSc + "/" + autoCubeScAtt;
-            autoSwXover = String.valueOf(autoSwXnum);
-            autoSwExtra  = String.valueOf(autoCubeSwExtra);
-            autoScXover = String.valueOf(autoScXnum);
-            teleSwRatio = teleCubeSw + "/" + teleCubeSwAtt;
-            teleScRatio = teleCubeSc + "/" + teleCubeScAtt;
-            autoScExtra = String.valueOf(autoCubeScExtra);
-            teleOthrRatio = teleOthrNUM + "/" + teleOthrATT;
+            sandCargL1 = String.valueOf(cargL1);
+            sandCargL2 = String.valueOf(cargL2);
+            sandCargL3 = String.valueOf(cargL3);
+            sandPanelL1 = String.valueOf(panL1);
+            sandPanelL2 = String.valueOf(panL2); 
+            sandPanelL3 = String.valueOf(panL3);
+            teleCargoL1 = String.valueOf(TcargL1);
+            teleCargoL2 = String.valueOf(TcargL2);
+            teleCargoL3 = String.valueOf(TcargL3);
             teleExch = String.valueOf(teleCubeExch);
             telePort = String.valueOf(telePortalNUM);
             teleZone = String.valueOf(teleZoneNUM);
             cubeRandom = String.valueOf(teleRandomNUM);
-            climbRatio = climbs + "/" + climbAttemps;
+//            climbRatio = climbs + "/" + climbAttemps;
             liftOne = String.valueOf(lift1Num);
             liftTwo = String.valueOf(lift2Num);
-            onPlatform = String.valueOf(platNum);
-            gotLifted = String.valueOf(liftedNum);
+           gotLifted = String.valueOf(liftedNum);
         } else {
             cubeChk = "⎕";
-            autoSwRatio = "0/0";
-            autoScRatio = "0/0";
-            autoSwXover = "0";
-            autoSwExtra = "0";
-            autoScXover = "0";
-            teleSwRatio = "0/0";
-            teleScRatio = "0/0";
-            autoScExtra = "0";
-            teleOthrRatio = "0/0";
+            sandCargL1 = "0";
+            sandCargL2 = "0";
+            sandCargL3 = "0";
+            sandPanelL1 = "0";
+            sandPanelL2 = "0";
+            sandPanelL3 = "0";
+            teleCargoL1 = "0";
+            teleCargoL3 = "";
+            teleCargoL2 = "";
             teleExch = "0";
             telePort = "0";
             teleZone  = "0";
@@ -1061,26 +1274,19 @@ public boolean onCreateOptionsMenu(Menu menu) {
             gotLifted = "0";
         }
         //============================
-        float climbScore = 0; float cubeScored = 0; float cubeCollect = 0; float cubeScore = 0; float weightedScore = 0; float switchScore = 0; float scaleScore = 0; float exchangeScore = 0;
+        float climbScore = 0; float cubeScored = 0; float cubeCollect = 0; float cargoScore = 0; float combinedScore = 0; float switchScore = 0; float scaleScore = 0; float panelsScore = 0;
 //        Log.e(TAG, team + " "+ climbs + " "+ lift1Num + " "+ lift2Num + " " + platNum +  " " + liftedNum + " / " + numMatches);
         if (numMatches > 0) {
-            climbScore = (float) (((climbs * Float.parseFloat(climbClimbs)) + (lift1Num * Float.parseFloat(climbLift1)) + (lift2Num * Float.parseFloat(climbLift2))) + (platNum * Float.parseFloat(climbPlat)) + (liftedNum * Float.parseFloat(climbLifted))) / numMatches;
-            cubeScored = (float) ((((autoCubeSw * autoCubeSwExtra) + (autoSwXnum *.5)) * Float.parseFloat(cubeAutoSw) + ((autoCubeSc * autoCubeScExtra) + (autoScXnum *.5)) * Float.parseFloat(cubeAutoSc) + teleCubeSw * Float.parseFloat(cubeTeleSw) + teleCubeSc * Float.parseFloat(cubeTeleSc) + teleOthrNUM * Float.parseFloat(teleOthr) + teleCubeExch * Float.parseFloat(cubeExch)) / numMatches);
-            cubeCollect = (float) ((telePortalNUM * Float.parseFloat(cubeColPort) + teleZoneNUM * Float.parseFloat(cubeColZone) + teleFloorNUM * Float.parseFloat(cubeColFloor) + teleTheirNUM * Float.parseFloat(cubeColStolen) + teleRandomNUM * Float.parseFloat(cubeColRandom)) / numMatches);
-            cubeScore = (float) ((cubeScored) + cubeCollect);
-            switchScore = (float) ((((autoCubeSw * autoCubeSwExtra) + (autoSwXnum *.5)) * Float.parseFloat(cubeAutoSw) + (teleCubeSw * Float.parseFloat(cubeTeleSw)) + (teleOthrNUM * Float.parseFloat(teleOthr)))) / numMatches;
-            scaleScore = (float) ((((autoCubeSc * autoCubeScExtra) + (autoScXnum *.5)) * Float.parseFloat(cubeAutoSc) + teleCubeSc * Float.parseFloat(cubeTeleSc))) / numMatches;
-            exchangeScore = (float) ((teleCubeExch * Float.parseFloat(cubeExch)) / numMatches);
-            weightedScore = ((climbScore* Float.parseFloat(wtClimb) + switchScore * Float.parseFloat(wtCubeScore) + scaleScore * Float.parseFloat(wtCubeScore) + exchangeScore) / numMatches);
-//            Log.e(TAG, "Exch= " + teleCubeExch + "  #Matches=" + numMatches + "  Score=" + String.format("%3.2f", exchangeScore));
-//            Log.w(TAG, team + " **Scores**  Climb = " + String.format("%3. ", climbScore) + "  Cubes Scored = " + String.format("%3.2f", cubeScored) + "  Cubes Collected = " + String.format("%3.2f", cubeCollect) + "  Cubes Score = " + String.format("%3.2f", cubeScore) + "  Combined Score = " + String.format("%3.2f", weightedScore));
+            climbScore = (float) (((climbH1 * Float.parseFloat(climbHAB1) + climbH2 * Float.parseFloat(climbHAB2) + climbH3 * Float.parseFloat(climbHAB3)  + climbH0 * Float.parseFloat(climbHAB0)) + (lift1Num * Float.parseFloat(climbLift1)) + (lift2Num * Float.parseFloat(climbLift2))) + (liftedNum * Float.parseFloat(climbLifted))) / numMatches;
+            cargoScore = (float) ((cargL1 * Float.parseFloat(cargo_L1)) + (cargL2 * Float.parseFloat(cargo_L2)) + (cargL3 * Float.parseFloat(cargo_L3)));
+            //Todo - negative for Dropped
+            panelsScore = (float) ((panL1 * Float.parseFloat(panels_L1)) + (panL2 * Float.parseFloat(panels_L2)) + (panL3 * Float.parseFloat(panels_L3)));
+            combinedScore = ((climbScore* Float.parseFloat(wtClimb) + (cargoScore * Float.parseFloat(wtCargo)) + (panelsScore * Float.parseFloat(wtPanels))) / numMatches);
         } else {
             climbScore = 0;
-            cubeScore = 0;
-            weightedScore = 0;
-            switchScore = 0;
-            scaleScore = 0;
-            exchangeScore = 0;
+            cargoScore = 0;
+            combinedScore = 0;
+            panelsScore = 0;
         }
         String tNumber="";
         for (int i = 0; i < team_Scores.size(); i++) {    // load by sorted scores
@@ -1090,11 +1296,9 @@ public boolean onCreateOptionsMenu(Menu menu) {
             if (score_data.getTeamNum().matches(team)) {
 //                Log.w(TAG, "score team=" + score_data.getTeamNum());
                 score_data.setClimbScore(climbScore);           // Save
-                score_data.setCubeScore(cubeScore);             //  all
-                score_data.setWeightedScore(weightedScore);     //   scores
-                score_data.setSwitchScore(switchScore);         //
-                score_data.setScaleScore(scaleScore);           //
-                score_data.setExchangeScore(exchangeScore);     //
+                score_data.setCargoScore(cargoScore);           //  all
+                score_data.setCombinedScore(combinedScore);     //   scores
+                score_data.setPanelsScore(panelsScore);         //
             }
         }
     }
@@ -1141,11 +1345,11 @@ public boolean onCreateOptionsMenu(Menu menu) {
             curScrTeam.setTeamName(team_inst.getTeam_name());
 //            Log.w(TAG, curScrTeam.getTeamNum() + "  " + curScrTeam.getTeamName());
             curScrTeam.setClimbScore((float) 0);
-            curScrTeam.setCubeScore((float) 0);
-            curScrTeam.setWeightedScore((float) 0);
-            curScrTeam.setSwitchScore((float) 0);
-            curScrTeam.setScaleScore((float) 0);
-            curScrTeam.setExchangeScore((float) 0);
+            curScrTeam.setCargoScore((float) 0);
+            curScrTeam.setCombinedScore((float) 0);
+//            curScrTeam.setSwitchScore((float) 0);
+//            curScrTeam.setScaleScore((float) 0);
+            curScrTeam.setPanelsScore((float) 0);
             team_Scores.add(i, curScrTeam);
         } // end For
         Log.w(TAG, "#Scores = " + team_Scores.size());
@@ -1165,25 +1369,25 @@ public boolean onCreateOptionsMenu(Menu menu) {
                     radio_Climb = (RadioButton) findViewById(R.id.radio_Climb);
                     radio_Climb.performClick();         // "force" radio button click
                     break;
-                case "Cubes":
-                    radio_Cubes = (RadioButton) findViewById(R.id.radio_Cubes);
-                    radio_Cubes.performClick();         // "force" radio button click
+                case "Cargo":
+                    radio_Cargo = (RadioButton) findViewById(R.id.radio_Cargo);
+                    radio_Cargo.performClick();         // "force" radio button click
                     break;
                 case "Combined":
                     radio_Weight = (RadioButton) findViewById(R.id.radio_Weight);
                     radio_Weight.performClick();         // "force" radio button click
                     break;
-                case "Switch":
-                    radio_Switch = (RadioButton) findViewById(R.id.radio_Switch);
-                    radio_Switch.performClick();         // "force" radio button click
-                    break;
-                case "Scale":
-                    radio_Scale = (RadioButton) findViewById(R.id.radio_Scale);
-                    radio_Scale.performClick();         // "force" radio button click
-                    break;
-                case "Exchange":
-                    radio_Exchange = (RadioButton) findViewById(R.id.radio_Exchange);
-                    radio_Exchange.performClick();         // "force" radio button click
+//                case "Switch":
+//                    radio_pGt1 = (RadioButton) findViewById(R.id.radio_pGt1);
+//                    radio_pGt1.performClick();         // "force" radio button click
+//                    break;
+//                case "Scale":
+//                    radio_cGt1 = (RadioButton) findViewById(R.id.radio_cGt1);
+//                    radio_cGt1.performClick();         // "force" radio button click
+//                    break;
+                case "Panels":
+                    radio_Panels = (RadioButton) findViewById(R.id.radio_Panels);
+                    radio_Panels.performClick();         // "force" radio button click
                     break;
                 default:                //
                     Log.e(TAG, "*** Invalid Type " + sortType);

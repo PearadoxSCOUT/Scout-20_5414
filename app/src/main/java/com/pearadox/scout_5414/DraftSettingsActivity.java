@@ -6,28 +6,26 @@ import android.util.Log;
 
 public class DraftSettingsActivity extends AppCompatActivity {
     String TAG = "DraftSettingsActivity";        // This CLASS name
-    public static final String  CUBE_PREF_AUTOSW =   "prefCube_autoSw";
-    public static final String  CUBE_PREF_AUTOSC =   "prefCube_autoSc";
-    public static final String  CUBE_PREF_TELESW =   "prefCube_teleSw";
-    public static final String  CUBE_PREF_TELESC =   "prefCube_teleSc";
-    public static final String  CUBE_PREF_OTHER =    "prefCube_othr";
-    public static final String  CUBE_PREF_EXCHANGE = "prefCube_exchange";
+    public static final String  CARGO_PREF_LEVEL1 =  "prefCargo_L1";
+    public static final String  CARGO_PREF_LEVEL2 =  "prefCargo_L2";
+    public static final String  CARGO_PREF_LEVEL3 =  "prefCargo_L3";
 
-    public static final String  CUBECOL_PREF_PORTAL = "prefCubeCol_portal";
-    public static final String  CUBECOL_PREF_ZONE =   "prefCubeCol_zone";
-    public static final String  CUBECOL_PREF_FLOOR =  "prefCubeCol_floor";
-    public static final String  CUBECOL_PREF_STOLEN = "prefCubeCol_stolen";
-    public static final String  CUBECOL_PREF_RANDOM = "prefCubeCol_random";
+    public static final String  PANELS_PREF_LEVEL1 = "prefPanel_L1";
+    public static final String  PANELS_PREF_LEVEL2 = "prefPanel_L2";
+    public static final String  PANELS_PREF_LEVEL3 = "prefPanel_L3";
+    public static final String  PANELS_PREF_DROP   = "prefPanel_Drop";
 
-    public static final String  CLIMB_PREF_CLIMBS =  "prefClimb_NumClimbs";
     public static final String  CLIMB_PREF_LIFT1 =  "prefClimb_lift1";
     public static final String  CLIMB_PREF_LIFT2 =  "prefClimb_lift2";
-    public static final String  CLIMB_PREF_PLAT =   "prefClimb_onPlat";
     public static final String  CLIMB_PREF_LIFTED = "prefClimb_lifted";
+    public static final String  CLIMB_PREF_HAB0 =   "prefClimb_HAB0";
+    public static final String  CLIMB_PREF_HAB1 =   "prefClimb_HAB1";
+    public static final String  CLIMB_PREF_HAB2 =   "prefClimb_HAB2";
+    public static final String  CLIMB_PREF_HAB3 =   "prefClimb_HAB3";
 
     public static final String  WEIGHT_PREF_CLIMB =       "prefWeight_climb";
-    public static final String  WEIGHT_PREF_CUBESSWITCH = "prefWeight_cubesSwitch";
-    public static final String  WEIGHT_PREF_CUBESSCALE =  "prefWeight_cubesScale";
+    public static final String  WEIGHT_PREF_CUBESSWITCH = "prefWeight_cargo";
+    public static final String  WEIGHT_PREF_CUBESSCALE =  "prefWeight_panels";
 
     public static final String  ALLIANCE_PICKS_NUM =   "prefAlliance_num";
 
