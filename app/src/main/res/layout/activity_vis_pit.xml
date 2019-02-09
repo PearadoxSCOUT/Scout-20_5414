@@ -178,8 +178,7 @@
         android:id="@+id/chkBox_Pneumatics"
         android:layout_width="140sp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imgView_Traction"
-        android:layout_toEndOf="@+id/chkBox_Lift"
+        android:layout_below="@+id/imgView_Omni"
         android:clickable="false"
         android:text="Pneumatics" />
 
@@ -187,15 +186,17 @@
         android:id="@+id/chkBox_Vision"
         android:layout_width="140sp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imgView_Omni"
-        android:layout_toEndOf="@+id/imgView_Omni"
+        android:layout_marginStart="20dp"
+        android:layout_below="@+id/imgView_Traction"
+        android:layout_toEndOf="@+id/chkBox_Climb"
         android:clickable="false"
         android:text="Vision Camera" />
 
     <CheckBox
         android:id="@+id/chkBox_Climb"
-        android:layout_width="150sp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/chkBox_Lift"
         android:layout_below="@+id/imgView_Traction"
         android:clickable="false"
         android:text="Can Climb" />
@@ -205,7 +206,7 @@
         android:layout_width="140sp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/chkBox_Climb"
+        android:layout_below="@+id/arm_char"
         android:clickable="false"
         android:text="Can Lift Robots" />
 
@@ -225,8 +226,8 @@
         android:id="@+id/chkBox_Ramp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/chkBox_Pneumatics"
-        android:layout_below="@+id/chkBox_Pneumatics"
+        android:layout_alignBottom="@+id/txt_LiftCap"
+        android:layout_toEndOf="@+id/txt_LiftCap"
         android:clickable="false"
         android:text="Ramp" />
 
@@ -234,84 +235,18 @@
         android:id="@+id/chkBox_Hook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10sp"
         android:layout_alignTop="@+id/chkBox_Ramp"
         android:layout_toEndOf="@+id/chkBox_Ramp"
         android:clickable="false"
         android:text="Hook" />
-
-    //**********************************************************
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_LiftCap"
-        android:id="@+id/cube_mech">
-
-        <TextView
-            android:id="@+id/lbl_Sandstorm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sandstorm"
-            android:textColor="@color/brightblue"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <CheckBox
-            android:id="@+id/chkBox_Hab2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:text="Leave HAB level 2"
-            android:textColor="@color/brightblue" />
-
-        <TextView
-            android:id="@+id/lbl_HAB_End"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:clickable="false"
-            android:text="HAB End"
-            android:textColor="@color/orange" />
-
-
-        <CheckBox
-            android:id="@+id/chkBox_HABLvl_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:clickable="false"
-            android:text="Level 2"
-            android:textColor="@color/orange" />
-
-        <CheckBox
-            android:id="@+id/chkBox_HABLvl_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Level 3"
-            android:clickable="false"
-            android:textColor="@color/orange" />
-
-    </LinearLayout>
-    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/cube_mech"
-        android:id="@+id/arm_char"
-        >
-
-
-    </LinearLayout>
-    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-    <LinearLayout
-        android:id="@+id/del_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/arm_char"
-        android:orientation="horizontal">
+        android:layout_below="@+id/chkBox_Climb"
+        android:id="@+id/arm_char">
 
         <CheckBox
             android:id="@+id/chkBox_OffFloor"
@@ -333,71 +268,137 @@
             android:orientation="horizontal">
         </CheckBox>
 
-        <TextView
-            android:id="@+id/lbl_ProgLang"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_marginStart="20dp"
-            android:text="Prog. Language"
-            android:textColor="@color/limegreen"
-            android:textSize="16sp"
-            android:textStyle="bold"></TextView>
-
-        <TextView
-            android:id="@+id/txt_ProgLang"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_marginStart="20dp"
-            android:text="JAVA"
-            android:textColor="@color/white"
-            android:textSize="16sp"></TextView>
 
     </LinearLayout>
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+<LinearLayout
+android:id="@+id/del_type"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_below="@+id/txt_LiftCap"
+android:orientation="horizontal">
+
+<TextView
+    android:id="@+id/lbl_DriveMotor"
+    android:layout_width="wrap_content"
+    android:layout_height="25dp"
+    android:text="Drive Motor"
+    android:textColor="@color/cyan"
+    android:textSize="16sp"
+    android:textStyle="bold"></TextView>
+
+<TextView
+    android:id="@+id/txt_DriveMotor"
+    android:layout_width="80dp"
+    android:layout_height="25dp"
+    android:layout_marginStart= "10sp"
+    android:text="Mini-CIM"
+    android:textColor="@color/white"
+    android:textSize="16sp" />
+
+<TextView
+    android:id="@+id/lbl_Speed"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:text="Speed (ft/sec.)"
+    android:textColor="@color/cyan"
+    android:textSize="16sp"
+    android:textStyle="bold" />
+
+<TextView
+    android:id="@+id/txt_Speed"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:text="99"
+    android:textColor="@color/white"
+    android:textSize="16sp" />
+
+<TextView
+    android:id="@+id/lbl_ProgLang"
+    android:layout_width="wrap_content"
+    android:layout_height="25dp"
+    android:layout_marginStart="20dp"
+    android:text="Prog. Language"
+    android:textColor="@color/limegreen"
+    android:textSize="16sp"
+    android:textStyle="bold"></TextView>
+
+<TextView
+    android:id="@+id/txt_ProgLang"
+    android:layout_width="wrap_content"
+    android:layout_height="25dp"
+    android:layout_marginStart="20dp"
+    android:text="JAVA"
+    android:textColor="@color/white"
+    android:textSize="16sp"></TextView>
+
+</LinearLayout>
+
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/del_type"
+    android:id="@+id/cube_mech">
+
+    <TextView
+    android:id="@+id/lbl_Sandstorm"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Sandstorm"
+    android:textColor="@color/brightblue"
+    android:textSize="15sp"
+    android:textStyle="bold" />
+
+    <CheckBox
+    android:id="@+id/chkBox_Hab2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="false"
+    android:text="Leave HAB level 2"
+    android:textColor="@color/brightblue" />
+
+    <TextView
+    android:id="@+id/lbl_HAB_End"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:clickable="false"
+    android:text="HAB End"
+    android:textColor="@color/orange" />
+
+
+    <CheckBox
+    android:id="@+id/chkBox_HABLvl_2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="10dp"
+    android:clickable="false"
+    android:text="Level 2"
+    android:textColor="@color/orange" />
+
+    <CheckBox
+    android:id="@+id/chkBox_HABLvl_3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Level 3"
+    android:clickable="false"
+    android:textColor="@color/orange" />
+</LinearLayout>
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     <LinearLayout
         android:id="@+id/robot_char"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/del_type"
+        android:layout_below="@+id/cube_mech"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/lbl_DriveMotor"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:text="Drive Motor"
-            android:textColor="@color/cyan"
-            android:textSize="16sp"
-            android:textStyle="bold"></TextView>
-
-        <TextView
-            android:id="@+id/txt_DriveMotor"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
-            android:text="Mini-CIM"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/lbl_Speed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="Speed (ft/sec.)"
-            android:textColor="@color/cyan"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txt_Speed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="99"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
 
     </LinearLayout>
 

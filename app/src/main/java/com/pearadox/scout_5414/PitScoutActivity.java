@@ -495,7 +495,7 @@ pitData Pit_Data = new pitData();
         btn_Save.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.w(TAG, "Save Button Listener");
-                if (txtEd_Height.length() > 0 && totalWheels >= 4) {        // required
+                if ((txtEd_Height.length() > 0 && totalWheels >= 4) && (spinner_ssMode.getSelectedItemPosition() > 0) && (spinner_Lang.getSelectedItemPosition() > 0)) {        // required
 
                     Spinner spinner_Team = (Spinner) findViewById(R.id.spinner_Team);
                     storePitData();           // Put all the Pit data collected in Pit object

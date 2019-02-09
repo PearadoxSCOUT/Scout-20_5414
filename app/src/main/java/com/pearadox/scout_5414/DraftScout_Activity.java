@@ -39,6 +39,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -437,17 +439,17 @@ public class DraftScout_Activity extends AppCompatActivity {
                 txt_Formula.setText(form);
                 break;
             case "Cargo":
-                form = "(" + cargo_L1 +"* cargL1) + (" + cargo_L2 + "* cargL2) + (" + cargo_L3 + "* cargL3) /# matches";
+                form = "((" + cargo_L1 +"* cargL1) + (" + cargo_L2 + "* cargL2) + (" + cargo_L3 + "* cargL3)) /# matches";
                 lbl_Formula.setTextColor(Color.parseColor("#ee00ee"));      // magenta
                 txt_Formula.setText(form);
                 break;
             case "Combined":
-                form = "(" + wtClimb + "*climbScore) + (" + wtCargo + "*cargoScore) + (" + wtPanels + "*panelScore) / #matches";
+                form = "((" + wtClimb + "*climbScore) + (" + wtCargo + "*cargoScore) + (" + wtPanels + "*panelScore)) / #matches";
                 lbl_Formula.setTextColor(Color.parseColor("#ff0000"));      // red
                 txt_Formula.setText(form);
                 break;
             case "Panels":
-                form = "(" + panels_L1 +"* panL1) + (" + panels_L2 + "* panL2) + (" + panels_L3 + "* panL3) + (" + panels_Drop +"* drop) " + "/# matches";
+                form = "((" + panels_L1 +"* panL1) + (" + panels_L2 + "* panL2) + (" + panels_L3 + "* panL3) + (" + panels_Drop +"* dropped)) " + "/# matches";
                 lbl_Formula.setTextColor(Color.parseColor("#a8a8a8"));      /// grey
                 txt_Formula.setText(form);
                 break;
@@ -834,31 +836,55 @@ public boolean onCreateOptionsMenu(Menu menu) {
             bW.write(" \n" + "\n" + (char)12);        // NL & FF
 
             //Todo Cargo & Climb
-//            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
-//            bW.write(underScore + "  SWITCH  " + underScore +  "\n \n");
-//            //  Switch sort
-//            sortType = "Switch";
-//            Collections.sort(team_Scores, new Comparator<Scores>() {
-//                @Override
-//                public int compare(Scores c1, Scores c2) {
-//                    return Float.compare(c1.getSwitchScore(), c2.getSwitchScore());
-//                }
-//            });
-//            Collections.reverse(team_Scores);   // Descending
-//            loadTeams();
-//            for (int i = 0; i < numPicks; i++) {    // load by sorted scores
-//                score_inst = team_Scores.get(i);
-////                Log.w(TAG, " Scores = " + score_inst.teamNum + " " + score_inst.switchScore + " " + score_inst.scaleScore + " " + score_inst.panelsScore );
-//                tNumb = score_inst.getTeamNum();
-//                tName = score_inst.getTeamName();
-//                tName = tName + blanks.substring(0, (36 - tName.length()));
-//                totalScore = "[" + String.format("%3.2f", score_inst.getSwitchScore()) + "]";
-//                teamData(tNumb);   // Get Team's Match Data
-//                bW.write(String.format("%2d", i+1) + ") " + tNumb + "-" + tName + " \t (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ") " +  totalScore + "\t");
-//                bW.write("A⚻ " + sandCargL1 + " ➽ " + sandCargL3 + "  T⚻ " + teleCargoL1 + " Oth⚻ " + teleCargoL2+ "\n" + DS);
-//            } // end For # teams
-//            bW.write(" \n" + "\n" + (char)12);        // NL & FF
-//            //=====================================================================
+            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
+            bW.write(underScore + "  CARGO  " + underScore +  "\n \n");
+            //  Switch sort
+            sortType = "Switch";
+            Collections.sort(team_Scores, new Comparator<Scores>() {
+                @Override
+                public int compare(Scores c1, Scores c2) {
+                    return Float.compare(c1.getCargoScore(), c2.getCargoScore());
+                }
+            });
+            Collections.reverse(team_Scores);   // Descending
+            loadTeams();
+            for (int i = 0; i < numPicks; i++) {    // load by sorted scores
+                score_inst = team_Scores.get(i);
+                tNumb = score_inst.getTeamNum();
+                tName = score_inst.getTeamName();
+                tName = tName + blanks.substring(0, (36 - tName.length()));
+                totalScore = "[" + String.format("%3.2f", score_inst.getCargoScore()) + "]";
+                teamData(tNumb);   // Get Team's Match Data
+                bW.write(String.format("%2d", i+1) + ") " + tNumb + "-" + StringUtils.rightPad(tName,30) + "\t (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ") " +  totalScore + "\t");
+                bW.write("⚫Sand ¹" + sandCargL1 + " ₂" + sandCargL2 + " ₃" + sandCargL3 + "  Tele ¹" + teleCargoL1 + " ₂" + teleCargoL2+ " ₃" + teleCargoL3 + "\n" + DS);
+            } // end For # teams
+            bW.write(" \n" + "\n" + (char)12);        // NL & FF
+            //=====================================================================
+
+            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
+            bW.write(underScore + "  PANELS  " + underScore +  "\n" + DS);
+            //  Panels sort
+            sortType = "Panels";
+            Collections.sort(team_Scores, new Comparator<Scores>() {
+                @Override
+                public int compare(Scores c1, Scores c2) {
+                    return Float.compare(c1.getPanelsScore(), c2.getPanelsScore());
+                }
+            });
+            Collections.reverse(team_Scores);   // Descending
+            loadTeams();
+            for (int i = 0; i < numPicks; i++) {    // load by sorted scores
+                score_inst = team_Scores.get(i);
+                tNumb = score_inst.getTeamNum();
+                tName = score_inst.getTeamName();
+                tName = tName + blanks.substring(0, (36 - tName.length()));
+                totalScore = "[" + String.format("%3.2f", score_inst.getPanelsScore()) + "]";
+                teamData(tNumb);   // Get Team's Match Data
+                bW.write(String.format("%2d", i+1) +") " + tNumb + "-" + tName + "\t  (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ")  " +  totalScore);
+                bW.write( "☢ Sand  ₁" + sandPanelL1 + " ₂" + sandPanelL2 + " ₃" + sandPanelL3 + "  Tele  ₁" + telePanL1 + " ₂" + telePanL2 + " ₃" + telePanL3 + "\n" + DS);
+            } // end For # teams
+            bW.write(" \n" + "\n" + (char)12);        // NL & FF
+            //=====================================================================
 //
 //            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
 //            bW.write(underScore + "  SCALE  " + underScore +  "\n \n");
@@ -885,30 +911,6 @@ public boolean onCreateOptionsMenu(Menu menu) {
 //            bW.write(" \n" + "\n" + (char)12);        // NL & FF
 //            //=====================================================================
 //
-            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
-            bW.write(underScore + "  PANELS  " + underScore +  "\n" + DS);
-            //  Panels sort
-            sortType = "Panels";
-            Collections.sort(team_Scores, new Comparator<Scores>() {
-                @Override
-                public int compare(Scores c1, Scores c2) {
-                    return Float.compare(c1.getPanelsScore(), c2.getPanelsScore());
-                }
-            });
-            Collections.reverse(team_Scores);   // Descending
-            loadTeams();
-            for (int i = 0; i < numPicks; i++) {    // load by sorted scores
-                score_inst = team_Scores.get(i);
-                tNumb = score_inst.getTeamNum();
-                tName = score_inst.getTeamName();
-                tName = tName + blanks.substring(0, (36 - tName.length()));
-                totalScore = "[" + String.format("%3.2f", score_inst.getPanelsScore()) + "]";
-                teamData(tNumb);   // Get Team's Match Data
-                bW.write(String.format("%2d", i+1) +") " + tNumb + "-" + tName + "\t  (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ")  " +  totalScore);
-                bW.write( "☢ Sand  ₁" + sandPanelL1 + " ₂" + sandPanelL2 + " ₃" + sandPanelL3 + "  Tele  ₁" + telePanL1 + " ₂" + telePanL2 + " ₃" + telePanL3 + "\n" + DS);
-            } // end For # teams
-//            bW.write(" \n" + "\n" + (char)12);        // NL & FF
-            //=====================================================================
 
 
             bW.write(" \n" + "\n");        // NL
@@ -1218,7 +1220,8 @@ public boolean onCreateOptionsMenu(Menu menu) {
                 if (match_inst.isTele_lifted()) {
                     lift1Num++;
                 }
-//                if (match_inst.isTele_lift_two()) {
+// ToDo - Lift 2
+                //                if (match_inst.isTele_lift_two()) {
 //                    lift2Num++;
 //                }
                 if (match_inst.isTele_got_lift()) {
@@ -1281,11 +1284,10 @@ public boolean onCreateOptionsMenu(Menu menu) {
         float climbScore = 0; float cubeScored = 0; float cubeCollect = 0; float cargoScore = 0; float combinedScore = 0; float switchScore = 0; float scaleScore = 0; float panelsScore = 0;
 //        Log.e(TAG, team + " "+ climbs + " "+ lift1Num + " "+ lift2Num + " " + platNum +  " " + liftedNum + " / " + numMatches);
         if (numMatches > 0) {
-            climbScore = (float) (((climbH1 * Float.parseFloat(climbHAB1) + climbH2 * Float.parseFloat(climbHAB2) + climbH3 * Float.parseFloat(climbHAB3)  + climbH0 * Float.parseFloat(climbHAB0)) + (lift1Num * Float.parseFloat(climbLift1)) + (lift2Num * Float.parseFloat(climbLift2))) + (liftedNum * Float.parseFloat(climbLifted))) / numMatches;
-            cargoScore = (float) ((cargL1 * Float.parseFloat(cargo_L1)) + (cargL2 * Float.parseFloat(cargo_L2)) + (cargL3 * Float.parseFloat(cargo_L3)));
-            //Todo - negative for Dropped
-            panelsScore = (float) ((panL1 * Float.parseFloat(panels_L1)) + (panL2 * Float.parseFloat(panels_L2)) + (panL3 * Float.parseFloat(panels_L3)));
-            combinedScore = ((climbScore* Float.parseFloat(wtClimb) + (cargoScore * Float.parseFloat(wtCargo)) + (panelsScore * Float.parseFloat(wtPanels))) / numMatches);
+            climbScore = (float) (((climbH1 * Float.parseFloat(climbHAB1) + climbH2 * Float.parseFloat(climbHAB2) + climbH3 * Float.parseFloat(climbHAB3)  + climbH0 * Float.parseFloat(climbHAB0)) + (lift1Num * Float.parseFloat(climbLift1)) + (lift2Num * Float.parseFloat(climbLift2)) + (liftedNum * Float.parseFloat(climbLifted))) / numMatches);
+            cargoScore = (float) (((cargL1 * Float.parseFloat(cargo_L1)) + (cargL2 * Float.parseFloat(cargo_L2)) + (cargL3 * Float.parseFloat(cargo_L3)))  / numMatches);
+            panelsScore = (float) (((panL1 * Float.parseFloat(panels_L1)) + (panL2 * Float.parseFloat(panels_L2)) + (panL3 * Float.parseFloat(panels_L3)) + (dropped * Float.parseFloat(panels_Drop))) / numMatches);
+            combinedScore = (((climbScore * Float.parseFloat(wtClimb) + (cargoScore * Float.parseFloat(wtCargo)) + (panelsScore * Float.parseFloat(wtPanels)))) / numMatches);
         } else {
             climbScore = 0;
             cargoScore = 0;
