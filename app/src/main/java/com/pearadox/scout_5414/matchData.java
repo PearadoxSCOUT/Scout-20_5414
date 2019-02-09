@@ -17,8 +17,18 @@ public class matchData implements Serializable {
     private boolean sand_mode;              // Do they have Autonomous mode?
     private boolean sand_leftHAB;           // Did they leave HAB
     private boolean sand_leftHAB2;          // Did they start from Hab level 2
-    private String  sand_comment;           // Auto comment
+    private boolean sand_PU2ndPanel;        // Second game piece - Panel
+    private boolean sand_PU2ndCargo;        // Second game piece - Cargo
+    private boolean sand_PU2ndPlSta;        // 2nd from Player Station
+    private boolean sand_PU2ndCorral;       // 2nd from Corral
+    private boolean sand_PU2ndFloor;        // 2nd from Floor
+    private boolean sand_PU3rdPanel;        // Second game piece - Panel
+    private boolean sand_PU3rdCargo;        // Second game piece - Cargo
+    private boolean sand_PU3rdPlSta;        // 3rd from Player Station
+    private boolean sand_PU3rdCorral;       // 3rd from Corral
+    private boolean sand_PU3rdFloor;        // 3rd from Floor
     private int     sand_num_Dropped;       // How many Panels dropped?
+    private String  sand_comment;           // Auto comment
 
     private boolean sand_LeftRocket_LPan1;  // L-Rocket L-Panel#1
     private boolean sand_LeftRocket_LPan2;  // L-Rocket L-Panel#2
@@ -114,6 +124,7 @@ public class matchData implements Serializable {
     private boolean tele_Panel_playSta;     // Did they pick up Panel(s) from Player Station
     private boolean tele_got_lift;          // Did they get lifted to higher HAB Level
     private boolean tele_lifted;            // Did they lift a robot to higher HAB Level
+    private int tele_liftedNum;             // How many lifted?
     private int     tele_level_num;         // Ended on What HAB Level (0-3)
     private int     tele_num_Penalties;     // How many penalties received?
     private int     tele_num_Dropped;       // How many Panels dropped?
@@ -137,7 +148,7 @@ public class matchData implements Serializable {
 //  Constructor
 
 
-    public matchData(String match, String team_num, boolean pre_cargo, boolean pre_panel, String pre_startPos, int pre_PlayerSta, boolean sand_mode, boolean sand_leftHAB, boolean sand_leftHAB2, String sand_comment, int sand_num_Dropped, boolean sand_LeftRocket_LPan1, boolean sand_LeftRocket_LPan2, boolean sand_LeftRocket_LPan3, boolean sand_LeftRocket_RPan1, boolean sand_LeftRocket_RPan2, boolean sand_LeftRocket_RPan3, boolean sand_LeftRocket_LCarg1, boolean sand_LeftRocket_LCarg2, boolean sand_LeftRocket_LCarg3, boolean sand_LeftRocket_RCarg1, boolean sand_LeftRocket_RCarg2, boolean sand_LeftRocket_RCarg3, boolean sand_CargoLPan1, boolean sand_CargoLPan2, boolean sand_CargoLPan3, boolean sand_CargoRPan1, boolean sand_CargoRPan2, boolean sand_CargoRPan3, boolean sand_CargoLCarg1, boolean sand_CargoLCarg2, boolean sand_CargoLCarg3, boolean sand_CargoRCarg1, boolean sand_CargoRCarg2, boolean sand_CargoRCarg3, boolean sand_CargoEndLPanel, boolean sand_CargoEndLCargo, boolean sand_CargoEndRPanel, boolean sand_CargoEndRCargo, boolean sand_RghtRocket_LPan1, boolean sand_RghtRocket_LPan2, boolean sand_RghtRocket_LPan3, boolean sand_RghtRocket_RPan1, boolean sand_RghtRocket_RPan2, boolean sand_RghtRocket_RPan3, boolean sand_RghtRocket_LCarg1, boolean sand_RghtRocket_LCarg2, boolean sand_RghtRocket_LCarg3, boolean sand_RghtRocket_RCarg1, boolean sand_RghtRocket_RCarg2, boolean sand_RghtRocket_RCarg3, boolean tele_LeftRocket_LPan1, boolean tele_LeftRocket_LPan2, boolean tele_LeftRocket_LPan3, boolean tele_LeftRocket_RPan1, boolean tele_LeftRocket_RPan2, boolean tele_LeftRocket_RPan3, boolean tele_LeftRocket_LCarg1, boolean tele_LeftRocket_LCarg2, boolean tele_LeftRocket_LCarg3, boolean tele_LeftRocket_RCarg1, boolean tele_LeftRocket_RCarg2, boolean tele_LeftRocket_RCarg3, boolean tele_CargoLPan1, boolean tele_CargoLPan2, boolean tele_CargoLPan3, boolean tele_CargoRPan1, boolean tele_CargoRPan2, boolean tele_CargoRPan3, boolean tele_CargoLCarg1, boolean tele_CargoLCarg2, boolean tele_CargoLCarg3, boolean tele_CargoRCarg1, boolean tele_CargoRCarg2, boolean tele_CargoRCarg3, boolean tele_CargoEndLPanel, boolean tele_CargoEndLCargo, boolean tele_CargoEndRPanel, boolean tele_CargoEndRCargo, boolean tele_RghtRocket_LPan1, boolean tele_RghtRocket_LPan2, boolean tele_RghtRocket_LPan3, boolean tele_RghtRocket_RPan1, boolean tele_RghtRocket_RPan2, boolean tele_RghtRocket_RPan3, boolean tele_RghtRocket_LCarg1, boolean tele_RghtRocket_LCarg2, boolean tele_RghtRocket_LCarg3, boolean tele_RghtRocket_RCarg1, boolean tele_RghtRocket_RCarg2, boolean tele_RghtRocket_RCarg3, boolean tele_cargo_floor, boolean tele_cargo_playSta, boolean tele_cargo_Corral, boolean tele_Panel_floor, boolean tele_Panel_playSta, boolean tele_got_lift, boolean tele_lifted, int tele_level_num, int tele_num_Penalties, int tele_num_Dropped, String tele_comment, boolean final_lostParts, boolean final_lostComms, boolean final_puCargoDef, boolean final_defLast30, boolean final_defense_good, boolean final_def_Block, boolean final_def_RocketInt, String final_comment, String final_studID, String final_dateTime) {
+    public matchData(String match, String team_num, boolean pre_cargo, boolean pre_panel, String pre_startPos, int pre_PlayerSta, boolean sand_mode, boolean sand_leftHAB, boolean sand_leftHAB2, boolean sand_PU2ndPanel, boolean sand_PU2ndCargo, boolean sand_PU2ndPlSta, boolean sand_PU2ndCorral, boolean sand_PU2ndFloor, boolean sand_PU3rdPanel, boolean sand_PU3rdCargo, boolean sand_PU3rdPlSta, boolean sand_PU3rdCorral, boolean sand_PU3rdFloor, int sand_num_Dropped, String sand_comment, boolean sand_LeftRocket_LPan1, boolean sand_LeftRocket_LPan2, boolean sand_LeftRocket_LPan3, boolean sand_LeftRocket_RPan1, boolean sand_LeftRocket_RPan2, boolean sand_LeftRocket_RPan3, boolean sand_LeftRocket_LCarg1, boolean sand_LeftRocket_LCarg2, boolean sand_LeftRocket_LCarg3, boolean sand_LeftRocket_RCarg1, boolean sand_LeftRocket_RCarg2, boolean sand_LeftRocket_RCarg3, boolean sand_CargoLPan1, boolean sand_CargoLPan2, boolean sand_CargoLPan3, boolean sand_CargoRPan1, boolean sand_CargoRPan2, boolean sand_CargoRPan3, boolean sand_CargoLCarg1, boolean sand_CargoLCarg2, boolean sand_CargoLCarg3, boolean sand_CargoRCarg1, boolean sand_CargoRCarg2, boolean sand_CargoRCarg3, boolean sand_CargoEndLPanel, boolean sand_CargoEndLCargo, boolean sand_CargoEndRPanel, boolean sand_CargoEndRCargo, boolean sand_RghtRocket_LPan1, boolean sand_RghtRocket_LPan2, boolean sand_RghtRocket_LPan3, boolean sand_RghtRocket_RPan1, boolean sand_RghtRocket_RPan2, boolean sand_RghtRocket_RPan3, boolean sand_RghtRocket_LCarg1, boolean sand_RghtRocket_LCarg2, boolean sand_RghtRocket_LCarg3, boolean sand_RghtRocket_RCarg1, boolean sand_RghtRocket_RCarg2, boolean sand_RghtRocket_RCarg3, boolean tele_LeftRocket_LPan1, boolean tele_LeftRocket_LPan2, boolean tele_LeftRocket_LPan3, boolean tele_LeftRocket_RPan1, boolean tele_LeftRocket_RPan2, boolean tele_LeftRocket_RPan3, boolean tele_LeftRocket_LCarg1, boolean tele_LeftRocket_LCarg2, boolean tele_LeftRocket_LCarg3, boolean tele_LeftRocket_RCarg1, boolean tele_LeftRocket_RCarg2, boolean tele_LeftRocket_RCarg3, boolean tele_CargoLPan1, boolean tele_CargoLPan2, boolean tele_CargoLPan3, boolean tele_CargoRPan1, boolean tele_CargoRPan2, boolean tele_CargoRPan3, boolean tele_CargoLCarg1, boolean tele_CargoLCarg2, boolean tele_CargoLCarg3, boolean tele_CargoRCarg1, boolean tele_CargoRCarg2, boolean tele_CargoRCarg3, boolean tele_CargoEndLPanel, boolean tele_CargoEndLCargo, boolean tele_CargoEndRPanel, boolean tele_CargoEndRCargo, boolean tele_RghtRocket_LPan1, boolean tele_RghtRocket_LPan2, boolean tele_RghtRocket_LPan3, boolean tele_RghtRocket_RPan1, boolean tele_RghtRocket_RPan2, boolean tele_RghtRocket_RPan3, boolean tele_RghtRocket_LCarg1, boolean tele_RghtRocket_LCarg2, boolean tele_RghtRocket_LCarg3, boolean tele_RghtRocket_RCarg1, boolean tele_RghtRocket_RCarg2, boolean tele_RghtRocket_RCarg3, boolean tele_cargo_floor, boolean tele_cargo_playSta, boolean tele_cargo_Corral, boolean tele_Panel_floor, boolean tele_Panel_playSta, boolean tele_got_lift, boolean tele_lifted, int tele_liftedNum, int tele_level_num, int tele_num_Penalties, int tele_num_Dropped, String tele_comment, boolean final_lostParts, boolean final_lostComms, boolean final_puCargoDef, boolean final_defLast30, boolean final_defense_good, boolean final_def_Block, boolean final_def_RocketInt, String final_comment, String final_studID, String final_dateTime) {
         this.match = match;
         this.team_num = team_num;
         this.pre_cargo = pre_cargo;
@@ -147,8 +158,18 @@ public class matchData implements Serializable {
         this.sand_mode = sand_mode;
         this.sand_leftHAB = sand_leftHAB;
         this.sand_leftHAB2 = sand_leftHAB2;
-        this.sand_comment = sand_comment;
+        this.sand_PU2ndPanel = sand_PU2ndPanel;
+        this.sand_PU2ndCargo = sand_PU2ndCargo;
+        this.sand_PU2ndPlSta = sand_PU2ndPlSta;
+        this.sand_PU2ndCorral = sand_PU2ndCorral;
+        this.sand_PU2ndFloor = sand_PU2ndFloor;
+        this.sand_PU3rdPanel = sand_PU3rdPanel;
+        this.sand_PU3rdCargo = sand_PU3rdCargo;
+        this.sand_PU3rdPlSta = sand_PU3rdPlSta;
+        this.sand_PU3rdCorral = sand_PU3rdCorral;
+        this.sand_PU3rdFloor = sand_PU3rdFloor;
         this.sand_num_Dropped = sand_num_Dropped;
+        this.sand_comment = sand_comment;
         this.sand_LeftRocket_LPan1 = sand_LeftRocket_LPan1;
         this.sand_LeftRocket_LPan2 = sand_LeftRocket_LPan2;
         this.sand_LeftRocket_LPan3 = sand_LeftRocket_LPan3;
@@ -236,6 +257,7 @@ public class matchData implements Serializable {
         this.tele_Panel_playSta = tele_Panel_playSta;
         this.tele_got_lift = tele_got_lift;
         this.tele_lifted = tele_lifted;
+        this.tele_liftedNum = tele_liftedNum;
         this.tele_level_num = tele_level_num;
         this.tele_num_Penalties = tele_num_Penalties;
         this.tele_num_Dropped = tele_num_Dropped;
@@ -340,12 +362,84 @@ public matchData() {
         this.sand_leftHAB2 = sand_leftHAB2;
     }
 
-    public String getSand_comment() {
-        return sand_comment;
+    public boolean isSand_PU2ndPanel() {
+        return sand_PU2ndPanel;
     }
 
-    public void setSand_comment(String sand_comment) {
-        this.sand_comment = sand_comment;
+    public void setSand_PU2ndPanel(boolean sand_PU2ndPanel) {
+        this.sand_PU2ndPanel = sand_PU2ndPanel;
+    }
+
+    public boolean isSand_PU2ndCargo() {
+        return sand_PU2ndCargo;
+    }
+
+    public void setSand_PU2ndCargo(boolean sand_PU2ndCargo) {
+        this.sand_PU2ndCargo = sand_PU2ndCargo;
+    }
+
+    public boolean isSand_PU2ndPlSta() {
+        return sand_PU2ndPlSta;
+    }
+
+    public void setSand_PU2ndPlSta(boolean sand_PU2ndPlSta) {
+        this.sand_PU2ndPlSta = sand_PU2ndPlSta;
+    }
+
+    public boolean isSand_PU2ndCorral() {
+        return sand_PU2ndCorral;
+    }
+
+    public void setSand_PU2ndCorral(boolean sand_PU2ndCorral) {
+        this.sand_PU2ndCorral = sand_PU2ndCorral;
+    }
+
+    public boolean isSand_PU2ndFloor() {
+        return sand_PU2ndFloor;
+    }
+
+    public void setSand_PU2ndFloor(boolean sand_PU2ndFloor) {
+        this.sand_PU2ndFloor = sand_PU2ndFloor;
+    }
+
+    public boolean isSand_PU3rdPanel() {
+        return sand_PU3rdPanel;
+    }
+
+    public void setSand_PU3rdPanel(boolean sand_PU3rdPanel) {
+        this.sand_PU3rdPanel = sand_PU3rdPanel;
+    }
+
+    public boolean isSand_PU3rdCargo() {
+        return sand_PU3rdCargo;
+    }
+
+    public void setSand_PU3rdCargo(boolean sand_PU3rdCargo) {
+        this.sand_PU3rdCargo = sand_PU3rdCargo;
+    }
+
+    public boolean isSand_PU3rdPlSta() {
+        return sand_PU3rdPlSta;
+    }
+
+    public void setSand_PU3rdPlSta(boolean sand_PU3rdPlSta) {
+        this.sand_PU3rdPlSta = sand_PU3rdPlSta;
+    }
+
+    public boolean isSand_PU3rdCorral() {
+        return sand_PU3rdCorral;
+    }
+
+    public void setSand_PU3rdCorral(boolean sand_PU3rdCorral) {
+        this.sand_PU3rdCorral = sand_PU3rdCorral;
+    }
+
+    public boolean isSand_PU3rdFloor() {
+        return sand_PU3rdFloor;
+    }
+
+    public void setSand_PU3rdFloor(boolean sand_PU3rdFloor) {
+        this.sand_PU3rdFloor = sand_PU3rdFloor;
     }
 
     public int getSand_num_Dropped() {
@@ -354,6 +448,14 @@ public matchData() {
 
     public void setSand_num_Dropped(int sand_num_Dropped) {
         this.sand_num_Dropped = sand_num_Dropped;
+    }
+
+    public String getSand_comment() {
+        return sand_comment;
+    }
+
+    public void setSand_comment(String sand_comment) {
+        this.sand_comment = sand_comment;
     }
 
     public boolean isSand_LeftRocket_LPan1() {
@@ -1052,6 +1154,14 @@ public matchData() {
         this.tele_lifted = tele_lifted;
     }
 
+    public int getTele_liftedNum() {
+        return tele_liftedNum;
+    }
+
+    public void setTele_liftedNum(int tele_liftedNum) {
+        this.tele_liftedNum = tele_liftedNum;
+    }
+
     public int getTele_level_num() {
         return tele_level_num;
     }
@@ -1165,7 +1275,7 @@ public matchData() {
     }
 
 
-//   GLF 2/5/19
+//   GLF 2/9/19
 // End of Getters/Setters
 
 }
