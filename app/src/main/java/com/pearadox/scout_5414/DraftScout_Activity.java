@@ -85,8 +85,7 @@ public class DraftScout_Activity extends AppCompatActivity {
     //    Team[] teams;
     public static int BAnumTeams = 0;                                      // # of teams from Blue Alliance
     String cubeChk = "";
-    String climbChk = "";
-    String climbRatio = "";
+    String climb_HAB0 = ""; String climb_HAB1 = ""; String climb_HAB2 = ""; String climb_HAB3 = "";
     String sandCargL1 = "";
     String sandCargL2 = "";
     String sandCargL3 = "";
@@ -96,11 +95,11 @@ public class DraftScout_Activity extends AppCompatActivity {
     String teleCargoL1 = "";
     String teleCargoL3 = "";
     String mdNumMatches = "";
-    String teleExch = "";
+    String telePanL1 = "";
     String teleCargoL2 = "";
-    String telePort = "";
-    String teleZone = "";
-    String cubeRandom = "";
+    String telePanL2 = "";
+    String telePanL3 = "";
+    String panDropped = "";
     String liftOne = "";
     String liftTwo = "";
     String gotLifted = "";
@@ -433,23 +432,22 @@ public class DraftScout_Activity extends AppCompatActivity {
         getprefs();         // make sure Prefs are up to date
         switch (typ) {
             case "Climb":
-//                Log.e(TAG, "*** CLIMB   cl=" + climbClimbs + " 1=" + climbLift1 + " 2=" + climbLift2 + " pl=" + climbPlat + " was=" + climbLifted);
-                form = "(" + climbHAB1 + "*HAB1 + " + climbHAB2 + "*HAB2 + " + climbHAB3 + "*HAB3 + " + climbHAB0 + "*HAB0 + " +"(Lift1*" + climbLift1 + ") + " +"(Lift2*" + climbLift2 + ") + (WasLifted*" + climbLifted + ")) / # matches";
+                form = "((" + climbHAB1 + "*HAB1) + (" + climbHAB2 + "*HAB2) + (" + climbHAB3 + "*HAB3) + (" + climbHAB0 + "*HAB0)) ✚ " +"((Lift1*" + climbLift1 + ") + " +"(Lift2*" + climbLift2 + ") + (WasLifted*" + climbLifted + ")) / # matches";
                 lbl_Formula.setTextColor(Color.parseColor("#4169e1"));      // blue
                 txt_Formula.setText(form);
                 break;
             case "Cargo":
-                form = cargo_L1 +"* cargL1 +" + cargo_L2 + "* cargL2+" + cargo_L3 + "* cargL3+ /# matches";
+                form = "(" + cargo_L1 +"* cargL1) + (" + cargo_L2 + "* cargL2) + (" + cargo_L3 + "* cargL3) /# matches";
                 lbl_Formula.setTextColor(Color.parseColor("#ee00ee"));      // magenta
                 txt_Formula.setText(form);
                 break;
             case "Combined":
-                form = "((" + wtClimb + "*(climbScore) + " + wtCargo + "*(cargoScore) + " + wtPanels + "*(panelScore) / #matches";
+                form = "(" + wtClimb + "*climbScore) + (" + wtCargo + "*cargoScore) + (" + wtPanels + "*panelScore) / #matches";
                 lbl_Formula.setTextColor(Color.parseColor("#ff0000"));      // red
                 txt_Formula.setText(form);
                 break;
             case "Panels":
-                form = "(" + panels_L1 +"* panL1 +" + panels_L2 + "* panL2+" + panels_L3 + "* panL3) + (" +panels_Drop +")" + "/# matches";
+                form = "(" + panels_L1 +"* panL1) + (" + panels_L2 + "* panL2) + (" + panels_L3 + "* panL3) + (" + panels_Drop +"* drop) " + "/# matches";
                 lbl_Formula.setTextColor(Color.parseColor("#a8a8a8"));      /// grey
                 txt_Formula.setText(form);
                 break;
@@ -652,8 +650,8 @@ public class DraftScout_Activity extends AppCompatActivity {
 
             temp.put("team", tn + " - " + score_inst.getTeamName() + "   (" + mdNumMatches + ")   " +  totalScore);
 //            temp.put("BA", "Rank=" + teams[i].rank + "  " + teams[i].record + "   OPR=" + String.format("%3.1f", (teams[i].opr)) + "    ↑ " + String.format("%3.1f", (teams[i].touchpad)) + "   kPa=" + String.format("%3.1f", (teams[i].pressure)));
-            temp.put("Stats", "Sand ⚫ ¹" + sandCargL1 + " ²" + sandCargL2 + " ³" + sandCargL2 + "  ☢ ¹" + sandPanelL1 + " ²" + sandPanelL2 + " ³" + sandPanelL3 + "  Tele ⚫ ¹" + teleCargoL1 + " ²" + teleCargoL2 +  "  ³" + teleCargoL3 + "  ☢ ¹" + teleExch + " ²" + telePort + " ³" + teleZone);
-            temp.put("BA",  "Climb " + "  " + climbRatio + "  ↕One " + liftOne + "  ↕Two " + liftTwo + "    Was↑ " + gotLifted + "    ▉P/U  " + cubeChk);
+            temp.put("Stats", "Sand ⚫ ¹" + sandCargL1 + " ²" + sandCargL2 + " ³" + sandCargL2 + "  ☢ ¹" + sandPanelL1 + " ²" + sandPanelL2 + " ³" + sandPanelL3 + "    Tele ⚫ ¹" + teleCargoL1 + " ²" + teleCargoL2 +  "  ³" + teleCargoL3 + "  ☢ ¹" + telePanL1 + " ²" + telePanL2 + " ³" + telePanL3  + "  ▼" +panDropped);
+            temp.put("BA",  "Climb HAB ₀" + climb_HAB0 + " ₁" + climb_HAB1 + " ₂" + climb_HAB2 + " ₃" + climb_HAB3 + "    ↕One " + liftOne + "  ↕Two " + liftTwo + "    Was↑ " + gotLifted);
             draftList.add(temp);
         } // End For
         Log.w(TAG, "### Teams ###  : " + draftList.size());
@@ -697,7 +695,7 @@ public class DraftScout_Activity extends AppCompatActivity {
 //
 //                temp.put("team", tn + " - " + teams[i].nickname);
 //                temp.put("BA", "Rank=" + teams[i].rank + "  " + teams[i].record + "   OPR=" + String.format("%3.1f", (teams[i].opr)) + "    ↑ " + String.format("%3.1f", (teams[i].touchpad)) + "   kPa=" + String.format("%3.1f", (teams[i].pressure)));
-//                temp.put("Stats", "Auto Gears=" + sandCargL1 + "  Tele Gears=" + teleCargoL1 + "   Pick up Gears " + cubeChk + "   Climb " + climbChk + "  " + climbRatio);
+//                temp.put("Stats", "Auto Gears=" + sandCargL1 + "  Tele Gears=" + teleCargoL1 + "   Pick up Gears " + cubeChk + "   Climb " + climb_HAB0 + "  " + );
 //                draftList.add(temp);
 //                                                      } // End For
 //                Log.w(TAG, "### Teams ###  : " + draftList.size());
@@ -884,7 +882,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
                 totalScore = "[" + String.format("%3.2f", score_inst.getPanelsScore()) + "]";
                 teamData(tNumb);   // Get Team's Match Data
                 bW.write(String.format("%2d", i+1) +") " + tNumb + " - " + tName + " \t  (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ")   " +  totalScore + "  \t");
-                bW.write( "Exch " + teleExch + "\n" + DS);
+                bW.write( "Exch " + telePanL1 + "\n" + DS);
             } // end For # teams
             bW.write(" \n" + "\n" + (char)12);        // NL & FF
             //=====================================================================
@@ -933,8 +931,8 @@ public boolean onCreateOptionsMenu(Menu menu) {
         Log.i(TAG, "$$$$  teamData  $$$$ " + team);
         int autoCubeSw = 0; int autoCubeSwAtt = 0; int autoCubeSc = 0; int autoCubeScAtt = 0; int autoSwXnum = 0;  int autoScXnum = 0; int autoCubeSwExtra = 0; int autoCubeScExtra = 0;
         int teleCubeSw = 0; int teleCubeSwAtt = 0; int teleCubeSc = 0; int teleCubeScAtt = 0;
-        int teleCubeExch = 0; int teleOthrNUM = 0;  int teleOthrATT = 0; int telePortalNUM = 0; int teleZoneNUM = 0; int teleFloorNUM = 0; int teleTheirNUM = 0; int teleRandomNUM = 0;
-        int climbH0 = 0; int climbH1 = 0; int climbH2 = 0; int climbH3 = 0; int lift1Num = 0; int lift2Num = 0; int liftedNum = 0;
+        int teleCubeExch = 0; int teleOthrNUM = 0;  int teleOthrATT = 0; int telePanL2alNUM = 0; int telePanL3NUM = 0; int teleFloorNUM = 0; int teleTheirNUM = 0; int teleRandomNUM = 0;
+        int climbH0= 0; int climbH1 = 0; int climbH2 = 0; int climbH3 = 0; int lift1Num = 0; int lift2Num = 0; int liftedNum = 0;
         int cargL1 = 0; int cargL2 = 0; int cargL3 =0; int TcargL1 = 0; int TcargL2 = 0; int TcargL3 = 0; int TpanL1 = 0; int TpanL2 = 0; int TpanL3 = 0;
         int numMatches = 0; int panL1 = 0; int panL2 = 0; int panL3 = 0; int dropped=0;
         boolean cube_pu =false;
@@ -1244,14 +1242,18 @@ public boolean onCreateOptionsMenu(Menu menu) {
             teleCargoL1 = String.valueOf(TcargL1);
             teleCargoL2 = String.valueOf(TcargL2);
             teleCargoL3 = String.valueOf(TcargL3);
-            teleExch = String.valueOf(teleCubeExch);
-            telePort = String.valueOf(telePortalNUM);
-            teleZone = String.valueOf(teleZoneNUM);
-            cubeRandom = String.valueOf(teleRandomNUM);
-//            climbRatio = climbs + "/" + climbAttemps;
+            telePanL1 = String.valueOf(TpanL1);
+            telePanL2 = String.valueOf(TpanL2);
+            telePanL3 = String.valueOf(TpanL3);
+            panDropped = String.valueOf(dropped);
+            climb_HAB0 = String.valueOf(climbH0);
+            climb_HAB1 = String.valueOf(climbH1);
+            climb_HAB2 = String.valueOf(climbH2);
+            climb_HAB3 = String.valueOf(climbH3);
             liftOne = String.valueOf(lift1Num);
             liftTwo = String.valueOf(lift2Num);
-           gotLifted = String.valueOf(liftedNum);
+            climb_HAB0 = String.valueOf(climbH0);
+            gotLifted = String.valueOf(liftedNum);
         } else {
             cubeChk = "⎕";
             sandCargL1 = "0";
@@ -1261,16 +1263,16 @@ public boolean onCreateOptionsMenu(Menu menu) {
             sandPanelL2 = "0";
             sandPanelL3 = "0";
             teleCargoL1 = "0";
-            teleCargoL3 = "";
-            teleCargoL2 = "";
-            teleExch = "0";
-            telePort = "0";
-            teleZone  = "0";
-            cubeRandom = "0";
-            climbRatio = "0/0";
+            teleCargoL2 = "0";
+            teleCargoL3 = "0";
+            telePanL1 = "0";
+            telePanL2 = "0";
+            telePanL3  = "0";
+            panDropped = "0";
+            climb_HAB0 = "0"; climb_HAB1 = "0"; climb_HAB2 = "0"; climb_HAB3 = "0";
             liftOne = "0";
             liftTwo = "0";
-            onPlatform = "0";
+//            onPlatform = "0";
             gotLifted = "0";
         }
         //============================
