@@ -648,7 +648,7 @@ public class DraftScout_Activity extends AppCompatActivity {
                     Log.e(TAG, "Invalid Sort - " + sortType);
             }
 
-            temp.put("team", tn + " - " + score_inst.getTeamName() + "   (" + mdNumMatches + ")   " +  totalScore);
+            temp.put("team", tn + "-" + score_inst.getTeamName() + "  (" + mdNumMatches + ")  " +  totalScore);
 //            temp.put("BA", "Rank=" + teams[i].rank + "  " + teams[i].record + "   OPR=" + String.format("%3.1f", (teams[i].opr)) + "    ↑ " + String.format("%3.1f", (teams[i].touchpad)) + "   kPa=" + String.format("%3.1f", (teams[i].pressure)));
             temp.put("Stats", "Sand ⚫ ¹" + sandCargL1 + " ²" + sandCargL2 + " ³" + sandCargL2 + "  ☢ ¹" + sandPanelL1 + " ²" + sandPanelL2 + " ³" + sandPanelL3 + "    Tele ⚫ ¹" + teleCargoL1 + " ²" + teleCargoL2 +  "  ³" + teleCargoL3 + "  ☢ ¹" + telePanL1 + " ²" + telePanL2 + " ³" + telePanL3  + "  ▼" +panDropped);
             temp.put("BA",  "Climb HAB ₀" + climb_HAB0 + " ₁" + climb_HAB1 + " ₂" + climb_HAB2 + " ₃" + climb_HAB3 + "    ↕One " + liftOne + "  ↕Two " + liftTwo + "    Was↑ " + gotLifted);
@@ -810,6 +810,29 @@ public boolean onCreateOptionsMenu(Menu menu) {
             BufferedWriter bW = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(prt), "UTF-8"
             ));
+            bW.write(Pearadox.FRC_ChampDiv + "-" + Pearadox.FRC_EventName +  "\n");
+            bW.write(underScore + "  COMBINED  " + underScore +  "\n" + DS);
+            //  Combined sort
+            Collections.sort(team_Scores, new Comparator<Scores>() {
+                @Override
+                public int compare(Scores c1, Scores c2) {
+                    return Float.compare(c1.getCombinedScore(), c2.getCombinedScore());
+                }
+            });
+            Collections.reverse(team_Scores);   // Descending
+            loadTeams();
+            for (int i = 0; i < numPicks; i++) {    // load by sorted scores
+                score_inst = team_Scores.get(i);
+                tNumb = score_inst.getTeamNum();
+                tName = score_inst.getTeamName();
+                tName = tName + blanks.substring(0, (36 - tName.length()));
+                totalScore = "[" + String.format("%3.2f", score_inst.getCombinedScore()) + "]";
+                teamData(tNumb);   // Get Team's Match Data
+                bW.write(String.format("%2d", i+1) +") " + tNumb + "-" + tName + "\t  (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ")   " +  totalScore + " \t");
+                bW.write( "\n" + DS);
+            } // end For # teams
+            bW.write(" \n" + "\n" + (char)12);        // NL & FF
+
             //Todo Cargo & Climb
 //            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
 //            bW.write(underScore + "  SWITCH  " + underScore +  "\n \n");
@@ -862,8 +885,8 @@ public boolean onCreateOptionsMenu(Menu menu) {
 //            bW.write(" \n" + "\n" + (char)12);        // NL & FF
 //            //=====================================================================
 //
-//            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
-//            bW.write(underScore + "  EXCHANGE  " + underScore +  "\n " + DS);
+            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
+            bW.write(underScore + "  PANELS  " + underScore +  "\n" + DS);
             //  Panels sort
             sortType = "Panels";
             Collections.sort(team_Scores, new Comparator<Scores>() {
@@ -881,33 +904,12 @@ public boolean onCreateOptionsMenu(Menu menu) {
                 tName = tName + blanks.substring(0, (36 - tName.length()));
                 totalScore = "[" + String.format("%3.2f", score_inst.getPanelsScore()) + "]";
                 teamData(tNumb);   // Get Team's Match Data
-                bW.write(String.format("%2d", i+1) +") " + tNumb + " - " + tName + " \t  (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ")   " +  totalScore + "  \t");
-                bW.write( "Exch " + telePanL1 + "\n" + DS);
+                bW.write(String.format("%2d", i+1) +") " + tNumb + "-" + tName + "\t  (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ")  " +  totalScore);
+                bW.write( "☢ Sand  ₁" + sandPanelL1 + " ₂" + sandPanelL2 + " ₃" + sandPanelL3 + "  Tele  ₁" + telePanL1 + " ₂" + telePanL2 + " ₃" + telePanL3 + "\n" + DS);
             } // end For # teams
-            bW.write(" \n" + "\n" + (char)12);        // NL & FF
+//            bW.write(" \n" + "\n" + (char)12);        // NL & FF
             //=====================================================================
 
-            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
-            bW.write(underScore + "  COMBINED  " + underScore +  "\n " + DS);
-            //  Combined sort
-            Collections.sort(team_Scores, new Comparator<Scores>() {
-                @Override
-                public int compare(Scores c1, Scores c2) {
-                    return Float.compare(c1.getCombinedScore(), c2.getCombinedScore());
-                }
-            });
-            Collections.reverse(team_Scores);   // Descending
-            loadTeams();
-            for (int i = 0; i < numPicks; i++) {    // load by sorted scores
-                score_inst = team_Scores.get(i);
-                tNumb = score_inst.getTeamNum();
-                tName = score_inst.getTeamName();
-                tName = tName + blanks.substring(0, (36 - tName.length()));
-                totalScore = "[" + String.format("%3.2f", score_inst.getCombinedScore()) + "]";
-                teamData(tNumb);   // Get Team's Match Data
-                bW.write(String.format("%2d", i+1) +") " + tNumb + " - " + tName + " \t  (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ")   " +  totalScore + "  \t");
-                bW.write( "\n" + DS);
-            } // end For # teams
 
             bW.write(" \n" + "\n");        // NL
             //=====================================================================
