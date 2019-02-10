@@ -39,8 +39,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -119,10 +117,10 @@ public class DraftScout_Activity extends AppCompatActivity {
     public static class Scores {
         private String teamNum;
         private String teamName;
-        private float cargoScore;
-        private float panelsScore;
-        private float climbScore;
-        private float combinedScore;
+        private float SCORE_cargoScore;
+        private float SCORE_panelsScore;
+        private float SCORE_climbScore;
+        private float SCORE_combinedScore;
 //        private float switchScore;
 //        private float scaleScore;
 
@@ -130,13 +128,13 @@ public class DraftScout_Activity extends AppCompatActivity {
         }
 
 // ** Constuctor **
-        public Scores(String teamNum, String teamName, float cargoScore, float panelsScore, float climbScore, float combinedScore) {
+        public Scores(String teamNum, String teamName, float SCORE_cargoScore, float SCORE_panelsScore, float SCORE_climbScore, float SCORE_combinedScore) {
             this.teamNum = teamNum;
             this.teamName = teamName;
-            this.cargoScore = cargoScore;
-            this.panelsScore = panelsScore;
-            this.climbScore = climbScore;
-            this.combinedScore = combinedScore;
+            this.SCORE_cargoScore = SCORE_cargoScore;
+            this.SCORE_panelsScore = SCORE_panelsScore;
+            this.SCORE_climbScore = SCORE_climbScore;
+            this.SCORE_combinedScore = SCORE_combinedScore;
         }
 
 // ** Getters/Setters **
@@ -157,36 +155,36 @@ public class DraftScout_Activity extends AppCompatActivity {
             this.teamName = teamName;
         }
 
-        public float getCargoScore() {
-            return cargoScore;
+        public float getSCORE_cargoScore() {
+            return SCORE_cargoScore;
         }
 
-        public void setCargoScore(float cargoScore) {
-            this.cargoScore = cargoScore;
+        public void setSCORE_cargoScore(float SCORE_cargoScore) {
+            this.SCORE_cargoScore = SCORE_cargoScore;
         }
 
-        public float getPanelsScore() {
-            return panelsScore;
+        public float getSCORE_panelsScore() {
+            return SCORE_panelsScore;
         }
 
-        public void setPanelsScore(float panelsScore) {
-            this.panelsScore = panelsScore;
+        public void setSCORE_panelsScore(float SCORE_panelsScore) {
+            this.SCORE_panelsScore = SCORE_panelsScore;
         }
 
-        public float getClimbScore() {
-            return climbScore;
+        public float getSCORE_climbScore() {
+            return SCORE_climbScore;
         }
 
-        public void setClimbScore(float climbScore) {
-            this.climbScore = climbScore;
+        public void setSCORE_climbScore(float SCORE_climbScore) {
+            this.SCORE_climbScore = SCORE_climbScore;
         }
 
-        public float getCombinedScore() {
-            return combinedScore;
+        public float getSCORE_combinedScore() {
+            return SCORE_combinedScore;
         }
 
-        public void setCombinedScore(float combinedScore) {
-            this.combinedScore = combinedScore;
+        public void setSCORE_combinedScore(float SCORE_combinedScore) {
+            this.SCORE_combinedScore = SCORE_combinedScore;
         }
 
 
@@ -204,8 +202,8 @@ public class DraftScout_Activity extends AppCompatActivity {
         };
         public static Comparator<Scores> climbComp = new Comparator<Scores>() {
             public int compare(Scores s1, Scores s2) {
-                float climbNum1 = s1.getClimbScore();
-                float climbNum2 = s2.getClimbScore();
+                float climbNum1 = s1.getSCORE_climbScore();
+                float climbNum2 = s2.getSCORE_climbScore();
 	            /*For ascending order*/
                 //return climbNum1-climbNum2;
 	            /*For descending order*/
@@ -272,7 +270,7 @@ public class DraftScout_Activity extends AppCompatActivity {
                         Collections.sort(team_Scores, new Comparator<Scores>() {
                             @Override
                             public int compare(Scores c1, Scores c2) {
-                                return Float.compare(c1.getClimbScore(), c2.getClimbScore());
+                                return Float.compare(c1.getSCORE_climbScore(), c2.getSCORE_climbScore());
                             }
                         });
                         Collections.reverse(team_Scores);
@@ -285,7 +283,7 @@ public class DraftScout_Activity extends AppCompatActivity {
                         Collections.sort(team_Scores, new Comparator<Scores>() {
                             @Override
                             public int compare(Scores c1, Scores c2) {
-                                return Float.compare(c1.getCargoScore(), c2.getCargoScore());
+                                return Float.compare(c1.getSCORE_cargoScore(), c2.getSCORE_cargoScore());
                             }
                         });
                         Collections.reverse(team_Scores);   // Descending
@@ -298,46 +296,20 @@ public class DraftScout_Activity extends AppCompatActivity {
                         Collections.sort(team_Scores, new Comparator<Scores>() {
                             @Override
                             public int compare(Scores c1, Scores c2) {
-                                return Float.compare(c1.getCombinedScore(), c2.getCombinedScore());
+                                return Float.compare(c1.getSCORE_combinedScore(), c2.getSCORE_combinedScore());
                             }
                         });
                         Collections.reverse(team_Scores);   // Descending
                         showFormula(sortType);              // update the formula
                         loadTeams();
                         break;
-//                    case "Switch":
-//                        sortType = "Switch";
-////                        Log.w(TAG, "Switch sort");
-//                        Collections.sort(team_Scores, new Comparator<Scores>() {
-//                            @Override
-//                            public int compare(Scores c1, Scores c2) {
-//                                return Float.compare(c1.getSwitchScore(), c2.getSwitchScore());
-//                            }
-//                        });
-//                        Collections.reverse(team_Scores);   // Descending
-//                        showFormula(sortType);              // update the formula
-//                        loadTeams();
-//                        break;
-//                    case "Scale":
-//                        sortType = "Scale";
-////                        Log.w(TAG, "Scale sort");
-//                        Collections.sort(team_Scores, new Comparator<Scores>() {
-//                            @Override
-//                            public int compare(Scores c1, Scores c2) {
-//                                return Float.compare(c1.getScaleScore(), c2.getScaleScore());
-//                            }
-//                        });
-//                        Collections.reverse(team_Scores);   // Descending
-//                        showFormula(sortType);              // update the formula
-//                        loadTeams();
-//                        break;
                     case "Panels":
                         sortType = "Panels";
 //                        Log.w(TAG, "Panels sort");
                         Collections.sort(team_Scores, new Comparator<Scores>() {
                             @Override
                             public int compare(Scores c1, Scores c2) {
-                                return Float.compare(c1.getPanelsScore(), c2.getPanelsScore());
+                                return Float.compare(c1.getSCORE_panelsScore(), c2.getSCORE_panelsScore());
                             }
                         });
                         Collections.reverse(team_Scores);   // Descending
@@ -626,16 +598,16 @@ public class DraftScout_Activity extends AppCompatActivity {
             teamData(tn);   // Get Team's Match Data
             switch (sortType) {
                 case "Climb":
-                    totalScore = "[" + String.format("%3.2f", score_inst.getClimbScore()) + "]";
+                    totalScore = "[" + String.format("%3.2f", score_inst.getSCORE_climbScore()) + "]";
                     break;
                 case "Cargo":
-                    totalScore = "[" + String.format("%3.2f", score_inst.getCargoScore()) + "]";
+                    totalScore = "[" + String.format("%3.2f", score_inst.getSCORE_cargoScore()) + "]";
                     break;
                 case "Combined":
-                    totalScore = "[" + String.format("%3.2f", score_inst.getCombinedScore()) + "]";
+                    totalScore = "[" + String.format("%3.2f", score_inst.getSCORE_combinedScore()) + "]";
                     break;
                 case "Panels":
-                    totalScore = "[" + String.format("%3.2f", score_inst.getPanelsScore()) + "]";
+                    totalScore = "[" + String.format("%3.2f", score_inst.getSCORE_panelsScore()) + "]";
                     break;
                 case "Team#":
                     totalScore=" ";
@@ -652,7 +624,7 @@ public class DraftScout_Activity extends AppCompatActivity {
 
             temp.put("team", tn + "-" + score_inst.getTeamName() + "  (" + mdNumMatches + ")  " +  totalScore);
 //            temp.put("BA", "Rank=" + teams[i].rank + "  " + teams[i].record + "   OPR=" + String.format("%3.1f", (teams[i].opr)) + "    ↑ " + String.format("%3.1f", (teams[i].touchpad)) + "   kPa=" + String.format("%3.1f", (teams[i].pressure)));
-            temp.put("Stats", "Sand ⚫ ¹" + sandCargL1 + " ²" + sandCargL2 + " ³" + sandCargL2 + "  ☢ ¹" + sandPanelL1 + " ²" + sandPanelL2 + " ³" + sandPanelL3 + "    Tele ⚫ ¹" + teleCargoL1 + " ²" + teleCargoL2 +  "  ³" + teleCargoL3 + "  ☢ ¹" + telePanL1 + " ²" + telePanL2 + " ³" + telePanL3  + "  ▼" +panDropped);
+            temp.put("Stats", "Sand ⚫ ¹" + sandCargL1 + " ²" + sandCargL2 + " ³" + sandCargL3 + "  ☢ ¹" + sandPanelL1 + " ²" + sandPanelL2 + " ³" + sandPanelL3 + "    Tele ⚫ ¹" + teleCargoL1 + " ²" + teleCargoL2 +  "  ³" + teleCargoL3 + "  ☢ ¹" + telePanL1 + " ²" + telePanL2 + " ³" + telePanL3  + "  ▼" +panDropped);
             temp.put("BA",  "Climb HAB ₀" + climb_HAB0 + " ₁" + climb_HAB1 + " ₂" + climb_HAB2 + " ₃" + climb_HAB3 + "    ↕One " + liftOne + "  ↕Two " + liftTwo + "    Was↑ " + gotLifted);
             draftList.add(temp);
         } // End For
@@ -782,12 +754,13 @@ public boolean onCreateOptionsMenu(Menu menu) {
         String tName = ""; String totalScore=""; String DS = "";
         String underScore = new String(new char[30]).replace("\0", "_");    // string of 'x' underscores
         String blanks = new String(new char[50]).replace("\0", " ");        // string of 'x' blanks
+        String pound = new String(new char[50]).replace("\0", "#");        // string of 'x' Pound
 // ======================================================================================
         sortType = "Combined";          // Attempt to "force" correct sort 1st time
         Collections.sort(team_Scores, new Comparator<Scores>() {
             @Override
             public int compare(Scores c1, Scores c2) {
-                return Float.compare(c1.getCombinedScore(), c2.getCombinedScore());
+                return Float.compare(c1.getSCORE_combinedScore(), c2.getSCORE_combinedScore());
             }
         });
         Collections.reverse(team_Scores);   // Descending
@@ -818,7 +791,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
             Collections.sort(team_Scores, new Comparator<Scores>() {
                 @Override
                 public int compare(Scores c1, Scores c2) {
-                    return Float.compare(c1.getCombinedScore(), c2.getCombinedScore());
+                    return Float.compare(c1.getSCORE_combinedScore(), c2.getSCORE_combinedScore());
                 }
             });
             Collections.reverse(team_Scores);   // Descending
@@ -827,23 +800,24 @@ public boolean onCreateOptionsMenu(Menu menu) {
                 score_inst = team_Scores.get(i);
                 tNumb = score_inst.getTeamNum();
                 tName = score_inst.getTeamName();
-                tName = tName + blanks.substring(0, (36 - tName.length()));
-                totalScore = "[" + String.format("%3.2f", score_inst.getCombinedScore()) + "]";
+                tName = tName + blanks.substring(0, (36 - tName.length()));     // Pad the name to line up Tabs (\t)
+                Log.e(TAG, ">>>>  teamName '" + tName + "' ");
+                totalScore = "[" + String.format("%3.2f", score_inst.getSCORE_combinedScore()) + "]";
                 teamData(tNumb);   // Get Team's Match Data
                 bW.write(String.format("%2d", i+1) +") " + tNumb + "-" + tName + "\t  (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ")   " +  totalScore + " \t");
                 bW.write( "\n" + DS);
             } // end For # teams
             bW.write(" \n" + "\n" + (char)12);        // NL & FF
+            //=====================================================================
 
-            //Todo Cargo & Climb
             bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
             bW.write(underScore + "  CARGO  " + underScore +  "\n \n");
             //  Switch sort
-            sortType = "Switch";
+            sortType = "Cargo";
             Collections.sort(team_Scores, new Comparator<Scores>() {
                 @Override
                 public int compare(Scores c1, Scores c2) {
-                    return Float.compare(c1.getCargoScore(), c2.getCargoScore());
+                    return Float.compare(c1.getSCORE_cargoScore(), c2.getSCORE_cargoScore());
                 }
             });
             Collections.reverse(team_Scores);   // Descending
@@ -853,10 +827,10 @@ public boolean onCreateOptionsMenu(Menu menu) {
                 tNumb = score_inst.getTeamNum();
                 tName = score_inst.getTeamName();
                 tName = tName + blanks.substring(0, (36 - tName.length()));
-                totalScore = "[" + String.format("%3.2f", score_inst.getCargoScore()) + "]";
+                totalScore = "[" + String.format("%3.2f", score_inst.getSCORE_cargoScore()) + "]";
                 teamData(tNumb);   // Get Team's Match Data
-                bW.write(String.format("%2d", i+1) + ") " + tNumb + "-" + StringUtils.rightPad(tName,30) + "\t (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ") " +  totalScore + "\t");
-                bW.write("⚫Sand ¹" + sandCargL1 + " ₂" + sandCargL2 + " ₃" + sandCargL3 + "  Tele ¹" + teleCargoL1 + " ₂" + teleCargoL2+ " ₃" + teleCargoL3 + "\n" + DS);
+                bW.write(String.format("%2d", i+1) + ") " + tNumb + "-" + tName  + "\t (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ") " +  totalScore + "\t");
+                bW.write("⚫Sand ₁" + sandCargL1 + " ₂" + sandCargL2 + " ₃" + sandCargL3 + "  Tele ₁" + teleCargoL1 + " ₂" + teleCargoL2+ " ₃" + teleCargoL3 + "\n" + DS);
             } // end For # teams
             bW.write(" \n" + "\n" + (char)12);        // NL & FF
             //=====================================================================
@@ -868,7 +842,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
             Collections.sort(team_Scores, new Comparator<Scores>() {
                 @Override
                 public int compare(Scores c1, Scores c2) {
-                    return Float.compare(c1.getPanelsScore(), c2.getPanelsScore());
+                    return Float.compare(c1.getSCORE_panelsScore(), c2.getSCORE_panelsScore());
                 }
             });
             Collections.reverse(team_Scores);   // Descending
@@ -878,40 +852,38 @@ public boolean onCreateOptionsMenu(Menu menu) {
                 tNumb = score_inst.getTeamNum();
                 tName = score_inst.getTeamName();
                 tName = tName + blanks.substring(0, (36 - tName.length()));
-                totalScore = "[" + String.format("%3.2f", score_inst.getPanelsScore()) + "]";
+                totalScore = "[" + String.format("%3.2f", score_inst.getSCORE_panelsScore()) + "]";
                 teamData(tNumb);   // Get Team's Match Data
                 bW.write(String.format("%2d", i+1) +") " + tNumb + "-" + tName + "\t  (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ")  " +  totalScore);
-                bW.write( "☢ Sand  ₁" + sandPanelL1 + " ₂" + sandPanelL2 + " ₃" + sandPanelL3 + "  Tele  ₁" + telePanL1 + " ₂" + telePanL2 + " ₃" + telePanL3 + "\n" + DS);
+                bW.write( "☢ Sand  ₁" + sandPanelL1 + " ₂" + sandPanelL2 + " ₃" + sandPanelL3 + "  Tele  ₁" + telePanL1 + " ₂" + telePanL2 + " ₃" + telePanL3 + "  ▼ " + panDropped + "\n" + DS);
             } // end For # teams
             bW.write(" \n" + "\n" + (char)12);        // NL & FF
             //=====================================================================
-//
-//            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
-//            bW.write(underScore + "  SCALE  " + underScore +  "\n \n");
-//            //  Scale sort
-//            sortType = "Scale";
-//            Collections.sort(team_Scores, new Comparator<Scores>() {
-//                @Override
-//                public int compare(Scores c1, Scores c2) {
-//                    return Float.compare(c1.getScaleScore(), c2.getScaleScore());
-//                }
-//            });
-//            Collections.reverse(team_Scores);   // Descending
-//            loadTeams();
-//            for (int i = 0; i < numPicks; i++) {    // load by sorted scores
-//                score_inst = team_Scores.get(i);
-//                tNumb = score_inst.getTeamNum();
-//                tName = score_inst.getTeamName();
-//                tName = tName + blanks.substring(0, (36 - tName.length()));
-//                totalScore = "[" + String.format("%3.2f", score_inst.getScaleScore()) + "]";
-//                teamData(tNumb);   // Get Team's Match Data
-//                bW.write(String.format("%2d", i+1) +") " + tNumb + " - " + tName + " \t  (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ") " +  totalScore + " \t");
-//                bW.write(" A⚖ " + sandCargL2 + " ➽ " + sandPanelL2 + "  T⚖ " + teleCargoL3+ "\n" + DS);
-//            } // end For # teams
-//            bW.write(" \n" + "\n" + (char)12);        // NL & FF
-//            //=====================================================================
-//
 
+            bW.write(Pearadox.FRC_ChampDiv + " - " + Pearadox.FRC_EventName +  "\n");
+            bW.write(underScore + "  CLIMB  " + underScore +  "\n \n");
+            //  Scale sort
+            sortType = "Climb";
+            Collections.sort(team_Scores, new Comparator<Scores>() {
+                @Override
+                public int compare(Scores c1, Scores c2) {
+                    return Float.compare(c1.getSCORE_climbScore(), c2.getSCORE_climbScore());
+                }
+            });
+            Collections.reverse(team_Scores);   // Descending
+            loadTeams();
+            for (int i = 0; i < numPicks; i++) {    // load by sorted scores
+                score_inst = team_Scores.get(i);
+                tNumb = score_inst.getTeamNum();
+                tName = score_inst.getTeamName();
+                tName = tName + blanks.substring(0, (36 - tName.length()));
+                totalScore = "[" + String.format("%3.2f", score_inst.getSCORE_climbScore()) + "]";
+                teamData(tNumb);   // Get Team's Match Data
+                bW.write(String.format("%2d", i+1) +") " + tNumb + " - " + tName + "\t  (" + String.format("%2d",(Integer.parseInt(mdNumMatches))) + ") " +  totalScore + " \t");
+                bW.write(" HAB ₀" + climb_HAB0 + " ₁" + climb_HAB1 + " ₂" + climb_HAB2  + " ₃" + climb_HAB3 + "\n" + DS);
+            } // end For # teams
+//            bW.write(" \n" + "\n" + (char)12);        // NL & FF
+            //=====================================================================
 
             bW.write(" \n" + "\n");        // NL
             //=====================================================================
@@ -932,7 +904,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
 
     /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
     private void teamData(String team) {
-        Log.i(TAG, "$$$$  teamData  $$$$ " + team);
+        Log.w(TAG, "$$$$  teamData  $$$$ " + team);
         int autoCubeSw = 0; int autoCubeSwAtt = 0; int autoCubeSc = 0; int autoCubeScAtt = 0; int autoSwXnum = 0;  int autoScXnum = 0; int autoCubeSwExtra = 0; int autoCubeScExtra = 0;
         int teleCubeSw = 0; int teleCubeSwAtt = 0; int teleCubeSc = 0; int teleCubeScAtt = 0;
         int teleCubeExch = 0; int teleOthrNUM = 0;  int teleOthrATT = 0; int telePanL2alNUM = 0; int telePanL3NUM = 0; int teleFloorNUM = 0; int teleTheirNUM = 0; int teleRandomNUM = 0;
@@ -1047,28 +1019,28 @@ public boolean onCreateOptionsMenu(Menu menu) {
                     panL3++;
                 }
                 if (match_inst.isSand_CargoLPan1()) {              // Cargo Ship
-                    cargL1++;
+                    panL1++;
                 }
                 if (match_inst.isSand_CargoLPan2()) {
-                    cargL1++;
+                    panL1++;
                 }
                 if (match_inst.isSand_CargoLPan3()) {
-                    cargL1++;
+                    panL1++;
                 }
                 if (match_inst.isSand_CargoRPan1()) {
-                    cargL1++;
+                    panL1++;
                 }
                 if (match_inst.isSand_CargoRPan2()) {
-                    cargL1++;
+                    panL1++;
                 }
                 if (match_inst.isSand_CargoRPan3()) {
-                    cargL1++;
+                    panL1++;
                 }
                 if (match_inst.isSand_CargoEndLPanel()) {      // End
-                    cargL1++;
+                    panL1++;
                 }
                 if (match_inst.isSand_CargoEndRPanel()) {      // End
-                    cargL1++;
+                    panL1++;
                 }
 
 
@@ -1285,8 +1257,9 @@ public boolean onCreateOptionsMenu(Menu menu) {
 //        Log.e(TAG, team + " "+ climbs + " "+ lift1Num + " "+ lift2Num + " " + platNum +  " " + liftedNum + " / " + numMatches);
         if (numMatches > 0) {
             climbScore = (float) (((climbH1 * Float.parseFloat(climbHAB1) + climbH2 * Float.parseFloat(climbHAB2) + climbH3 * Float.parseFloat(climbHAB3)  + climbH0 * Float.parseFloat(climbHAB0)) + (lift1Num * Float.parseFloat(climbLift1)) + (lift2Num * Float.parseFloat(climbLift2)) + (liftedNum * Float.parseFloat(climbLifted))) / numMatches);
-            cargoScore = (float) (((cargL1 * Float.parseFloat(cargo_L1)) + (cargL2 * Float.parseFloat(cargo_L2)) + (cargL3 * Float.parseFloat(cargo_L3)))  / numMatches);
-            panelsScore = (float) (((panL1 * Float.parseFloat(panels_L1)) + (panL2 * Float.parseFloat(panels_L2)) + (panL3 * Float.parseFloat(panels_L3)) + (dropped * Float.parseFloat(panels_Drop))) / numMatches);
+            cargoScore = (float) ((((cargL1+TcargL1) * Float.parseFloat(cargo_L1)) + ((cargL2+TcargL2) * Float.parseFloat(cargo_L2)) + ((cargL3+TcargL3) * Float.parseFloat(cargo_L3)))  / numMatches);
+            Log.e(TAG, "@@@" + team + "  1="+ (cargL1+TcargL1) + " 2="+ (cargL2+TcargL2) + " 3="+ (cargL3+TcargL3) + " TOTAL=" + cargoScore);
+            panelsScore = (float) ((((panL1+TpanL1) * Float.parseFloat(panels_L1)) + ((panL2+TpanL2) * Float.parseFloat(panels_L2)) + ((panL3+TpanL3) * Float.parseFloat(panels_L3)) + (dropped * Float.parseFloat(panels_Drop))) / numMatches);
             combinedScore = (((climbScore * Float.parseFloat(wtClimb) + (cargoScore * Float.parseFloat(wtCargo)) + (panelsScore * Float.parseFloat(wtPanels)))) / numMatches);
         } else {
             climbScore = 0;
@@ -1301,10 +1274,10 @@ public boolean onCreateOptionsMenu(Menu menu) {
             tNumber = score_data.getTeamNum();
             if (score_data.getTeamNum().matches(team)) {
 //                Log.w(TAG, "score team=" + score_data.getTeamNum());
-                score_data.setClimbScore(climbScore);           // Save
-                score_data.setCargoScore(cargoScore);           //  all
-                score_data.setCombinedScore(combinedScore);     //   scores
-                score_data.setPanelsScore(panelsScore);         //
+                score_data.setSCORE_climbScore(climbScore);           // Save
+                score_data.setSCORE_cargoScore(cargoScore);           //  all
+                score_data.setSCORE_combinedScore(combinedScore);     //   scores
+                score_data.setSCORE_panelsScore(panelsScore);         //
             }
         }
     }
@@ -1350,12 +1323,10 @@ public boolean onCreateOptionsMenu(Menu menu) {
             curScrTeam.setTeamNum(team_inst.getTeam_num());
             curScrTeam.setTeamName(team_inst.getTeam_name());
 //            Log.w(TAG, curScrTeam.getTeamNum() + "  " + curScrTeam.getTeamName());
-            curScrTeam.setClimbScore((float) 0);
-            curScrTeam.setCargoScore((float) 0);
-            curScrTeam.setCombinedScore((float) 0);
-//            curScrTeam.setSwitchScore((float) 0);
-//            curScrTeam.setScaleScore((float) 0);
-            curScrTeam.setPanelsScore((float) 0);
+            curScrTeam.setSCORE_climbScore((float) 0);        //Climb
+            curScrTeam.setSCORE_cargoScore((float) 0);        // Cargo
+            curScrTeam.setSCORE_combinedScore((float) 0);     // Combined
+            curScrTeam.setSCORE_panelsScore((float) 0);       // Panels
             team_Scores.add(i, curScrTeam);
         } // end For
         Log.w(TAG, "#Scores = " + team_Scores.size());
