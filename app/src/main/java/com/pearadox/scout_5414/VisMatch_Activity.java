@@ -23,6 +23,8 @@ import org.eazegraph.lib.models.BarModel;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import static android.util.Log.e;
+
 public class VisMatch_Activity extends AppCompatActivity {
     String TAG = "VisMatch_Activity";        // This CLASS name
     String tnum = "";
@@ -33,26 +35,30 @@ public class VisMatch_Activity extends AppCompatActivity {
     String underScore = new String(new char[60]).replace("\0", "_");  // string of 'x' underscores
     String matches = "";
     TextView txt_team, txt_teamName, txt_NumMatches, txt_Matches;
-    TextView txt_auto_baselineRatio, txt_noAuto, txt_auto_cubeSwRatio, txt_SwXover, txt_SwWrong, txt_SwExtra, txt_ScExtra, txt_auto_cubeScRatio, txt_ScXover, txt_ScWrong, txt_CubeTheirsNUM;
-    TextView txt_tele_cubeSwRatio, txt_TheirSwitch, txt_tele_cubeScRatio, txt_PortalNUM;
-    TextView txt_CubeZoneNUM, txt_CubePlatformNUM, txt_CubeFloorNUM, txt_CubeRandomNUM;
-    TextView txt_climbs, txt_Lift1NUM, txt_Lift2NUM, txt_WasLiftedNUM, txt_OnPlatNUM, txt_RungNUM, txt_SideNUM, txt_ExchangeNUM, txt_LaunchNUM, txt_PlaceNUM;
+    TextView txt_Ss_LeftHab1, txt_Ss_LeftHab2, txt_noSand, txt_Ss_cargoScored, txt_Ss_hatchScored, txt_Ss_droppedHatch;
+    TextView txt_Tele_cargoScored, txt_Tele_Hatch_Panel, txt_Tele_droppedHatch;
+    TextView txt_HabLvl, txt_Lift1NUM, txt_Lift2NUM, txt_WasLiftedNUM;
     /* Comment Boxes */     TextView txt_AutoComments, txt_TeleComments, txt_FinalComments;
-    TextView txt_spSi, txt_spSo, txt_spM;
+    TextView txt_Lvl1, txt_Lvl2, txt_NoShow;
+    TextView txt_Pos1, txt_Pos2, txt_Pos3;
     public static String[] numMatch = new String[]             // Num. of Matches to process
             {"ALL","Last","Last 2","Last 3"};
     BarChart mBarChart;
     //----------------------------------
-    int numLeftHAB = 0; int noAuto = 0; int numExtraSw = 0; int numExtraSc = 0;
-    int auto_SwCubesAttempted = 0; int auto_SwCubesPlaced = 0; int auto_SwCrossOver = 0; int Auto_SwWrong = 0;
+    int numLeftHAB = 0; int numLeftHAB2 = 0; int noSand = 0; int numExtraSw = 0; int numExtraSc = 0;
+    int auto_SwCubesAttempted = 0; int auto_SwCrossOver = 0;int Auto_SwWrong = 0;
     int auto_ScCubesAttempted = 0; int auto_ScCubesPlaced = 0; int auto_ScCrossOver = 0; int Auto_ScWrong = 0;
     int auto_B1 = 0; int auto_B2 = 0; int auto_B3 = 0;
+    int auto_Ps1 = 0; int auto_Ps2 = 0; int auto_Ps3 = 0;
+    int climbH0= 0; int climbH1 = 0; int climbH2 = 0; int climbH3 = 0; int lift1Num = 0; int liftedNum = 0;
+    int cargL1 = 0; int cargL2 = 0; int cargL3 =0; int TcargL1 = 0; int TcargL2 = 0; int TcargL3 = 0; int TpanL1 = 0; int TpanL2 = 0; int TpanL3 = 0;
+    int numMatches = 0; int panL1 = 0; int panL2 = 0; int panL3 = 0; int dropped=0; int Tdropped = 0;
     String auto_Comments = "";
     //----------------------------------
     int tele_totalCubeSwAttempted = 0; int tele_totalCubeSwPlaced = 0; int tele_totalCubeScAttempted = 0; int tele_totalCubeScPlaced = 0; int tele_SwTheirs = 0; int tele_SwTheirAtt = 0; int tele_their_floor = 0;
     int cubznNUM = 0; int cubplatNUM = 0; int cubPlatOthrNUM = 0; int offFloorNUM = 0; int portalNUM = 0; int randomNUM = 0;
     int numTeleExch = 0; int numTeleLaunch = 0; int numTelePlace = 0;
-    int numTeleClimbSuccess = 0; int numTeleClimbAttempt = 0; int Lift1num = 0; int Lift2num = 0;  int WasLifted = 0; int rungNum = 0; int sideNum = 0; int onPlatform = 0;
+    int numTeleClimbSuccess = 0; int numTeleClimbAttempt = 0; int LiftNm = 0; int WasLifted = 0; int rungNum = 0; int sideNum = 0; int onPlatform = 0;
     String tele_Comments = "";
     //----------------------------------
     int final_LostComm = 0; int final_LostParts = 0; int final_DefGood = 0; int final_DefBlock = 0;  int final_DefSwitch = 0; int final_DefStarve = 0; int final_NumPen = 0;
@@ -86,50 +92,36 @@ public class VisMatch_Activity extends AppCompatActivity {
         adapter_Matches.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_numMatches.setAdapter(adapter_Matches);
         spinner_numMatches.setSelection(0, false);
-        spinner_numMatches.setOnItemSelectedListener(new VisMatch_Activity.numMatches_OnItemSelectedListener());
+        spinner_numMatches.setOnItemSelectedListener(new numMatches_OnItemSelectedListener());
         /*  Auto  */
-        txt_auto_baselineRatio = (TextView) findViewById(R.id.txt_auto_baselineRatio);
-        txt_noAuto = (TextView) findViewById(R.id.txt_noAuto);
-        txt_auto_cubeSwRatio = (TextView) findViewById(R.id.txt_auto_cubeSwRatio);
-        txt_auto_cubeScRatio = (TextView) findViewById(R.id.txt_auto_cubeScRatio);
-        txt_SwXover = (TextView) findViewById(R.id.txt_SwXover);
-        txt_SwWrong = (TextView) findViewById(R.id.txt_SwWrong);
-        txt_SwExtra = (TextView) findViewById(R.id.txt_SwExtra);
-        txt_ScExtra = (TextView) findViewById(R.id.txt_ScExtra);
-        txt_ScXover = (TextView) findViewById(R.id.txt_ScXover);
-        txt_ScWrong = (TextView) findViewById(R.id.txt_ScWrong);
-        txt_spSi = (TextView) findViewById(R.id.txt_spSi);
-        txt_spSo = (TextView) findViewById(R.id.txt_spSo);
-        txt_spM = (TextView) findViewById(R.id.txt_spM);
+        txt_Ss_LeftHab1 = (TextView) findViewById(R.id.txt_Ss_LeftHab1);
+        txt_Ss_LeftHab2 = (TextView) findViewById(R.id.txt_Ss_LeftHab2);
+        txt_HabLvl = (TextView) findViewById(R.id.txt_HabLvl);
+        txt_noSand = (TextView) findViewById(R.id.txt_noSand);
+        txt_Ss_cargoScored = (TextView) findViewById(R.id.txt_Ss_cargoScored);
+        txt_Ss_hatchScored  = (TextView) findViewById(R.id.txt_Ss_hatchScored);
+        txt_Ss_droppedHatch = (TextView) findViewById(R.id.txt_Ss_droppedHatch);
+        txt_Tele_cargoScored = (TextView) findViewById(R.id.txt_Tele_cargoScored);
+        txt_Tele_Hatch_Panel = (TextView) findViewById(R.id.txt_Tele_hatchScored);
+        txt_Tele_droppedHatch = (TextView) findViewById(R.id.txt_Tele_droppedHatch);
+        txt_Lvl1 = (TextView) findViewById(R.id.txt_Lvl1);
+        txt_Lvl2 = (TextView) findViewById(R.id.txt_Lvl2);
+        txt_NoShow = (TextView) findViewById(R.id.txt_NoShow);
+        txt_Pos1 = (TextView) findViewById(R.id.txt_Pos1);
+        txt_Pos2 = (TextView) findViewById(R.id.txt_Pos2);
+        txt_Pos3 = (TextView) findViewById(R.id.txt_Pos3);
         txt_AutoComments = (TextView) findViewById(R.id.txt_AutoComments);
         txt_AutoComments.setMovementMethod(new ScrollingMovementMethod());
         /*  Tele  */
-        txt_tele_cubeSwRatio = (TextView) findViewById(R.id.txt_tele_cubeSwRatio);
-        txt_TheirSwitch = (TextView) findViewById(R.id.txt_TheirSwitch);
-        txt_tele_cubeScRatio = (TextView) findViewById(R.id.txt_tele_cubeScRatio);
-        txt_PortalNUM = (TextView) findViewById(R.id.txt_PortalNUM);
-        txt_CubeZoneNUM = (TextView) findViewById(R.id.txt_CubeZoneNUM);
-        txt_CubePlatformNUM = (TextView) findViewById(R.id.txt_CubePlatformNUM);
-        txt_CubeFloorNUM = (TextView) findViewById(R.id.txt_CubeFloorNUM);
-        txt_CubeRandomNUM = (TextView) findViewById(R.id.txt_CubeRandomNUM);
         txt_Lift1NUM = (TextView) findViewById(R.id.txt_Lift1NUM);
         txt_Lift2NUM = (TextView) findViewById(R.id.txt_Lift2NUM);
         txt_WasLiftedNUM = (TextView) findViewById(R.id.txt_WasLiftedNUM);
-        txt_OnPlatNUM = (TextView) findViewById(R.id.txt_OnPlatNUM);
-        txt_RungNUM = (TextView) findViewById(R.id.txt_RungNUM);
-        txt_SideNUM = (TextView) findViewById(R.id.txt_SideNUM);
-        txt_CubeTheirsNUM = (TextView) findViewById(R.id.txt_CubeTheirsNUM);
-
-        txt_ExchangeNUM = (TextView) findViewById(R.id.txt_ExchangeNUM);
-        txt_LaunchNUM = (TextView) findViewById(R.id.txt_LaunchNUM);
-        txt_PlaceNUM = (TextView) findViewById(R.id.txt_PlaceNUM);
         txt_TeleComments = (TextView) findViewById(R.id.txt_TeleComments);
         txt_TeleComments.setMovementMethod(new ScrollingMovementMethod());
 
         /*  Final  */
         txt_FinalComments = (TextView) findViewById(R.id.txt_FinalComments);
         txt_FinalComments.setMovementMethod(new ScrollingMovementMethod());
-        txt_climbs = (TextView) findViewById(R.id.txt_climbs);
 
         txt_final_LostComm = (TextView) findViewById(R.id.txt_final_LostComm);
         txt_final_LostParts = (TextView) findViewById(R.id.txt_final_LostParts);
@@ -160,10 +152,13 @@ public class VisMatch_Activity extends AppCompatActivity {
             matches = matches + match_inst.getMatch() + "  ";
 
             if (match_inst.isSand_mode()) {
-                noAuto++;
+                noSand++;
             }
             if (match_inst.isSand_leftHAB()) {
                 numLeftHAB++;
+            }
+            if (match_inst.isSand_leftHAB2()) {
+                numLeftHAB2++;
             }
 //            if (match_inst.isAuto_cube_switch()) {
 //                auto_SwCubesPlaced++;
@@ -203,17 +198,33 @@ public class VisMatch_Activity extends AppCompatActivity {
             String pos = match_inst.getPre_startPos().trim();
             Log.w(TAG, "Start Pos. " + pos);
             switch (pos) {
-                case "Side (in)":
+                case "Level 1":
                     auto_B1++;
                     break;
-                case ("Side (out)"):
+                case ("Level 2"):
                     auto_B2++;
                     break;
-                case "Middle":
+                case "No Show":
                     auto_B3++;
                     break;
                 default:                //
                     Log.e(TAG, "***  Invalid Start Position!!!  ***" );
+            }
+
+            int PlayerStat = match_inst.getPre_PlayerSta();
+            Log.w(TAG, "Player Station. " + PlayerStat);
+            switch (PlayerStat) {
+                case 1:
+                    auto_Ps1++;
+                    break;
+                case 2:
+                    auto_Ps2++;
+                    break;
+                case 3:
+                    auto_Ps3++;
+                    break;
+                default:                //
+                    Log.e(TAG, "***  Invalid Player Station!!!  ***" );
             }
 
 
@@ -221,10 +232,8 @@ public class VisMatch_Activity extends AppCompatActivity {
             // Tele elements
             // New Match Data Object *** GLF 1/20/19
 //            tele_totalCubeSwPlaced = tele_totalCubeSwPlaced + match_inst.getTele_cube_switch();
-//            mBarChart.addBar(new BarModel(match_inst.getTele_cube_switch(), 0xffff0000));       // Switch
 //            tele_totalCubeSwAttempted = tele_totalCubeSwAttempted + match_inst.getTele_switch_attempt();
 //            tele_totalCubeScPlaced = tele_totalCubeScPlaced + match_inst.getTele_cube_scale();
-//            mBarChart.addBar(new BarModel(match_inst.getTele_cube_scale(),  0xff08457e));       // Scale
 //            tele_totalCubeScAttempted = tele_totalCubeScAttempted + match_inst.getTele_scale_attempt();
 //            portalNUM = portalNUM + match_inst.getTele_cube_portal();
 //            tele_SwTheirs = tele_SwTheirs + match_inst.getTele_their_switch();
@@ -239,15 +248,292 @@ public class VisMatch_Activity extends AppCompatActivity {
 //                offFloorNUM++;
 //            }
 //            numTeleExch = numTeleExch + match_inst.getTele_cube_exchange();
-//            if (match_inst.isTele_lift_one()) {
-//                Lift1num++;
-//            }
-//            if (match_inst.isTele_lift_two()) {
-//                Lift2num++;
-//            }
-//            if (match_inst.isTele_got_lift()) {
-//                WasLifted++;
-//            }
+            LiftNm = LiftNm + match_inst.getTele_liftedNum();
+            
+            if (match_inst.isTele_got_lift()) {
+                WasLifted++;
+            }
+            dropped = dropped + match_inst.getSand_num_Dropped();
+            Tdropped = Tdropped + match_inst.getTele_num_Dropped();
+            // =================== Cargo ============
+            if (match_inst.isSand_LeftRocket_LCarg1()) {
+                cargL1++;
+            }
+            if (match_inst.isSand_LeftRocket_LCarg2()) {
+                cargL2++;
+            }
+            if (match_inst.isSand_LeftRocket_LCarg3()) {
+                cargL3++;
+            }
+            if (match_inst.isSand_LeftRocket_RCarg1()) {
+                cargL1++;
+            }
+            if (match_inst.isSand_LeftRocket_RCarg2()) {
+                cargL2++;
+            }
+            if (match_inst.isSand_LeftRocket_RCarg3()) {
+                cargL3++;
+            }
+            if (match_inst.isSand_RghtRocket_LCarg1()) {
+                cargL1++;
+            }
+            if (match_inst.isSand_RghtRocket_LCarg2()) {
+                cargL2++;
+            }
+            if (match_inst.isSand_RghtRocket_LCarg3()) {
+                cargL3++;
+            }
+            if (match_inst.isSand_RghtRocket_RCarg1()) {
+                cargL1++;
+            }
+            if (match_inst.isSand_RghtRocket_RCarg2()) {
+                cargL2++;
+            }
+            if (match_inst.isSand_RghtRocket_RCarg3()) {
+                cargL3++;
+            }
+            if (match_inst.isSand_CargoLCarg1()) {              // Cargo Ship
+                cargL1++;
+            }
+            if (match_inst.isSand_CargoLCarg2()) {
+                cargL1++;
+            }
+            if (match_inst.isSand_CargoLCarg3()) {
+                cargL1++;
+            }
+            if (match_inst.isSand_CargoRCarg1()) {
+                cargL1++;
+            }
+            if (match_inst.isSand_CargoRCarg2()) {
+                cargL1++;
+            }
+            if (match_inst.isSand_CargoRCarg3()) {
+                cargL1++;
+            }
+            if (match_inst.isSand_CargoEndLCargo()) {      // End
+                cargL1++;
+            }
+            if (match_inst.isSand_CargoEndRCargo()) {      // End
+                cargL1++;
+            }
+            // =================== Panels ============
+            if (match_inst.isSand_LeftRocket_LPan1()) {
+                panL1++;
+            }
+            if (match_inst.isSand_LeftRocket_LPan2()) {
+                panL2++;
+            }
+            if (match_inst.isSand_LeftRocket_LPan3()) {
+                panL3++;
+            }
+            if (match_inst.isSand_LeftRocket_RPan1()) {
+                panL1++;
+            }
+            if (match_inst.isSand_LeftRocket_RPan2()) {
+                panL2++;
+            }
+            if (match_inst.isSand_LeftRocket_RPan3()) {
+                panL3++;
+            }
+            if (match_inst.isSand_RghtRocket_LPan1()) {
+                panL1++;
+            }
+            if (match_inst.isSand_RghtRocket_LPan2()) {
+                panL2++;
+            }
+            if (match_inst.isSand_RghtRocket_LPan3()) {
+                panL3++;
+            }
+            if (match_inst.isSand_RghtRocket_RPan1()) {
+                panL1++;
+            }
+            if (match_inst.isSand_RghtRocket_RPan2()) {
+                panL2++;
+            }
+            if (match_inst.isSand_RghtRocket_RPan3()) {
+                panL3++;
+            }
+            if (match_inst.isSand_CargoLPan1()) {              // Cargo Ship
+                cargL1++;
+            }
+            if (match_inst.isSand_CargoLPan2()) {
+                cargL1++;
+            }
+            if (match_inst.isSand_CargoLPan3()) {
+                cargL1++;
+            }
+            if (match_inst.isSand_CargoRPan1()) {
+                cargL1++;
+            }
+            if (match_inst.isSand_CargoRPan2()) {
+                cargL1++;
+            }
+            if (match_inst.isSand_CargoRPan3()) {
+                cargL1++;
+            }
+            if (match_inst.isSand_CargoEndLPanel()) {      // End
+                cargL1++;
+            }
+            if (match_inst.isSand_CargoEndRPanel()) {      // End
+                cargL1++;
+            }
+
+
+            // *************************************************
+            // ******************** TeleOps ********************
+            // *************************************************
+            dropped = dropped + match_inst.getTele_num_Dropped();
+            // =================== Cargo ============
+            if (match_inst.isTele_LeftRocket_LCarg1()) {
+                TcargL1++;
+            }
+            if (match_inst.isTele_LeftRocket_LCarg2()) {
+                TcargL2++;
+            }
+            if (match_inst.isTele_LeftRocket_LCarg3()) {
+                TcargL3++;
+            }
+            if (match_inst.isTele_LeftRocket_RCarg1()) {
+                TcargL1++;
+            }
+            if (match_inst.isTele_LeftRocket_RCarg2()) {
+                TcargL2++;
+            }
+            if (match_inst.isTele_LeftRocket_RCarg3()) {
+                TcargL3++;
+            }
+            if (match_inst.isTele_RghtRocket_LCarg1()) {
+                TcargL1++;
+            }
+            if (match_inst.isTele_RghtRocket_LCarg2()) {
+                TcargL2++;
+            }
+            if (match_inst.isTele_RghtRocket_LCarg3()) {
+                TcargL3++;
+            }
+            if (match_inst.isTele_RghtRocket_RCarg1()) {
+                TcargL1++;
+            }
+            if (match_inst.isTele_RghtRocket_RCarg2()) {
+                TcargL2++;
+            }
+            if (match_inst.isTele_RghtRocket_RCarg3()) {
+                TcargL3++;
+            }
+            if (match_inst.isTele_CargoLCarg1()) {              // Cargo Ship
+                TcargL1++;
+            }
+            if (match_inst.isTele_CargoLCarg2()) {
+                TcargL1++;
+            }
+            if (match_inst.isTele_CargoLCarg3()) {
+                TcargL1++;
+            }
+            if (match_inst.isTele_CargoRCarg1()) {
+                TcargL1++;
+            }
+            if (match_inst.isTele_CargoRCarg2()) {
+                TcargL1++;
+            }
+            if (match_inst.isTele_CargoRCarg3()) {
+                TcargL1++;
+            }
+            if (match_inst.isTele_CargoEndLCargo()) {      // End
+                TcargL1++;
+            }
+            if (match_inst.isTele_CargoEndRCargo()) {      // End
+                TcargL1++;
+            }
+            // =================== Panels ============
+            if (match_inst.isTele_LeftRocket_LPan1()) {
+                TpanL1++;
+            }
+            if (match_inst.isTele_LeftRocket_LPan2()) {
+                TpanL2++;
+            }
+            if (match_inst.isTele_LeftRocket_LPan3()) {
+                TpanL3++;
+            }
+            if (match_inst.isTele_LeftRocket_RPan1()) {
+                TpanL1++;
+            }
+            if (match_inst.isTele_LeftRocket_RPan2()) {
+                TpanL2++;
+            }
+            if (match_inst.isTele_LeftRocket_RPan3()) {
+                TpanL3++;
+            }
+            if (match_inst.isTele_RghtRocket_LPan1()) {
+                TpanL1++;
+            }
+            if (match_inst.isTele_RghtRocket_LPan2()) {
+                TpanL2++;
+            }
+            if (match_inst.isTele_RghtRocket_LPan3()) {
+                TpanL3++;
+            }
+            if (match_inst.isTele_RghtRocket_RPan1()) {
+                TpanL1++;
+            }
+            if (match_inst.isTele_RghtRocket_RPan2()) {
+                TpanL2++;
+            }
+            if (match_inst.isTele_RghtRocket_RPan3()) {
+                TpanL3++;
+            }
+            if (match_inst.isTele_CargoLPan1()) {              // Cargo Ship
+                TpanL1++;
+            }
+            if (match_inst.isTele_CargoLPan2()) {
+                TpanL1++;
+            }
+            if (match_inst.isTele_CargoLPan3()) {
+                TpanL1++;
+            }
+            if (match_inst.isTele_CargoRPan1()) {
+                TpanL1++;
+            }
+            if (match_inst.isTele_CargoRPan2()) {
+                TpanL1++;
+            }
+            if (match_inst.isTele_CargoRPan3()) {
+                TpanL1++;
+            }
+            if (match_inst.isTele_CargoEndLPanel()) {      // End
+                TpanL1++;
+            }
+            if (match_inst.isTele_CargoEndRPanel()) {      // End
+                TpanL1++;
+            }
+
+            int endHAB = match_inst.getTele_level_num();        // end HAB Level
+            switch (endHAB) {
+                case 0:         // Not On
+                    climbH0++;
+                    break;
+                case 1:         // Level 1
+                    climbH1++;
+                    break;
+                case 2:         // Level 2
+                    climbH2++;
+                    break;
+                case 3:         // Level 3
+                    climbH3++;
+                    break;
+                default:                // ????
+                    e(TAG, "*** Error - bad HAB Level indicator  ***");
+            }
+
+            if (match_inst.isTele_lifted()) {
+                lift1Num++;
+            }
+//                if (match_inst.isTele_lift_two()) {
+//                    lift2Num++;
+//                }
+            if (match_inst.isTele_got_lift()) {
+                liftedNum++;
+            }
+
 //            if (match_inst.isTele_on_platform()) {
 //                onPlatform++;
 //            }
@@ -305,23 +591,46 @@ public class VisMatch_Activity extends AppCompatActivity {
 // ================================================================
 // ======  Now start displaying all the data we collected  ========
 // ================================================================
-        txt_Matches.setText(matches);
+        txt_Ss_LeftHab1 = (TextView) findViewById(R.id.txt_Ss_LeftHab1);
+        txt_Ss_LeftHab2 = (TextView) findViewById(R.id.txt_Ss_LeftHab2);
+        txt_HabLvl = (TextView) findViewById(R.id.txt_HabLvl);
+        txt_noSand = (TextView) findViewById(R.id.txt_noSand);
+        txt_Ss_cargoScored = (TextView) findViewById(R.id.txt_Ss_cargoScored);
+        txt_Ss_hatchScored  = (TextView) findViewById(R.id.txt_Ss_hatchScored);
+        txt_Ss_droppedHatch = (TextView) findViewById(R.id.txt_Ss_droppedHatch);
+        txt_Tele_cargoScored = (TextView) findViewById(R.id.txt_Tele_cargoScored);
+        txt_Tele_Hatch_Panel = (TextView) findViewById(R.id.txt_Tele_hatchScored);
+        txt_Tele_droppedHatch = (TextView) findViewById(R.id.txt_Tele_droppedHatch);
+        txt_Lvl1 = (TextView) findViewById(R.id.txt_Lvl1);
+        txt_Lvl2 = (TextView) findViewById(R.id.txt_Lvl2);
+        txt_NoShow = (TextView) findViewById(R.id.txt_NoShow);
+        txt_Pos1 = (TextView) findViewById(R.id.txt_Pos1);
+        txt_Pos2 = (TextView) findViewById(R.id.txt_Pos2);
+        txt_Pos3 = (TextView) findViewById(R.id.txt_Pos3);
 
-        txt_auto_baselineRatio.setText(numLeftHAB +  "/" + numProcessed);
-        txt_noAuto.setText(noAuto +  "/" + numProcessed);
+        txt_Matches.setText(matches);
+        txt_Ss_LeftHab1.setText(String.valueOf(numLeftHAB));
+        txt_Ss_LeftHab2.setText(String.valueOf(numLeftHAB2));
+        txt_noSand.setText(String.valueOf(noSand));
 //        Log.w(TAG, "Ratio of Placed to Attempted Gears in Auto = " + auto_SwCubesPlaced + "/" + auto_SwCubesAttempted);
-        txt_auto_cubeSwRatio.setText(auto_SwCubesPlaced + "/" + auto_SwCubesAttempted);
-        txt_auto_cubeScRatio.setText(auto_ScCubesPlaced + "/" + auto_ScCubesAttempted);
-        txt_SwExtra.setText(String.valueOf(numExtraSw));
-        txt_SwXover.setText(String.valueOf(auto_SwCrossOver));
-        txt_SwWrong.setText(String.valueOf(Auto_SwWrong));
-        txt_auto_cubeScRatio.setText(auto_ScCubesPlaced + "/" + auto_ScCubesAttempted);
-        txt_ScExtra.setText(String.valueOf(numExtraSc));
-        txt_ScXover.setText(String.valueOf(auto_ScCrossOver));
-        txt_ScWrong.setText(String.valueOf(Auto_ScWrong));
-        txt_spSi.setText(String.valueOf(auto_B1));
-        txt_spSo.setText(String.valueOf(auto_B2));
-        txt_spM.setText(String.valueOf(auto_B3));
+        String carScored = "¹" + String.valueOf(cargL1) + " ²" + String.valueOf(cargL2) + " ³" + String.valueOf(cargL3);
+        txt_Ss_cargoScored.setText(carScored);
+        String hatScored = "¹" + String.valueOf(panL1) + " ²" + String.valueOf(panL2) + " ³" + String.valueOf(panL3);
+        txt_Ss_hatchScored.setText(String.valueOf(hatScored));
+        txt_Ss_droppedHatch.setText(String.valueOf(dropped));
+        String teleCargo = "¹" + String.valueOf(cargL1) + " ²" + String.valueOf(cargL2) + " ³" + String.valueOf(cargL3);
+        txt_Tele_cargoScored.setText(teleCargo);
+        String teleHatchPanel = "¹" + String.valueOf(TpanL1) + " ²" + String.valueOf(TpanL2) + " ³" + String.valueOf(TpanL3);
+        txt_Tele_Hatch_Panel.setText(teleHatchPanel);
+        txt_Tele_droppedHatch.setText(String.valueOf(Tdropped));
+        String HabEnd = "⁰"+ String.valueOf(climbH0) + " ¹" + String.valueOf(climbH1) + " ²" + String.valueOf(climbH2) + " ³" + String.valueOf(climbH3);
+        txt_HabLvl.setText(HabEnd);
+        txt_Lvl1.setText(String.valueOf(auto_B1));
+        txt_Lvl2.setText(String.valueOf(auto_B2));
+        txt_NoShow.setText(String.valueOf(auto_B3));
+        txt_Pos1.setText(String.valueOf(auto_Ps1));
+        txt_Pos2.setText(String.valueOf(auto_Ps2));
+        txt_Pos3.setText(String.valueOf(auto_Ps3));
 
 
         txt_AutoComments.setText(auto_Comments);
@@ -329,27 +638,12 @@ public class VisMatch_Activity extends AppCompatActivity {
         // ==============================================
         // Display Tele elements
         Log.w(TAG, "Ratio of Placed to Attempted Gears in Tele = " + tele_totalCubeSwPlaced + "/" + tele_totalCubeSwAttempted);
-        txt_tele_cubeSwRatio.setText(tele_totalCubeSwPlaced + "/" + tele_totalCubeSwAttempted);
-        txt_TheirSwitch.setText(tele_SwTheirs + "/" + tele_SwTheirAtt);
-        txt_tele_cubeScRatio.setText(tele_totalCubeScPlaced + "/" + tele_totalCubeScAttempted);
-        txt_PortalNUM.setText(String.valueOf(portalNUM));
-        txt_CubeZoneNUM.setText(String.valueOf(cubznNUM));
-        txt_CubePlatformNUM.setText(String.valueOf(cubplatNUM));
-        txt_CubeFloorNUM.setText(String.valueOf(offFloorNUM));
-        txt_Lift1NUM.setText(String.valueOf(Lift1num));
-        txt_Lift2NUM.setText(String.valueOf(Lift2num));
+        txt_Lift1NUM.setText(String.valueOf(LiftNm));
         txt_WasLiftedNUM.setText(String.valueOf(WasLifted));
-        txt_OnPlatNUM.setText(String.valueOf(onPlatform));
-        txt_RungNUM.setText(String.valueOf(rungNum));
-        txt_SideNUM.setText(String.valueOf(sideNum));
-        txt_ExchangeNUM.setText(String.valueOf(numTeleExch));
-        txt_LaunchNUM.setText(String.valueOf(numTeleLaunch));
-        txt_PlaceNUM.setText(String.valueOf(numTelePlace));
-        txt_climbs.setText(numTeleClimbSuccess + "/" + numTeleClimbAttempt);
-        txt_CubeTheirsNUM.setText(String.valueOf(tele_their_floor));
-        txt_CubeRandomNUM.setText(String.valueOf(randomNUM));
 
         txt_TeleComments.setText(tele_Comments);
+        mBarChart.addBar(new BarModel(cargL1 + cargL2 + cargL3 + TcargL1 + TcargL2 + TcargL3, 0xffff0000));       // Cargo
+        mBarChart.addBar(new BarModel( panL1 + panL2 + panL3 + TpanL1 + TpanL2 + TpanL3,  0xff08457e));       // Panels
 
         // ==============================================
         // Display Final elements
@@ -404,39 +698,32 @@ public class VisMatch_Activity extends AppCompatActivity {
 
 //******************************
     private void init_Values() {
-        noAuto = 0;
+        noSand = 0;
         numLeftHAB = 0;
-        auto_SwCubesPlaced = 0;
+        numLeftHAB2 = 0;
         auto_SwCubesAttempted = 0;
         auto_SwCrossOver = 0;
         Auto_SwWrong = 0;
         auto_ScCubesPlaced = 0;
         auto_ScCubesAttempted = 0;
         auto_ScCrossOver = 0;
-        Auto_ScWrong = 0;
-        tele_totalCubeSwPlaced = 0;
-        tele_totalCubeSwAttempted = 0;
-        tele_totalCubeScPlaced = 0;
-        tele_totalCubeScAttempted = 0;
-        tele_SwTheirs = 0;
-        tele_SwTheirAtt = 0;
-        numExtraSw = 0;
-        numExtraSc = 0;
-        portalNUM = 0;
-        cubznNUM = 0;
-        cubplatNUM = 0;
-        offFloorNUM = 0;
+        auto_Ps1 = 0;
+        auto_Ps2 = 0;
+        auto_Ps3 = 0;
         numTeleClimbSuccess = 0;
         numTeleClimbAttempt = 0;
-        Lift1num = 0;
-        Lift2num = 0;
+        LiftNm = 0;
         WasLifted = 0;
-        onPlatform = 0;
-        rungNum = 0;
-        sideNum = 0;
         auto_B1 = 0;
         auto_B2 = 0;
         auto_B3 = 0;
+        auto_Ps1 = 0;
+        auto_Ps2 = 0;
+        auto_Ps3 = 0;
+        climbH0 = 0;
+        climbH1 = 0;
+        climbH2 = 0;
+        climbH3 = 0;
         numTeleExch = 0;
         numTeleLaunch = 0; numTelePlace = 0;
         tele_their_floor = 0;
