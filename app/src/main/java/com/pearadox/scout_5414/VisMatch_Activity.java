@@ -1,7 +1,9 @@
 package com.pearadox.scout_5414;
 
 import android.graphics.Bitmap;
+import android.media.AudioManager;
 import android.media.MediaActionSound;
+import android.media.ToneGenerator;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -681,15 +683,29 @@ public class VisMatch_Activity extends AppCompatActivity {
                     numProcessed = 1;
                     break;
                 case "Last 2":
-                    // ToDo - check # matches to see if they have this many
-                    start = numObjects - 2;     //
-                    numProcessed = 2;
-                    break;
+                    if (numObjects > 2) {
+                        start = numObjects - 2;     //
+                        numProcessed = 2;
+                        break;
+                    } else {
+                        final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+                        tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
+                        Toast toast = Toast.makeText(getBaseContext(), "***  This team only has " + numObjects +  " match(s) ***", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.show();
+                    }
                 case "Last 3":
-                    // ToDo - check # matches to see if they have this many
-                    start = numObjects - 3;     //
-                    numProcessed = 3;
-                    break;
+                    if (numObjects > 2) {
+                        start = numObjects - 3;     //
+                        numProcessed = 3;
+                        break;
+                    } else {
+                        final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+                        tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
+                        Toast toast = Toast.makeText(getBaseContext(), "***  This team only has " + numObjects +  " match(s) ***", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.show();
+                    }
                 case "ALL":
                     start = 0;                  // Start at beginning
                     numProcessed = numObjects;
