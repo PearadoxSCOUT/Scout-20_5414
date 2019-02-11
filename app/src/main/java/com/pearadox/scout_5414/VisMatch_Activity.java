@@ -681,10 +681,12 @@ public class VisMatch_Activity extends AppCompatActivity {
                     numProcessed = 1;
                     break;
                 case "Last 2":
+                    // ToDo - check # matches to see if they have this many
                     start = numObjects - 2;     //
                     numProcessed = 2;
                     break;
                 case "Last 3":
+                    // ToDo - check # matches to see if they have this many
                     start = numObjects - 3;     //
                     numProcessed = 3;
                     break;

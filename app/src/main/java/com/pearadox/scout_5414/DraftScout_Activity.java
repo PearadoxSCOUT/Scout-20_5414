@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,8 @@ public class DraftScout_Activity extends AppCompatActivity {
 
     String TAG = "DraftScout_Activity";        // This CLASS name
     Boolean is_Resumed = false;
+    int start = 0;          // Start Position for matches (0=ALL)
+    int numObjects = 0; int numProcessed = 0;
     int numPicks = 24;              // # of picks to show for Alliance Picks (actually get from Preferences)
     /*Shared Prefs-Scored Cargo*/ public String cargo_L1  = ""; public String cargo_L2  = ""; public String cargo_L3  = "";
     /*Shared Prefs-Panels*/ public String panels_L1 = ""; public String panels_L2  = ""; public String panels_L3  = ""; public String panels_Drop  = "";
@@ -65,6 +68,7 @@ public class DraftScout_Activity extends AppCompatActivity {
     /*Weight factors*/ public String wtClimb = ""; public String wtCargo = ""; public String wtPanels = "";
     ImageView imgStat_Load;
     TextView txt_EventName, txt_NumTeams, txt_Formula, lbl_Formula, txt_LoadStatus, txt_SelNum;
+    Spinner spinner_numMatches;
     ListView lstView_Teams;
     TextView TeamData, BA, Stats;
     Button btn_Match, btn_Default;
@@ -72,6 +76,8 @@ public class DraftScout_Activity extends AppCompatActivity {
     RadioButton radio_Climb, radio_Cargo, radio_Weight, radio_Team, radio_pGt1, radio_cGt1, radio_Panels;
     //    Button btn_Up, btn_Down, btn_Delete;
     public ArrayAdapter<String> adaptTeams;
+    public static String[] numMatch = new String[]             // Num. of Matches to process
+            {"ALL","Last","Last 2","Last 3"};
     //    ArrayList<String> draftList = new ArrayList<String>();
     static final ArrayList<HashMap<String, String>> draftList = new ArrayList<HashMap<String, String>>();
     public int teamSelected = -1;
@@ -247,6 +253,12 @@ public class DraftScout_Activity extends AppCompatActivity {
         txt_EventName.setText(Pearadox.FRC_EventName);              // Event Name
         txt_NumTeams.setText(String.valueOf(Pearadox.numTeams));    // # of Teams
         txt_Formula.setText(" ");
+        Spinner spinner_numMatches = (Spinner) findViewById(R.id.spinner_numMatches);
+        ArrayAdapter adapter_Matches = new ArrayAdapter<String>(this, R.layout.robonum_list_layout, numMatch);
+        adapter_Matches.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_numMatches.setAdapter(adapter_Matches);
+        spinner_numMatches.setSelection(0, false);
+        spinner_numMatches.setOnItemSelectedListener(new numMatches_OnItemSelectedListener());
 
         pfDatabase = FirebaseDatabase.getInstance();
         pfMatchData_DBReference = pfDatabase.getReference("match-data/" + Pearadox.FRC_Event);    // Match Data
@@ -327,23 +339,9 @@ public class DraftScout_Activity extends AppCompatActivity {
                     default:                //
                         Log.e(TAG, "*** Invalid Sort " + value);
                 }
-
             }
         });
 
-
-//        SimpleAdapter adaptTeams = new SimpleAdapter(
-//                this,
-//                draftList,
-//                R.layout.draft_list_layout,
-//                new String[] {"team","BA","Stats"},
-//                new int[] {R.id.TeamData,R.id.BA, R.id.Stats}
-//        );
-//
-//        loadTeams();
-//
-//        lstView_Teams.setAdapter(adaptTeams);
-//        adaptTeams.notifyDataSetChanged();
 
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -440,6 +438,45 @@ public class DraftScout_Activity extends AppCompatActivity {
         }
         return typ;
     }
+
+    //===========================================================================================
+    public class numMatches_OnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+        public void onItemSelected(AdapterView<?> parent,
+                                   View view, int pos, long id) {
+            String num = " ";
+            num = parent.getItemAtPosition(pos).toString();
+            Log.w(TAG, ">>>>> NumMatches '" + num + "'");
+            switch (num) {
+                case "Last":
+                    start = numObjects - 1;     //
+                    numProcessed = 1;
+                    break;
+                case "Last 2":
+                    // ToDo - check # matches to see if they have this many
+                    start = numObjects - 2;     //
+                    numProcessed = 2;
+                    break;
+                case "Last 3":
+                    // ToDo - check # matches to see if they have this many
+                    start = numObjects - 3;     //
+                    numProcessed = 3;
+                    break;
+                case "ALL":
+                    start = 0;                  // Start at beginning
+                    numProcessed = numObjects;
+                    break;
+                default:                //
+                    Log.e(TAG, "Invalid number of matches - " + start);
+            }
+            Log.w(TAG, "Start = " + num );
+//            init_Values();
+//            getMatch_Data();
+        }
+        public void onNothingSelected(AdapterView<?> parent) {
+            // Do nothing.
+        }
+    }
+
 
 
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -589,6 +626,7 @@ public class DraftScout_Activity extends AppCompatActivity {
 
         draftList.clear();
         String totalScore="";
+        // ToDo - use start & NumObjects
         for (int i = 0; i < team_Scores.size(); i++) {    // load by sorted scores
             score_inst = team_Scores.get(i);
 //            Log.w(TAG, i +" team=" + score_inst.getTeamNum());
@@ -631,64 +669,15 @@ public class DraftScout_Activity extends AppCompatActivity {
         Log.w(TAG, "### Teams ###  : " + draftList.size());
         lstView_Teams.setAdapter(adaptTeams);
         adaptTeams.notifyDataSetChanged();
-
     }
 
-//    private void loadTeams() {
-//        Log.i(TAG, "@@@@  loadTeams started  @@@@");
-//// ----------  Blue Alliance  -----------
-//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
-//        StrictMode.setThreadPolicy(policy);
-//        TBA.setID("Pearadox", "Scout-5414", "V1");
-//        final TBA tba = new TBA();
-//        Settings.FIND_TEAM_RANKINGS = true;
-//        Settings.GET_EVENT_TEAMS = true;
-//        Settings.GET_EVENT_MATCHES = true;
-//        Settings.GET_EVENT_ALLIANCES = true;
-//        Settings.GET_EVENT_AWARDS = true;
-//        Settings.GET_EVENT_STATS = true;
-//        String tn = "";
-//
-//        TBA t = new TBA();
-//        Event e = t.getEvent(Pearadox.FRC_ChampDiv, 2017);
-//        teams = e.teams.clone();
-////        Team[] teams1 = e.teams;
-//        Log.e(TAG, Pearadox.FRC_ChampDiv + "Teams= " + teams.length);
-//        draftList.clear();
-//        BAnumTeams = e.teams.length;
-//        if (BAnumTeams > 0) {
-//            for (int i = 0; i < teams.length; i++) {
-//                HashMap<String, String> temp = new HashMap<String, String>();
-//                if (String.valueOf(teams[i].team_number).length() < 4) {
-//                    tn = " " + String.valueOf(teams[i].team_number);    // Add leading blank
-//                } else {
-//                    tn = String.valueOf(teams[i].team_number);
-//                }
-//
-//                teamData(tn);   // Get Team's Match Data
-//
-//                temp.put("team", tn + " - " + teams[i].nickname);
-//                temp.put("BA", "Rank=" + teams[i].rank + "  " + teams[i].record + "   OPR=" + String.format("%3.1f", (teams[i].opr)) + "    ↑ " + String.format("%3.1f", (teams[i].touchpad)) + "   kPa=" + String.format("%3.1f", (teams[i].pressure)));
-//                temp.put("Stats", "Auto Gears=" + sandCargL1 + "  Tele Gears=" + teleCargoL1 + "   Pick up Gears " + cubeChk + "   Climb " + climb_HAB0 + "  " + );
-//                draftList.add(temp);
-//                                                      } // End For
-//                Log.w(TAG, "### Teams ###  : " + draftList.size());
-//
-//        } else {
-//            final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
-//            tg.startTone(ToneGenerator.TONE_PROP_BEEP);
-//            Toast toast = Toast.makeText(getBaseContext(), "***  Data from the Blue Alliance is _NOT_ available this session  ***", Toast.LENGTH_LONG);
-//            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-//            toast.show();
-//        }
-//
-//    }
-@Override
-public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
-    getMenuInflater().inflate(R.menu.menu_draft, menu);
-    return true;
-}
+    // ****************************************************************************************8
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_draft, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -1310,7 +1299,11 @@ public boolean onCreateOptionsMenu(Menu menu) {
                 /*listener failed or was removed for security reasons*/
             }
         });
-        loadTeams();
+
+        // ======================================================================================
+        sortType = "Team#";          // Attempt to "force" correct sort 1st time
+        Collections.sort(team_Scores, Scores.teamComp);
+        loadTeams();    // load for 1st time in Team# order
     }
 
     private void initScores() {

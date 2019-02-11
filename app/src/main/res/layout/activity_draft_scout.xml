@@ -14,10 +14,10 @@
 
     <ImageView
         android:id="@+id/imageView_DS"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/draft_scout"
-        android:contentDescription="Draft Scout logo" />
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:contentDescription="Draft Scout logo"
+        android:src="@drawable/draft_scout" />
 
     <TextView
         android:id="@+id/txt_EventName"
@@ -200,7 +200,16 @@
         android:textSize="12sp"
         tools:enabled="false" />
 
-//================================================
+    <Spinner
+        android:id="@+id/spinner_numMatches"
+        android:layout_width="70sp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imageView_DS"
+        android:layout_alignBottom="@+id/txt_SelNum"
+        android:text="ALL"
+        android:textColor="@color/green" />
+
+    //================================================
 
     <TextView
         android:id="@+id/lbl_Selected"
@@ -219,8 +228,8 @@
         android:layout_width="400dp"
         android:layout_height="60dp"
         android:layout_below="@+id/lbl_Selected"
-        android:layout_marginStart="-2dp"
-        android:layout_marginTop="-2dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="-1dp"
         android:layout_toEndOf="@+id/imageView_DS"
         android:orientation="horizontal">
 
@@ -279,7 +288,6 @@
         <!--android:layout_marginStart="3dp"-->
         <!--android:layout_marginTop="30dp"-->
         <!--android:text="⚫ >1" />-->
-
 
     </RadioGroup>
 
