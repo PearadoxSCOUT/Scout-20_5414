@@ -948,31 +948,27 @@
                     android:id="@+id/radio_playerStation2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Player Sta."
+                    android:onClick="RadioClick_2ndLoc"
+                    android:text="Loading Sta."
                     android:textColor="@color/cyan" />
 
-            <RadioButton
-                android:id="@+id/radio_corral2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Corral"
-                android:textColor="@color/cyan" />
+                <RadioButton
+                    android:id="@+id/radio_corral2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="RadioClick_2ndLoc"
+                    android:text="Corral"
+                    android:textColor="@color/cyan" />
 
-            <RadioButton
-                android:id="@+id/radio_floor2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Floor"
-                android:textColor="@color/cyan" />
-        </RadioGroup>
-
-            <!--<TextView-->
-                <!--android:id="@+id/lblThirdPieceLocation"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginStart="30dp"-->
-                <!--android:text="|" />-->
-
+                <RadioButton
+                    android:id="@+id/radio_floor2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="RadioClick_2ndLoc"
+                    android:text="Floor"
+                    android:textColor="@color/cyan" />
+           </RadioGroup>
+// =====================================
             <RadioGroup
                 android:id="@+id/radgrp_thirdPieceLocation"
                 android:layout_width="wrap_content"
@@ -985,13 +981,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Player Sta."
+                    android:onClick="RadioClick_3rdLoc"
+                    android:text="Loading Sta."
                     android:textColor="@color/magenta" />
 
                 <RadioButton
                     android:id="@+id/radio_corral3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="RadioClick_3rdLoc"
                     android:text="Corral"
                     android:textColor="@color/magenta" />
 
@@ -999,6 +997,7 @@
                     android:id="@+id/radio_floor3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="RadioClick_3rdLoc"
                     android:text="Floor"
                     android:textColor="@color/magenta" />
 

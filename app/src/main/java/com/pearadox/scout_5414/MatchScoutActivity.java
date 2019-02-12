@@ -56,7 +56,7 @@ public class MatchScoutActivity extends AppCompatActivity {
                         RadioGroup radgrp_thirdPiece; RadioButton radio_hatch3, radio_cargo3, radio_3rd;
                         RadioGroup radgrp_thirdPieceLocation; RadioButton radio_playerStation3, radio_corral3, radio_floor3, radio_3rdLoc;
     /* Last Sect. */    EditText editText_autoComment;
-
+                        Button btn_DropPlus, btn_DropMinus;  TextView  txt_Num_Dropped;
     Spinner spinner_startPos;
     protected Vibrator vibrate;
     long[] once = { 0, 100 };
@@ -85,16 +85,6 @@ public class MatchScoutActivity extends AppCompatActivity {
     public boolean auto               = false;  // Do they have Autonomous mode?
     public boolean leftHAB            = false;  // Did they leave HAB
     public boolean leftHAB2           = false;  // Did they start from Hab level 2
-    public boolean PU2ndPlSta         = false;  // 2nd from Player Station
-    public boolean PU2ndCorral        = false;  // 2nd from Corral
-    public boolean PU2ndFloor         = false;  // 2nd from Floor
-    public boolean PU3rdPanel         = false;  // Second game piece - Panel
-    public boolean PU3rdCargo         = false;  // Second game piece - Cargo
-    public boolean PU3rdPlSta         = false;  // 3rd from Player Station
-    public boolean PU3rdCorral        = false;  // 3rd from Corral
-    public boolean PU3rdFloor         = false;  // 3rd from Floor
-    public int num_Dropped            = 0;      // How many Panels dropped?
-    // ToDo - add new variables
 
     public boolean LeftRocket_LPan1   = false;  // L-Rocket L-Panel#1
     public boolean LeftRocket_LPan2   = false;  // L-Rocket L-Panel#2
@@ -138,6 +128,18 @@ public class MatchScoutActivity extends AppCompatActivity {
     public boolean RghtRocket_RCarg1  = false;  // R-Rocket R-Cargo#1
     public boolean RghtRocket_RCarg2  = false;  // R-Rocket R-Cargo#2
     public boolean RghtRocket_RCarg3  = false;  // R-Rocket R-Cargo#3
+
+    public boolean PU2ndPanel         = false;  // Second game piece - Panel
+    public boolean PU2ndCargo         = false;  // Second game piece - Cargo
+    public boolean PU2ndPlSta         = false;  // 2nd from Player Station
+    public boolean PU2ndCorral        = false;  // 2nd from Corral
+    public boolean PU2ndFloor         = false;  // 2nd from Floor
+    public boolean PU3rdPanel         = false;  // Second game piece - Panel
+    public boolean PU3rdCargo         = false;  // Second game piece - Cargo
+    public boolean PU3rdPlSta         = false;  // 3rd from Player Station
+    public boolean PU3rdCorral        = false;  // 3rd from Corral
+    public boolean PU3rdFloor         = false;  // 3rd from Floor
+    public int num_Dropped            = 0;      // How many Panels dropped?
 
     /* */
     public String autoComment = " ";        // Comment
@@ -291,10 +293,13 @@ public class MatchScoutActivity extends AppCompatActivity {
             imgScoutLogo.setImageDrawable(getResources().getDrawable(R.drawable.blue_scout));
         }
 
-        checkbox_noSS = (CheckBox) findViewById(R.id.checkbox_noSS);
-        checkbox_leftHAB = (CheckBox) findViewById(R.id.checkbox_leftHAB);
-        checkbox_leftHAB2 = (CheckBox) findViewById(R.id.checkbox_leftHAB2);
-        editText_autoComment = (EditText) findViewById(R.id.editText_autoComment);
+        checkbox_noSS           = (CheckBox) findViewById(R.id.checkbox_noSS);
+        checkbox_leftHAB        = (CheckBox) findViewById(R.id.checkbox_leftHAB);
+        checkbox_leftHAB2       = (CheckBox) findViewById(R.id.checkbox_leftHAB2);
+        editText_autoComment    = (EditText) findViewById(R.id.editText_autoComment);
+        btn_DropPlus            = (Button) findViewById(R.id.btn_DropPlus);
+        btn_DropMinus           = (Button) findViewById(R.id.btn_DropMinus);
+        txt_Num_Dropped         = (TextView) findViewById(R.id.txt_Num_Dropped);
         button_GoToTeleopActivity = (Button) findViewById(R.id.button_GoToTeleopActivity);
         button_GoToArenaLayoutActivity = (Button) findViewById(R.id.button_GoToArenaLayoutActivity);
         final Spinner spinner_startPos = (Spinner) findViewById(R.id.spinner_startPos);
@@ -860,9 +865,6 @@ public class MatchScoutActivity extends AppCompatActivity {
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-        //ToDo - Listners for left HAB & left HAB2
-
-
         checkbox_noSS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
              @Override
              public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -983,6 +985,25 @@ public class MatchScoutActivity extends AppCompatActivity {
         }
         });
 
+        // *******************************************************************
+
+        btn_DropPlus.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                num_Dropped++;
+                Log.w(TAG, "Dropped = " + Integer.toString(num_Dropped));      // ** DEBUG **
+                txt_Num_Dropped.setText(Integer.toString(num_Dropped));
+            }
+        });
+        btn_DropMinus.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (num_Dropped >= 1) {     // Don't go below zero
+                    num_Dropped--;
+                }
+                Log.w(TAG, "Dropped = " + Integer.toString(num_Dropped));      // ** DEBUG **
+                txt_Num_Dropped.setText(Integer.toString(num_Dropped));
+            }
+        });
+
 
         // === End of OnCreate ===
     }
@@ -1021,12 +1042,16 @@ public class MatchScoutActivity extends AppCompatActivity {
         radio_corral2 = (RadioButton) findViewById(R.id.radio_corral2);
         if (value.equals("Panel")) {        // Panel
             Log.w(TAG, "2nd Panel");
+            PU2ndPanel = true;
+            PU2ndCargo = false;
             radio_playerStation2.setEnabled(true);
             radio_floor2.setEnabled(true);
             radio_corral2.setVisibility(View.INVISIBLE);
         }
         if (value.equals("Cargo")) {        // Panel
             Log.w(TAG, "2nd Cargo");
+            PU2ndCargo = true;
+            PU2ndPanel = false;
             for(int i = 0; i < radgrp_secondPieceLocation.getChildCount(); i++){        // turn them all ON
                 ((RadioButton)radgrp_secondPieceLocation.getChildAt(i)).setEnabled(true);
             }
@@ -1040,7 +1065,6 @@ public class MatchScoutActivity extends AppCompatActivity {
         Log.w(TAG, "@@ RadioClick_3rd @@");
         radgrp_thirdPiece = (RadioGroup) findViewById(R.id.radgrp_thirdPiece);
         int selectedId = radgrp_thirdPiece.getCheckedRadioButtonId();
-//        Log.w(TAG, "*** Selected=" + selectedId);
         radio_3rd = (RadioButton) findViewById(selectedId);
         String value = radio_3rd.getText().toString();
         final RadioGroup radgrp_thirdPieceLocation = (RadioGroup)findViewById(R.id.radgrp_thirdPieceLocation);
@@ -1049,16 +1073,80 @@ public class MatchScoutActivity extends AppCompatActivity {
         radio_corral3 = (RadioButton) findViewById(R.id.radio_corral3);
         if (value.equals("Panel")) {        // Panel
             Log.w(TAG, "3rd Panel");
+            PU3rdPanel = true;
+            PU3rdCargo = false;
             radio_playerStation3.setEnabled(true);
             radio_floor3.setEnabled(true);
             radio_corral3.setVisibility(View.INVISIBLE);
         }
         if (value.equals("Cargo")) {        // Panel
             Log.w(TAG, "3rd Cargo");
+            PU3rdCargo = true;
+            PU3rdPanel = false;
             for(int i = 0; i < radgrp_thirdPieceLocation.getChildCount(); i++){        // turn them all ON
                 ((RadioButton)radgrp_thirdPieceLocation.getChildAt(i)).setEnabled(true);
             }
             radio_corral3.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+    public void RadioClick_2ndLoc(View view) {
+        Log.w(TAG, "@@ RadioClick_2ndLoc @@");
+        radgrp_secondPieceLocation = (RadioGroup) findViewById(R.id.radgrp_secondPieceLocation);
+        int selectedId = radgrp_secondPieceLocation.getCheckedRadioButtonId();
+        radio_2ndLoc = (RadioButton) findViewById(selectedId);
+        String value = radio_2ndLoc.getText().toString();
+        radio_playerStation2 = (RadioButton) findViewById(R.id.radio_playerStation2);
+        radio_floor2 = (RadioButton) findViewById(R.id.radio_floor2);
+        radio_corral2 = (RadioButton) findViewById(R.id.radio_corral2);
+        if (value.equals("Loading Sta.")) {        // Loading Sta
+            Log.w(TAG, "2nd Loading Sta.");
+            PU2ndPlSta = true;
+            PU2ndCorral = false;
+            PU2ndFloor = false;
+        }
+        if (value.equals("Corral")) {        // Loading Sta
+            Log.w(TAG, "2nd Corral");
+            PU2ndCorral = true;
+            PU2ndPlSta = false;
+            PU2ndFloor = false;
+        }
+        if (value.equals("Floor")) {        // Loading Sta
+            Log.w(TAG, "2nd Floor");
+            PU2ndFloor = true;
+            PU2ndCorral = false;
+            PU2ndPlSta = false;
+        }
+    }
+
+    /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+    public void RadioClick_3rdLoc(View view) {
+        Log.w(TAG, "@@ RadioClick_3rdLoc @@");
+        radgrp_thirdPieceLocation = (RadioGroup) findViewById(R.id.radgrp_thirdPieceLocation);
+        int selectedId = radgrp_thirdPieceLocation.getCheckedRadioButtonId();
+        radio_3rdLoc = (RadioButton) findViewById(selectedId);
+        String value = radio_3rdLoc.getText().toString();
+        radio_playerStation3 = (RadioButton) findViewById(R.id.radio_playerStation3);
+        radio_floor3 = (RadioButton) findViewById(R.id.radio_floor3);
+        radio_corral3 = (RadioButton) findViewById(R.id.radio_corral3);
+        if (value.equals("Loading Sta.")) {        // Loading Sta
+            Log.w(TAG, "3rd Loading Sta.");
+            PU3rdPlSta = true;
+            PU3rdCorral = false;
+            PU3rdFloor = false;
+        }
+        if (value.equals("Corral")) {        // Loading Sta
+            Log.w(TAG, "3rd Corral");
+            PU3rdCorral = true;
+            PU3rdPlSta = false;
+            PU3rdFloor = false;
+        }
+        if (value.equals("Floor")) {        // Loading Sta
+            Log.w(TAG, "3rd Floor");
+            PU3rdFloor = true;
+            PU3rdCorral = false;
+            PU3rdPlSta = false;
         }
     }
 
@@ -1124,6 +1212,19 @@ public class MatchScoutActivity extends AppCompatActivity {
         Pearadox.Match_Data.setSand_CargoEndRCargo(CargoEndRCargo);
         
         // ToDo - set all variables to object
+        Pearadox.Match_Data.setSand_PU2ndPanel(PU2ndPanel);
+        Pearadox.Match_Data.setSand_PU2ndCargo(PU2ndCargo);
+        Pearadox.Match_Data.setSand_PU2ndFloor(PU2ndFloor);
+        Pearadox.Match_Data.setSand_PU2ndCorral(PU2ndCorral);
+        Pearadox.Match_Data.setSand_PU2ndPlSta(PU2ndPlSta);
+
+        Pearadox.Match_Data.setSand_PU3rdPanel(PU3rdPanel);
+        Pearadox.Match_Data.setSand_PU3rdCargo(PU3rdCargo);
+        Pearadox.Match_Data.setSand_PU3rdFloor(PU3rdFloor);
+        Pearadox.Match_Data.setSand_PU3rdCorral(PU3rdCorral);
+        Pearadox.Match_Data.setSand_PU3rdPlSta(PU3rdPlSta);
+
+        Pearadox.Match_Data.setSand_num_Dropped(num_Dropped);
 
         // --------------
         Pearadox.Match_Data.setSand_comment(autoComment);
