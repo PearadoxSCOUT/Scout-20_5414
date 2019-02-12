@@ -40,6 +40,8 @@ public class VisMatch_Activity extends AppCompatActivity {
     TextView txt_Ss_LeftHab1, txt_Ss_LeftHab2, txt_noSand, txt_Ss_cargoScored, txt_Ss_hatchScored, txt_Ss_droppedHatch;
     TextView txt_Tele_cargoScored, txt_Tele_hatchScored, txt_Tele_droppedHatch;
     TextView txt_HabLvl, txt_Lift1NUM, txt_Lift2NUM, txt_WasLiftedNUM;
+    TextView txt_2ndCargFloor, txt_2ndCargPlaSta, txt_2ndCargCorral, txt_2ndPanFloor, txt_2ndPanPlaSta , txt_3rdCargFloor, txt_3rdCargPlasta, txt_3rdCargCorral, txt_3rdPanFloor, txt_3rdPanPlaSta;;
+    TextView txt_TeleCargFloor, txt_TeleCargPlaSta, txt_TeleCargCorral, txt_TelePanFloor, txt_TelePanPlaSta; 
     // ToDo - TextViews for Cargo/Panels 2nd & 3rd
     /* Comment Boxes */     TextView txt_AutoComments, txt_TeleComments, txt_FinalComments;
     TextView txt_Lvl1, txt_Lvl2, txt_NoShow;
@@ -48,25 +50,23 @@ public class VisMatch_Activity extends AppCompatActivity {
             {"ALL","Last","Last 2","Last 3"};
     BarChart mBarChart;
     //----------------------------------
-    int numLeftHAB = 0; int numLeftHAB2 = 0; int noSand = 0; int numExtraSw = 0; int numExtraSc = 0;
-    int auto_SwCubesAttempted = 0; int auto_SwCrossOver = 0;int Auto_SwWrong = 0;
-    int auto_ScCubesAttempted = 0; int auto_ScCubesPlaced = 0; int auto_ScCrossOver = 0; int Auto_ScWrong = 0;
+    int numLeftHAB = 0; int numLeftHAB2 = 0; int noSand = 0;
     int auto_B1 = 0; int auto_B2 = 0; int auto_B3 = 0;
     int auto_Ps1 = 0; int auto_Ps2 = 0; int auto_Ps3 = 0;
+    int sand_CargoFloor2= 0; int sand_CargoPlasta2= 0; int sand_CargoCorral2 = 0; int sand_PanFloor2 = 0; int sand_PanPlasta2 = 0;
+    int sand_CargoFloor3 = 0; int sand_CargoPlasta3 = 0; int sand_CargoCorral3 = 0; int sand_PanFloor3 = 0; int sand_PanPlasta3 = 0;
+    int tele_CargoFloor = 0; int tele_CargoPlasta = 0; int tele_CargoCorral = 0; int tele_PanFloor = 0; int tele_PanPlasta = 0;
 // ToDO - variables for 2nd & 3rd
     int climbH0= 0; int climbH1 = 0; int climbH2 = 0; int climbH3 = 0; int lift1Num = 0; int liftedNum = 0;
     int cargL1 = 0; int cargL2 = 0; int cargL3 =0; int TcargL1 = 0; int TcargL2 = 0; int TcargL3 = 0; int TpanL1 = 0; int TpanL2 = 0; int TpanL3 = 0;
     int numMatches = 0; int panL1 = 0; int panL2 = 0; int panL3 = 0; int dropped=0; int Tdropped = 0;
     String auto_Comments = "";
     //----------------------------------
-//    int tele_totalCubeSwAttempted = 0; int tele_totalCubeSwPlaced = 0; int tele_totalCubeScAttempted = 0; int tele_totalCubeScPlaced = 0; int tele_SwTheirs = 0; int tele_SwTheirAtt = 0; int tele_their_floor = 0;
-//    int cubznNUM = 0; int cubplatNUM = 0; int cubPlatOthrNUM = 0; int offFloorNUM = 0; int portalNUM = 0; int randomNUM = 0;
-    int numTeleExch = 0; int numTeleLaunch = 0; int numTelePlace = 0;
-    int numTeleClimbSuccess = 0; int LiftNm = 0; int WasLifted = 0; int rungNum = 0; int sideNum = 0; int onPlatform = 0;
+    int numTeleClimbSuccess = 0; int LiftNm = 0; int WasLifted = 0;
     String tele_Comments = "";
     //----------------------------------
-    int final_LostComm = 0; int final_LostParts = 0; int final_DefGood = 0; int final_DefBlock = 0;  int final_DefSwitch = 0; int final_DefStarve = 0; int final_NumPen = 0;
-    TextView txt_final_LostComm, txt_final_LostParts, txt_final_DefGood, txt_final_DefBlock, txt_final_BlkSwtch, txt_final_NumPen, txt_final_DefStarve;
+    int final_LostComm = 0; int final_LostParts = 0; int final_DefGood = 0; int final_DefBlock = 0;  int final_DefSwitch = 0; int final_DefLast30 = 0; int final_NumPen = 0;
+    TextView txt_final_LostComm, txt_final_LostParts, txt_final_DefGood, txt_final_DefBlock, txt_final_BlkSwtch, txt_final_NumPen, txt_final_DefLast30;
     String final_Comments = "";
     //----------------------------------
 
@@ -106,6 +106,21 @@ public class VisMatch_Activity extends AppCompatActivity {
         txt_Ss_hatchScored  = (TextView) findViewById(R.id.txt_Ss_hatchScored);
         txt_Ss_droppedHatch = (TextView) findViewById(R.id.txt_Ss_droppedHatch);
 // ToDo -  findViews Cargo/Panels 2nd & 3rd
+        txt_2ndCargFloor = (TextView) findViewById(R.id.txt_2ndCargFloor);
+        txt_2ndCargPlaSta = (TextView) findViewById(R.id.txt_2ndCargPlaSta);
+        txt_2ndCargCorral = (TextView) findViewById(R.id.txt_2ndCargCorral);
+        txt_2ndPanFloor = (TextView) findViewById(R.id.txt_2ndPanFloor);
+        txt_2ndPanPlaSta = (TextView) findViewById(R.id.txt_2ndPanPlaSta);
+        txt_3rdCargFloor = (TextView) findViewById(R.id.txt_3rdCargFloor);
+        txt_3rdCargPlasta = (TextView) findViewById(R.id.txt_3rdCargPlaSta);
+        txt_3rdCargCorral = (TextView) findViewById(R.id.txt_3rdCargCorral);
+        txt_3rdPanFloor = (TextView) findViewById(R.id.txt_3rdPanFloor);
+        txt_3rdPanPlaSta = (TextView) findViewById(R.id.txt_3rdPanPlaSta);
+        txt_TeleCargFloor = (TextView) findViewById(R.id.txt_TeleCargFloor);
+        txt_TeleCargPlaSta = (TextView) findViewById(R.id.txt_TeleCargPlaSta);
+        txt_TeleCargCorral = (TextView) findViewById(R.id.txt_TeleCargCorral);
+        txt_TelePanFloor = (TextView) findViewById(R.id.txt_TelePanFloor);
+        txt_TelePanPlaSta = (TextView) findViewById(R.id.txt_TelePanPlaSta);
         txt_Tele_droppedHatch = (TextView) findViewById(R.id.txt_Tele_droppedHatch);
         txt_Lvl1 = (TextView) findViewById(R.id.txt_Lvl1);
         txt_Lvl2 = (TextView) findViewById(R.id.txt_Lvl2);
@@ -135,7 +150,7 @@ public class VisMatch_Activity extends AppCompatActivity {
         txt_final_DefBlock = (TextView) findViewById(R.id.txt_final_DefBlock);
         txt_final_BlkSwtch = (TextView) findViewById(R.id.txt_final_BlkSwtch);
         txt_final_NumPen = (TextView) findViewById(R.id.txt_final_NumPen);
-        txt_final_DefStarve = (TextView) findViewById(R.id.txt_final_DefStarve);
+        txt_final_DefLast30 = (TextView) findViewById(R.id.txt_final_DefLast30);
 
         txt_team.setText(tnum);
         txt_teamName.setText(tname);    // Get real
@@ -327,12 +342,66 @@ public class VisMatch_Activity extends AppCompatActivity {
             if (match_inst.isSand_CargoRPan3()) {
                 panL1++;
             }
-            if (match_inst.isSand_CargoEndLPanel()) {      // End
+            if (match_inst.isSand_CargoEndLPanel()) {
                 panL1++;
             }
-            if (match_inst.isSand_CargoEndRPanel()) {      // End
+            if (match_inst.isSand_CargoEndRPanel()) {
                 panL1++;
             }
+            if (match_inst.isSand_PU2ndPanel()) {
+                if (match_inst.isSand_PU2ndPlSta()) {
+                    sand_PanPlasta2++;
+                }
+                if (match_inst.isSand_PU2ndFloor()) {
+                    sand_PanFloor2++;
+                }
+            }
+            if (match_inst.isSand_PU2ndCargo()) {
+                if (match_inst.isSand_PU2ndFloor()) {
+                    sand_CargoFloor2++;
+                }
+                if (match_inst.isSand_PU2ndPlSta()) {
+                    sand_CargoPlasta2++;
+                }
+                if (match_inst.isSand_PU2ndCorral()) {
+                    sand_CargoCorral2++;
+                }
+            }
+            if (match_inst.isSand_PU3rdPanel()) {
+                if (match_inst.isSand_PU3rdPlSta()) {
+                    sand_PanPlasta3++;
+                }
+                if (match_inst.isSand_PU3rdFloor()) {
+                    sand_PanFloor3++;
+                }
+            }
+            if (match_inst.isSand_PU3rdCargo()) {
+                if (match_inst.isSand_PU3rdFloor()) {
+                    sand_CargoFloor3++;
+                }
+                if (match_inst.isSand_PU3rdPlSta()) {
+                    sand_CargoPlasta3++;
+                }
+                if (match_inst.isSand_PU3rdCorral()) {
+                    sand_CargoCorral3++;
+                }
+            }
+            if (match_inst.isTele_cargo_Corral()) {
+                tele_CargoCorral++;
+            }
+            if (match_inst.isTele_cargo_floor()) {
+                tele_CargoFloor++;
+            }
+            if (match_inst.isTele_cargo_playSta()) {
+                tele_CargoPlasta++;
+            }
+            if (match_inst.isTele_Panel_floor()) {
+                tele_PanFloor++;
+            }
+            if (match_inst.isTele_Panel_playSta()) {
+                tele_PanPlasta++;
+            }
+
 // ToDo - Collect data for Cargo/Panels 2nd & 3rd
 
             // *************************************************
@@ -512,9 +581,9 @@ public class VisMatch_Activity extends AppCompatActivity {
                 final_DefGood++;
             }
             // Todo Rocket Int.
-//            if (match_inst.isFinal_def_Lane()) {
-//                final_DefStarve++;
-//            }
+            if (match_inst.isFinal_defLast30()) {
+                final_DefLast30++;
+            }
             if (match_inst.isFinal_def_Block()) {
                 final_DefBlock++;
             }
@@ -542,6 +611,21 @@ public class VisMatch_Activity extends AppCompatActivity {
         txt_Tele_cargoScored = (TextView) findViewById(R.id.txt_Tele_cargoScored);
         txt_Tele_hatchScored = (TextView) findViewById(R.id.txt_Tele_hatchScored);
         txt_Tele_droppedHatch = (TextView) findViewById(R.id.txt_Tele_droppedHatch);
+        txt_2ndCargFloor = (TextView) findViewById(R.id.txt_2ndCargFloor);
+        txt_2ndCargPlaSta = (TextView) findViewById(R.id.txt_2ndCargPlaSta);
+        txt_2ndCargCorral = (TextView) findViewById(R.id.txt_2ndCargCorral);
+        txt_2ndPanFloor = (TextView) findViewById(R.id.txt_2ndPanFloor);
+        txt_2ndPanPlaSta = (TextView) findViewById(R.id.txt_2ndPanPlaSta);
+        txt_3rdCargFloor = (TextView) findViewById(R.id.txt_3rdCargFloor);
+        txt_3rdCargPlasta = (TextView) findViewById(R.id.txt_3rdCargPlaSta);
+        txt_3rdCargCorral = (TextView) findViewById(R.id.txt_3rdCargCorral);
+        txt_3rdPanFloor = (TextView) findViewById(R.id.txt_3rdPanFloor);
+        txt_3rdPanPlaSta = (TextView) findViewById(R.id.txt_3rdPanPlaSta);
+        txt_TeleCargFloor = (TextView) findViewById(R.id.txt_TeleCargFloor);
+        txt_TeleCargPlaSta = (TextView) findViewById(R.id.txt_TeleCargPlaSta);
+        txt_TeleCargCorral = (TextView) findViewById(R.id.txt_TeleCargCorral);
+        txt_TelePanFloor = (TextView) findViewById(R.id.txt_TelePanFloor);
+        txt_TelePanPlaSta = (TextView) findViewById(R.id.txt_TelePanPlaSta);
         txt_Lvl1 = (TextView) findViewById(R.id.txt_Lvl1);
         txt_Lvl2 = (TextView) findViewById(R.id.txt_Lvl2);
         txt_NoShow = (TextView) findViewById(R.id.txt_NoShow);
@@ -559,12 +643,27 @@ public class VisMatch_Activity extends AppCompatActivity {
         String hatScored = "¹" + String.valueOf(panL1) + " ²" + String.valueOf(panL2) + " ³" + String.valueOf(panL3);
         txt_Ss_hatchScored.setText(String.valueOf(hatScored));
         txt_Ss_droppedHatch.setText(String.valueOf(dropped));
-        String teleCargo = "¹" + String.valueOf(cargL1) + " ²" + String.valueOf(cargL2) + " ³" + String.valueOf(cargL3);
+        String teleCargo = "¹" + String.valueOf(TcargL1) + " ²" + String.valueOf(TcargL2) + " ³" + String.valueOf(TcargL3);
         txt_Tele_cargoScored.setText(teleCargo);
         String teleHatchPanel = "¹" + String.valueOf(TpanL1) + " ²" + String.valueOf(TpanL2) + " ³" + String.valueOf(TpanL3);
         txt_Tele_hatchScored.setText(teleHatchPanel);
         txt_Tele_droppedHatch.setText(String.valueOf(Tdropped));
         String HabEnd = "⁰"+ String.valueOf(climbH0) + " ¹" + String.valueOf(climbH1) + " ²" + String.valueOf(climbH2) + " ³" + String.valueOf(climbH3);
+        txt_2ndCargFloor.setText(String.valueOf(sand_CargoFloor2));
+        txt_2ndCargPlaSta.setText(String.valueOf(sand_CargoPlasta2));
+        txt_2ndCargCorral.setText(String.valueOf(sand_CargoCorral2));
+        txt_2ndPanPlaSta.setText(String.valueOf(sand_PanPlasta2));
+        txt_2ndPanFloor.setText(String.valueOf(sand_PanFloor2));
+        txt_3rdCargFloor.setText(String.valueOf(sand_CargoFloor3));
+        txt_3rdCargPlasta.setText(String.valueOf(sand_CargoPlasta3));
+        txt_3rdCargCorral.setText(String.valueOf(sand_CargoCorral3));
+        txt_3rdPanPlaSta.setText(String.valueOf(sand_PanPlasta3));
+        txt_3rdPanFloor.setText(String.valueOf(sand_PanFloor3));
+        txt_TeleCargFloor.setText(String.valueOf(tele_CargoFloor));
+        txt_TeleCargPlaSta.setText(String.valueOf(tele_CargoPlasta));
+        txt_TeleCargCorral.setText(String.valueOf(tele_CargoCorral));
+        txt_TelePanFloor.setText(String.valueOf(tele_PanFloor));
+        txt_TelePanPlaSta.setText(String.valueOf(tele_PanPlasta));
         txt_HabLvl.setText(HabEnd);
         txt_Lvl1.setText(String.valueOf(auto_B1));
         txt_Lvl2.setText(String.valueOf(auto_B2));
@@ -590,7 +689,7 @@ public class VisMatch_Activity extends AppCompatActivity {
         txt_final_DefGood.setText(String.valueOf(final_DefGood));
         txt_final_BlkSwtch.setText(String.valueOf(final_DefSwitch));
         txt_final_DefBlock.setText(String.valueOf(final_DefBlock));
-        txt_final_DefStarve.setText(String.valueOf(final_DefStarve));
+        txt_final_DefLast30.setText(String.valueOf(final_DefLast30));
         txt_final_NumPen.setText(String.valueOf(final_NumPen));
 
         txt_FinalComments.setText(final_Comments);
@@ -644,6 +743,9 @@ public class VisMatch_Activity extends AppCompatActivity {
         auto_Ps3 = 0;
         cargL1 = 0; cargL2 = 0; cargL3 = 0; TcargL1 = 0; TcargL2 = 0; TcargL3 = 0;
         panL1 = 0; panL2 = 0; panL3 = 0; TpanL1 = 0; TpanL2 = 0; TpanL3 = 0;
+        sand_CargoFloor2= 0; sand_CargoPlasta2= 0; sand_CargoCorral2 = 0; sand_PanFloor2 = 0; sand_PanPlasta2 = 0;
+        sand_CargoFloor3 = 0; sand_CargoPlasta3 = 0; sand_CargoCorral3 = 0; sand_PanFloor3 = 0; sand_PanPlasta3 = 0;
+        tele_CargoFloor = 0; tele_CargoPlasta = 0; tele_CargoCorral = 0; tele_PanFloor = 0; tele_PanPlasta = 0;
 // ToDo - initialize data for Cargo/Panels 2nd & 3rd
         numTeleClimbSuccess = 0;
         lift1Num = 0;
@@ -661,9 +763,8 @@ public class VisMatch_Activity extends AppCompatActivity {
         final_LostComm = 0;
         final_LostParts = 0;
         final_DefGood = 0;
+        final_DefLast30 = 0;
         final_DefBlock = 0;
-        final_DefSwitch = 0;
-        final_DefStarve = 0;
         final_NumPen = 0;
 
         mBarChart.clearChart();
