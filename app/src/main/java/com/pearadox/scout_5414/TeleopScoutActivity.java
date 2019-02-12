@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -195,6 +196,15 @@ public class TeleopScoutActivity extends Activity {
         pfDatabase                = FirebaseDatabase.getInstance();            // Firebase
         pfDevice_DBReference      = pfDatabase.getReference("devices");     // List of Devices
 
+        if (Pearadox.Match_Data.isSand_mode()) {
+            Toast toast = Toast.makeText(getBaseContext(), "\n\n*** No Sandstorm was set - go to FINAL and save ***\n\n", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
+            final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+            tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
+            radio_Zero.setChecked(true);        // didn't move - so NOT on
+            end_HAB_Level = 0;
+        }
         carry_over_chks();              // Carry-over check boxes from SandStorm
 
 
@@ -204,7 +214,7 @@ public class TeleopScoutActivity extends Activity {
 
     button_GoToFinalActivity.setOnClickListener(new View.OnClickListener() {
         public void onClick(View v) {
-        Log.w(TAG, "###  Clicked Final  ###");
+        Log.w(TAG, "###  Clicked Final  ### " + end_HAB_Level);
             if (end_HAB_Level < 4) {        // Gotta pick one!
                 updateDev("Final");           // Update 'Phase' for stoplight indicator in ScoutM aster
                 storeTeleData();                    // Put all the TeleOps data collected in Match object

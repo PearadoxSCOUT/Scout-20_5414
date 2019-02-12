@@ -246,6 +246,7 @@
                 android:id="@+id/radio_startHatch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="RadioClick_Piece"
                 android:text="Panel"
                 android:textColor="@color/green" />
 
@@ -253,6 +254,7 @@
                 android:id="@+id/radio_startCargo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="RadioClick_Piece"
                 android:text="Cargo"
                 android:textColor="@color/green" />
         </RadioGroup>
@@ -297,7 +299,7 @@
                 android:text="ARENA" />
 
             <CheckBox
-                android:id="@+id/checkbox_automode"
+                android:id="@+id/checkbox_noSS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -868,6 +870,7 @@
                     android:id="@+id/radio_hatch2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="RadioClick_2nd"
                     android:layout_alignTop="@+id/radgrp_secondPiece"
                     android:text="Panel"
                     android:textColor="@color/cyan" />
@@ -876,6 +879,7 @@
                     android:id="@+id/radio_cargo2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="RadioClick_2nd"
                     android:text="Cargo"
                     android:textColor="@color/cyan" />
             </RadioGroup>

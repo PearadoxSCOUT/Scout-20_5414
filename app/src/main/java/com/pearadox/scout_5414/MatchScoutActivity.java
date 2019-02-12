@@ -20,6 +20,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -40,7 +42,8 @@ public class MatchScoutActivity extends AppCompatActivity {
     boolean onStart = false;
     /* Header Sect. */  TextView txt_EventName, txt_dev, txt_stud, txt_Match, txt_MyTeam, txt_TeamName, txt_NextMatch;
                         EditText editTxt_Team, editTxt_Match;
-    CheckBox chk_baseline, checkbox_automode, chk_cubeSwitch, chk_attemptSwitch, chk_XoverSwitch, chk_WrongSwitch, chk_cubeScale, chk_attemptScale, chk_XoverScale, chk_WrongScale, chk_highGoal, chk_gears, chk_lowGoal, chk_activate_hopper, chk_baselineINVIS;
+    /* Pre-Match */     RadioGroup radgrp_startPiece; RadioButton radio_startHatch, radio_startCargo, radio_Pick;
+    /* After Start */   CheckBox checkbox_leftHAB, checkbox_noSS, checkbox_leftHAB2;
     /* L Rocket */      CheckBox chk_LeftRocket_LPan1,chk_LeftRocket_LPan2,chk_LeftRocket_LPan3, chk_LeftRocket_LCarg1,chk_LeftRocket_LCarg2,chk_LeftRocket_LCarg3;
     CheckBox chk_LeftRocket_RPan1,chk_LeftRocket_RPan2,chk_LeftRocket_RPan3, chk_LeftRocket_RCarg1,chk_LeftRocket_RCarg2,chk_LeftRocket_RCarg3;
     /* CargoShip */     CheckBox chk_CargoLPan1,chk_CargoLPan2,chk_CargoLPan3, chk_CargoLCarg1,chk_CargoLCarg2,chk_CargoLCarg3;
@@ -48,7 +51,11 @@ public class MatchScoutActivity extends AppCompatActivity {
     CheckBox chk_CargoEndLPanel,chk_CargoEndRPanel,chk_CargoEndLCargo,chk_CargoEndRCargo;
     /* R Rocket */      CheckBox chk_RghtRocket_LPan1,chk_RghtRocket_LPan2,chk_RghtRocket_LPan3, chk_RghtRocket_LCarg1,chk_RghtRocket_LCarg2,chk_RghtRocket_LCarg3;
     CheckBox chk_RghtRocket_RPan1,chk_RghtRocket_RPan2,chk_RghtRocket_RPan3, chk_RghtRocket_RCarg1,chk_RghtRocket_RCarg2,chk_RghtRocket_RCarg3;
-    /* Last Sect. */     EditText editText_autoComment;
+    /* 2nd & 3rd */     RadioGroup radgrp_secondPiece; RadioButton radio_hatch2, radio_cargo2, radio_2nd;
+                        RadioGroup radgrp_secondPieceLocation; RadioButton radio_playerStation2, radio_corral2, radio_floor2, radio_2ndLoc;
+                        RadioGroup radgrp_thirdPiece; RadioButton radio_hatch3, radio_cargo3, radio_3rd;
+                        RadioGroup radgrp_thirdPieceLocation; RadioButton radio_playerStation3, radio_corral3, radio_floor3, radio_3rdLoc;
+    /* Last Sect. */    EditText editText_autoComment;
 
     Spinner spinner_startPos;
     protected Vibrator vibrate;
@@ -78,6 +85,14 @@ public class MatchScoutActivity extends AppCompatActivity {
     public boolean auto               = false;  // Do they have Autonomous mode?
     public boolean leftHAB            = false;  // Did they leave HAB
     public boolean leftHAB2           = false;  // Did they start from Hab level 2
+    public boolean PU2ndPlSta         = false;  // 2nd from Player Station
+    public boolean PU2ndCorral        = false;  // 2nd from Corral
+    public boolean PU2ndFloor         = false;  // 2nd from Floor
+    public boolean PU3rdPanel         = false;  // Second game piece - Panel
+    public boolean PU3rdCargo         = false;  // Second game piece - Cargo
+    public boolean PU3rdPlSta         = false;  // 3rd from Player Station
+    public boolean PU3rdCorral        = false;  // 3rd from Corral
+    public boolean PU3rdFloor         = false;  // 3rd from Floor
     public int num_Dropped            = 0;      // How many Panels dropped?
 
     public boolean LeftRocket_LPan1   = false;  // L-Rocket L-Panel#1
@@ -276,7 +291,9 @@ public class MatchScoutActivity extends AppCompatActivity {
             imgScoutLogo.setImageDrawable(getResources().getDrawable(R.drawable.blue_scout));
         }
 
-        checkbox_automode = (CheckBox) findViewById(R.id.checkbox_automode);
+        checkbox_noSS = (CheckBox) findViewById(R.id.checkbox_noSS);
+        checkbox_leftHAB = (CheckBox) findViewById(R.id.checkbox_leftHAB);
+        checkbox_leftHAB2 = (CheckBox) findViewById(R.id.checkbox_leftHAB2);
         editText_autoComment = (EditText) findViewById(R.id.editText_autoComment);
         button_GoToTeleopActivity = (Button) findViewById(R.id.button_GoToTeleopActivity);
         button_GoToArenaLayoutActivity = (Button) findViewById(R.id.button_GoToArenaLayoutActivity);
@@ -330,7 +347,7 @@ public class MatchScoutActivity extends AppCompatActivity {
         chk_RghtRocket_LCarg3 = (CheckBox) findViewById(R.id.chk_RghtRocket_LCarg3);
         chk_RghtRocket_RCarg1 = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg1);
         chk_RghtRocket_RCarg2 = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg2);
-        chk_RghtRocket_RCarg3 = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg3);
+        chk_RghtRocket_RCarg3 = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg3); radio_hatch2
 
         // ToDo - all references to new Widgets
 
@@ -837,18 +854,19 @@ public class MatchScoutActivity extends AppCompatActivity {
 
         //ToDo - Listners for left HAB & left HAB2
 
-        //ToDo - Listners for cargo & Panel Radio Buttons
 
-        checkbox_automode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkbox_noSS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
              @Override
              public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-             Log.w(TAG, "checkbox_automode Listener");
+             Log.w(TAG, "checkbox_noSS Listener");
                  if (buttonView.isChecked()) {
                      //checked
-                     Log.w(TAG, "TextBox is checked.");
+                     Log.w(TAG, "No SS is checked.");
                      auto = true;
                     // ToDo - turn ON/OFF correct widgets
-                     chk_baseline.setEnabled(false);
+                     checkbox_leftHAB.setEnabled(false);
+                     checkbox_leftHAB2.setEnabled(false);
+                     editText_autoComment.setText("No Sandstorm activity - didn't move");
 //                     chk_cubeSwitch.setEnabled(false);
 //                     chk_attemptSwitch.setEnabled(false);
 //                     chk_XoverSwitch.setEnabled(false);
@@ -863,10 +881,12 @@ public class MatchScoutActivity extends AppCompatActivity {
 
                  } else {
                      //not checked
-                     Log.w(TAG, "TextBox is unchecked.");
+                     Log.w(TAG, "No SS is unchecked.");
                      auto = false;
 
-                     chk_baseline.setEnabled(true);
+                     checkbox_leftHAB.setEnabled(true);
+                     checkbox_leftHAB2.setEnabled(true);
+                     editText_autoComment.setText(" ");
 
 //                     chk_cubeSwitch.setEnabled(true);
 //                     chk_attemptSwitch.setEnabled(true);
@@ -883,40 +903,67 @@ public class MatchScoutActivity extends AppCompatActivity {
          }
         );
 
-        button_GoToTeleopActivity.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.w(TAG, "Clicked 'NEXT/TeleOps' Button  match=" + matchID);
-                if (matchID.length() < 2) {     // Between matches??
-                    Toast.makeText(getBaseContext(), "*** Match has _NOT_ started; wait until you have a Team #  *** ", Toast.LENGTH_LONG).show();
-
-                } else {        // It's OK - Match has started
-
-                        if (spinner_startPos.getSelectedItemPosition() == 0) {  //Required field
-
-                            Toast.makeText(getBaseContext(), "*** Select Starting Position!  *** ", Toast.LENGTH_LONG).show();
-                            spinner_startPos.performClick();
-
-                        } else {
-
-                            if (tn != null) {
-                                // ToDo - check to see if ALL required fields entered (Start-pos, stop, gear, ....)
-                                updateDev("Tele");      // Update 'Phase' for stoplight indicator in ScoutM aster
-                                storeAutoData();        // Put all the Autonomous data collected in Match object
-
-                                Intent smast_intent = new Intent(MatchScoutActivity.this, TeleopScoutActivity.class);
-                                Bundle SMbundle = new Bundle();
-                                SMbundle.putString("tnum", tn);
-                                smast_intent.putExtras(SMbundle);
-                                startActivity(smast_intent);
-                            } else {
-                                final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
-                                tg.startTone(ToneGenerator.TONE_PROP_BEEP);
-                                Toast.makeText(getBaseContext(), "*** Team # not entered  *** ", Toast.LENGTH_LONG).show();
-                            }
-                        }
+        checkbox_leftHAB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.w(TAG, "checkbox_leftHAB Listener");
+                if (buttonView.isChecked()) {
+                    leftHAB = true;
+                } else {
+                    leftHAB = false;
                 }
             }
-        });
+        }
+        );
+
+        checkbox_leftHAB2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                                        @Override
+                                                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            Log.w(TAG, "checkbox_leftHAB2 Listener");
+            if (buttonView.isChecked()) {
+                leftHAB2 = true;
+                checkbox_leftHAB.setChecked(true);         // Force the other one
+            } else {
+                leftHAB2 = false;
+            }
+        }
+    }
+    );
+
+        button_GoToTeleopActivity.setOnClickListener(new View.OnClickListener() {
+        public void onClick(View v) {
+            Log.w(TAG, "Clicked 'NEXT/TeleOps' Button  match=" + matchID);
+            if (matchID.length() < 2) {     // Between matches??
+                Toast.makeText(getBaseContext(), "*** Match has _NOT_ started; wait until you have a Team #  *** ", Toast.LENGTH_LONG).show();
+
+            } else {        // It's OK - Match has started
+
+                    if (spinner_startPos.getSelectedItemPosition() == 0) {  //Required field
+
+                        Toast.makeText(getBaseContext(), "*** Select Starting Position!  *** ", Toast.LENGTH_LONG).show();
+                        spinner_startPos.performClick();
+
+                    } else {
+
+                        if (tn != null) {
+                            // ToDo - check to see if ALL required fields entered (Start-pos, stop, gear, ....)
+                            updateDev("Tele");      // Update 'Phase' for stoplight indicator in ScoutM aster
+                            storeAutoData();        // Put all the Autonomous data collected in Match object
+
+                            Intent smast_intent = new Intent(MatchScoutActivity.this, TeleopScoutActivity.class);
+                            Bundle SMbundle = new Bundle();
+                            SMbundle.putString("tnum", tn);
+                            smast_intent.putExtras(SMbundle);
+                            startActivity(smast_intent);
+                        } else {
+                            final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+                            tg.startTone(ToneGenerator.TONE_PROP_BEEP);
+                            Toast.makeText(getBaseContext(), "*** Team # not entered  *** ", Toast.LENGTH_LONG).show();
+                        }
+                    }
+            }
+        }
+    });
 
         button_GoToArenaLayoutActivity.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -928,12 +975,51 @@ public class MatchScoutActivity extends AppCompatActivity {
         }
         });
 
+
         // === End of OnCreate ===
     }
 
 
+    /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+    public void RadioClick_Piece(View view) {
+        Log.w(TAG, "@@ RadioClick_Piece @@");
+        radgrp_startPiece = (RadioGroup) findViewById(R.id.radgrp_startPiece);
+        int selectedId = radgrp_startPiece.getCheckedRadioButtonId();
+//        Log.w(TAG, "*** Selected=" + selectedId);
+        radio_Pick = (RadioButton) findViewById(selectedId);
+        String value = radio_Pick.getText().toString();
+        if (value.equals("Panel")) {        // Panel
+            Log.w(TAG, "Panel");
+            carry_panel = true;
+        }
+        if (value.equals("Cargo")) {        // Panel
+            Log.w(TAG, "Cargo");
+            carry_cargo = true;
+        }
+    }
 
-// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+    public void RadioClick_2nd(View view) {
+        Log.w(TAG, "@@ RadioClick_2nd @@");
+        radgrp_secondPiece = (RadioGroup) findViewById(R.id.radgrp_secondPiece);
+        int selectedId = radgrp_secondPiece.getCheckedRadioButtonId();
+//        Log.w(TAG, "*** Selected=" + selectedId);
+        radio_2nd = (RadioButton) findViewById(selectedId);
+        String value = radio_2nd.getText().toString();
+        if (value.equals("Panel")) {        // Panel
+            Log.w(TAG, "Panel");
+            carry_panel = true;
+        }
+        if (value.equals("Cargo")) {        // Panel
+            Log.w(TAG, "Cargo");
+            carry_cargo = true;
+        }
+    }
+
+
+
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     private void storeAutoData() {
         Log.i(TAG, ">>>>  storeAutoData  <<<< " + studID);
         Pearadox.Match_Data.setMatch(matchID);
@@ -1123,6 +1209,7 @@ public class MatchScoutActivity extends AppCompatActivity {
             if (spinner_startPos.getSelectedItemPosition() == 3) {  //  No Show?
                 Log.e(TAG, "### Team/robot is a No Show ###" );
                 editText_autoComment.setText(R.string.NoShowMsg);
+                checkbox_noSS.setChecked(true);
                 // ????? - Do we want to turn off all other widgets?
             }
         }
