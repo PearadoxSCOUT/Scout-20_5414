@@ -367,7 +367,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="PS="
+            android:text="LS="
             android:textColor="@color/cyan" />
         <TextView
             android:id="@+id/txt_2ndCargPlaSta"
@@ -410,7 +410,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="PS="
+            android:text="LS="
             android:textColor="@color/cyan" />
         <TextView
             android:id="@+id/txt_2ndPanPlaSta"
@@ -439,7 +439,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="PS="
+            android:text="LS="
             android:textColor="@color/magenta" />
         <TextView
             android:id="@+id/txt_3rdCargPlaSta"
@@ -482,7 +482,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="PS="
+            android:text="LS="
             android:textColor="@color/magenta" />
         <TextView
             android:id="@+id/txt_3rdPanPlaSta"
@@ -573,7 +573,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="PS="
+            android:text="LS="
             android:textColor="@color/white" />
         <TextView
             android:id="@+id/txt_TeleCargPlaSta"
@@ -661,7 +661,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="PS="
+            android:text="LS="
             android:textColor="@color/white" />
         <TextView
             android:id="@+id/txt_TelePanPlaSta"
@@ -858,7 +858,7 @@
         android:layout_alignBottom="@+id/lbl_final_LostComm"
         android:layout_marginStart="22dp"
         android:layout_toEndOf="@+id/lbl_final_LostComm"
-        android:text="0"
+        android:text="2"
         android:textColor="@color/green" />
 
     <TextView
@@ -875,11 +875,11 @@
         android:id="@+id/txt_final_LostParts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
-        android:textColor="@color/green"
         android:layout_alignBaseline="@+id/lbl_final_LostComm"
+        android:layout_alignStart="@+id/txt_final_DefGood"
         android:layout_alignBottom="@+id/lbl_final_LostComm"
-        android:layout_alignStart="@+id/txt_final_DefGood" />
+        android:text="1"
+        android:textColor="@color/green" />
 
     <TextView
         android:id="@+id/lbl_final_DefGood"
@@ -897,16 +897,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/lbl_final_LostParts"
         android:layout_marginStart="120dp"
-        android:text="0"
+        android:text="5"
         android:textColor="@color/green" />
 
     <TextView
         android:id="@+id/lbl_final_DefBlock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txt_final_DefStarve"
-        android:layout_alignBottom="@+id/txt_final_DefStarve"
-        android:layout_alignStart="@+id/lbl_final_DefDump"
+        android:layout_alignStart="@+id/lbl_final_LostComm"
+        android:layout_alignTop="@+id/lbl_final_DefGood"
         android:text="Blocked Rocket"
         android:textColor="@color/white" />
 
@@ -914,20 +913,21 @@
         android:id="@+id/txt_final_DefBlock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2"
-        android:textColor="@color/green"
         android:layout_alignBaseline="@+id/lbl_final_DefBlock"
+        android:layout_alignStart="@+id/txt_final_LostComm"
         android:layout_alignBottom="@+id/lbl_final_DefBlock"
-        android:layout_alignStart="@+id/txt_final_LostComm" />
+        android:text="4"
+        android:textColor="@color/green" />
 
     <TextView
         android:id="@+id/lbl_final_DefDump"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="Block/Jam"
         android:layout_above="@+id/lbl_final_DefBlock"
-        android:layout_alignStart="@+id/lbl_final_LostComm" />
+        android:layout_alignStart="@+id/lbl_final_LostComm"
+        android:layout_marginBottom="-42dp"
+        android:text="Block/Jam"
+        android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/txt_final_BlkSwtch"
@@ -935,7 +935,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/txt_final_DefBlock"
         android:layout_alignStart="@+id/txt_final_DefBlock"
-        android:text="3"
+        android:layout_marginStart="1dp"
+        android:layout_marginBottom="-41dp"
+        android:text="8"
         android:textColor="@color/green" />
 
     <TextView
@@ -952,16 +954,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/lbl_final_DefStarve"
-        android:layout_alignBottom="@+id/lbl_final_DefStarve"
         android:layout_alignStart="@+id/txt_final_DefGood"
-        android:text="0"
+        android:layout_alignBottom="@+id/lbl_final_DefStarve"
+        android:text="3"
         android:textColor="@color/green" />
 
     <TextView
         android:id="@+id/lbl_final_NumPen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/lbl_final_DefStarve"
         android:layout_marginTop="2dp"
         android:text="# Penalties"
@@ -975,7 +976,7 @@
         android:textColor="@color/green"
         android:layout_alignBaseline="@+id/lbl_final_NumPen"
         android:layout_alignBottom="@+id/lbl_final_NumPen"
-        android:layout_alignStart="@+id/txt_final_DefStarve" />
+        android:layout_alignStart="@+id/txt_final_DefGood" />
 
 //=============================================================
 
