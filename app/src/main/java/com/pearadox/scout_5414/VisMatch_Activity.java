@@ -52,11 +52,11 @@ public class VisMatch_Activity extends AppCompatActivity {
     //----------------------------------
     int numLeftHAB = 0; int numLeftHAB2 = 0; int noSand = 0;
     int auto_B1 = 0; int auto_B2 = 0; int auto_B3 = 0;
+    // NOTE: _ALL_ external mentions of Playere Sta. (PS) were changed to Loading Sta. (LS) so as to NOT be confused with Player Control Sta. (Driver)
     int auto_Ps1 = 0; int auto_Ps2 = 0; int auto_Ps3 = 0;
     int sand_CargoFloor2= 0; int sand_CargoPlasta2= 0; int sand_CargoCorral2 = 0; int sand_PanFloor2 = 0; int sand_PanPlasta2 = 0;
     int sand_CargoFloor3 = 0; int sand_CargoPlasta3 = 0; int sand_CargoCorral3 = 0; int sand_PanFloor3 = 0; int sand_PanPlasta3 = 0;
     int tele_CargoFloor = 0; int tele_CargoPlasta = 0; int tele_CargoCorral = 0; int tele_PanFloor = 0; int tele_PanPlasta = 0;
-// ToDO - variables for 2nd & 3rd
     int climbH0= 0; int climbH1 = 0; int climbH2 = 0; int climbH3 = 0; int lift1Num = 0; int liftedNum = 0;
     int cargL1 = 0; int cargL2 = 0; int cargL3 =0; int TcargL1 = 0; int TcargL2 = 0; int TcargL3 = 0; int TpanL1 = 0; int TpanL2 = 0; int TpanL3 = 0;
     int numMatches = 0; int panL1 = 0; int panL2 = 0; int panL3 = 0; int dropped=0; int Tdropped = 0;
@@ -218,15 +218,8 @@ public class VisMatch_Activity extends AppCompatActivity {
 
 
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
-            // Tele elements
-            LiftNm = LiftNm + match_inst.getTele_liftedNum();
-            
-            if (match_inst.isTele_got_lift()) {
-                WasLifted++;
-            }
             dropped = dropped + match_inst.getSand_num_Dropped();
-            Tdropped = Tdropped + match_inst.getTele_num_Dropped();
-            // =================== Cargo ============
+             // =================== Cargo ============
             if (match_inst.isSand_LeftRocket_LCarg1()) {
                 cargL1++;
             }
@@ -386,28 +379,10 @@ public class VisMatch_Activity extends AppCompatActivity {
                     sand_CargoCorral3++;
                 }
             }
-            if (match_inst.isTele_cargo_Corral()) {
-                tele_CargoCorral++;
-            }
-            if (match_inst.isTele_cargo_floor()) {
-                tele_CargoFloor++;
-            }
-            if (match_inst.isTele_cargo_playSta()) {
-                tele_CargoPlasta++;
-            }
-            if (match_inst.isTele_Panel_floor()) {
-                tele_PanFloor++;
-            }
-            if (match_inst.isTele_Panel_playSta()) {
-                tele_PanPlasta++;
-            }
-
-// ToDo - Collect data for Cargo/Panels 2nd & 3rd
 
             // *************************************************
             // ******************** TeleOps ********************
             // *************************************************
-            dropped = dropped + match_inst.getTele_num_Dropped();
             // =================== Cargo ============
             if (match_inst.isTele_LeftRocket_LCarg1()) {
                 TcargL1++;
@@ -531,6 +506,22 @@ public class VisMatch_Activity extends AppCompatActivity {
                 TpanL1++;
             }
 
+            if (match_inst.isTele_cargo_Corral()) {
+                tele_CargoCorral++;
+            }
+            if (match_inst.isTele_cargo_floor()) {
+                tele_CargoFloor++;
+            }
+            if (match_inst.isTele_cargo_playSta()) {
+                tele_CargoPlasta++;
+            }
+            if (match_inst.isTele_Panel_floor()) {
+                tele_PanFloor++;
+            }
+            if (match_inst.isTele_Panel_playSta()) {
+                tele_PanPlasta++;
+            }
+
             int endHAB = match_inst.getTele_level_num();        // end HAB Level
             switch (endHAB) {
                 case 0:         // Not On
@@ -549,6 +540,12 @@ public class VisMatch_Activity extends AppCompatActivity {
                     e(TAG, "*** Error - bad HAB Level indicator  ***");
             }
 
+            LiftNm = LiftNm + match_inst.getTele_liftedNum();
+
+            if (match_inst.isTele_got_lift()) {
+                WasLifted++;
+            }
+            Tdropped = Tdropped + match_inst.getTele_num_Dropped();
             if (match_inst.isTele_lifted()) {
                 lift1Num++;
             }
@@ -563,7 +560,10 @@ public class VisMatch_Activity extends AppCompatActivity {
             int BarCargo = cargL1 + cargL2 + cargL3 + TcargL1 + TcargL2 + TcargL3;
             int BarPanels = panL1 + panL2 + panL3 + TpanL1 + TpanL2 + TpanL3;
             mBarChart.addBar(new BarModel(BarCargo, 0xffff0000));       // Cargo
-            Log.w(TAG, "@@@@@@@@ Cargo=" + BarCargo + "   Panels=" + BarPanels);
+            Log.w(TAG, i + "@@@@@@@@ Cargo=" + BarCargo + "   Panels=" + BarPanels);
+            Log.e(TAG, "    CL1=" + cargL1 + " CL2=" + cargL2 + " CL3=" + cargL3 + "    TcL1=" + TcargL1 + " TcL2=" + TcargL2 + " TcL3=" + TcargL3);
+            Log.e(TAG, "    PL1=" + panL1 + " PL2=" + panL2 + " PL3=" + panL3 + "    TpL1=" + TpanL1 + " TpL2=" + TpanL2 + " TpL3=" + TpanL3 +"\n");
+
             mBarChart.addBar(new BarModel( BarPanels,  0xff08457e));       // Panels
             if (match_inst.getTele_comment().length() > 1) {
                 tele_Comments = tele_Comments + match_inst.getMatch() + "-" + match_inst.getTele_comment() + "\n" + underScore  + "\n" ;
@@ -746,7 +746,6 @@ public class VisMatch_Activity extends AppCompatActivity {
         sand_CargoFloor2= 0; sand_CargoPlasta2= 0; sand_CargoCorral2 = 0; sand_PanFloor2 = 0; sand_PanPlasta2 = 0;
         sand_CargoFloor3 = 0; sand_CargoPlasta3 = 0; sand_CargoCorral3 = 0; sand_PanFloor3 = 0; sand_PanPlasta3 = 0;
         tele_CargoFloor = 0; tele_CargoPlasta = 0; tele_CargoCorral = 0; tele_PanFloor = 0; tele_PanPlasta = 0;
-// ToDo - initialize data for Cargo/Panels 2nd & 3rd
         numTeleClimbSuccess = 0;
         lift1Num = 0;
         liftedNum = 0;
