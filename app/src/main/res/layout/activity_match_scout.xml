@@ -905,6 +905,7 @@
                     android:id="@+id/radio_hatch3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="RadioClick_3rd"
                     android:text="Panel"
                     android:textColor="@color/magenta" />
 
@@ -912,6 +913,7 @@
                     android:id="@+id/radio_cargo3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="RadioClick_3rd"
                     android:text="Cargo"
                     android:textColor="@color/magenta" />
             </RadioGroup>

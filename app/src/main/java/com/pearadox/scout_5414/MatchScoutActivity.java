@@ -94,6 +94,7 @@ public class MatchScoutActivity extends AppCompatActivity {
     public boolean PU3rdCorral        = false;  // 3rd from Corral
     public boolean PU3rdFloor         = false;  // 3rd from Floor
     public int num_Dropped            = 0;      // How many Panels dropped?
+    // ToDo - add new variables
 
     public boolean LeftRocket_LPan1   = false;  // L-Rocket L-Panel#1
     public boolean LeftRocket_LPan2   = false;  // L-Rocket L-Panel#2
@@ -138,7 +139,6 @@ public class MatchScoutActivity extends AppCompatActivity {
     public boolean RghtRocket_RCarg2  = false;  // R-Rocket R-Cargo#2
     public boolean RghtRocket_RCarg3  = false;  // R-Rocket R-Cargo#3
 
-    // ToDo - add new variables
     /* */
     public String autoComment = " ";        // Comment
     public static String studID = " ";
@@ -347,11 +347,19 @@ public class MatchScoutActivity extends AppCompatActivity {
         chk_RghtRocket_LCarg3 = (CheckBox) findViewById(R.id.chk_RghtRocket_LCarg3);
         chk_RghtRocket_RCarg1 = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg1);
         chk_RghtRocket_RCarg2 = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg2);
-        chk_RghtRocket_RCarg3 = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg3); radio_hatch2
+        chk_RghtRocket_RCarg3 = (CheckBox) findViewById(R.id.chk_RghtRocket_RCarg3);
+        final RadioGroup radgrp_secondPieceLocation = (RadioGroup)findViewById(R.id.radgrp_secondPieceLocation);
+        final RadioGroup radgrp_thirdPieceLocation  = (RadioGroup)findViewById(R.id.radgrp_thirdPieceLocation);
 
         // ToDo - all references to new Widgets
-
-
+//        radgrp_secondPieceLocation.setEnabled(false);
+        for(int i = 0; i < radgrp_secondPieceLocation.getChildCount(); i++){        // Can't pick until piece selected
+            ((RadioButton)radgrp_secondPieceLocation.getChildAt(i)).setEnabled(false);
+        }
+//        radgrp_thirdPieceLocation.setEnabled(false);
+        for(int i = 0; i < radgrp_thirdPieceLocation.getChildCount(); i++){        // Can't pick until piece selected
+            ((RadioButton)radgrp_thirdPieceLocation.getChildAt(i)).setEnabled(false);
+        }
 
 // Start Listeners
         // ☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑☑
@@ -1007,16 +1015,52 @@ public class MatchScoutActivity extends AppCompatActivity {
 //        Log.w(TAG, "*** Selected=" + selectedId);
         radio_2nd = (RadioButton) findViewById(selectedId);
         String value = radio_2nd.getText().toString();
+        final RadioGroup radgrp_secondPieceLocation = (RadioGroup)findViewById(R.id.radgrp_secondPieceLocation);
+        radio_playerStation2 = (RadioButton) findViewById(R.id.radio_playerStation2);
+        radio_floor2 = (RadioButton) findViewById(R.id.radio_floor2);
+        radio_corral2 = (RadioButton) findViewById(R.id.radio_corral2);
         if (value.equals("Panel")) {        // Panel
-            Log.w(TAG, "Panel");
-            carry_panel = true;
+            Log.w(TAG, "2nd Panel");
+            radio_playerStation2.setEnabled(true);
+            radio_floor2.setEnabled(true);
+            radio_corral2.setVisibility(View.INVISIBLE);
         }
         if (value.equals("Cargo")) {        // Panel
-            Log.w(TAG, "Cargo");
-            carry_cargo = true;
+            Log.w(TAG, "2nd Cargo");
+            for(int i = 0; i < radgrp_secondPieceLocation.getChildCount(); i++){        // turn them all ON
+                ((RadioButton)radgrp_secondPieceLocation.getChildAt(i)).setEnabled(true);
+            }
+            radio_corral2.setVisibility(View.VISIBLE);
         }
     }
 
+
+    /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+    public void RadioClick_3rd(View view) {
+        Log.w(TAG, "@@ RadioClick_3rd @@");
+        radgrp_thirdPiece = (RadioGroup) findViewById(R.id.radgrp_thirdPiece);
+        int selectedId = radgrp_thirdPiece.getCheckedRadioButtonId();
+//        Log.w(TAG, "*** Selected=" + selectedId);
+        radio_3rd = (RadioButton) findViewById(selectedId);
+        String value = radio_3rd.getText().toString();
+        final RadioGroup radgrp_thirdPieceLocation = (RadioGroup)findViewById(R.id.radgrp_thirdPieceLocation);
+        radio_playerStation3 = (RadioButton) findViewById(R.id.radio_playerStation3);
+        radio_floor3 = (RadioButton) findViewById(R.id.radio_floor3);
+        radio_corral3 = (RadioButton) findViewById(R.id.radio_corral3);
+        if (value.equals("Panel")) {        // Panel
+            Log.w(TAG, "3rd Panel");
+            radio_playerStation3.setEnabled(true);
+            radio_floor3.setEnabled(true);
+            radio_corral3.setVisibility(View.INVISIBLE);
+        }
+        if (value.equals("Cargo")) {        // Panel
+            Log.w(TAG, "3rd Cargo");
+            for(int i = 0; i < radgrp_thirdPieceLocation.getChildCount(); i++){        // turn them all ON
+                ((RadioButton)radgrp_thirdPieceLocation.getChildAt(i)).setEnabled(true);
+            }
+            radio_corral3.setVisibility(View.VISIBLE);
+        }
+    }
 
 
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
