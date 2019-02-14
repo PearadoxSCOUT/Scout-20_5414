@@ -45,12 +45,12 @@ public class MatchScoutActivity extends AppCompatActivity {
     /* Pre-Match */     RadioGroup radgrp_startPiece; RadioButton radio_startHatch, radio_startCargo, radio_Pick;
     /* After Start */   CheckBox checkbox_leftHAB, checkbox_noSS, checkbox_leftHAB2;
     /* L Rocket */      CheckBox chk_LeftRocket_LPan1,chk_LeftRocket_LPan2,chk_LeftRocket_LPan3, chk_LeftRocket_LCarg1,chk_LeftRocket_LCarg2,chk_LeftRocket_LCarg3;
-    CheckBox chk_LeftRocket_RPan1,chk_LeftRocket_RPan2,chk_LeftRocket_RPan3, chk_LeftRocket_RCarg1,chk_LeftRocket_RCarg2,chk_LeftRocket_RCarg3;
+                        CheckBox chk_LeftRocket_RPan1,chk_LeftRocket_RPan2,chk_LeftRocket_RPan3, chk_LeftRocket_RCarg1,chk_LeftRocket_RCarg2,chk_LeftRocket_RCarg3;
     /* CargoShip */     CheckBox chk_CargoLPan1,chk_CargoLPan2,chk_CargoLPan3, chk_CargoLCarg1,chk_CargoLCarg2,chk_CargoLCarg3;
-    CheckBox chk_CargoRPan1,chk_CargoRPan2,chk_CargoRPan3, chk_CargoRCarg1,chk_CargoRCarg2,chk_CargoRCarg3;
-    CheckBox chk_CargoEndLPanel,chk_CargoEndRPanel,chk_CargoEndLCargo,chk_CargoEndRCargo;
+                        CheckBox chk_CargoRPan1,chk_CargoRPan2,chk_CargoRPan3, chk_CargoRCarg1,chk_CargoRCarg2,chk_CargoRCarg3;
+                        CheckBox chk_CargoEndLPanel,chk_CargoEndRPanel,chk_CargoEndLCargo,chk_CargoEndRCargo;
     /* R Rocket */      CheckBox chk_RghtRocket_LPan1,chk_RghtRocket_LPan2,chk_RghtRocket_LPan3, chk_RghtRocket_LCarg1,chk_RghtRocket_LCarg2,chk_RghtRocket_LCarg3;
-    CheckBox chk_RghtRocket_RPan1,chk_RghtRocket_RPan2,chk_RghtRocket_RPan3, chk_RghtRocket_RCarg1,chk_RghtRocket_RCarg2,chk_RghtRocket_RCarg3;
+                        CheckBox chk_RghtRocket_RPan1,chk_RghtRocket_RPan2,chk_RghtRocket_RPan3, chk_RghtRocket_RCarg1,chk_RghtRocket_RCarg2,chk_RghtRocket_RCarg3;
     /* 2nd & 3rd */     RadioGroup radgrp_secondPiece; RadioButton radio_hatch2, radio_cargo2, radio_2nd;
                         RadioGroup radgrp_secondPieceLocation; RadioButton radio_playerStation2, radio_corral2, radio_floor2, radio_2ndLoc;
                         RadioGroup radgrp_thirdPiece; RadioButton radio_hatch3, radio_cargo3, radio_3rd;
@@ -813,11 +813,11 @@ public class MatchScoutActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
                 if (chk_CargoEndLPanel.isChecked()) {     //checked
                     CargoEndLPanel = true;
-                    chk_CargoEndLCargo.setChecked(true);    // Score the already set Cargo Ball
+//                    chk_CargoEndLCargo.setChecked(true);    // Score the already set Cargo Ball
                 }
                 else {          //not checked
                     CargoEndLPanel = false;
-                    chk_CargoEndLCargo.setChecked(false);
+//                    chk_CargoEndLCargo.setChecked(false);
                 }
             }
         });
@@ -827,11 +827,11 @@ public class MatchScoutActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
                 if (chk_CargoEndRPanel.isChecked()) {     //checked
                     CargoEndRPanel = true;
-                    chk_CargoEndRCargo.setChecked(true);    // Score the already set Cargo Ball
+//                    chk_CargoEndRCargo.setChecked(true);    // Score the already set Cargo Ball
                 }
                 else {          //not checked
                     CargoEndRPanel = false;
-                    chk_CargoEndRCargo.setChecked(false);
+//                    chk_CargoEndRCargo.setChecked(false);
                 }
             }
         });
