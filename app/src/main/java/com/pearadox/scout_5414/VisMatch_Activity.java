@@ -671,7 +671,6 @@ public class VisMatch_Activity extends AppCompatActivity {
         txt_Pos1.setText(String.valueOf(auto_Ps1));
         txt_Pos2.setText(String.valueOf(auto_Ps2));
         txt_Pos3.setText(String.valueOf(auto_Ps3));
-// ToDo - Display data for Cargo/Panels 2nd & 3rd
 
         txt_AutoComments.setText(auto_Comments);
 
