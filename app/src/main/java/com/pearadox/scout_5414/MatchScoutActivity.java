@@ -948,15 +948,15 @@ public class MatchScoutActivity extends AppCompatActivity {
 
             } else {        // It's OK - Match has started
 
-                    if (spinner_startPos.getSelectedItemPosition() == 0) {  //Required field
+                    if ( ((carry_cargo==false) && (carry_panel==false)) || (spinner_startPos.getSelectedItemPosition() == 0) ) {  //Required fields
+                        // ToDo - check to see if ALL required fields entered (Start-pos, stop, gear, ....)
 
-                        Toast.makeText(getBaseContext(), "*** Select Starting Position!  *** ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), "*** Select _ALL_ required fields!  ***\n Starting Position, Gamepiece ", Toast.LENGTH_LONG).show();
                         spinner_startPos.performClick();
 
                     } else {
 
                         if (tn != null) {
-                            // ToDo - check to see if ALL required fields entered (Start-pos, stop, gear, ....)
                             updateDev("Tele");      // Update 'Phase' for stoplight indicator in ScoutM aster
                             storeAutoData();        // Put all the Autonomous data collected in Match object
 
@@ -1206,6 +1206,7 @@ public class MatchScoutActivity extends AppCompatActivity {
         Pearadox.Match_Data.setSand_RghtRocket_LCarg3(RghtRocket_LCarg3);
         Pearadox.Match_Data.setSand_RghtRocket_RCarg1(RghtRocket_RCarg1);
         Pearadox.Match_Data.setSand_RghtRocket_RCarg2(RghtRocket_RCarg2);
+        Pearadox.Match_Data.setSand_RghtRocket_RCarg3(RghtRocket_RCarg3);
         Pearadox.Match_Data.setSand_CargoEndLPanel(CargoEndLPanel);
         Pearadox.Match_Data.setSand_CargoEndRPanel(CargoEndRPanel);
         Pearadox.Match_Data.setSand_CargoEndLCargo(CargoEndLCargo);
