@@ -948,11 +948,18 @@ public class MatchScoutActivity extends AppCompatActivity {
 
             } else {        // It's OK - Match has started
 
-                    if ( ((carry_cargo==false) && (carry_panel==false)) || (spinner_startPos.getSelectedItemPosition() == 0) ) {  //Required fields
+                    if ( ((carry_cargo==false) && (carry_panel==false)) ||
+                        (PU2ndPanel) && ((!PU2ndPlSta)&&(!PU2ndFloor)) ||
+                        (PU3rdPanel) && ((!PU3rdPlSta)&&(!PU3rdFloor)) ||
+                        (PU2ndCargo) && ((!PU2ndPlSta)&&(!PU2ndFloor)&&(!PU2ndCorral)) ||
+                        (PU3rdCargo) && ((!PU3rdPlSta)&&(!PU3rdFloor)&&(!PU3rdCorral)) ||
+                        (spinner_startPos.getSelectedItemPosition() == 0) ) {  //Required fields
                         // ToDo - check to see if ALL required fields entered (Start-pos, stop, gear, ....)
 
-                        Toast.makeText(getBaseContext(), "*** Select _ALL_ required fields!  ***\n Starting Position, Gamepiece ", Toast.LENGTH_LONG).show();
-                        spinner_startPos.performClick();
+                        Toast.makeText(getBaseContext(), "\t*** Select _ALL_ required fields!  ***\n Starting Position, Gamepiece, 2nd & 3rd Location ", Toast.LENGTH_LONG).show();
+                        if (spinner_startPos.getSelectedItemPosition() == 0) {
+                            spinner_startPos.performClick();
+                        }
 
                     } else {
 
