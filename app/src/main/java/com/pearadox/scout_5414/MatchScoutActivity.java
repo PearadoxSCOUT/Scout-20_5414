@@ -42,7 +42,8 @@ public class MatchScoutActivity extends AppCompatActivity {
     boolean onStart = false;
     /* Header Sect. */  TextView txt_EventName, txt_dev, txt_stud, txt_Match, txt_MyTeam, txt_TeamName, txt_NextMatch;
                         EditText editTxt_Team, editTxt_Match;
-    /* Pre-Match */     RadioGroup radgrp_startPiece; RadioButton radio_startHatch, radio_startCargo, radio_Pick;
+    /* Pre-Match */     RadioGroup radgrp_startPiece; RadioButton radio_startNone, radio_startHatch, radio_startCargo, radio_Pick;
+                        Spinner spinner_startPos;
     /* After Start */   CheckBox checkbox_leftHAB, checkbox_noSS, checkbox_leftHAB2;
     /* L Rocket */      CheckBox chk_LeftRocket_LPan1,chk_LeftRocket_LPan2,chk_LeftRocket_LPan3, chk_LeftRocket_LCarg1,chk_LeftRocket_LCarg2,chk_LeftRocket_LCarg3;
                         CheckBox chk_LeftRocket_RPan1,chk_LeftRocket_RPan2,chk_LeftRocket_RPan3, chk_LeftRocket_RCarg1,chk_LeftRocket_RCarg2,chk_LeftRocket_RCarg3;
@@ -51,13 +52,12 @@ public class MatchScoutActivity extends AppCompatActivity {
                         CheckBox chk_CargoEndLPanel,chk_CargoEndRPanel,chk_CargoEndLCargo,chk_CargoEndRCargo;
     /* R Rocket */      CheckBox chk_RghtRocket_LPan1,chk_RghtRocket_LPan2,chk_RghtRocket_LPan3, chk_RghtRocket_LCarg1,chk_RghtRocket_LCarg2,chk_RghtRocket_LCarg3;
                         CheckBox chk_RghtRocket_RPan1,chk_RghtRocket_RPan2,chk_RghtRocket_RPan3, chk_RghtRocket_RCarg1,chk_RghtRocket_RCarg2,chk_RghtRocket_RCarg3;
-    /* 2nd & 3rd */     RadioGroup radgrp_secondPiece; RadioButton radio_hatch2, radio_cargo2, radio_2nd;
+    /* 2nd & 3rd */     RadioGroup radgrp_secondPiece; RadioButton radio_none2, radio_hatch2, radio_cargo2, radio_2nd;
                         RadioGroup radgrp_secondPieceLocation; RadioButton radio_playerStation2, radio_corral2, radio_floor2, radio_2ndLoc;
-                        RadioGroup radgrp_thirdPiece; RadioButton radio_hatch3, radio_cargo3, radio_3rd;
+                        RadioGroup radgrp_thirdPiece; RadioButton radio_none3, radio_hatch3, radio_cargo3, radio_3rd;
                         RadioGroup radgrp_thirdPieceLocation; RadioButton radio_playerStation3, radio_corral3, radio_floor3, radio_3rdLoc;
     /* Last Sect. */    EditText editText_autoComment;
                         Button btn_DropPlus, btn_DropMinus;  TextView  txt_Num_Dropped;
-    Spinner spinner_startPos;
     protected Vibrator vibrate;
     long[] once = { 0, 100 };
     long[] twice = { 0, 100, 400, 100 };
@@ -78,6 +78,7 @@ public class MatchScoutActivity extends AppCompatActivity {
     // Declare & initialize
     public String matchID             = "T00";  // Type + #
     public String tn                  = "";     // Team #
+    public boolean carry_none         = false;  // Do they carry nothing?
     public boolean carry_cargo        = false;  // Do they carry cargo
     public boolean carry_panel        = false;  // Do they carry panel
     public String  startPos           = " ";    // Start Position
@@ -948,19 +949,20 @@ public class MatchScoutActivity extends AppCompatActivity {
 
             } else {        // It's OK - Match has started
 
-                    if ( ((carry_cargo==false) && (carry_panel==false)) ||
-                        (PU2ndPanel) && ((!PU2ndPlSta)&&(!PU2ndFloor)) ||
-                        (PU3rdPanel) && ((!PU3rdPlSta)&&(!PU3rdFloor)) ||
-                        (PU2ndCargo) && ((!PU2ndPlSta)&&(!PU2ndFloor)&&(!PU2ndCorral)) ||
-                        (PU3rdCargo) && ((!PU3rdPlSta)&&(!PU3rdFloor)&&(!PU3rdCorral)) ||
-                        (spinner_startPos.getSelectedItemPosition() == 0) ) {  //Required fields
-                        // ToDo - check to see if ALL required fields entered (Start-pos, stop, gear, ....)
+                    if (auto) {     // No SS acrivity
+                        if (((carry_none==false) && (carry_cargo==false) && (carry_panel==false)) ||
+                                (PU2ndPanel) && ((!PU2ndPlSta)&&(!PU2ndFloor)) ||
+                                (PU3rdPanel) && ((!PU3rdPlSta)&&(!PU3rdFloor)) ||
+                                (PU2ndCargo) && ((!PU2ndPlSta)&&(!PU2ndFloor)&&(!PU2ndCorral)) ||
+                                (PU3rdCargo) && ((!PU3rdPlSta)&&(!PU3rdFloor)&&(!PU3rdCorral)) ||
+                                (spinner_startPos.getSelectedItemPosition() == 0) ) {  //Required fields
+                            // ToDo - check to see if ALL required fields entered (Start-pos, stop, gear, ....)
 
-                        Toast.makeText(getBaseContext(), "\t*** Select _ALL_ required fields!  ***\n Starting Position, Gamepiece, 2nd & 3rd Location ", Toast.LENGTH_LONG).show();
-                        if (spinner_startPos.getSelectedItemPosition() == 0) {
-                            spinner_startPos.performClick();
+                            Toast.makeText(getBaseContext(), "\t*** Select _ALL_ required fields!  ***\n Starting Position, Gamepiece, 2nd & 3rd Location ", Toast.LENGTH_LONG).show();
+                            if (spinner_startPos.getSelectedItemPosition() == 0) {
+                                spinner_startPos.performClick();
+                            }
                         }
-
                     } else {
 
                         if (tn != null) {
@@ -1024,13 +1026,21 @@ public class MatchScoutActivity extends AppCompatActivity {
 //        Log.w(TAG, "*** Selected=" + selectedId);
         radio_Pick = (RadioButton) findViewById(selectedId);
         String value = radio_Pick.getText().toString();
+        if (value.equals("None")) {        // None
+            Log.w(TAG, "None");
+            carry_none = true;
+            carry_panel = false;
+            carry_cargo = false;
+        }
         if (value.equals("Panel")) {        // Panel
             Log.w(TAG, "Panel");
             carry_panel = true;
+            carry_cargo = false;
         }
         if (value.equals("Cargo")) {        // Panel
             Log.w(TAG, "Cargo");
             carry_cargo = true;
+            carry_panel = false;
         }
     }
 
@@ -1047,6 +1057,15 @@ public class MatchScoutActivity extends AppCompatActivity {
         radio_playerStation2 = (RadioButton) findViewById(R.id.radio_playerStation2);
         radio_floor2 = (RadioButton) findViewById(R.id.radio_floor2);
         radio_corral2 = (RadioButton) findViewById(R.id.radio_corral2);
+        if (value.equals("None")) {        // None
+            Log.w(TAG, "2nd None");
+            PU2ndPanel = false;
+            PU2ndCargo = false;
+            radio_playerStation2.setEnabled(false);
+            radio_floor2.setEnabled(false);
+            radio_corral2.setEnabled(false);
+            radio_corral2.setVisibility(View.VISIBLE);
+        }
         if (value.equals("Panel")) {        // Panel
             Log.w(TAG, "2nd Panel");
             PU2ndPanel = true;
@@ -1078,6 +1097,15 @@ public class MatchScoutActivity extends AppCompatActivity {
         radio_playerStation3 = (RadioButton) findViewById(R.id.radio_playerStation3);
         radio_floor3 = (RadioButton) findViewById(R.id.radio_floor3);
         radio_corral3 = (RadioButton) findViewById(R.id.radio_corral3);
+        if (value.equals("None")) {        // None
+            Log.w(TAG, "2nd None");
+            PU3rdPanel = false;
+            PU3rdCargo = false;
+            radio_playerStation3.setEnabled(false);
+            radio_floor3.setEnabled(false);
+            radio_corral3.setEnabled(false);
+            radio_corral3.setVisibility(View.VISIBLE);
+        }
         if (value.equals("Panel")) {        // Panel
             Log.w(TAG, "3rd Panel");
             PU3rdPanel = true;
@@ -1364,6 +1392,12 @@ public class MatchScoutActivity extends AppCompatActivity {
                 editText_autoComment.setText(R.string.NoShowMsg);
                 checkbox_noSS.setChecked(true);
                 // ????? - Do we want to turn off all other widgets?
+            }
+            if (spinner_startPos.getSelectedItemPosition() == 1 || spinner_startPos.getSelectedItemPosition() == 2 ) {
+                checkbox_noSS.setChecked(false);                            // un-check if old value was NoShow
+            }
+            if (spinner_startPos.getSelectedItemPosition() == 0) {          // reset to start
+                checkbox_noSS.setChecked(false);                            // un-check if old value was NoShow
             }
         }
         public void onNothingSelected(AdapterView<?> parent) {
