@@ -878,6 +878,7 @@ public class MatchScoutActivity extends AppCompatActivity {
                      checkbox_leftHAB.setEnabled(false);
                      checkbox_leftHAB2.setEnabled(false);
                      editText_autoComment.setText("No Sandstorm activity - didn't move");
+                     autoComment = "No Sandstorm activity - didn't move";
 //                     chk_cubeSwitch.setEnabled(false);
 //                     chk_attemptSwitch.setEnabled(false);
 //                     chk_XoverSwitch.setEnabled(false);
@@ -898,6 +899,7 @@ public class MatchScoutActivity extends AppCompatActivity {
                      checkbox_leftHAB.setEnabled(true);
                      checkbox_leftHAB2.setEnabled(true);
                      editText_autoComment.setText(" ");
+                     autoComment = " ";
 
 //                     chk_cubeSwitch.setEnabled(true);
 //                     chk_attemptSwitch.setEnabled(true);
@@ -949,7 +951,7 @@ public class MatchScoutActivity extends AppCompatActivity {
 
             } else {        // It's OK - Match has started
 
-                    if (auto) {     // No SS acrivity
+                    if (auto==false) {     // No SS acrivity
                         if (((carry_none==false) && (carry_cargo==false) && (carry_panel==false)) ||
                                 (PU2ndPanel) && ((!PU2ndPlSta)&&(!PU2ndFloor)) ||
                                 (PU3rdPanel) && ((!PU3rdPlSta)&&(!PU3rdFloor)) ||

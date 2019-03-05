@@ -197,10 +197,10 @@ public class TeleopScoutActivity extends Activity {
         pfDevice_DBReference      = pfDatabase.getReference("devices");     // List of Devices
 
         if (Pearadox.Match_Data.isSand_mode()) {
-            Toast toast = Toast.makeText(getBaseContext(), "\n\n*** No Sandstorm was set - go to FINAL and save ***\n\n", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(getBaseContext(), "\n\n*** No Sandstorm was set - Watch for any scoring in TeleOps ***\n\n", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
-            final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+            final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION,  100);
             tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
             radio_Zero.setChecked(true);        // didn't move - so NOT on
             end_HAB_Level = 0;
