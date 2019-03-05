@@ -875,7 +875,9 @@ public class MatchScoutActivity extends AppCompatActivity {
                      Log.w(TAG, "No SS is checked.");
                      auto = true;
                     // ToDo - turn ON/OFF correct widgets
+                     checkbox_leftHAB.setChecked(false);
                      checkbox_leftHAB.setEnabled(false);
+                     checkbox_leftHAB2.setChecked(false);
                      checkbox_leftHAB2.setEnabled(false);
                      editText_autoComment.setText("No Sandstorm activity - didn't move");
                      autoComment = "No Sandstorm activity - didn't move";
@@ -951,19 +953,18 @@ public class MatchScoutActivity extends AppCompatActivity {
 
             } else {        // It's OK - Match has started
 
-                    if (auto==false) {     // No SS acrivity
-                        if (((carry_none==false) && (carry_cargo==false) && (carry_panel==false)) ||
-                                (PU2ndPanel) && ((!PU2ndPlSta)&&(!PU2ndFloor)) ||
-                                (PU3rdPanel) && ((!PU3rdPlSta)&&(!PU3rdFloor)) ||
-                                (PU2ndCargo) && ((!PU2ndPlSta)&&(!PU2ndFloor)&&(!PU2ndCorral)) ||
-                                (PU3rdCargo) && ((!PU3rdPlSta)&&(!PU3rdFloor)&&(!PU3rdCorral)) ||
-                                (spinner_startPos.getSelectedItemPosition() == 0) ) {  //Required fields
-                            // ToDo - check to see if ALL required fields entered (Start-pos, stop, gear, ....)
+                    if ((auto==false) &&
+                            ((carry_none==false) && (carry_cargo==false) && (carry_panel==false)) ||
+                            (PU2ndPanel) && ((!PU2ndPlSta)&&(!PU2ndFloor)) ||
+                            (PU3rdPanel) && ((!PU3rdPlSta)&&(!PU3rdFloor)) ||
+                            (PU2ndCargo) && ((!PU2ndPlSta)&&(!PU2ndFloor)&&(!PU2ndCorral)) ||
+                            (PU3rdCargo) && ((!PU3rdPlSta)&&(!PU3rdFloor)&&(!PU3rdCorral)) ||
+                            (spinner_startPos.getSelectedItemPosition() == 0) ) {  //Required fields
+                        // ToDo - check to see if ALL required fields entered (Start-pos, stop, gear, ....)
 
-                            Toast.makeText(getBaseContext(), "\t*** Select _ALL_ required fields!  ***\n Starting Position, Gamepiece, 2nd & 3rd Location ", Toast.LENGTH_LONG).show();
-                            if (spinner_startPos.getSelectedItemPosition() == 0) {
-                                spinner_startPos.performClick();
-                            }
+                        Toast.makeText(getBaseContext(), "\t*** Select _ALL_ required fields!  ***\n Starting Position, Gamepiece, 2nd & 3rd Location ", Toast.LENGTH_LONG).show();
+                        if (spinner_startPos.getSelectedItemPosition() == 0) {
+                            spinner_startPos.performClick();
                         }
                     } else {
 
@@ -1067,6 +1068,10 @@ public class MatchScoutActivity extends AppCompatActivity {
             radio_floor2.setEnabled(false);
             radio_corral2.setEnabled(false);
             radio_corral2.setVisibility(View.VISIBLE);
+            for(int i = 0; i < radgrp_secondPieceLocation.getChildCount(); i++){        // turn them all OFF
+                ((RadioButton)radgrp_secondPieceLocation.getChildAt(i)).setChecked(false);
+                ((RadioButton)radgrp_secondPieceLocation.getChildAt(i)).setEnabled(false);
+            }
         }
         if (value.equals("Panel")) {        // Panel
             Log.w(TAG, "2nd Panel");
@@ -1107,6 +1112,10 @@ public class MatchScoutActivity extends AppCompatActivity {
             radio_floor3.setEnabled(false);
             radio_corral3.setEnabled(false);
             radio_corral3.setVisibility(View.VISIBLE);
+            for(int i = 0; i < radgrp_thirdPieceLocation.getChildCount(); i++){        // turn them all OFF
+                ((RadioButton)radgrp_thirdPieceLocation.getChildAt(i)).setChecked(false);
+                ((RadioButton)radgrp_thirdPieceLocation.getChildAt(i)).setEnabled(false);
+            }
         }
         if (value.equals("Panel")) {        // Panel
             Log.w(TAG, "3rd Panel");
