@@ -34,6 +34,7 @@ import android.widget.ToggleButton;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -114,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "******* Starting Pearadox-5414  *******");
+
         try {
             Pearadox_Version = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
         } catch (NameNotFoundException e) {
@@ -1048,6 +1050,7 @@ private void preReqs() {
 public void onStart() {
     super.onStart();
     Log.i(TAG, "<<<<<  onStart  >>>>>");
+    FirebaseApp.initializeApp(this);
     mAuth = FirebaseAuth.getInstance();
 //    if (FB_logon) {
         Fb_Auth();      // Authenticate with Firebase

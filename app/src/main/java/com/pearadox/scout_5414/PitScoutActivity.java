@@ -610,7 +610,8 @@ pitData Pit_Data = new pitData();
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Uri downloadURL = taskSnapshot.getDownloadUrl();
+//                Uri downloadURL = taskSnapshot.getDownloadUrl();
+                Uri downloadURL = taskSnapshot.getUploadSessionUri();
                 photoURL = downloadURL.toString();
                 Log.d(TAG, "#####  URL=" + photoURL  + " \n");
             }
