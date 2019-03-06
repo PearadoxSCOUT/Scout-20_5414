@@ -61,6 +61,7 @@ public class DraftScout_Activity extends AppCompatActivity {
     Boolean is_Resumed = false;
     int start = 0;          // Start Position for matches (0=ALL)
     int numObjects = 0; int numProcessed = 0;
+    int minMatches = 99;         // minimum # of matches collected
     int numPicks = 24;              // # of picks to show for Alliance Picks (actually get from Preferences)
     /*Shared Prefs-Scored Cargo*/ public String cargo_L1  = ""; public String cargo_L2  = ""; public String cargo_L3  = "";
     /*Shared Prefs-Panels*/ public String panels_L1 = ""; public String panels_L2  = ""; public String panels_L3  = ""; public String panels_Drop  = "";
@@ -119,7 +120,7 @@ public class DraftScout_Activity extends AppCompatActivity {
     public static ArrayList<matchData> All_Matches = new ArrayList<matchData>();
     String load_team, load_name;
 
-    //===========================
+    //===========================   SCORES object that is used for Comparator SORT  ==================================
     public static class Scores {
         private String teamNum;
         private String teamName;
@@ -127,8 +128,6 @@ public class DraftScout_Activity extends AppCompatActivity {
         private float SCORE_panelsScore;
         private float SCORE_climbScore;
         private float SCORE_combinedScore;
-//        private float switchScore;
-//        private float scaleScore;
 
         public Scores() {
         }
@@ -374,7 +373,7 @@ public class DraftScout_Activity extends AppCompatActivity {
         cargo_L1 = sharedPref.getString("prefCargo_L1", "1.0");
         cargo_L2 = sharedPref.getString("prefCargo_L2", "2.0");
         cargo_L3 = sharedPref.getString("prefCargo_L3", "3.0");
-        Log.e(TAG, "cargo_L1=" + cargo_L1);
+//        Log.e(TAG, "cargo_L1=" + cargo_L1);
 
         panels_L1 = sharedPref.getString("prefPanel_L1", "1.0");
         panels_L2 = sharedPref.getString("prefPanel_L2", "2.0");
@@ -423,16 +422,6 @@ public class DraftScout_Activity extends AppCompatActivity {
                 lbl_Formula.setTextColor(Color.parseColor("#a8a8a8"));      /// grey
                 txt_Formula.setText(form);
                 break;
-//            case "Switch":
-//                form = "(" + cargo_L1 +"*((aCSw * Aex) + ➽*.5) + " + cubeTeleSw + "*(tCSw) + " + teleOthr + "*(oth)) / #matches";
-//                lbl_Formula.setTextColor(Color.parseColor("#00eeee"));          // cyan
-//                txt_Formula.setText(form);
-//                break;
-//            case "Scale":
-//                form = "(" + cubeAutoSc + "*((aCSc * Tex) + ➽*.5) + " + cubeTeleSc + "*(tCSc) / #matches";
-//                lbl_Formula.setTextColor(Color.parseColor("#32cd32"));      // lime green
-//                txt_Formula.setText(form);
-//                break;
             default:                //
                 Log.e(TAG, "*** Invalid Type " + typ);
         }
@@ -443,39 +432,67 @@ public class DraftScout_Activity extends AppCompatActivity {
     public class numMatches_OnItemSelectedListener implements AdapterView.OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent,
                                    View view, int pos, long id) {
+            Boolean goodToGo = false;
             String num = " ";
             num = parent.getItemAtPosition(pos).toString();
             Log.w(TAG, ">>>>> NumMatches '" + num + "'");
             switch (num) {
                 case "Last":
-                    start = numObjects - 1;     //
-                    numProcessed = 1;
+                    if (minMatches >= 1) {
+                        start = numObjects - 1;     //
+                        numProcessed = 1;
+                        goodToGo = true;
+                    } else {
+                        Toast_Msg(num, minMatches);
+                        goodToGo = false;
+                    }
                     break;
                 case "Last 2":
-                    // ToDo - check # matches to see if they have this many
-                    start = numObjects - 2;     //
-                    numProcessed = 2;
+                    if (minMatches >= 2) {
+                        start = numObjects - 2;     //
+                        numProcessed = 2;
+                        goodToGo = true;
+                    } else {
+                        Toast_Msg(num, minMatches);
+                        goodToGo = false;
+                    }
                     break;
                 case "Last 3":
-                    // ToDo - check # matches to see if they have this many
-                    start = numObjects - 3;     //
-                    numProcessed = 3;
+                    if (minMatches >= 3) {
+                        start = numObjects - 3;     //
+                        numProcessed = 3;
+                        goodToGo = true;
+                    } else {
+                        Toast_Msg(num, minMatches);
+                        goodToGo = false;
+                    }
                     break;
                 case "ALL":
                     start = 0;                  // Start at beginning
                     numProcessed = numObjects;
+                    goodToGo = true;
                     break;
                 default:                //
                     Log.e(TAG, "Invalid number of matches - " + start);
             }
-            Log.w(TAG, "Start = " + num );
+            Log.w(TAG, "Start = " + num);
+            if (goodToGo) {
+                Log.e(TAG, "We are good To Go!! - " + start);
 //            init_Values();
 //            getMatch_Data();
+            }
         }
-        public void onNothingSelected(AdapterView<?> parent) {
+        public void onNothingSelected (AdapterView < ? > parent){
             // Do nothing.
         }
     }
+
+public void Toast_Msg(String choice, Integer minimum) {
+    Toast toast = Toast.makeText(getBaseContext(), "\nCannot show '" + choice + "' some teams have " + minimum + " matches \n " , Toast.LENGTH_LONG);
+    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+    toast.show();
+
+}
 
 
 
@@ -1191,8 +1208,12 @@ public class DraftScout_Activity extends AppCompatActivity {
                 Log.w(TAG, "Accum. matches = " + numMatches);
             } //End if teams equal
         } // End For _ALL_ matches
-//        Log.w(TAG, "####### Total Matches/Team = " + numMatches);
+        Log.w(TAG, "####### Total Matches/Team = " + numMatches);
         mdNumMatches = String.valueOf(numMatches);
+        if (numMatches < minMatches) {
+            minMatches = numMatches;
+            Log.e(TAG, "Min. matches changed = " + minMatches);
+        }
         if (numMatches > 0) {
             if (cube_pu) {
                 cubeChk = "❎";
@@ -1292,6 +1313,8 @@ public class DraftScout_Activity extends AppCompatActivity {
                 btn_Match.setEnabled(true);
                 imgStat_Load.setImageDrawable(getResources().getDrawable(R.drawable.traffic_light_green));
                 txt_LoadStatus.setText("");
+//                radio_Team = (RadioButton) findViewById(R.id.radio_Team);
+//                radio_Team.performClick();         // "force" radio button click  (so it works 1st time)
             }
 
             @Override
@@ -1347,14 +1370,6 @@ public class DraftScout_Activity extends AppCompatActivity {
                     radio_Weight = (RadioButton) findViewById(R.id.radio_Weight);
                     radio_Weight.performClick();         // "force" radio button click
                     break;
-//                case "Switch":
-//                    radio_pGt1 = (RadioButton) findViewById(R.id.radio_pGt1);
-//                    radio_pGt1.performClick();         // "force" radio button click
-//                    break;
-//                case "Scale":
-//                    radio_cGt1 = (RadioButton) findViewById(R.id.radio_cGt1);
-//                    radio_cGt1.performClick();         // "force" radio button click
-//                    break;
                 case "Panels":
                     radio_Panels = (RadioButton) findViewById(R.id.radio_Panels);
                     radio_Panels.performClick();         // "force" radio button click
