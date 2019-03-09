@@ -71,7 +71,7 @@ public class DraftScout_Activity extends AppCompatActivity {
     TextView txt_EventName, txt_NumTeams, txt_Formula, lbl_Formula, txt_LoadStatus, txt_SelNum;
     Spinner spinner_numMatches;
     ListView lstView_Teams;
-    TextView TeamData, BA, Stats;
+    TextView TeamData, BA, Stats, Stats2;
     Button btn_Match, btn_Default;
     RadioGroup radgrp_Sort;
     RadioButton radio_Climb, radio_Cargo, radio_Weight, radio_Team, radio_pGt1, radio_cGt1, radio_Panels;
@@ -88,6 +88,10 @@ public class DraftScout_Activity extends AppCompatActivity {
     String tn = "";
     String Viz_URL = "";
     String teamNum=""; String teamName = "";
+    String tmRank = "";
+    String tmRScore = "";
+    String tmWLT = "";
+    String tmOPR = "";
     p_Firebase.teamsObj team_inst = new p_Firebase.teamsObj();
     //    Team[] teams;
     public static int BAnumTeams = 0;                                      // # of teams from Blue Alliance
@@ -124,6 +128,10 @@ public class DraftScout_Activity extends AppCompatActivity {
     public static class Scores {
         private String teamNum;
         private String teamName;
+        private String scrRank;
+        private String scrRScore;
+        private String scrWLT;
+        private String scrOPR;
         private float SCORE_cargoScore;
         private float SCORE_panelsScore;
         private float SCORE_climbScore;
@@ -133,9 +141,14 @@ public class DraftScout_Activity extends AppCompatActivity {
         }
 
 // ** Constuctor **
-        public Scores(String teamNum, String teamName, float SCORE_cargoScore, float SCORE_panelsScore, float SCORE_climbScore, float SCORE_combinedScore) {
+
+        public Scores(String teamNum, String teamName, String scrRank, String scrRScore, String scrWLT, String scrOPR, float SCORE_cargoScore, float SCORE_panelsScore, float SCORE_climbScore, float SCORE_combinedScore) {
             this.teamNum = teamNum;
             this.teamName = teamName;
+            this.scrRank = scrRank;
+            this.scrRScore = scrRScore;
+            this.scrWLT = scrWLT;
+            this.scrOPR = scrOPR;
             this.SCORE_cargoScore = SCORE_cargoScore;
             this.SCORE_panelsScore = SCORE_panelsScore;
             this.SCORE_climbScore = SCORE_climbScore;
@@ -158,6 +171,38 @@ public class DraftScout_Activity extends AppCompatActivity {
 
         public void setTeamName(String teamName) {
             this.teamName = teamName;
+        }
+
+        public String getScrRank() {
+            return scrRank;
+        }
+
+        public void setScrRank(String scrRank) {
+            this.scrRank = scrRank;
+        }
+
+        public String getScrRScore() {
+            return scrRScore;
+        }
+
+        public void setScrRScore(String scrRScore) {
+            this.scrRScore = scrRScore;
+        }
+
+        public String getScrWLT() {
+            return scrWLT;
+        }
+
+        public void setScrWLT(String scrWLT) {
+            this.scrWLT = scrWLT;
+        }
+
+        public String getScrOPR() {
+            return scrOPR;
+        }
+
+        public void setScrOPR(String scrOPR) {
+            this.scrOPR = scrOPR;
         }
 
         public float getSCORE_cargoScore() {
@@ -190,6 +235,22 @@ public class DraftScout_Activity extends AppCompatActivity {
 
         public void setSCORE_combinedScore(float SCORE_combinedScore) {
             this.SCORE_combinedScore = SCORE_combinedScore;
+        }
+
+        public static Comparator<Scores> getTeamComp() {
+            return teamComp;
+        }
+
+        public static void setTeamComp(Comparator<Scores> teamComp) {
+            Scores.teamComp = teamComp;
+        }
+
+        public static Comparator<Scores> getClimbComp() {
+            return climbComp;
+        }
+
+        public static void setClimbComp(Comparator<Scores> climbComp) {
+            Scores.climbComp = climbComp;
         }
 
 
@@ -637,8 +698,8 @@ public void Toast_Msg(String choice, Integer minimum) {
                 this,
                 draftList,
                 R.layout.draft_list_layout,
-                new String[] {"team","BA","Stats"},
-                new int[] {R.id.TeamData,R.id.BA, R.id.Stats}
+                new String[] {"team","BA","Stats","Stats2"},
+                new int[] {R.id.TeamData,R.id.BA, R.id.Stats, R.id.Stats2}
         );
 
         draftList.clear();
@@ -649,6 +710,10 @@ public void Toast_Msg(String choice, Integer minimum) {
 //            Log.w(TAG, i +" team=" + score_inst.getTeamNum());
             HashMap<String, String> temp = new HashMap<String, String>();
             tn = score_inst.getTeamNum();
+            tmRank = score_inst.getScrRank();
+            tmRScore = score_inst.getScrRScore();
+            tmWLT = score_inst.scrWLT;
+            tmOPR = score_inst.getScrOPR();
 
             teamData(tn);   // Get Team's Match Data
             switch (sortType) {
@@ -667,20 +732,15 @@ public void Toast_Msg(String choice, Integer minimum) {
                 case "Team#":
                     totalScore=" ";
                     break;
-//                case "Switch":
-//                    totalScore = "[" + String.format("%3.2f", score_inst.getSwitchScore()) + "]";
-//                    break;
-//                case "Scale":
-//                    totalScore = "[" + String.format("%3.2f", score_inst.getScaleScore()) + "]";
-//                    break;
                 default:                //
                     Log.e(TAG, "Invalid Sort - " + sortType);
             }
 
             temp.put("team", tn + "-" + score_inst.getTeamName() + "  (" + mdNumMatches + ")  " +  totalScore);
 //            temp.put("BA", "Rank=" + teams[i].rank + "  " + teams[i].record + "   OPR=" + String.format("%3.1f", (teams[i].opr)) + "    ↑ " + String.format("%3.1f", (teams[i].touchpad)) + "   kPa=" + String.format("%3.1f", (teams[i].pressure)));
-            temp.put("Stats", "Sand ⚫ ¹" + sandCargL1 + " ²" + sandCargL2 + " ³" + sandCargL3 + "  ☢ ¹" + sandPanelL1 + " ²" + sandPanelL2 + " ³" + sandPanelL3 + "    Tele ⚫ ¹" + teleCargoL1 + " ²" + teleCargoL2 +  "  ³" + teleCargoL3 + "  ☢ ¹" + telePanL1 + " ²" + telePanL2 + " ³" + telePanL3  + "  ▼" +panDropped);
-            temp.put("BA",  "Climb HAB ₀" + climb_HAB0 + " ₁" + climb_HAB1 + " ₂" + climb_HAB2 + " ₃" + climb_HAB3 + "    ↕One " + liftOne + "  ↕Two " + liftTwo + "    Was↑ " + gotLifted);
+            temp.put("BA","Rank=" + tmRank + "   Score=" + tmRScore + "   WLT=" + tmWLT + "   OPR=" + tmOPR);
+                    temp.put("Stats", "Sand ⚫ ¹" + sandCargL1 + " ²" + sandCargL2 + " ³" + sandCargL3 + "  ☢ ¹" + sandPanelL1 + " ²" + sandPanelL2 + " ³" + sandPanelL3 + "    Tele ⚫ ¹" + teleCargoL1 + " ²" + teleCargoL2 +  "  ³" + teleCargoL3 + "  ☢ ¹" + telePanL1 + " ²" + telePanL2 + " ³" + telePanL3  + "  ▼" +panDropped);
+            temp.put("Stats2",  "Climb HAB ₀" + climb_HAB0 + " ₁" + climb_HAB1 + " ₂" + climb_HAB2 + " ₃" + climb_HAB3 + "    ↕One " + liftOne + "  ↕Two " + liftTwo + "    Was↑ " + gotLifted);
             draftList.add(temp);
         } // End For
         Log.w(TAG, "### Teams ###  : " + draftList.size());
@@ -1338,6 +1398,10 @@ public void Toast_Msg(String choice, Integer minimum) {
             team_inst = Pearadox.team_List.get(i);
             curScrTeam.setTeamNum(team_inst.getTeam_num());
             curScrTeam.setTeamName(team_inst.getTeam_name());
+            curScrTeam.setScrRank(team_inst.getTeam_rank());
+            curScrTeam.setScrRScore(team_inst.getTeam_rScore());
+            curScrTeam.setScrWLT(team_inst.getTeam_WLT());
+            curScrTeam.setScrOPR(team_inst.getTeam_OPR());
 //            Log.w(TAG, curScrTeam.getTeamNum() + "  " + curScrTeam.getTeamName());
             curScrTeam.setSCORE_climbScore((float) 0);        //Climb
             curScrTeam.setSCORE_cargoScore((float) 0);        // Cargo
