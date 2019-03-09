@@ -82,43 +82,83 @@ public class p_Firebase {
 // ==========================================================
 // ==========================================================
     public static class teamsObj {
-        private String team_num;
-        private String team_name;
-        private String team_loc;
+    private String team_num;
+    private String team_name;
+    private String team_loc;
+    private String team_OPR;
+    private String team_rank;
+    private String team_rScore;
+    private String team_WLT;
 
-        public teamsObj() {
-        }
-
-        public teamsObj(String team_num, String team_name, String team_loc) {
-            this.team_num = team_num;
-            this.team_name = team_name;
-            this.team_loc = team_loc;
-        }
-
-        public String getTeam_num() {
-            return team_num;
-        }
-
-        public void setTeam_num(String team_num) {
-            this.team_num = team_num;
-        }
-
-        public String getTeam_name() {
-            return team_name;
-        }
-
-        public void setTeam_name(String team_name) {
-            this.team_name = team_name;
-        }
-
-        public String getTeam_loc() {
-            return team_loc;
-        }
-
-        public void setTeam_loc(String team_loc) {
-            this.team_loc = team_loc;
-        }
+    public teamsObj() {
     }
+
+    public teamsObj(String team_num, String team_name, String team_loc, String team_OPR, String team_rank, String team_rScore, String team_WLT) {
+        this.team_num = team_num;
+        this.team_name = team_name;
+        this.team_loc = team_loc;
+        this.team_OPR = team_OPR;
+        this.team_rank = team_rank;
+        this.team_rScore = team_rScore;
+        this.team_WLT = team_WLT;
+    }
+
+    public String getTeam_num() {
+        return team_num;
+    }
+
+    public void setTeam_num(String team_num) {
+        this.team_num = team_num;
+    }
+
+    public String getTeam_name() {
+        return team_name;
+    }
+
+    public void setTeam_name(String team_name) {
+        this.team_name = team_name;
+    }
+
+    public String getTeam_loc() {
+        return team_loc;
+    }
+
+    public void setTeam_loc(String team_loc) {
+        this.team_loc = team_loc;
+    }
+
+    public String getTeam_OPR() {
+        return team_OPR;
+    }
+
+    public void setTeam_OPR(String team_OPR) {
+        this.team_OPR = team_OPR;
+    }
+
+    public String getTeam_rank() {
+        return team_rank;
+    }
+
+    public void setTeam_rank(String team_rank) {
+        this.team_rank = team_rank;
+    }
+
+    public String getTeam_rScore() {
+        return team_rScore;
+    }
+
+    public void setTeam_rScore(String team_rScore) {
+        this.team_rScore = team_rScore;
+    }
+
+    public String getTeam_WLT() {
+        return team_WLT;
+    }
+
+    public void setTeam_WLT(String team_WLT) {
+        this.team_WLT = team_WLT;
+    }
+}
 
 // ==========================================================
 // ==========================================================

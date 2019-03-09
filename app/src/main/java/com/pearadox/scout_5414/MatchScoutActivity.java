@@ -65,7 +65,7 @@ public class MatchScoutActivity extends AppCompatActivity {
     public static String device = " ";
     private Button button_GoToTeleopActivity, button_GoToArenaLayoutActivity, button_dropMinus, button_dropPlus;
     String team_num, team_name, team_loc;
-    p_Firebase.teamsObj team_inst = new p_Firebase.teamsObj(team_num, team_name, team_loc);
+    p_Firebase.teamsObj team_inst = new p_Firebase.teamsObj();
     private FirebaseDatabase pfDatabase;
     private DatabaseReference pfTeam_DBReference;
     private DatabaseReference pfMatch_DBReference;

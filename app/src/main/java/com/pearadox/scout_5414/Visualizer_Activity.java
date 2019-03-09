@@ -83,7 +83,7 @@ public class Visualizer_Activity extends AppCompatActivity {
     Button btn_PitR1, btn_PitR2, btn_PitR3, btn_PitB1, btn_PitB2, btn_PitB3;
     String team_num, team_name, team_loc;
     String load_team, load_name;
-    p_Firebase.teamsObj team_inst = new p_Firebase.teamsObj(team_num, team_name,  team_loc);
+    p_Firebase.teamsObj team_inst = new p_Firebase.teamsObj();
     private FirebaseDatabase pfDatabase;
 //    private DatabaseReference pfStudent_DBReference;
 //    private DatabaseReference pfDevice_DBReference;
@@ -1388,7 +1388,7 @@ public class Visualizer_Activity extends AppCompatActivity {
         Log.w("TAG", ">>>>>>>  findTeam: " + Scout_teams.size());
         if (!found) {
             Toast.makeText(getBaseContext(),"** Team '" + tnum + "' from Matches table _NOT_ found in Team list  ** ", Toast.LENGTH_LONG).show();
-            p_Firebase.teamsObj team_dummy = new p_Firebase.teamsObj("****", "team _NOT_ found in Team list - Check for TYPOs in Match Sched."," ");
+            p_Firebase.teamsObj team_dummy = new p_Firebase.teamsObj();
             Scout_teams.add(team_dummy);
         }
     }

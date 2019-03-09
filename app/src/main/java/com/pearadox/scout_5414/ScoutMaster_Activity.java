@@ -63,10 +63,10 @@ public class ScoutMaster_Activity extends AppCompatActivity {
     public static String[] signedStudents = new String[]
             {" ", " ", " ", " ", " ", " "};
     String team_num, team_name, team_loc;
-    p_Firebase.teamsObj team_inst = new p_Firebase.teamsObj(team_num, team_name, team_loc);
+    p_Firebase.teamsObj team_inst = new p_Firebase.teamsObj();
     ArrayList<p_Firebase.teamsObj> teams = new ArrayList<p_Firebase.teamsObj>();
     String date, time, mtype, match, r1, r2, r3, b1, b2, b3;
-    p_Firebase.matchObj match_inst = new p_Firebase.matchObj(date, time, mtype, match, r1, r2, r3, b1, b2, b3);
+    p_Firebase.matchObj match_inst = new p_Firebase.matchObj();
 
 
     @Override
@@ -339,7 +339,7 @@ public class ScoutMaster_Activity extends AppCompatActivity {
             final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 200);
             tg.startTone(ToneGenerator.TONE_PROP_BEEP);
             Toast.makeText(getBaseContext(),"** Team '" + tnum + "' from Matches table _NOT_ found in Team list  ** ", Toast.LENGTH_LONG).show();
-            p_Firebase.teamsObj team_dummy = new p_Firebase.teamsObj("****", "team _NOT_ found in Team list - Check for TYPOs in Match Sched."," ");
+            p_Firebase.teamsObj team_dummy = new p_Firebase.teamsObj();
             teams.add(team_dummy);
         }
     }

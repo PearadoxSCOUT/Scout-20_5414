@@ -90,7 +90,7 @@ public class PitScoutActivity extends AppCompatActivity {
             {" ","1","2"};
 
     String team_num, team_name, team_loc;
-    p_Firebase.teamsObj team_inst = new p_Firebase.teamsObj(team_num, team_name, team_loc);
+    p_Firebase.teamsObj team_inst = new p_Firebase.teamsObj();
     private FirebaseDatabase pfDatabase;
     private DatabaseReference pfPitData_DBReference;
     FirebaseStorage storage;
