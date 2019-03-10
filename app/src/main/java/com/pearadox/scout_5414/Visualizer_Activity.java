@@ -124,10 +124,12 @@ public class Visualizer_Activity extends AppCompatActivity {
 
         txt_dev = (TextView) findViewById(R.id.txt_Dev);
         txt_stud = (TextView) findViewById(R.id.txt_TeamName);
+        txt_EventName = (TextView) findViewById(R.id.txt_EventName);
         txt_NextMatch = (TextView) findViewById(R.id.txt_NextMatch);
         txt_dev.setText(param1);
         txt_stud.setText(param2);
         txt_NextMatch.setText("");
+        txt_EventName.setText(Pearadox.FRC_EventName);
         matchID = "";
         txt_MatchID = (TextView) findViewById(R.id.txt_MatchID);
         txt_MatchID.setText(" ");
