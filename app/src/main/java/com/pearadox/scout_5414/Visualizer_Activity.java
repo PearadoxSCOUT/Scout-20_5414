@@ -78,6 +78,7 @@ public class Visualizer_Activity extends AppCompatActivity {
     TextView tbl_event2R1, tbl_event2R2, tbl_event2R3, tbl_event2B1, tbl_event2B2, tbl_event2B3;
     TextView tbl_rate2R1,tbl_rate2R2,tbl_rate2R3, tbl_rate2B1, tbl_rate2B2, tbl_rate2B3;
     TextView txt_MatchesR1, txt_MatchesR2, txt_MatchesR3, txt_MatchesB1, txt_MatchesB2, txt_MatchesB3;
+    TextView txt_baR1, txt_baR2, txt_baR3, txt_baB1, txt_baB2, txt_baB3;
 
     Button button_View;
     Button btn_PitR1, btn_PitR2, btn_PitR3, btn_PitB1, btn_PitB2, btn_PitB3;
@@ -304,7 +305,12 @@ public class Visualizer_Activity extends AppCompatActivity {
         txt_MatchesB1 = (TextView) findViewById(R.id.txt_MatchesB1);
         txt_MatchesB2 = (TextView) findViewById(R.id.txt_MatchesB2);
         txt_MatchesB3 = (TextView) findViewById(R.id.txt_MatchesB3);
-
+        txt_baR1 = (TextView) findViewById(R.id.txt_baR1);
+        txt_baR2 = (TextView) findViewById(R.id.txt_baR2);
+        txt_baR3 = (TextView) findViewById(R.id.txt_baR3);
+        txt_baB1 = (TextView) findViewById(R.id.txt_baB1);
+        txt_baB2 = (TextView) findViewById(R.id.txt_baB2);
+        txt_baB3 = (TextView) findViewById(R.id.txt_baB3);
 
         txt_teamR1.setText("");
         txt_teamR2.setText("");
@@ -359,7 +365,15 @@ public class Visualizer_Activity extends AppCompatActivity {
         txt_MatchesB2.setText("");
         txt_MatchesB3.setText("");
 
-                ImageView tbl_robotR1 = (ImageView) findViewById(R.id.tbl_robotR1);
+        txt_baR1.setText("");
+        txt_baR2.setText("");
+        txt_baR3.setText("");
+        txt_baB1.setText("");
+        txt_baB2.setText("");
+        txt_baB3.setText("");
+
+
+        ImageView tbl_robotR1 = (ImageView) findViewById(R.id.tbl_robotR1);
         ImageView tbl_robotR2 = (ImageView) findViewById(R.id.tbl_robotR2);
         ImageView tbl_robotR3 = (ImageView) findViewById(R.id.tbl_robotR3);
         ImageView tbl_robotB1 = (ImageView) findViewById(R.id.tbl_robotB1);
@@ -863,7 +877,6 @@ public class Visualizer_Activity extends AppCompatActivity {
                     tn = mobj.getB3();
                     findTeam(tn);
                     load_team = tn;
-                    Log.w(TAG, ">>>> # team instances = " + Scout_teams.size());  //** DEBUG
 
                     txt_teamR1 = (TextView) findViewById(R.id.txt_teamR1);
                     txt_teamR2 = (TextView) findViewById(R.id.txt_teamR2);
@@ -886,29 +899,42 @@ public class Visualizer_Activity extends AppCompatActivity {
 
                     w(TAG, "@@@@@@@@@@@@@@@@@@@ GET TEAM DATA  @@@@@@@@@@@@@@@@@@@");  //** DEBUG
 
+                    String x = "";
                     team_inst = Scout_teams.get(0);       // Team#R1
                     txt_teamR1.setText(team_inst.getTeam_num());
                     txt_teamR1_Name.setText(team_inst.getTeam_name());
+                    x = "Rank="+ team_inst.getTeam_rank() + "   Score=" + team_inst.getTeam_rScore() + "\nWLT=" + team_inst.getTeam_WLT() + "   OPR=" + team_inst.getTeam_OPR();
+                    txt_baR1.setText(x);
                     tbl_teamR1.setText(team_inst.getTeam_num());
                     team_inst = Scout_teams.get(1);       // Team#R2
                     txt_teamR2.setText(team_inst.getTeam_num());
                     txt_teamR2_Name.setText(team_inst.getTeam_name());
+                    x = "Rank="+ team_inst.getTeam_rank() + "   Score=" + team_inst.getTeam_rScore() + "\nWLT=" + team_inst.getTeam_WLT() + "   OPR=" + team_inst.getTeam_OPR();
+                    txt_baR2.setText(x);
                     tbl_teamR2.setText(team_inst.getTeam_num());
                     team_inst = Scout_teams.get(2);       // Team#R3
                     txt_teamR3.setText(team_inst.getTeam_num());
                     txt_teamR3_Name.setText(team_inst.getTeam_name());
+                    x = "Rank="+ team_inst.getTeam_rank() + "   Score=" + team_inst.getTeam_rScore() + "\nWLT=" + team_inst.getTeam_WLT() + "   OPR=" + team_inst.getTeam_OPR();
+                    txt_baR3.setText(x);
                     tbl_teamR3.setText(team_inst.getTeam_num());
                     team_inst = Scout_teams.get(3);       // Team#B1
                     txt_teamB1.setText(team_inst.getTeam_num());
                     txt_teamB1_Name.setText(team_inst.getTeam_name());
+                    x = "Rank="+ team_inst.getTeam_rank() + "   Score=" + team_inst.getTeam_rScore() + "\nWLT=" + team_inst.getTeam_WLT() + "   OPR=" + team_inst.getTeam_OPR();
+                    txt_baB1.setText(x);
                     tbl_teamB1.setText(team_inst.getTeam_num());
                     team_inst = Scout_teams.get(4);       // Team#B2
                     txt_teamB2.setText(team_inst.getTeam_num());
                     txt_teamB2_Name.setText(team_inst.getTeam_name());
+                    x = "Rank="+ team_inst.getTeam_rank() + "   Score=" + team_inst.getTeam_rScore() + "\nWLT=" + team_inst.getTeam_WLT() + "   OPR=" + team_inst.getTeam_OPR();
+                    txt_baB2.setText(x);
                     tbl_teamB2.setText(team_inst.getTeam_num());
                     team_inst = Scout_teams.get(5);       // Team#B3
                     txt_teamB3.setText(team_inst.getTeam_num());
                     txt_teamB3_Name.setText(team_inst.getTeam_name());
+                    x = "Rank="+ team_inst.getTeam_rank() + "   Score=" + team_inst.getTeam_rScore() + "\nWLT=" + team_inst.getTeam_WLT() + "   OPR=" + team_inst.getTeam_OPR();
+                    txt_baB3.setText(x);
                     tbl_teamB3.setText(team_inst.getTeam_num());
                     Log.w(TAG, "+++++++++; size = " + Scout_teams.size());
 

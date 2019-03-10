@@ -487,6 +487,11 @@
                 android:gravity="start"
                 android:padding="2dip" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.10"
+            android:orientation="vertical">
             <LinearLayout
                 android:id="@+id/teamR1_buttons"
                 android:layout_width="match_parent"
@@ -501,7 +506,7 @@
                     android:layout_weight="0.4"
                     android:onClick="btn_PitR1_Click"
                     android:text="Pit Data"
-                    android:textSize="8sp" />
+                    android:textSize="9sp" />
 
                 <Button
                     android:id="@+id/btn_MatchR1"
@@ -526,6 +531,26 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/teamR1_ba"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.05"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_baR1"
+                    android:layout_width="8sp"
+                    android:layout_height="41sp"
+                    android:layout_weight="0.10"
+                    android:padding="1dip"
+                    android:paddingLeft="1dip"
+                    android:text="Rank=99  Score=00.00  \nWLT=00-00-00   OPR=99.000"
+                    android:textColor="@color/grey"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.66"
@@ -542,7 +567,7 @@
                         android:id="@+id/tbl_event1R1"
                         android:layout_width="10sp"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.20"
+                        android:layout_weight="0.15"
                         android:gravity="start"
                         android:padding="1dip"
                         android:text="Sand \nTele"
@@ -570,7 +595,7 @@
                         android:id="@+id/tbl_event2R1"
                         android:layout_width="10sp"
                         android:layout_height="41sp"
-                        android:layout_weight="0.20"
+                        android:layout_weight="0.15"
                         android:gravity="start"
                         android:padding="1dip"
                         android:text="Sand \nTele"
@@ -610,6 +635,11 @@
                 android:gravity="start"
                 android:padding="2dip" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.10"
+            android:orientation="vertical">
             <LinearLayout
                 android:id="@+id/teamR2_buttons"
                 android:layout_width="match_parent"
@@ -644,6 +674,25 @@
                     android:text="99"
                     android:textColor="@color/white" />
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/teamR2_ba"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.05"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_baR2"
+                    android:layout_width="8sp"
+                    android:layout_height="41sp"
+                    android:layout_weight="0.10"
+                    android:padding="1dip"
+                    android:paddingLeft="1dip"
+                    android:text="Rank=99  Score=00.00  \nWLT=00-00-00   OPR=99.000"
+                    android:textColor="@color/grey"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -662,7 +711,7 @@
                         android:id="@+id/tbl_event1R2"
                         android:layout_width="10sp"
                         android:layout_height="41sp"
-                        android:layout_weight="0.20"
+                        android:layout_weight="0.15"
                         android:gravity="start"
                         android:padding="1dip"
                         android:text="Sand \nTele"
@@ -690,7 +739,7 @@
                         android:id="@+id/tbl_event2R2"
                         android:layout_width="10sp"
                         android:layout_height="41sp"
-                        android:layout_weight="0.20"
+                        android:layout_weight="0.15"
                         android:gravity="start"
                         android:padding="1dip"
                         android:text="Sand \nTele"
@@ -730,6 +779,11 @@
                 android:background="@drawable/border"
                 android:gravity="start"
                 android:padding="2dip" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.10"
+                android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/teamR3_buttons"
@@ -765,6 +819,25 @@
                     android:text="99"
                     android:textColor="@color/white" />
             </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/teamR3_ba"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.05"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_baR3"
+                        android:layout_width="8sp"
+                        android:layout_height="41sp"
+                        android:layout_weight="0.10"
+                        android:padding="1dip"
+                        android:paddingLeft="1dip"
+                        android:text="Rank=99  Score=00.00  \nWLT=00-00-00   OPR=99.000"
+                        android:textColor="@color/grey"
+                        android:textSize="10sp" />
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -783,7 +856,7 @@
                         android:id="@+id/tbl_event1R3"
                         android:layout_width="10sp"
                         android:layout_height="41sp"
-                        android:layout_weight="0.20"
+                        android:layout_weight="0.15"
                         android:gravity="start"
                         android:padding="1dip"
                         android:text="Sand \nTele"
@@ -811,7 +884,7 @@
                         android:id="@+id/tbl_event2R3"
                         android:layout_width="10sp"
                         android:layout_height="41sp"
-                        android:layout_weight="0.20"
+                        android:layout_weight="0.15"
                         android:gravity="start"
                         android:padding="1dip"
                         android:text="Sand \nTele"
@@ -854,6 +927,12 @@
                 android:text="second" />
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.10"
+                android:orientation="vertical">
+
+            <LinearLayout
                 android:id="@+id/teamB1_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -887,6 +966,25 @@
                     android:text="99"
                     android:textColor="@color/white" />
             </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/teamB1_ba"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.05"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_baB1"
+                        android:layout_width="8sp"
+                        android:layout_height="41sp"
+                        android:layout_weight="0.10"
+                        android:padding="1dip"
+                        android:paddingLeft="1dip"
+                        android:text="Rank=99  Score=00.00  \nWLT=00-00-00   OPR=99.000"
+                        android:textColor="@color/grey"
+                        android:textSize="10sp" />
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -905,7 +1003,7 @@
                         android:id="@+id/tbl_event1B1"
                         android:layout_width="10sp"
                         android:layout_height="41sp"
-                        android:layout_weight="0.20"
+                        android:layout_weight="0.15"
                         android:gravity="start"
                         android:padding="1dip"
                         android:text="Sand \nTele"
@@ -933,7 +1031,7 @@
                         android:id="@+id/tbl_event2B1"
                         android:layout_width="10sp"
                         android:layout_height="41sp"
-                        android:layout_weight="0.20"
+                        android:layout_weight="0.15"
                         android:gravity="start"
                         android:padding="1dip"
                         android:text="Sand \nTele"
@@ -976,6 +1074,12 @@
                 android:text="second" />
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.10"
+                android:orientation="vertical">
+
+            <LinearLayout
                 android:id="@+id/teamB2_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1009,6 +1113,25 @@
                     android:text="99"
                     android:textColor="@color/white" />
             </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/teamB2_ba"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.05"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_baB2"
+                        android:layout_width="8sp"
+                        android:layout_height="41sp"
+                        android:layout_weight="0.10"
+                        android:padding="1dip"
+                        android:paddingLeft="1dip"
+                        android:text="Rank=99  Score=00.00  \nWLT=00-00-00   OPR=99.000"
+                        android:textColor="@color/grey"
+                        android:textSize="10sp" />
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -1027,7 +1150,7 @@
                         android:id="@+id/tbl_event1B2"
                         android:layout_width="10sp"
                         android:layout_height="41sp"
-                        android:layout_weight="0.20"
+                        android:layout_weight="0.15"
                         android:gravity="start"
                         android:padding="1dip"
                         android:text="Sand \nTele"
@@ -1055,7 +1178,7 @@
                         android:id="@+id/tbl_event2B2"
                         android:layout_width="10sp"
                         android:layout_height="41sp"
-                        android:layout_weight="0.20"
+                        android:layout_weight="0.15"
                         android:gravity="start"
                         android:padding="1dip"
                         android:text="Sand \nTele"
@@ -1098,6 +1221,12 @@
                 android:text="second" />
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.10"
+                android:orientation="vertical">
+
+            <LinearLayout
                 android:id="@+id/teamB3_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1131,6 +1260,25 @@
                     android:text="99"
                     android:textColor="@color/white" />
             </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/teamB3_ba"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.05"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_baB3"
+                        android:layout_width="8sp"
+                        android:layout_height="41sp"
+                        android:layout_weight="0.10"
+                        android:padding="1dip"
+                        android:paddingLeft="1dip"
+                        android:text="Rank=99  Score=00.00  \nWLT=00-00-00   OPR=99.000"
+                        android:textColor="@color/grey"
+                        android:textSize="10sp" />
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -1149,7 +1297,7 @@
                         android:id="@+id/tbl_event1B3"
                         android:layout_width="10sp"
                         android:layout_height="41sp"
-                        android:layout_weight="0.20"
+                        android:layout_weight="0.15"
                         android:gravity="start"
                         android:padding="1dip"
                         android:text="Sand \nTele"
@@ -1177,7 +1325,7 @@
                         android:id="@+id/tbl_event2B3"
                         android:layout_width="10sp"
                         android:layout_height="41sp"
-                        android:layout_weight="0.20"
+                        android:layout_weight="0.15"
                         android:gravity="start"
                         android:padding="1dip"
                         android:text="Sand \nTele"
