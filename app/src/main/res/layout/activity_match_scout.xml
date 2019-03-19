@@ -103,13 +103,13 @@
 
         <TextView
             android:id="@+id/txt_stud"
-            android:text="Student's Name"
             android:layout_width="150dp"
-            android:layout_height="25dp"
-            android:textSize="14dp"
-            android:textColor="@color/yellow"
+            android:layout_height="20dp"
             android:layout_below="@+id/txt_Dev"
-            android:layout_toEndOf="@+id/lbl_Match" />
+            android:layout_toEndOf="@+id/lbl_Match"
+            android:text="Student's Name"
+            android:textColor="@color/yellow"
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/lbl_MyTeam"
@@ -142,26 +142,36 @@
             android:layout_toEndOf="@+id/txt_MyTeam" />
 
     // =======  Either Team# from Firebase or EditText visible (depending on Internet status) =======
+
         <EditText
             android:id="@+id/editTxt_Match"
-            android:layout_width="35dp"
-            android:layout_height="38dp"
+            android:layout_width="38dp"
+            android:layout_height="36dp"
+            android:layout_below="@+id/txt_stud"
+            android:layout_alignEnd="@+id/txt_Dev"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="12dp"
             android:ems="10"
             android:inputType="number"
             android:text=""
+            android:nextFocusDown="@+id/editTxt_Team"
             android:textColor="@color/green"
-            android:layout_below="@+id/txt_stud"
-            android:layout_alignEnd="@+id/txt_Dev" />
+            android:textSize="14dp" />
 
         <EditText
             android:id="@+id/editTxt_Team"
-            android:layout_width="50dp"
-            android:layout_height="38dp"
+            android:layout_width="40sp"
+            android:layout_height="36dp"
+            android:layout_below="@+id/txt_Match"
+            android:layout_marginStart="170dp"
+            android:layout_marginTop="-5dp"
+            android:layout_marginBottom="10dp"
             android:ems="10"
             android:inputType="number"
             android:text=""
+            android:nextFocusDown="@+id/editText_autoComment"
             android:textColor="@color/brightblue"
-            android:layout_below="@+id/txt_Match" />
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/lbl_space1"
@@ -1110,6 +1120,7 @@
                 android:ems="12"
                 android:hint="Tap to add any additional comments."
                 android:inputType="textMultiLine"
+                android:nextFocusDown="@+id/editTxt_Match"
                 android:lines="2"
                 android:scrollbars="vertical"
                 android:textColor="@color/red" />

@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         Button btn_StoreData = (Button) findViewById(R.id.btn_StoreData);
         isInternetAvailable();          // See if device has Internet
 
-//        FirebaseDatabase.getInstance().setPersistenceEnabled(true);     // Enable 'Offline' Database
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);     // Enable 'Offline' Database
         //loadStudentString();            // Force student load from Strings
         pfDatabase = FirebaseDatabase.getInstance();
         if (Pearadox.is_Network) {      // is Internet available?
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
             pfMatch_DBReference = pfDatabase.getReference("matches/" + Pearadox.FRC_Event); // List of Matches
             mAuth = FirebaseAuth.getInstance();
         } else {        // Use smaller list in 'Values/strings'
-//            loadStudentString();
+            loadStudentString();
         }
 
         Spinner spinner_Student = (Spinner) findViewById(R.id.spinner_Student);
@@ -561,7 +561,7 @@ public class MainActivity extends AppCompatActivity {
             default:                //
                 Log.w(TAG, "DEV = NULL" );
         }
-//        if (Pearadox.is_Network) {      // Got Internet?
+        if (Pearadox.is_Network) {      // Got Internet?
             if (x) {
                 Log.w(TAG, "updating KEY = " + key);
                 pfDevice_DBReference.child(key).child("stud_id").setValue(studentSelected);
@@ -571,7 +571,10 @@ public class MainActivity extends AppCompatActivity {
                 pfDevice_DBReference.child(key).child("stud_id").setValue(" ");
                 pfDevice_DBReference.child(key).child("phase").setValue(" ");
             }
-//        }
+        } else {
+            Log.w(TAG, "$$$$  No Internet  $$$$");
+
+        }
     }
 
 
@@ -653,15 +656,16 @@ public class MainActivity extends AppCompatActivity {
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     private void loadStudentString() {
         Log.w(TAG, "++++++ loadStudentString ++++++ " + Pearadox.is_Network);
-//        Spinner spinner_Student = (Spinner) findViewById(R.id.spinner_Student);
-//        String[] studs = getResources().getStringArray(R.array.student_array);
-//        adapter_StudStr = new ArrayAdapter<String>(this, R.layout.dev_list_layout, studs);
-//        adapter_StudStr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner_Student.setAdapter(adapter_StudStr);
-//        spinner_Student.setSelection(0, false);
-//        spinner_Student.setOnItemSelectedListener(new student_OnItemSelectedListener());
+        Spinner spinner_Student = (Spinner) findViewById(R.id.spinner_Student);
+        String[] studs = getResources().getStringArray(R.array.student_array);
+        adapter_StudStr = new ArrayAdapter<String>(this, R.layout.dev_list_layout, studs);
+        adapter_StudStr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_Student.setAdapter(adapter_StudStr);
+        spinner_Student.setSelection(0, false);
+        spinner_Student.setOnItemSelectedListener(new student_OnItemSelectedListener());
     }
-//
+
+
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 private void preReqs() {
     Log.w(TAG, "*** Checking preReqs *** ");
@@ -851,19 +855,49 @@ private void preReqs() {
             Spinner spinner_Student = (Spinner) findViewById(R.id.spinner_Student);
             spinner_Device.setClickable(true);
             spinner_Student.setClickable(true);
-            p_Firebase.eventObj event_inst = new p_Firebase.eventObj();
-            for(int i=0 ; i < Pearadox.eventList.size() ; i++)
-            {
-                event_inst = Pearadox.eventList.get(i);
-                if (event_inst.getcomp_name().equals(ev)) {
-                    Pearadox.FRC_Event = event_inst.getComp_code();
-                    Pearadox.FRC_ChampDiv = event_inst.getcomp_div();
+            if (Pearadox.is_Network) {
+                Log.w(TAG, "***  Events from Firebase  ***");
+                p_Firebase.eventObj event_inst = new p_Firebase.eventObj();
+                for (int i = 0; i < Pearadox.eventList.size(); i++) {
+                    event_inst = Pearadox.eventList.get(i);
+                    if (event_inst.getcomp_name().equals(ev)) {
+                        Pearadox.FRC_Event = event_inst.getComp_code();
+                        Pearadox.FRC_ChampDiv = event_inst.getcomp_div();
+                    }
+                }
+
+                pfTeam_DBReference = pfDatabase.getReference("teams/" + Pearadox.FRC_Event);   // Team data from Firebase D/B
+                addTeam_VE_Listener(pfTeam_DBReference.orderByChild("team_num"));               // Load Teams since we now know event
+            } else {
+                Log.w(TAG, "@@@  Events from Strings  @@@");
+                switch (ev) {
+                    case "Test Competition":
+                        Pearadox.FRC_Event = "test";
+                        Pearadox.FRC_ChampDiv = "test";
+                        break;
+                    case "FIT District Channelview Event":
+                        Pearadox.FRC_Event = "txcha";
+                        Pearadox.FRC_ChampDiv = "txcha";
+                        break;
+                    case "FIT District Greenville Event":
+                        Pearadox.FRC_Event = "txgre";
+                        Pearadox.FRC_ChampDiv = "txgre";
+                        break;
+//                    case "District Championship (Austin)":     // txsc
+//                        Pearadox.FRC_Event = "txsc";
+//                        Pearadox.FRC_ChampDiv = "txsc";
+//                        break;
+//                    case "FIRST Championship (Houston)":        // cmptx
+//                        Pearadox.FRC_Event = "cmptx";
+//                        Pearadox.FRC_ChampDiv = "gal";          // Galileo Division
+//                        break;
+                    default:                // ?????
+                        Toast.makeText(getBaseContext(), "Event code not recognized", Toast.LENGTH_LONG).show();
+                        Pearadox.FRC_Event = "zzzz";
                 }
             }
             Log.e(TAG, "** Event code '" + Pearadox.FRC_Event + "' " + Pearadox.FRC_ChampDiv + "  \n ");
 
-            pfTeam_DBReference = pfDatabase.getReference("teams/" + Pearadox.FRC_Event);   // Team data from Firebase D/B
-            addTeam_VE_Listener(pfTeam_DBReference.orderByChild("team_num"));               // Load Teams since we now know event
         }
         public void onNothingSelected(AdapterView<?> parent) {
             // Do nothing.
@@ -940,12 +974,26 @@ private void preReqs() {
     private void loadEvents() {
         Log.w(TAG, "###  loadEvents  ### Resume=" + is_resumed + " FB-Logon=" + FB_logon);
 
-        if (!is_resumed) {      // Don't re-load if Resuming from scout
-            Log.w(TAG, "@@ addEvents @@");
-            addEvents_VE_Listener(pfEvent_DBReference.orderByChild("comp-date"));
+
+            if (!is_resumed) {      // Don't re-load if Resuming from scout
+                if (Pearadox.is_Network) {
+                    Log.w(TAG, "@@ addEvents from Firebase @@");
+                    addEvents_VE_Listener(pfEvent_DBReference.orderByChild("comp-date"));
+                } else {
+                    Log.w(TAG, "### get Events from Strings list ###");
+                    final Spinner spinner_Event = (Spinner) findViewById(R.id.spinner_Event);
+                    String[] events = getResources().getStringArray(R.array.event_array);
+                    adapter_Event = new ArrayAdapter<String>(this, R.layout.dev_list_layout, events);
+                    adapter_Event.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner_Event.setAdapter(adapter_Event);
+                    spinner_Event.setSelection(0, false);
+                    spinner_Event.setOnItemSelectedListener(new event_OnItemSelectedListener());
+                }
         } else {
             Log.e(TAG, "Don't add");
         }
+        preReqs();                        // Check for pre-requisites
+
     }
 
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -980,7 +1028,7 @@ private void preReqs() {
                 spinner_Event.setAdapter(adapter_Event);
                 spinner_Event.setSelection(0, false);
                 spinner_Event.setOnItemSelectedListener(new event_OnItemSelectedListener());
-                preReqs();                        // Check for pre-requisites
+//                preReqs();                        // Check for pre-requisites
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -992,61 +1040,66 @@ private void preReqs() {
 
 //______________________________________
     private void Fb_Auth() {
-        Log.w(TAG, "===Fb_Auth===");
+        Log.w(TAG, "===Fb_Auth===  " + Pearadox.is_Network);
         FB_logon = false;
         String pw = " "; String eMail="scout.5414@gmail.com";
-        try {
-            File directFRC = new File(Environment.getExternalStorageDirectory() + "/download/FRC5414/Pearadox");
-            FileReader fileReader = new FileReader(directFRC);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            StringBuffer stringBuffer = new StringBuffer();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuffer.append(line);
-                stringBuffer.append("\n");
-            }
-            fileReader.close();
-            pw = (stringBuffer.toString());
-            pw = pw.substring(0,11);    //Remove CR/LF
+        if (Pearadox.is_Network) {
+            try {
+                File directFRC = new File(Environment.getExternalStorageDirectory() + "/download/FRC5414/Pearadox");
+                FileReader fileReader = new FileReader(directFRC);
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+                StringBuffer stringBuffer = new StringBuffer();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuffer.append(line);
+                    stringBuffer.append("\n");
+                }
+                fileReader.close();
+                pw = (stringBuffer.toString());
+                pw = pw.substring(0, 11);    //Remove CR/LF
 //            Log.e(TAG, "Peardox = '" + pw + "'");
-        } catch (IOException e) {
-            final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
-            tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
-            Toast toast = Toast.makeText(getBaseContext(), "Firebase authentication - Password required", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            toast.show();
-            e.printStackTrace();
-        }
+            } catch (IOException e) {
+                final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+                tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
+                Toast toast = Toast.makeText(getBaseContext(), "Firebase authentication - Password required", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                toast.show();
+                e.printStackTrace();
+            }
 //        Log.e(TAG, "Sign-In " + eMail + "  '" + pw + "'");
 
-        mAuth.signInWithEmailAndPassword(eMail, pw)
-            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        // Sign in success
-                        Log.d(TAG, "signInWithEmail:success ");
-                        FB_logon = true;    // show success
-                        FirebaseUser user = mAuth.getCurrentUser();
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.e(TAG, "signInWithEmail:failure", task.getException());
-                        final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
-                        tg.startTone(ToneGenerator.TONE_PROP_BEEP2);
-                        Toast toast = Toast.makeText(getBaseContext(), "Firebase authentication failed.", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                        toast.show();
-                        try {
-                            Thread.currentThread().sleep(3000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+            mAuth.signInWithEmailAndPassword(eMail, pw)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success
+                                Log.d(TAG, "signInWithEmail:success ");
+                                FB_logon = true;    // show success
+                                FirebaseUser user = mAuth.getCurrentUser();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.e(TAG, "signInWithEmail:failure", task.getException());
+                                final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+                                tg.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                                Toast toast = Toast.makeText(getBaseContext(), "Firebase authentication failed.", Toast.LENGTH_LONG);
+                                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                                toast.show();
+                                try {
+                                    Thread.currentThread().sleep(3000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                //System.exit(999);
+                            }
                         }
-                        System.exit(999);
-                    }
-                }
-            });
+                    });
+        } else {
+            Log.i(TAG, "@@@@  NO internet - Firebase disabled  @@@@");
+        }
         loadEvents();       // Load all the competitions
     }
+
 
 
 //###################################################################
@@ -1056,7 +1109,9 @@ private void preReqs() {
 public void onStart() {
     super.onStart();
     Log.i(TAG, "<<<<<  onStart  >>>>>");
+    isInternetAvailable();
     FirebaseApp.initializeApp(this);
+//    FirebaseDatabase.getInstance().setPersistenceEnabled(true);     // Enable 'Offline' Database
     mAuth = FirebaseAuth.getInstance();
 //    if (FB_logon) {
         Fb_Auth();      // Authenticate with Firebase

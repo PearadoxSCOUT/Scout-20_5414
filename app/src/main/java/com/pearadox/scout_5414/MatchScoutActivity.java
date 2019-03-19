@@ -208,7 +208,9 @@ public class MatchScoutActivity extends AppCompatActivity {
                 Log.d(TAG, "DEV = NULL");
         }
         Log.w(TAG, "batt_stat=" + key + "  " + batpct);      // ** DEBUG **
-        pfDevice_DBReference.child(key).child("batt_stat").setValue(batpct);
+        if (Pearadox.is_Network) {
+            pfDevice_DBReference.child(key).child("batt_stat").setValue(batpct);
+        }
 
         txt_dev = (TextView) findViewById(R.id.txt_Dev);
         txt_stud = (TextView) findViewById(R.id.txt_stud);
@@ -228,6 +230,7 @@ public class MatchScoutActivity extends AppCompatActivity {
             editTxt_Team.setVisibility(View.INVISIBLE);
             editTxt_Team.setEnabled(false);
         } else {
+            Log.d(TAG, "No Internet for Match & Team  " + Pearadox.numTeams);
             editTxt_Match.setVisibility(View.VISIBLE);
             editTxt_Match.setEnabled(true);
             editTxt_Match.requestFocus();        // Don't let EditText mess up layout!!
@@ -249,15 +252,18 @@ public class MatchScoutActivity extends AppCompatActivity {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     Log.d(TAG, " editTxt_Match listener; Match = " + editTxt_Match.getText());
-                    if (editTxt_Match.getText().length() < 2) {
+                    if (editTxt_Match.getText().length() < 3) {
                         vibrate.vibrate(twice, -1);
                         final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
                         tg.startTone(ToneGenerator.TONE_PROP_BEEP);
-                        Toast.makeText(getBaseContext(), "*** Match number must be at least 2 characters  *** ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), "*** Match number must be at least 3 characters  *** ", Toast.LENGTH_LONG).show();
                     } else {
                         matchID = "Q" + (String.valueOf(editTxt_Match.getText()));
+                        editTxt_Team.requestFocus();    // Go to Team# next
                     }
                     Log.e(TAG, " Match ID = " + matchID);
+                    editTxt_Match.setNextFocusDownId(R.id.editTxt_Team);
+                    editTxt_Team.requestFocus();    // Go to Team# next
                     return true;
                 }
                 return false;
@@ -269,11 +275,11 @@ public class MatchScoutActivity extends AppCompatActivity {
                     if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                             (keyCode == KeyEvent.KEYCODE_ENTER)) {
                         Log.d(TAG, " editTxt_Team listener; Team = " + editTxt_Team.getText());
-                        if (editTxt_Team.getText().length() < 3 || editTxt_Team.getText().length() > 4) {
+                        if (editTxt_Team.getText().length() < 2 || editTxt_Team.getText().length() > 4) {
                             vibrate.vibrate(twice, -1);
                             final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
                             tg.startTone(ToneGenerator.TONE_PROP_BEEP);
-                            Toast.makeText(getBaseContext(), "*** Team number must be at least 3 characters and no more than 4  *** ", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "*** Team number must be at least 2 characters and no more than 4  *** ", Toast.LENGTH_LONG).show();
                         } else {
                             tn = (String.valueOf(editTxt_Team.getText()));
                         }
@@ -1282,65 +1288,72 @@ public class MatchScoutActivity extends AppCompatActivity {
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
     private void getMatch() {
-        Log.i(TAG, "%%%%  getMatch  %%%%");
-        pfCur_Match_DBReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(TAG, "Current Match - onDataChange  %%%%");
-                txt_Match = (TextView) findViewById(R.id.txt_Match);
-                txt_MyTeam = (TextView) findViewById(R.id.txt_MyTeam);
-                txt_TeamName = (TextView) findViewById(R.id.txt_TeamName);
-                Iterable<DataSnapshot> snapshotIterator = dataSnapshot.getChildren();   /*get the data children*/
-                Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
-                while (iterator.hasNext()) {
-                    p_Firebase.curMatch match_Obj = iterator.next().getValue(p_Firebase.curMatch.class);
-                    matchID = match_Obj.getCur_match();
-                    Log.d(TAG, "***>  Current Match = " + matchID + " " + match_Obj.getR1() + " " + match_Obj.getB3());
-                    if (matchID.length() < 3) {
+        Log.d(TAG, "%%%%  getMatch  %%%%");
+        txt_NextMatch = (TextView) findViewById(R.id.txt_NextMatch);
+        txt_NextMatch.setText("");
+        if (Pearadox.is_Network) {
+            pfCur_Match_DBReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Log.d(TAG, "Current Match - onDataChange  %%%%");
+                    txt_Match = (TextView) findViewById(R.id.txt_Match);
+                    txt_MyTeam = (TextView) findViewById(R.id.txt_MyTeam);
+                    txt_TeamName = (TextView) findViewById(R.id.txt_TeamName);
+                    Iterable<DataSnapshot> snapshotIterator = dataSnapshot.getChildren();   /*get the data children*/
+                    Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
+                    while (iterator.hasNext()) {
+                        p_Firebase.curMatch match_Obj = iterator.next().getValue(p_Firebase.curMatch.class);
+                        matchID = match_Obj.getCur_match();
+                        Log.d(TAG, "***>  Current Match = " + matchID + " " + match_Obj.getR1() + " " + match_Obj.getB3());
+                        if (matchID.length() < 3) {
 //                        Log.d(TAG, "MatchID NULL");
-                        txt_Match.setText(" ");
-                        txt_MyTeam.setText(" ");
-                        txt_TeamName.setText(" ");
-                        updateDev("Auto");      // Update 'Phase' for stoplight indicator in ScoutMaster
-                    } else {        // OK!!  Match has started
+                            txt_Match.setText(" ");
+                            txt_MyTeam.setText(" ");
+                            txt_TeamName.setText(" ");
+                            updateDev("Auto");      // Update 'Phase' for stoplight indicator in ScoutMaster
+                        } else {        // OK!!  Match has started
 //                        Log.d(TAG, "Match started " + matchID);
-                        txt_Match.setText(matchID);
+                            txt_Match.setText(matchID);
 //                        Log.d(TAG, "Device = " + Pearadox.FRC514_Device + " ->" + onStart);
-                        txt_NextMatch = (TextView) findViewById(R.id.txt_NextMatch);
-                        txt_NextMatch.setText(match_Obj.getOur_matches());
-                        switch (Pearadox.FRC514_Device) {          // Who am I?!?
-                            case ("Red-1"):             //#Red or Blue Scout
-                                txt_MyTeam.setText(match_Obj.getR1());
-                                break;
-                            case ("Red-2"):             //#
-                                txt_MyTeam.setText(match_Obj.getR2());
-                                break;
-                            case ("Red-3"):             //#
-                                txt_MyTeam.setText(match_Obj.getR3());
-                                break;
-                            case ("Blue-1"):            //#
-                                txt_MyTeam.setText(match_Obj.getB1());
-                                break;
-                            case ("Blue-2"):            //#
-                                txt_MyTeam.setText(match_Obj.getB2());
-                                break;
-                            case ("Blue-3"):            //#####
-                                txt_MyTeam.setText(match_Obj.getB3());
-                                break;
-                            default:                //
-                                Log.d(TAG, "device is _NOT_ a Scout ->" + device );
+                            txt_NextMatch.setText(match_Obj.getOur_matches());
+                            switch (Pearadox.FRC514_Device) {          // Who am I?!?
+                                case ("Red-1"):             //#Red or Blue Scout
+                                    txt_MyTeam.setText(match_Obj.getR1());
+                                    break;
+                                case ("Red-2"):             //#
+                                    txt_MyTeam.setText(match_Obj.getR2());
+                                    break;
+                                case ("Red-3"):             //#
+                                    txt_MyTeam.setText(match_Obj.getR3());
+                                    break;
+                                case ("Blue-1"):            //#
+                                    txt_MyTeam.setText(match_Obj.getB1());
+                                    break;
+                                case ("Blue-2"):            //#
+                                    txt_MyTeam.setText(match_Obj.getB2());
+                                    break;
+                                case ("Blue-3"):            //#####
+                                    txt_MyTeam.setText(match_Obj.getB3());
+                                    break;
+                                default:                //
+                                    Log.d(TAG, "device is _NOT_ a Scout ->" + device);
+                            }
+                            tn = (String) txt_MyTeam.getText();
+                            findTeam(tn);   // Find Team info
+                            txt_TeamName.setText(team_inst.getTeam_name());
                         }
-                        tn = (String) txt_MyTeam.getText();
-                        findTeam(tn);   // Find Team info
-                        txt_TeamName.setText(team_inst.getTeam_name());
                     }
                 }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                /*listener failed or was removed for security reasons*/
-            }
-        });
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    /*listener failed or was removed for security reasons*/
+                }
+            });
+        } else {
+            Log.e(TAG, "***  No Internet for Matches  ***");
+
+        }
     }
 
     private void findTeam(String tnum) {

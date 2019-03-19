@@ -12,6 +12,17 @@
     <string name="NoShowMsg">*** Team/robot is a \'No Show\' ***</string>
 
 
+    <!-- ##### Events ##### -->
+    <string-array name="event_array">
+        <item> </item>
+        <item>Test Competition</item>
+        <item>FIT District Channelview Event</item>
+        <item>FIT District Greenville Event</item>
+        <!--<item>District Championship (Austin)</item>-->
+        <!--<item>FIRST Championship (Houston)</item>-->
+    </string-array>
+
+
     <!-- ##### DEVICES ##### -->
     <string-array name="device_array">
         <item> </item>
@@ -26,6 +37,42 @@
         <item>Visualizer</item>
         <item>Draft Scout</item>
     </string-array>
+
+    <!-- #####  Students list (used for NO internet _only_)  ##### -->
+    <string-array name="student_array">
+        <item> </item>
+        <item>Calabia, Matt</item>
+        <item>Estrada, Sara</item>
+        <item>Frazier, James</item>
+        <item>Gao, Evan</item>
+        <item>Guo, Anna</item>
+        <item>Hartgerink, Ryan</item>
+        <item>Jayasekera, Kona</item>
+        <item>Jiang, Allen</item>
+        <item>Le, Cameron</item>
+        <item>Liu, Jayden</item>
+        <item>Li, Jorryn</item>
+        <item>Nguyen, Justin</item>
+        <item>Peng, Gina</item>
+        <item>Prevost, Zoey</item>
+        <item>Quigley, Alex</item>
+        <item>Rieger, Julia</item>
+        <item>Sehgal, Amar</item>
+        <item>Singh, Ayush</item>
+        <item>Truitt, Kolton</item>
+        <item>Van Hoose, Lori</item>
+        <item>Weaver, Jared</item>
+        <item>Weldon, Kayleigh</item>
+        <item>Wong, Jasmine</item>
+        <item>Yordy, J.C.</item>
+        <item>*****, Guest</item>
+        // ...
+        <item>French, Gale</item>
+        <item>Hartnett, Andrew</item>
+        <item>Hood, Laura"</item>
+        <item>Myers, Dr. Jeffrey</item>
+    </string-array>
+
 
 
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -55,6 +102,7 @@
         <item>CIM</item>
         <item>Mini-CIM</item>
         <item>775pro</item>
+        <item>NEO</item>
     </string-array>
 
 
