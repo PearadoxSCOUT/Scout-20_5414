@@ -182,9 +182,16 @@
             android:id="@+id/imageView_numEnt"
             android:layout_width="35sp"
             android:layout_height="35sp"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="10dp"
             android:contentDescription="Numeric Enter Key"
             android:src="@drawable/num_enter" />
+        <ImageView
+            android:id="@+id/imageView_notExitt"
+            android:layout_width="35sp"
+            android:layout_height="35sp"
+            android:layout_marginStart="5dp"
+            android:contentDescription="NOT Exit Key"
+            android:src="@drawable/not_exit" />
 
     </LinearLayout>
 //**********************************************************
