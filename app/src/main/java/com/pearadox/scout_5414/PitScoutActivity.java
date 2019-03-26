@@ -103,7 +103,7 @@ public class PitScoutActivity extends AppCompatActivity {
 
     // ===================  Data Elements for Pit Scout object ===================
     public String teamSelected = " ";               // Team #
-    public int tall = 0;                        // Height (inches)
+    public int tall = 0;                        // Weight (lbs)
     public int totalWheels = 0;                 // Total # of wheels
     public int numTraction = 0;                 // Num. of Traction wheels
     public int numOmnis = 0;                    // Num. of Omni wheels
@@ -468,8 +468,8 @@ pitData Pit_Data = new pitData();
 
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    Log.w(TAG, " txtEd_Height listener"  + txtEd_Height.getText());
-                    tall = Integer.valueOf(String.valueOf(txtEd_Height.getText()));
+                    Log.w(TAG, " txtEd_Height = "  + txtEd_Height.getText());
+                    tall = Integer.valueOf(String.valueOf(txtEd_Height.getText()));     //REALLY Weight  GLF 3/2019
                     return true;
                 }
                 return false;
@@ -508,7 +508,7 @@ pitData Pit_Data = new pitData();
                 } else {
                     final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
                     tg.startTone(ToneGenerator.TONE_PROP_BEEP2);
-                    Toast toast = Toast.makeText(getBaseContext(), "*** Enter _ALL_ data (Height & Wheels) before saving ***", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getBaseContext(), "*** Enter _ALL_ data (Weight & Wheels) before saving ***", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                     toast.show();
                 }
@@ -569,9 +569,9 @@ pitData Pit_Data = new pitData();
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        Log.w(TAG, "*****  onActivityResult " + requestCode);
+        Log.w(TAG, "*****  onActivityResult " + requestCode);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == PitScoutActivity.RESULT_OK) {
-//            Log.w(TAG, "requestCode = '" + requestCode + "'");
+            Log.w(TAG, "requestCode = '" + requestCode + "'");
             galleryAddPic();
             File savedFile;
             if(currentImagePath == null){
@@ -613,7 +613,7 @@ pitData Pit_Data = new pitData();
 //                Uri downloadURL = taskSnapshot.getDownloadUrl();
                 Uri downloadURL = taskSnapshot.getUploadSessionUri();
                 photoURL = downloadURL.toString();
-                Log.d(TAG, "#####  URL=" + photoURL  + " \n");
+                Log.e(TAG, "#####  URL=" + photoURL  + " \n");
             }
         });
     }
@@ -635,7 +635,7 @@ pitData Pit_Data = new pitData();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);     // ByteArrayOutputStream
         byte[] data = baos.toByteArray();
         //                  gs://paradox-2017.appspot.com/images/txZZ/
-
+// ToDo - ????
 //        StorageReference storageReference = storage.getReferenceFromUrl("gs://paradox-2017.appspot.com").child(picname);
 
 //        UploadTask uploadTask = storageRef.putBytes(data);
@@ -779,9 +779,9 @@ pitData Pit_Data = new pitData();
                         }
                         // Now load the screen & variables
                         teamSelected = Pit_Load.getPit_team();
-                        //  Todo - Height _NOT_ coming back?
+                        //  Height _NOT_ coming back?  Scouters _MUST_ use > keyboard key and NOT Exit
                         txtEd_Height.setText(String.valueOf(Pit_Load.getPit_tall()));
-                        tall = Integer.valueOf(String.valueOf(txtEd_Height.getText()));
+                        tall = Integer.valueOf(String.valueOf(txtEd_Height.getText()));     // REALLY Weight  GLF 3/2019
                         txt_NumWheels.setText(String.valueOf(Pit_Load.getPit_totWheels()));
                         totalWheels = Pit_Load.getPit_totWheels();
                         spinner_Traction.setSelection((Pit_Load.getPit_numTrac()));
@@ -799,9 +799,8 @@ pitData Pit_Data = new pitData();
                         chkBox_HABLvl_2.setChecked(Pit_Load.isPit_endHAB2());
                         chkBox_HABLvl_3.setChecked(Pit_Load.isPit_endHAB3());
 
-
-
-                        //  Todo - P/U Cargo & Panel
+                        chkBox_OffFloor.setChecked(Pit_Load.isPit_floorCargo());
+                        chkBox_PanelFloor.setChecked(Pit_Load.isPit_floorPanel());
 
                         chkBox_CanLift.setChecked(Pit_Load.isPit_canLift());
                         if (Pit_Load.isPit_canLift()) {
@@ -865,12 +864,11 @@ pitData Pit_Data = new pitData();
                                 Log.w(TAG, "►►►►►  E R R O R  ◄◄◄◄◄");
                                 break;
                         }
-                        //  Todo - add SS Oper. Mode
 
-                        //  Todo - Speed _NOT_ coming back?
+                        //  Speed _NOT_ coming back?   Scouters _MUST_ use > keyboard key and NOT Exit
                         txtEd_Speed.setText(String.valueOf(Pit_Load.getPit_speed()));
                         // Finally ...
-                        scout = Pit_Load.getPit_scout();
+                        scout = scout + " & " + Pit_Load.getPit_scout();    // Append new scout name
                         editText_Comments.setText(Pit_Load.getPit_comment());
                         photoURL = Pit_Load.pit_photoURL;
                     }
@@ -1080,7 +1078,7 @@ pitData Pit_Data = new pitData();
         Log.w(TAG, ">>>>  storePitData  <<<< " + teamSelected );
 
         Pit_Data.setPit_team(teamSelected);
-        Pit_Data.setPit_tall(tall);
+        Pit_Data.setPit_tall(tall);     // REALLY Weight  GLF 3/2019
         Pit_Data.setPit_totWheels(totalWheels);
         Pit_Data.setPit_numTrac(numTraction);
         Pit_Data.setPit_numOmni(numOmnis);
@@ -1109,12 +1107,20 @@ pitData Pit_Data = new pitData();
         Pit_Data.setPit_photoURL(photoURL);
 // -----------------------------------------------
         saveDatatoSDcard();                 //Save locally
-//        if (Pearadox.is_Network) {        // is Internet available?         Commented out because 'tethered' show No internet
+        if (Pearadox.is_Network) {          // is Internet available?         Commented out because 'tethered' show No internet
             String keyID = teamSelected;
             pfPitData_DBReference.child(keyID).setValue(Pit_Data);      // Store it to Firebase
-//        }
+            Log.e(TAG, ">>>>>  Pit data saved to Firebase <<<<<");
+        } else {
+            Toast toast = Toast.makeText(getBaseContext(), "*** Data _NOT_ stored to Firebase (only SD)!!", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
+        }
     }
-    private void saveDatatoSDcard() {
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        private void saveDatatoSDcard() {
         Log.w(TAG, "@@@@  saveDatatoSDcard  @@@@");
         String filename = Pit_Data.getPit_team().trim() + ".dat";
         ObjectOutput out = null;

@@ -783,7 +783,8 @@ public class ScoutMaster_Activity extends AppCompatActivity {
                 while (iterator.hasNext()) {
                     match_inst = iterator.next().getValue(p_Firebase.matchObj.class);
 //                    Log.w(TAG,"      " + match_inst.getMatch());
-                    matchList.add(match_inst.getMatch() + "  Time: " + match_inst.getTime() + "  " + match_inst.getMtype());
+//                    matchList.add(match_inst.getMatch() + "  Time: " + match_inst.getTime() + "  " + match_inst.getMtype());
+                    matchList.add(match_inst.getMatch() + "  " + match_inst.getMtype());
                     // Create the list of _OUR_ matches across the top
                     if (match_inst.getR1().matches("5414")) {
                         next_Match = next_Match + match_inst.getMatch() + " ";
