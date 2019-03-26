@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,9 +28,13 @@ public class Bluetooth_Activity extends AppCompatActivity {
     private String deviceId;                    // Android Device ID
     TextView txt_Device, txt_bt;
     ListView listView_bonded;
+    public int devSelected = -1;
     private static final int REQUEST_ENABLE_BT = 0;
     private static final int REQUEST_DISCOVERABLE_BT = 0;
     ArrayAdapter<String> adapter_dev;
+    String MY_UUID = "";
+    p_Firebase.devicesObj dev_inst = new p_Firebase.devicesObj();
+
 
     // ===========================================================================
     @Override
@@ -39,13 +45,14 @@ public class Bluetooth_Activity extends AppCompatActivity {
         Bundle bundle = this.getIntent().getExtras();
         param1 = bundle.getString("dev");
         param2 = bundle.getString("andid");
-        w(TAG, param1 + " " + param2);      // ** DEBUG **
+        Log.w(TAG, param1 + " " + param2);      // ** DEBUG **
         deviceId = param2;
 
         txt_Device = (TextView) findViewById(R.id.txt_Device);
         txt_Device.setText(param1);
         txt_bt = (TextView) findViewById(R.id.txt_bt);
         listView_bonded = (ListView) findViewById(R.id.listView_bonded);
+        Pearadox.dev_List.clear();
 
         IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
         registerReceiver(mReceiver, filter);
@@ -73,16 +80,78 @@ public class Bluetooth_Activity extends AppCompatActivity {
                     String deviceHardwareAddress = device.getAddress(); // MAC address
                     Log.w(TAG, ">>> Device: " + deviceName + "  Addr: " + deviceHardwareAddress);
                     if (deviceId == "Scout Master") {
-
-                    } else {
-
+                        MY_UUID = deviceName;
+                        dev_inst.setDev_name(deviceName);
+                        dev_inst.setDev_id("SM");
+                        dev_inst.setBtUUID(deviceHardwareAddress);
+                        Pearadox.dev_List.add(dev_inst);
+                    } else {        // all others
+                        switch (deviceId) {
+                            case "Red-1":
+                                dev_inst.setDev_id("R1");
+                                dev_inst.setDev_name(deviceName);
+                                dev_inst.setBtUUID(deviceHardwareAddress);
+                                Pearadox.dev_List.add(dev_inst);
+                                break;
+                            case "Red-2":
+                                dev_inst.setDev_id("R2");
+                                dev_inst.setDev_name(deviceName);
+                                dev_inst.setBtUUID(deviceHardwareAddress);
+                                Pearadox.dev_List.add(dev_inst);
+                                break;
+                            case "Red-3":
+                                dev_inst.setDev_id("R3");
+                                dev_inst.setDev_name(deviceName);
+                                dev_inst.setBtUUID(deviceHardwareAddress);
+                                Pearadox.dev_List.add(dev_inst);
+                                break;
+                            case "Blue-1":
+                                dev_inst.setDev_id("B1");
+                                dev_inst.setDev_name(deviceName);
+                                dev_inst.setBtUUID(deviceHardwareAddress);
+                                Pearadox.dev_List.add(dev_inst);
+                                break;
+                            case "Blue-2":
+                                dev_inst.setDev_id("B2");
+                                dev_inst.setDev_name(deviceName);
+                                dev_inst.setBtUUID(deviceHardwareAddress);
+                                Pearadox.dev_List.add(dev_inst);
+                                break;
+                            case "Blue-3":
+                                dev_inst.setDev_id("B3");
+                                dev_inst.setDev_name(deviceName);
+                                dev_inst.setBtUUID(deviceHardwareAddress);
+                                Pearadox.dev_List.add(dev_inst);
+                                break;
+                            default:                //
+                                Log.w(TAG, "DEV not a Scout");
+                                break;
+                        }
                     }
                 } //end FOR
+                Log.w(TAG, "Device list = " + Pearadox.dev_List.size());      // ** DEBUG **
+
                 final ArrayAdapter adapter = new  ArrayAdapter(this,android.R.layout.simple_list_item_1, list);
                 listView_bonded.setAdapter(adapter);
             }
         }
+
+        // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        listView_bonded.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent,
+                                    View view, int pos, long id) {
+                Log.w(TAG, "*** lstView_Teams ***   Item Selected: " + pos);
+                devSelected = pos;
+                listView_bonded.setSelector(android.R.color.holo_blue_light);
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing.
+            }
+        });
+
     }
+
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -111,6 +180,28 @@ public class Bluetooth_Activity extends AppCompatActivity {
         }
     };
 
+
+
+
+//###################################################################
+//###################################################################
+//###################################################################
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.i(TAG, "<<<<<  onStart  >>>>>");
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(TAG, "*** onResume ***");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.i(TAG, "onStop");
+    }
 
     @Override
     public void onDestroy() {
