@@ -840,6 +840,16 @@ private void preReqs() {
             about.show();
             return true;
         }
+        if (id == R.id.action_bluetooth) {
+            Log.d(TAG, "*****  Bluetooth status  *****" );
+            Intent blue_intent = new Intent(MainActivity.this, Bluetooth_Activity.class);
+            Bundle BluBundle = new Bundle();
+            BluBundle.putString("dev", devSelected);             // Pass data to activity
+            BluBundle.putString("andid", deviceId);        //
+            blue_intent.putExtras(BluBundle);
+            startActivity(blue_intent);                        // Bluetooth
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -1057,7 +1067,7 @@ private void preReqs() {
                 fileReader.close();
                 pw = (stringBuffer.toString());
                 pw = pw.substring(0, 11);    //Remove CR/LF
-//            Log.e(TAG, "Peardox = '" + pw + "'");
+            Log.e(TAG, "Peardox = '" + pw + "'");
             } catch (IOException e) {
                 final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
                 tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
@@ -1066,7 +1076,7 @@ private void preReqs() {
                 toast.show();
                 e.printStackTrace();
             }
-//        Log.e(TAG, "Sign-In " + eMail + "  '" + pw + "'");
+        Log.e(TAG, "Sign-In " + eMail + "  '" + pw + "'");
 
             mAuth.signInWithEmailAndPassword(eMail, pw)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
