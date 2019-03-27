@@ -13,7 +13,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,13 +28,15 @@ public class Bluetooth_Activity extends AppCompatActivity {
     String TAG = "Bluetooth_Activity";          // This CLASS name
     String param1 = "";  String param2 = "";
     private String deviceId;                    // Android Device ID
-    TextView txt_Device, txt_bt;
+    TextView txt_Device, txt_bt, txt_UUID;
+    Switch switch_bt;
     ListView listView_bonded;
     public int devSelected = -1;
     private static final int REQUEST_ENABLE_BT = 0;
     private static final int REQUEST_DISCOVERABLE_BT = 0;
+    Boolean turnedON = false;
     ArrayAdapter<String> adapter_dev;
-    String MY_UUID = "";
+    String MY_UUID = ""; String UUID = "";
     p_Firebase.devicesObj dev_inst = new p_Firebase.devicesObj();
 
 
@@ -51,8 +55,11 @@ public class Bluetooth_Activity extends AppCompatActivity {
         txt_Device = (TextView) findViewById(R.id.txt_Device);
         txt_Device.setText(param1);
         txt_bt = (TextView) findViewById(R.id.txt_bt);
+        txt_UUID = (TextView) findViewById(R.id.txt_UUID);
         listView_bonded = (ListView) findViewById(R.id.listView_bonded);
+        Switch switch_bt = (Switch) findViewById(R.id.switch_bt);
         Pearadox.dev_List.clear();
+        txt_UUID.setText("");
 
         IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
         registerReceiver(mReceiver, filter);
@@ -67,6 +74,7 @@ public class Bluetooth_Activity extends AppCompatActivity {
                 txt_bt.setText("OFF");
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                turnedON = true;
             } else {
                 txt_bt.setText("ON");
             }
@@ -79,54 +87,53 @@ public class Bluetooth_Activity extends AppCompatActivity {
                     String deviceName = device.getName();
                     String deviceHardwareAddress = device.getAddress(); // MAC address
                     Log.w(TAG, ">>> Device: " + deviceName + "  Addr: " + deviceHardwareAddress);
-                    if (deviceId == "Scout Master") {
-                        MY_UUID = deviceName;
-                        dev_inst.setDev_name(deviceName);
-                        dev_inst.setDev_id("SM");
-                        dev_inst.setBtUUID(deviceHardwareAddress);
-                        Pearadox.dev_List.add(dev_inst);
-                    } else {        // all others
-                        switch (deviceId) {
-                            case "Red-1":
-                                dev_inst.setDev_id("R1");
-                                dev_inst.setDev_name(deviceName);
-                                dev_inst.setBtUUID(deviceHardwareAddress);
-                                Pearadox.dev_List.add(dev_inst);
-                                break;
-                            case "Red-2":
-                                dev_inst.setDev_id("R2");
-                                dev_inst.setDev_name(deviceName);
-                                dev_inst.setBtUUID(deviceHardwareAddress);
-                                Pearadox.dev_List.add(dev_inst);
-                                break;
-                            case "Red-3":
-                                dev_inst.setDev_id("R3");
-                                dev_inst.setDev_name(deviceName);
-                                dev_inst.setBtUUID(deviceHardwareAddress);
-                                Pearadox.dev_List.add(dev_inst);
-                                break;
-                            case "Blue-1":
-                                dev_inst.setDev_id("B1");
-                                dev_inst.setDev_name(deviceName);
-                                dev_inst.setBtUUID(deviceHardwareAddress);
-                                Pearadox.dev_List.add(dev_inst);
-                                break;
-                            case "Blue-2":
-                                dev_inst.setDev_id("B2");
-                                dev_inst.setDev_name(deviceName);
-                                dev_inst.setBtUUID(deviceHardwareAddress);
-                                Pearadox.dev_List.add(dev_inst);
-                                break;
-                            case "Blue-3":
-                                dev_inst.setDev_id("B3");
-                                dev_inst.setDev_name(deviceName);
-                                dev_inst.setBtUUID(deviceHardwareAddress);
-                                Pearadox.dev_List.add(dev_inst);
-                                break;
-                            default:                //
-                                Log.w(TAG, "DEV not a Scout");
-                                break;
-                        }
+                    switch (deviceName) {
+                        case "Scout Master":
+                            dev_inst.setDev_name(deviceName);
+                            dev_inst.setDev_id("SM");
+                            dev_inst.setBtUUID(deviceHardwareAddress);
+                            Pearadox.dev_List.add(dev_inst);
+                            MY_UUID = deviceHardwareAddress;
+                            break;
+                        case "Red-1":
+                            dev_inst.setDev_id("R1");
+                            dev_inst.setDev_name(deviceName);
+                            dev_inst.setBtUUID(deviceHardwareAddress);
+                            Pearadox.dev_List.add(dev_inst);
+                            break;
+                        case "Red-2":
+                            dev_inst.setDev_id("R2");
+                            dev_inst.setDev_name(deviceName);
+                            dev_inst.setBtUUID(deviceHardwareAddress);
+                            Pearadox.dev_List.add(dev_inst);
+                            break;
+                        case "Red-3":
+                            dev_inst.setDev_id("R3");
+                            dev_inst.setDev_name(deviceName);
+                            dev_inst.setBtUUID(deviceHardwareAddress);
+                            Pearadox.dev_List.add(dev_inst);
+                            break;
+                        case "Blue-1":
+                            dev_inst.setDev_id("B1");
+                            dev_inst.setDev_name(deviceName);
+                            dev_inst.setBtUUID(deviceHardwareAddress);
+                            Pearadox.dev_List.add(dev_inst);
+                            break;
+                        case "Blue-2":
+                            dev_inst.setDev_id("B2");
+                            dev_inst.setDev_name(deviceName);
+                            dev_inst.setBtUUID(deviceHardwareAddress);
+                            Pearadox.dev_List.add(dev_inst);
+                            break;
+                        case "Blue-3":
+                            dev_inst.setDev_id("B3");
+                            dev_inst.setDev_name(deviceName);
+                            dev_inst.setBtUUID(deviceHardwareAddress);
+                            Pearadox.dev_List.add(dev_inst);
+                            break;
+                        default:                //
+                            Log.w(TAG, "DEV not a Scout  '" + deviceName + "' ");
+                            break;
                     }
                 } //end FOR
                 Log.w(TAG, "Device list = " + Pearadox.dev_List.size());      // ** DEBUG **
@@ -136,13 +143,50 @@ public class Bluetooth_Activity extends AppCompatActivity {
             }
         }
 
+        switch_bt.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
+                Log.w(TAG, "*** setOnCheckedChangeListener *** ");
+                if (!turnedON) {
+                    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                }
+                if (bChecked) {
+                    txt_bt.setText("ON");
+                } else {
+                    mBluetoothAdapter.disable();
+                    txt_bt.setText("OFF");
+                }
+            }
+        });
+
+        if (switch_bt.isChecked()) {
+            txt_bt.setText("ON");
+        } else {
+            txt_bt.setText("OFF");
+        }
+
         // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
         listView_bonded.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent,
                                     View view, int pos, long id) {
-                Log.w(TAG, "*** lstView_Teams ***   Item Selected: " + pos);
+                Log.w(TAG, "*** listView_bonded.setOnItemClickListener ***   Item Selected: " + pos + "  Devs:" + Pearadox.dev_List.size());
+                txt_UUID.setText("");
                 devSelected = pos;
+                String devBT = parent.getItemAtPosition(pos).toString();
+                Log.d(TAG, ">>> Sel.Dev: '" + devBT + "'");
                 listView_bonded.setSelector(android.R.color.holo_blue_light);
+                for(int i=0 ; i < Pearadox.dev_List.size() ; i++) {
+                    dev_inst = Pearadox.dev_List.get(i);
+                    String dnm = dev_inst.getDev_name();
+                    Log.e(TAG, "DEV: '" + dnm + "'   UUID: " + dev_inst.getBtUUID());
+                    if (devBT.equals(dnm)) {
+                        UUID = dev_inst.getBtUUID();
+                        Log.e(TAG, "UUID: " + UUID);
+                        txt_UUID.setText(UUID);
+                        break;      // exit FOR
+                    }
+                } //end FOR
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -159,21 +203,31 @@ public class Bluetooth_Activity extends AppCompatActivity {
             final String action = intent.getAction();
 
             Log.d(TAG, "*** BroadcastReceiver  ***  " + action);
+            txt_bt = (TextView) findViewById(R.id.txt_bt);
+            Switch switch_bt = (Switch) findViewById(R.id.switch_bt);
             if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
                 final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE,
                         BluetoothAdapter.ERROR);
                 switch (state) {
                     case BluetoothAdapter.STATE_OFF:
                         txt_bt.setText("OFF");
+                        switch_bt.setChecked(false);
+                        turnedON = false;
                         break;
                     case BluetoothAdapter.STATE_TURNING_OFF:
                         txt_bt.setText("OFF");
+                        switch_bt.setChecked(false);
+                        turnedON = false;
                         break;
                     case BluetoothAdapter.STATE_ON:
                         txt_bt.setText("ON");
+                        switch_bt.setChecked(true);
+                        turnedON = true;
                         break;
                     case BluetoothAdapter.STATE_TURNING_ON:
                         txt_bt.setText("ON");
+                        switch_bt.setChecked(true);
+                        turnedON = true;
                         break;
                 }
             }
