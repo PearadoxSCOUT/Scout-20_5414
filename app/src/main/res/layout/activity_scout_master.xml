@@ -374,7 +374,7 @@
             android:layout_width="25dp"
             android:layout_height="30sp"
             android:layout_gravity="center_horizontal"
-            android:contentDescription="Match Period Status"
+            android:contentDescription="Bluetooth Status"
             android:src="@drawable/bluetooth_off" />
 
         <TextView
@@ -391,7 +391,7 @@
             android:layout_width="35dp"
             android:layout_height="30sp"
             android:layout_gravity="center_horizontal"
-            android:contentDescription="Bluetooth Status"
+            android:contentDescription="Match Period Status"
             android:src="@drawable/traffic_light_off" />
 
         <TextView
