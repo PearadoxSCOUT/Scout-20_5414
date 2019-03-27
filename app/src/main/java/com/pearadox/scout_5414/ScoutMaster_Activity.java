@@ -1,5 +1,7 @@
 package com.pearadox.scout_5414;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.view.Gravity;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Set;
 
 // Debug & Messaging
 import android.util.Log;
@@ -54,14 +57,16 @@ public class ScoutMaster_Activity extends AppCompatActivity {
     TextView txt_BattR1, txt_BattR2, txt_BattR3, txt_BattB1, txt_BattB2, txt_BattB3;
     ImageView imgStat_R1, imgStat_R2, imgStat_R3, imgStat_B1, imgStat_B2, imgStat_B3;
     ImageView imgBatt_R1, imgBatt_R2, imgBatt_R3, imgBatt_B1, imgBatt_B2, imgBatt_B3;
+    ImageView imgBT_R1, imgBT_R2, imgBT_R3, imgBT_B1, imgBT_B2, imgBT_B3;
     private FirebaseDatabase pfDatabase;
     private DatabaseReference pfStudent_DBReference;
     private DatabaseReference pfDevice_DBReference;
     private DatabaseReference pfTeam_DBReference;
     private DatabaseReference pfMatch_DBReference;
     private DatabaseReference pfCur_Match_DBReference;
-    public static String[] signedStudents = new String[]
-            {" ", " ", " ", " ", " ", " "};
+    public static String[] signedStudents = new String[] {" ", " ", " ", " ", " ", " "};
+    public static String[] btArray = new String[] {" ", " ", " ", " ", " ", " "};
+    String MY_UUID = "";
     String team_num, team_name, team_loc;
     p_Firebase.teamsObj team_inst = new p_Firebase.teamsObj();
     ArrayList<p_Firebase.teamsObj> teams = new ArrayList<p_Firebase.teamsObj>();
@@ -132,7 +137,59 @@ public class ScoutMaster_Activity extends AppCompatActivity {
     }
 
 
-@Override
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    private void findBluetooth() {
+        Log.w(TAG,"*** findBluetooth *** ");
+        ImageView imgBT_R1 = (ImageView) findViewById(R.id.imgBT_R1);
+        ImageView imgBT_R2 = (ImageView) findViewById(R.id.imgBT_R2);
+        ImageView imgBT_R3 = (ImageView) findViewById(R.id.imgBT_R3);
+        ImageView imgBT_B1 = (ImageView) findViewById(R.id.imgBT_B1);
+        ImageView imgBT_B2 = (ImageView) findViewById(R.id.imgBT_B2);
+        ImageView imgBT_B3 = (ImageView) findViewById(R.id.imgBT_B3);
+        final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+        if (pairedDevices.size() > 0) {
+            for (BluetoothDevice device : pairedDevices) {
+                String deviceName = device.getName();
+                String deviceHardwareAddress = device.getAddress(); // MAC address
+                Log.w(TAG, ">>> Device: " + deviceName + "  Addr: " + deviceHardwareAddress);
+                for(int i=0 ; i < 6 ; i++) {
+                    if (btArray[i].equals(deviceHardwareAddress)) {
+                        Log.w(TAG, ">>> SCOUT: " + deviceName);
+                        switch (deviceName) {
+                            case "Red-1":
+                                imgBT_R1.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth));
+                            break;
+                            case "Red-2":
+                                imgBT_R2.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth));
+                            break;
+                            case "Red-3":
+                                imgBT_R3.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth));
+                            break;
+                            case "Blue-1":
+                                imgBT_B1.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth));
+                            break;
+                            case "Blue-2":
+                                imgBT_B2.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth));
+                            break;
+                            case ("Blue-3"):
+                            case ("Gale's Tablet"):         // *** DEBUG!! ***
+                                imgBT_B3.setImageDrawable(getResources().getDrawable(R.drawable.bluetooth));
+                            break;
+                            default:                //
+                                Log.w(TAG, "DEV not a Scout  '" + deviceName + "' ");
+                                break;
+                        }
+                    }
+                } //end FOR
+
+            } //end FOR
+        } //end IF
+
+    }
+
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
 //        getMenuInflater().inflate(R.menu.scoutmaster_menu, menu);
@@ -404,7 +461,7 @@ public class ScoutMaster_Activity extends AppCompatActivity {
                 int numDevs = 0;
                 String device = "";
                 String  studname = "";
-                String  status = "";
+                String  status = ""; String  btUUID = "";
                 p_Firebase.devicesObj dev_Obj = new p_Firebase.devicesObj();
                 Iterable<DataSnapshot> snapshotIterator = dataSnapshot.getChildren();   /*get the data children*/
                 Iterator<DataSnapshot> iterator = snapshotIterator.iterator();
@@ -413,6 +470,7 @@ public class ScoutMaster_Activity extends AppCompatActivity {
                     device = dev_Obj.getDev_name();
                     studname = dev_Obj.getStud_id();
                     status = dev_Obj.getPhase();
+                    btUUID = dev_Obj.getBtUUID();
                     batt_Stat = dev_Obj.getBatt_stat();
 //                    Log.w(TAG, "Battery Status = '" + batt_Stat + "'  \n");
                     set_BattStatus(device);
@@ -422,9 +480,11 @@ public class ScoutMaster_Activity extends AppCompatActivity {
                         switch (device) {
                             case "Scout Master":         // Scout Master
                                 // only interested in Scouts
+                                MY_UUID = btUUID;  // for Bluetooth communications
                                 break;
                             case ("Red-1"):             //#Red or Blue Scout
                                 signedStudents[0] = studname;
+                                btArray[0] = btUUID;
                                 txt_scoutR1.setText(signedStudents[0]);
                                 switch(status) {
                                     case ("Auto"):
@@ -446,6 +506,7 @@ public class ScoutMaster_Activity extends AppCompatActivity {
                                 break;
                             case ("Red-2"):             //#
                                 signedStudents[1] = studname;
+                                btArray[1] = btUUID;
                                 txt_scoutR2.setText(signedStudents[1]);
                                 switch(status) {
                                     case ("Auto"):
@@ -467,6 +528,7 @@ public class ScoutMaster_Activity extends AppCompatActivity {
                                 break;
                             case ("Red-3"):             //#
                                 signedStudents[2] = studname;
+                                btArray[2] = btUUID;
                                 txt_scoutR3.setText(signedStudents[2]);
                                 switch(status) {
                                     case ("Auto"):
@@ -488,6 +550,7 @@ public class ScoutMaster_Activity extends AppCompatActivity {
                                 break;
                             case ("Blue-1"):            //#
                                 signedStudents[3] = studname;
+                                btArray[3] = btUUID;
                                 txt_scoutB1.setText(signedStudents[3]);
                                 switch(status) {
                                     case ("Auto"):
@@ -509,6 +572,7 @@ public class ScoutMaster_Activity extends AppCompatActivity {
                                 break;
                             case ("Blue-2"):            //#
                                 signedStudents[4] = studname;
+                                btArray[4] = btUUID;
                                 txt_scoutB2.setText(signedStudents[4]);
                                 switch(status) {
                                     case ("Auto"):
@@ -530,6 +594,7 @@ public class ScoutMaster_Activity extends AppCompatActivity {
                                 break;
                             case ("Blue-3"):            //#####
                                 signedStudents[5] = studname;
+                                btArray[5] = btUUID;
                                 txt_scoutB3.setText(signedStudents[5]);
                                 switch(status) {
                                     case ("Auto"):
@@ -558,6 +623,8 @@ public class ScoutMaster_Activity extends AppCompatActivity {
 //                    }
                 } // End While
                 Log.w(TAG, "*****  # of devices = " + numDevs);
+                Log.e(TAG, "@@@ BT = " + btArray[0] + "  " + btArray[1] + "  "  + btArray[2] + "  "  + btArray[3] + "  "  + btArray[4] + "  "  + btArray[5]);
+                findBluetooth();  // Find Bluetooth connected devices
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -565,6 +632,8 @@ public class ScoutMaster_Activity extends AppCompatActivity {
             }
         });
     }
+
+
     public static boolean isBetween(int x, int lower, int upper) {
         return lower <= x && x <= upper;
     }

@@ -125,7 +125,8 @@ public class Bluetooth_Activity extends AppCompatActivity {
                             dev_inst.setBtUUID(deviceHardwareAddress);
                             Pearadox.dev_List.add(dev_inst);
                             break;
-                        case "Blue-3":
+                        case ("Blue-3"):
+                        case ("Gale's Tablet"):         // *** DEBUG!! ***
                             dev_inst.setDev_id("B3");
                             dev_inst.setDev_name(deviceName);
                             dev_inst.setBtUUID(deviceHardwareAddress);
