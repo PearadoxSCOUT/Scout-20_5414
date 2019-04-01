@@ -75,8 +75,10 @@ public class Bluetooth_Activity extends AppCompatActivity {
                 txt_bt.setText("OFF");
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                switch_bt.setChecked(true);
                 turnedON = true;
             } else {
+                switch_bt.setChecked(true);
                 txt_bt.setText("ON");
             }
             Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
