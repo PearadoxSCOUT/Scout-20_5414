@@ -22,7 +22,8 @@ public class Pearadox {
     public static String[] student_List = new String[maxStudents];  // Student list (array of just Names)
     public static int numStudents = 0; 						        // # of Students
     public static String FRC514_Device;                             // Device ID
-    public static ArrayList<p_Firebase.devicesObj> dev_List = new ArrayList<p_Firebase.devicesObj>();
+    public static ArrayList<p_Firebase.devicesObj> dev_List = new ArrayList<p_Firebase.devicesObj>();   // BT Device List
+    public static int numBTdevices = 0; 						        // # of Bluetooth Devices
     public static String Student_ID;                                // Student Name
     public static String our_Matches = "";                          // List of all matches for 5414
     public static String[] matches = new String[]

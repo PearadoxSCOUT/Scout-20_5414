@@ -37,6 +37,7 @@ public class Bluetooth_Activity extends AppCompatActivity {
     Boolean turnedON = false;
     ArrayAdapter<String> adapter_dev;
     String MY_UUID = ""; String UUID = "";
+    public static String[] btArray = new String[] {" ", " ", " ", " ", " ", " "};
     p_Firebase.devicesObj dev_inst = new p_Firebase.devicesObj();
 
 
@@ -100,30 +101,35 @@ public class Bluetooth_Activity extends AppCompatActivity {
                             dev_inst.setDev_name(deviceName);
                             dev_inst.setBtUUID(deviceHardwareAddress);
                             Pearadox.dev_List.add(dev_inst);
+                            btArray[0] = deviceHardwareAddress;
                             break;
                         case "Red-2":
                             dev_inst.setDev_id("R2");
                             dev_inst.setDev_name(deviceName);
                             dev_inst.setBtUUID(deviceHardwareAddress);
                             Pearadox.dev_List.add(dev_inst);
+                            btArray[1] = deviceHardwareAddress;
                             break;
                         case "Red-3":
                             dev_inst.setDev_id("R3");
                             dev_inst.setDev_name(deviceName);
                             dev_inst.setBtUUID(deviceHardwareAddress);
                             Pearadox.dev_List.add(dev_inst);
+                            btArray[2] = deviceHardwareAddress;
                             break;
                         case "Blue-1":
                             dev_inst.setDev_id("B1");
                             dev_inst.setDev_name(deviceName);
                             dev_inst.setBtUUID(deviceHardwareAddress);
                             Pearadox.dev_List.add(dev_inst);
+                            btArray[3] = deviceHardwareAddress;
                             break;
                         case "Blue-2":
                             dev_inst.setDev_id("B2");
                             dev_inst.setDev_name(deviceName);
                             dev_inst.setBtUUID(deviceHardwareAddress);
                             Pearadox.dev_List.add(dev_inst);
+                            btArray[4] = deviceHardwareAddress;
                             break;
                         case ("Blue-3"):
                         case ("Gale's Tablet"):         // *** DEBUG!! ***
@@ -131,6 +137,7 @@ public class Bluetooth_Activity extends AppCompatActivity {
                             dev_inst.setDev_name(deviceName);
                             dev_inst.setBtUUID(deviceHardwareAddress);
                             Pearadox.dev_List.add(dev_inst);
+                            btArray[5] = deviceHardwareAddress;
                             break;
                         default:                //
                             Log.w(TAG, "DEV not a Scout  '" + deviceName + "' ");
@@ -138,6 +145,7 @@ public class Bluetooth_Activity extends AppCompatActivity {
                     }
                 } //end FOR
                 Log.w(TAG, "Device list = " + Pearadox.dev_List.size());      // ** DEBUG **
+                Log.e(TAG, "@@@ BT = " + btArray[0] + "  " + btArray[1] + "  "  + btArray[2] + "  "  + btArray[3] + "  "  + btArray[4] + "  "  + btArray[5]);
 
                 final ArrayAdapter adapter = new  ArrayAdapter(this,android.R.layout.simple_list_item_1, list);
                 listView_bonded.setAdapter(adapter);

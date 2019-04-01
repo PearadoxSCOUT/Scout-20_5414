@@ -5,7 +5,7 @@ android {
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.pearadox.scout_5414"
-        minSdkVersion 17
+        minSdkVersion 18
         targetSdkVersion 26
         versionCode 25
         versionName "2.25"

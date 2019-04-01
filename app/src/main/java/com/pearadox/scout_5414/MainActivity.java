@@ -1115,19 +1115,19 @@ private void preReqs() {
 //###################################################################
 //###################################################################
 //###################################################################
-@Override
-public void onStart() {
-    super.onStart();
-    Log.i(TAG, "<<<<<  onStart  >>>>>");
-    isInternetAvailable();
-    FirebaseApp.initializeApp(this);
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.i(TAG, "<<<<<  onStart  >>>>>");
+        isInternetAvailable();
+        FirebaseApp.initializeApp(this);
 //    FirebaseDatabase.getInstance().setPersistenceEnabled(true);     // Enable 'Offline' Database
-    mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 //    if (FB_logon) {
         Fb_Auth();      // Authenticate with Firebase
 //    }
 //    loadEvents();
-}
+    }
 @Override
 public void onResume() {
     super.onResume();
