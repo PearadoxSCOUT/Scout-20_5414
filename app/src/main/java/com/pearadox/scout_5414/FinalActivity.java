@@ -371,6 +371,8 @@ public class FinalActivity extends Activity {
             switch (which){
                 case DialogInterface.BUTTON_POSITIVE:
                     //Yes button clicked
+
+                    updateDev("Tele");         // Update "traffic light" status for Scout Master
                     finish();
                     break;
 

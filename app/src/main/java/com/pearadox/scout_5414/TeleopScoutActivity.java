@@ -216,8 +216,8 @@ public class TeleopScoutActivity extends Activity {
         public void onClick(View v) {
         Log.w(TAG, "###  Clicked Final  ### " + end_HAB_Level);
             if (end_HAB_Level < 4) {        // Gotta pick one!
-                updateDev("Final");           // Update 'Phase' for stoplight indicator in ScoutM aster
                 storeTeleData();                    // Put all the TeleOps data collected in Match object
+                updateDev("Final");           // Update 'Phase' for stoplight indicator in ScoutMaster
 
                 Intent smast_intent = new Intent(TeleopScoutActivity.this, FinalActivity.class);
                 Bundle SMbundle = new Bundle();
@@ -1085,6 +1085,7 @@ public class TeleopScoutActivity extends Activity {
                     // do something when the button is clicked
                     public void onClick(DialogInterface arg0, int arg1) {
 
+                        updateDev("Auto");           // Update 'Phase' for stoplight indicator in ScoutMaster
                         finish();
                     }
                 })
