@@ -35,7 +35,7 @@ public class VisMatch_Activity extends AppCompatActivity {
     int numObjects = 0; int numProcessed = 0;
     Spinner spinner_numMatches;
     String underScore = new String(new char[60]).replace("\0", "_");  // string of 'x' underscores
-    String matches = "";
+    String matches = "";  String match_id = "";
     TextView txt_team, txt_teamName, txt_NumMatches, txt_Matches;
     TextView txt_Ss_LeftHab1, txt_Ss_LeftHab2, txt_noSand, txt_Ss_cargoScored, txt_Ss_hatchScored, txt_Ss_droppedHatch;
     TextView txt_Tele_cargoScored, txt_Tele_hatchScored, txt_Tele_droppedHatch;
@@ -49,6 +49,7 @@ public class VisMatch_Activity extends AppCompatActivity {
     public static String[] numMatch = new String[]             // Num. of Matches to process
             {"ALL","Last","Last 2","Last 3"};
     BarChart mBarChart;
+    int BarCargo = 0;  int BarPanels = 0;  int LastCargo = 0;  int LastPanels = 0;
     //----------------------------------
     int numLeftHAB = 0; int numLeftHAB2 = 0; int noSand = 0;
     int auto_B1 = 0; int auto_B2 = 0; int auto_B3 = 0;
@@ -166,10 +167,12 @@ public class VisMatch_Activity extends AppCompatActivity {
     }
 // ================================================================
     private void getMatch_Data() {
+        BarCargo = 0; BarPanels = 0; LastCargo = 0;  LastPanels = 0;
         for (int i = start; i < numObjects; i++) {
             Log.w(TAG, "In for loop!   " + i);
             match_inst = Pearadox.Matches_Data.get(i);      // Get instance of Match Data
-            matches = matches + match_inst.getMatch() + "  ";
+            match_id = match_inst.getMatch();
+            matches = matches + match_inst.getMatch() + "  ";   // cumulative list of matches
 
             if (match_inst.isSand_mode()) {
                 noSand++;
@@ -557,14 +560,16 @@ public class VisMatch_Activity extends AppCompatActivity {
             }
 
             // ToDo - figure out why bar chart is accumulating??????
-            int BarCargo = cargL1 + cargL2 + cargL3 + TcargL1 + TcargL2 + TcargL3;
-            int BarPanels = panL1 + panL2 + panL3 + TpanL1 + TpanL2 + TpanL3;
+            BarCargo = (cargL1 + cargL2 + cargL3 + TcargL1 + TcargL2 + TcargL3) - LastCargo;
+            BarPanels = (panL1 + panL2 + panL3 + TpanL1 + TpanL2 + TpanL3) - LastPanels;
             mBarChart.addBar(new BarModel(BarCargo, 0xffff0000));       // Cargo
-            Log.w(TAG, i + "@@@@@@@@ Cargo=" + BarCargo + "   Panels=" + BarPanels);
-            Log.e(TAG, "    CL1=" + cargL1 + " CL2=" + cargL2 + " CL3=" + cargL3 + "    TcL1=" + TcargL1 + " TcL2=" + TcargL2 + " TcL3=" + TcargL3);
-            Log.e(TAG, "    PL1=" + panL1 + " PL2=" + panL2 + " PL3=" + panL3 + "    TpL1=" + TpanL1 + " TpL2=" + TpanL2 + " TpL3=" + TpanL3 +"\n");
+            Log.w(TAG, i + " @@@@@@@@ Cargo=" + BarCargo + "   Panels=" + BarPanels + "  " + match_id);
+            Log.e(TAG, "    CL1=" + cargL1 + " CL2=" + cargL2 + " CL3=" + cargL3 + "    TcL1=" + TcargL1 + " TcL2=" + TcargL2 + " TcL3=" + TcargL3 + "  Last=" + LastCargo);
+            Log.e(TAG, "    PL1=" + panL1 + " PL2=" + panL2 + " PL3=" + panL3 + "    TpL1=" + TpanL1 + " TpL2=" + TpanL2 + " TpL3=" + TpanL3 + "  Last=" + LastPanels +"\n");
 
             mBarChart.addBar(new BarModel( BarPanels,  0xff08457e));       // Panels
+            LastCargo = LastCargo + BarCargo;
+            LastPanels = LastPanels + BarPanels;
             if (match_inst.getTele_comment().length() > 1) {
                 tele_Comments = tele_Comments + match_inst.getMatch() + "-" + match_inst.getTele_comment() + "\n" + underScore  + "\n" ;
             }
@@ -694,40 +699,6 @@ public class VisMatch_Activity extends AppCompatActivity {
         txt_FinalComments.setText(final_Comments);
 
 
-//
-//        mBarChart.addBar(new BarModel(2.0f, 0xffff0000));       //1
-//        mBarChart.addBar(new BarModel(4.0f,  0xff08457e));
-//        mBarChart.addBar(new BarModel(2.0f, 0xffff0000));       //2
-//        mBarChart.addBar(new BarModel(4.0f,  0xff08457e));
-//        mBarChart.addBar(new BarModel(3.0f, 0xffff0000));       //3
-//        mBarChart.addBar(new BarModel(2.0f, 0xff08457e));
-//        mBarChart.addBar(new BarModel(5.0f, 0xffff0000));       //4
-//        mBarChart.addBar(new BarModel(4.0f,  0xff08457e));
-//        mBarChart.addBar(new BarModel(6.0f, 0xffff0000));       //5
-//        mBarChart.addBar(new BarModel(5.0f,  0xff08457e));
-//        mBarChart.addBar(new BarModel(0.0f, 0xffff0000));       //6
-//        mBarChart.addBar(new BarModel(4.0f,  0xff08457e));
-//        mBarChart.addBar(new BarModel(6.0f, 0xffff0000));       //7
-//        mBarChart.addBar(new BarModel(2.0f,  0xff08457e));
-//        mBarChart.addBar(new BarModel(8.0f, 0xffff0000));       //8
-//        mBarChart.addBar(new BarModel(4.0f,  0xff08457e));
-//        mBarChart.addBar(new BarModel(10.0f, 0xffff0000));      //9
-//        mBarChart.addBar(new BarModel(5.0f,  0xff08457e));
-//        mBarChart.addBar(new BarModel(7.0f, 0xffff0000));       //10
-//        mBarChart.addBar(new BarModel(4.0f,  0xff08457e));
-//        mBarChart.addBar(new BarModel(12.0f, 0xffff0000));      //11
-//        mBarChart.addBar(new BarModel(5.0f,  0xff08457e));
-//        mBarChart.addBar(new BarModel(7.0f, 0xffff0000));       //12
-//        mBarChart.addBar(new BarModel(4.0f,  0xff08457e));
-//        mBarChart.addBar(new BarModel(10.0f, 0xffff0000));      //13
-//        mBarChart.addBar(new BarModel(5.0f,  0xff08457e));
-//        mBarChart.addBar(new BarModel(8.0f, 0xffff0000));       //14
-//        mBarChart.addBar(new BarModel(4.0f,  0xff08457e));
-//        mBarChart.addBar(new BarModel(10.0f, 0xffff0000));      //15
-//        mBarChart.addBar(new BarModel(5.0f,  0xff08457e));
-//        mBarChart.addBar(new BarModel(8.0f, 0xffff0000));       //16
-//        mBarChart.addBar(new BarModel(4.0f,  0xff08457e));
-
         mBarChart.startAnimation();
 
     }
@@ -764,7 +735,7 @@ public class VisMatch_Activity extends AppCompatActivity {
         final_DefLast30 = 0;
         final_DefBlock = 0;
         final_NumPen = 0;
-
+        BarCargo = 0; BarPanels = 0; LastCargo = 0;  LastPanels = 0;
         mBarChart.clearChart();
     }
 
