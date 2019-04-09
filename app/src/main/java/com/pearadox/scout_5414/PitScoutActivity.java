@@ -100,6 +100,7 @@ public class PitScoutActivity extends AppCompatActivity {
     public static String timeStamp = " ";
     Boolean imageOnFB = false;      // Does image already exist in Firebase
     boolean dataSaved = false;      // Make sure they save before exiting
+    public Boolean Wt_entered = false;      // Weight entered
 
     // ===================  Data Elements for Pit Scout object ===================
     public String teamSelected = " ";               // Team #
@@ -464,27 +465,62 @@ pitData Pit_Data = new pitData();
 
         txtEd_Height.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                Log.w(TAG, "******  txtEd_Height listener  ******");
+                Log.w(TAG, "******  txtEd_Height listener  ******  " + keyCode + "  " + event.getAction());
 
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    Log.w(TAG, " txtEd_Height = "  + txtEd_Height.getText());
-                    tall = Integer.valueOf(String.valueOf(txtEd_Height.getText()));     //REALLY Weight  GLF 3/2019
-                    return true;
+                    Log.w(TAG, " txtEd_Weight = "  + txtEd_Height.getText());
+
+                    if (txtEd_Height.getText().length() > 0) {
+                        tall = Integer.valueOf(String.valueOf(txtEd_Height.getText()));     //REALLY Weight  GLF 3/2019
+                        Wt_entered = true;
+                        Log.w(TAG, "### Used the right key!!  ### " + Wt_entered);
+                        return true;
+                    } else {
+                        final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+                        tg.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                        Toast toast = Toast.makeText(getBaseContext(), " \n*****  Enter a valid Weight!  *****\n ", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.show();
+                    }
                 }
                 return false;
             }
         });
 
+        txtEd_Height.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                Log.w(TAG, "@@@ Height - Lost Focus Listener @@@  '" + txtEd_Height.getText() +"' " + tall +"  " + Wt_entered);
+                if (!hasFocus) {
+                    // code to execute when EditText loses focus
+                    if (!Wt_entered) {
+                        Toast toast = Toast.makeText(getBaseContext(), "\n*** Please use the > key and NOT the ▽ key ***\n                Please re-enter Weight", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.show();
+                    }
+                }
+            }
+        });
+
+
         txtEd_Speed.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                Log.w(TAG, "******  txtEd_Speed listener  ******");
+                Log.w(TAG, "******  txtEd_Speed listener  ******  " + keyCode + "  " + event.getAction());
 
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    Log.w(TAG, "Speed = "  + txtEd_Speed.getText());
-                    speed = Integer.valueOf(String.valueOf(txtEd_Speed.getText()));
-                    return true;
+                    Log.w(TAG, "Speed = " + txtEd_Speed.getText());
+                    if (txtEd_Speed.getText().length() > 0) {
+                        speed = Integer.valueOf(String.valueOf(txtEd_Speed.getText()));
+                        return true;
+                    } else {
+                        final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+                        tg.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                        Toast toast = Toast.makeText(getBaseContext(), " \n*****  Enter a valid Speed  *****\n ", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.show();
+                    }
                 }
                 return false;
             }
