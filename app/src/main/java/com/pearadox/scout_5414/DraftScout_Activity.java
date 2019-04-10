@@ -313,12 +313,12 @@ public class DraftScout_Activity extends AppCompatActivity {
         txt_EventName.setText(Pearadox.FRC_EventName);              // Event Name
         txt_NumTeams.setText(String.valueOf(Pearadox.numTeams));    // # of Teams
         txt_Formula.setText(" ");
-        Spinner spinner_numMatches = (Spinner) findViewById(R.id.spinner_numMatches);
-        ArrayAdapter adapter_Matches = new ArrayAdapter<String>(this, R.layout.robonum_list_layout, numMatch);
-        adapter_Matches.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_numMatches.setAdapter(adapter_Matches);
-        spinner_numMatches.setSelection(0, false);
-        spinner_numMatches.setOnItemSelectedListener(new numMatches_OnItemSelectedListener());
+//        Spinner spinner_numMatches = (Spinner) findViewById(R.id.spinner_numMatches);
+//        ArrayAdapter adapter_Matches = new ArrayAdapter<String>(this, R.layout.robonum_list_layout, numMatch);
+//        adapter_Matches.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner_numMatches.setAdapter(adapter_Matches);
+//        spinner_numMatches.setSelection(0, false);
+//        spinner_numMatches.setOnItemSelectedListener(new numMatches_OnItemSelectedListener());
 
         pfDatabase = FirebaseDatabase.getInstance();
         pfMatchData_DBReference = pfDatabase.getReference("match-data/" + Pearadox.FRC_Event);    // Match Data
@@ -832,9 +832,13 @@ public void Toast_Msg(String choice, Integer minimum) {
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     private void alliance_Picks() {
-        Toast toast = Toast.makeText(getBaseContext(), "Generating Alliance Picks file - Please wait ...", Toast.LENGTH_LONG);
+        Log.e(TAG, "@@@  alliance_Picks  @@@ ");
+        final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+        tg.startTone(ToneGenerator.TONE_PROP_BEEP);
+        Toast toast = Toast.makeText(getBaseContext(), "\n Generating Alliance Picks file - Please wait ... \n ", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         toast.show();
+
         String tName = ""; String totalScore=""; String DS = "";
         String underScore = new String(new char[30]).replace("\0", "_");    // string of 'x' underscores
         String blanks = new String(new char[50]).replace("\0", " ");        // string of 'x' blanks
@@ -983,12 +987,53 @@ public void Toast_Msg(String choice, Integer minimum) {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        pickList();     // generate Picklist for app
+    }
+
+    private void pickList() {
+        Log.w(TAG, "$$$$  pickList  $$$$ ");
+// ======================================================================================
+        sortType = "Combined";          //
+        Collections.sort(team_Scores, new Comparator<Scores>() {
+            @Override
+            public int compare(Scores c1, Scores c2) {
+                return Float.compare(c1.getSCORE_combinedScore(), c2.getSCORE_combinedScore());
+            }
+        });
+        Collections.reverse(team_Scores);   // Descending
+        loadTeams();
+        Log.w(TAG,"Size=" + draftList.size());
+// ======================================================================================
+        HashMap<String, String> temp = new HashMap<String, String>();
+        try {
+            String destFile = Pearadox.FRC_ChampDiv.toUpperCase() + "_Pick-List" + ".txt";
+            File prt = new File(Environment.getExternalStorageDirectory() + "/download/FRC5414/" + destFile);
+            BufferedWriter bW = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(prt), "UTF-8"
+            ));
+
+            for (int i = 0; i < draftList.size(); i++) {    // load by sorted scores
+                temp = draftList.get(i);
+                bW.write(temp +  "\n");
+
+            } //end FOR
+                //**********************************************
+            bW.write(" \n" + "\n");        // NL
+            bW.flush();
+            bW.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage() + " not found in the specified directory.");
+            System.exit(0);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 
     /* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
     private void teamData(String team) {
-        Log.w(TAG, "$$$$  teamData  $$$$ " + team);
+//        Log.i(TAG, "$$$$  teamData  $$$$ " + team);
         int autoCubeSw = 0; int autoCubeSwAtt = 0; int autoCubeSc = 0; int autoCubeScAtt = 0; int autoSwXnum = 0;  int autoScXnum = 0; int autoCubeSwExtra = 0; int autoCubeScExtra = 0;
         int teleCubeSw = 0; int teleCubeSwAtt = 0; int teleCubeSc = 0; int teleCubeScAtt = 0;
         int teleCubeExch = 0; int teleOthrNUM = 0;  int teleOthrATT = 0; int telePanL2alNUM = 0; int telePanL3NUM = 0; int teleFloorNUM = 0; int teleTheirNUM = 0; int teleRandomNUM = 0;
@@ -997,13 +1042,13 @@ public void Toast_Msg(String choice, Integer minimum) {
         int numMatches = 0; int panL1 = 0; int panL2 = 0; int panL3 = 0; int dropped=0;
         boolean cube_pu =false;
 
-        Log.d(TAG, ">>>>>>> All_Matches " + All_Matches.size());
+//        Log.d(TAG, ">>>>>>> All_Matches " + All_Matches.size());
         for (int i = 0; i < All_Matches.size(); i++) {
             match_inst = All_Matches.get(i);      // Get instance of Match Data
 //            Log.e(TAG, i + " ##### FOR   Q" + match_inst.getMatch() + "  Team=" + team);
             if (match_inst.getTeam_num().matches(team)) {
                 numMatches++;
-                Log.w(TAG, "Team Match " + team);
+//                Log.w(TAG, "Team Match " + team);
                 // New Match Data Object *** GLF 1/20/19
                 dropped = dropped + match_inst.getSand_num_Dropped();
                 // =================== Cargo ============
