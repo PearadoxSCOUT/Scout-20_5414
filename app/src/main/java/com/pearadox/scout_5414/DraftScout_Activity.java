@@ -78,7 +78,7 @@ public class DraftScout_Activity extends AppCompatActivity {
     //    Button btn_Up, btn_Down, btn_Delete;
     public ArrayAdapter<String> adaptTeams;
     public static String[] numMatch = new String[]             // Num. of Matches to process
-            {"ALL","Last","Last 2","Last 3"};
+            {"ALL","Last","Last 2","Last 3","Last 4"};
     //    ArrayList<String> draftList = new ArrayList<String>();
     static final ArrayList<HashMap<String, String>> draftList = new ArrayList<HashMap<String, String>>();
     public int teamSelected = -1;
@@ -324,11 +324,15 @@ public class DraftScout_Activity extends AppCompatActivity {
         pfMatchData_DBReference = pfDatabase.getReference("match-data/" + Pearadox.FRC_Event);    // Match Data
 
         RadioGroup radgrp_Sort = (RadioGroup) findViewById(R.id.radgrp_Sort);
+        for(int i = 0; i < radgrp_Sort.getChildCount(); i++){        // turn them all OFF
+           ((RadioButton)radgrp_Sort.getChildAt(i)).setEnabled(false);
+        }
         radgrp_Sort.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 Log.i(TAG, "@@ RadioClick_Sort @@");
+                minMatches = 99;    // Reset for new search
                 txt_SelNum = (TextView) findViewById(R.id.txt_SelNum);
                 txt_SelNum.setText("");
                 teamSelected = -1;
@@ -496,7 +500,7 @@ public class DraftScout_Activity extends AppCompatActivity {
             Boolean goodToGo = false;
             String num = " ";
             num = parent.getItemAtPosition(pos).toString();
-            Log.w(TAG, ">>>>> NumMatches '" + num + "'");
+            Log.w(TAG, ">>>>> NumMatches '" + num + "'  " + minMatches);
             switch (num) {
                 case "Last":
                     if (minMatches >= 1) {
@@ -519,9 +523,21 @@ public class DraftScout_Activity extends AppCompatActivity {
                     }
                     break;
                 case "Last 3":
+                    Log.d(TAG, "@@@ Last 3 @@@" );
                     if (minMatches >= 3) {
                         start = numObjects - 3;     //
                         numProcessed = 3;
+                        goodToGo = true;
+                    } else {
+                        Toast_Msg(num, minMatches);
+                        goodToGo = false;
+                    }
+                    break;
+                case "Last 4":
+                    Log.d(TAG, "@@@ Last 4 @@@" );
+                    if (minMatches >= 4) {
+                        start = numObjects - 4;     //
+                        numProcessed = 4;
                         goodToGo = true;
                     } else {
                         Toast_Msg(num, minMatches);
@@ -536,9 +552,9 @@ public class DraftScout_Activity extends AppCompatActivity {
                 default:                //
                     Log.e(TAG, "Invalid number of matches - " + start);
             }
-            Log.w(TAG, "Start = " + num);
+            Log.e(TAG, "*** Start=" + start + "  #Proc=" + numProcessed + "  " + goodToGo);
             if (goodToGo) {
-                Log.e(TAG, "We are good To Go!! - " + start);
+                Log.e(TAG, "We are good To Go!! - Start=" + start + " #Proc=" + numProcessed);
 //            init_Values();
 //            getMatch_Data();
             }
@@ -585,7 +601,7 @@ public void Toast_Msg(String choice, Integer minimum) {
             teamHash = temp.get("team");
 //        Log.w(TAG, "teamHash: '" + teamHash + "' \n ");
             load_team = teamHash.substring(0, 4);
-            load_name = teamHash.substring(7, teamHash.indexOf("("));  // UP TO # MATCHES
+            load_name = teamHash.substring(5, teamHash.indexOf("("));  // UP TO # MATCHES
 //        Log.w(TAG, ">>>team & name: '" + load_team + "'  [" + load_name +"]");
             addMatchData_Team_Listener(pfMatchData_DBReference);        // Load Matches for _THIS_ selected team
         } else {
@@ -610,7 +626,8 @@ public void Toast_Msg(String choice, Integer minimum) {
             temp = draftList.get(teamSelected);
             teamHash = temp.get("team");
             teamNum = teamHash.substring(0, 4);
-            teamName = teamHash.substring(7, teamHash.indexOf("("));  // UP TO # MATCHES
+            teamName = teamHash.substring(5, teamHash.indexOf("("));  // UP TO # MATCHES
+            Log.e(TAG, "****** team  '" + teamName + "' ");
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageReference = storage.getReferenceFromUrl("gs://pearadox-2019.appspot.com/images/" + Pearadox.FRC_Event).child("robot_" + teamNum.trim() + ".png");
 //            Log.e(TAG, "gs://paradox-2017.appspot.com/images/" + Pearadox.FRC_Event + ".child(robot_" + teamNum.trim() + ".png)");
@@ -704,7 +721,7 @@ public void Toast_Msg(String choice, Integer minimum) {
 
         draftList.clear();
         String totalScore="";
-        // ToDo - use start & NumObjects
+        minMatches = 99;    // Reset for new search
         for (int i = 0; i < team_Scores.size(); i++) {    // load by sorted scores
             score_inst = team_Scores.get(i);
 //            Log.w(TAG, i +" team=" + score_inst.getTeamNum());
@@ -715,6 +732,7 @@ public void Toast_Msg(String choice, Integer minimum) {
             tmWLT = score_inst.scrWLT;
             tmOPR = score_inst.getScrOPR();
 
+            // ToDo - use start & NumObjects
             teamData(tn);   // Get Team's Match Data
             switch (sortType) {
                 case "Climb":
@@ -979,11 +997,13 @@ public void Toast_Msg(String choice, Integer minimum) {
         int numMatches = 0; int panL1 = 0; int panL2 = 0; int panL3 = 0; int dropped=0;
         boolean cube_pu =false;
 
+        Log.d(TAG, ">>>>>>> All_Matches " + All_Matches.size());
         for (int i = 0; i < All_Matches.size(); i++) {
             match_inst = All_Matches.get(i);      // Get instance of Match Data
+//            Log.e(TAG, i + " ##### FOR   Q" + match_inst.getMatch() + "  Team=" + team);
             if (match_inst.getTeam_num().matches(team)) {
-                Log.e(TAG, i + "  " + match_inst.getMatch() + "  Team=" + team);
                 numMatches++;
+                Log.w(TAG, "Team Match " + team);
                 // New Match Data Object *** GLF 1/20/19
                 dropped = dropped + match_inst.getSand_num_Dropped();
                 // =================== Cargo ============
@@ -1265,14 +1285,14 @@ public void Toast_Msg(String choice, Integer minimum) {
                 if (match_inst.isTele_got_lift()) {
                     liftedNum++;
                 }
-                Log.w(TAG, "Accum. matches = " + numMatches);
+//                Log.w(TAG, "Accum. matches = " + numMatches);
             } //End if teams equal
         } // End For _ALL_ matches
-        Log.w(TAG, "####### Total Matches/Team = " + numMatches);
+//        Log.w(TAG, "####### Total Matches/Team = " + numMatches);
         mdNumMatches = String.valueOf(numMatches);
         if (numMatches < minMatches) {
             minMatches = numMatches;
-            Log.e(TAG, "Min. matches changed = " + minMatches);
+            Log.e(TAG, team + " >>>>>>>>>>  Min. matches changed = " + minMatches);
         }
         if (numMatches > 0) {
             if (cube_pu) {
@@ -1328,7 +1348,7 @@ public void Toast_Msg(String choice, Integer minimum) {
         if (numMatches > 0) {
             climbScore = (float) (((climbH1 * Float.parseFloat(climbHAB1) + climbH2 * Float.parseFloat(climbHAB2) + climbH3 * Float.parseFloat(climbHAB3)  + climbH0 * Float.parseFloat(climbHAB0)) + (lift1Num * Float.parseFloat(climbLift1)) + (lift2Num * Float.parseFloat(climbLift2)) + (liftedNum * Float.parseFloat(climbLifted))) / numMatches);
             cargoScore = (float) ((((cargL1+TcargL1) * Float.parseFloat(cargo_L1)) + ((cargL2+TcargL2) * Float.parseFloat(cargo_L2)) + ((cargL3+TcargL3) * Float.parseFloat(cargo_L3)))  / numMatches);
-            Log.e(TAG, "@@@" + team + "  1="+ (cargL1+TcargL1) + " 2="+ (cargL2+TcargL2) + " 3="+ (cargL3+TcargL3) + " TOTAL=" + cargoScore);
+//            Log.e(TAG, "@@@" + team + "  1="+ (cargL1+TcargL1) + " 2="+ (cargL2+TcargL2) + " 3="+ (cargL3+TcargL3) + " TOTAL=" + cargoScore);
             panelsScore = (float) ((((panL1+TpanL1) * Float.parseFloat(panels_L1)) + ((panL2+TpanL2) * Float.parseFloat(panels_L2)) + ((panL3+TpanL3) * Float.parseFloat(panels_L3)) + (dropped * Float.parseFloat(panels_Drop))) / numMatches);
             combinedScore = (((climbScore * Float.parseFloat(wtClimb) + (cargoScore * Float.parseFloat(wtCargo)) + (panelsScore * Float.parseFloat(wtPanels)))) / numMatches);
         } else {
@@ -1359,6 +1379,7 @@ public void Toast_Msg(String choice, Integer minimum) {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i(TAG, "<<<< getFB_Data >>>> _ALL_ Match Data ");
                 ImageView imgStat_Load = (ImageView) findViewById(R.id.imgStat_Load);
+                RadioGroup radgrp_Sort = (RadioGroup) findViewById(R.id.radgrp_Sort);
                 txt_LoadStatus = (TextView) findViewById(R.id.txt_LoadStatus);
                 All_Matches.clear();
                 matchData mdobj = new matchData();
@@ -1372,9 +1393,12 @@ public void Toast_Msg(String choice, Integer minimum) {
                 Button btn_Match = (Button) findViewById(R.id.btn_Match);   // Listner defined in Layout XML
                 btn_Match.setEnabled(true);
                 imgStat_Load.setImageDrawable(getResources().getDrawable(R.drawable.traffic_light_green));
-                txt_LoadStatus.setText("");
-//                radio_Team = (RadioButton) findViewById(R.id.radio_Team);
-//                radio_Team.performClick();         // "force" radio button click  (so it works 1st time)
+                txt_LoadStatus.setText(All_Matches.size() + " Matches");
+                radio_Team = (RadioButton) findViewById(R.id.radio_Team);
+                radio_Team.performClick();         // "force" radio button click  (so it works 1st time)
+                for(int i = 0; i < radgrp_Sort.getChildCount(); i++){        // turn them all ON
+                    ((RadioButton)radgrp_Sort.getChildAt(i)).setEnabled(true);
+                }
             }
 
             @Override
@@ -1390,8 +1414,8 @@ public void Toast_Msg(String choice, Integer minimum) {
     }
 
     private void initScores() {
-        Log.w(TAG, " ## initScores ##  " + is_Resumed);
-        Log.w(TAG, "Start to Load teams '"  + sortType + "'");
+        Log.i(TAG, " ## initScores ##  " + is_Resumed);
+        Log.d(TAG, "Start to Load team scores '"  + sortType + "'");
         team_Scores.clear();
         for (int i = 0; i < Pearadox.numTeams; i++) {
             Scores curScrTeam = new Scores();       // instance of Scores object
@@ -1461,6 +1485,7 @@ public void onResume() {
     is_Resumed = true;
     SharedPreferences prefs = getPreferences(MODE_PRIVATE);
     String sortType = prefs.getString("Sort", "");
+    Log.d(TAG, "Resume Prefs >> " + sortType);
 //    initScores();           // make sure it sorts by _LAST_ radio button
     }
     @Override

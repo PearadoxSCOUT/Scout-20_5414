@@ -200,14 +200,14 @@
         android:textSize="12sp"
         tools:enabled="false" />
 
-    <Spinner
-        android:id="@+id/spinner_numMatches"
-        android:layout_width="80sp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/imageView_DS"
-        android:layout_alignBottom="@+id/txt_SelNum"
-        android:text="ALL"
-        android:textColor="@color/green" />
+    <!--<Spinner-->
+        <!--android:id="@+id/spinner_numMatches"-->
+        <!--android:layout_width="80sp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignStart="@+id/imageView_DS"-->
+        <!--android:layout_alignBottom="@+id/txt_SelNum"-->
+        <!--android:text="ALL"-->
+        <!--android:textColor="@color/green" />-->
 
     //================================================
 
