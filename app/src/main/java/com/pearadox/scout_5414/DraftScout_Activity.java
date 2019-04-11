@@ -795,8 +795,11 @@ public void Toast_Msg(String choice, Integer minimum) {
             return true;
         }
         if (id == R.id.action_picks) {
-            Intent help_intent = new Intent(this, HelpActivity.class);
             Log.e(TAG, "Picks");
+            Toast toast = Toast.makeText(getBaseContext(), "\n Generating Alliance Picks file - Please wait ... \n ", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
+            txt_Formula.setText("Generating Alliance Picks file - Please wait ...");
             alliance_Picks();
             return true;
         }
@@ -835,9 +838,9 @@ public void Toast_Msg(String choice, Integer minimum) {
         Log.e(TAG, "@@@  alliance_Picks  @@@ ");
         final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
         tg.startTone(ToneGenerator.TONE_PROP_BEEP);
-        Toast toast = Toast.makeText(getBaseContext(), "\n Generating Alliance Picks file - Please wait ... \n ", Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-        toast.show();
+//        Toast toast = Toast.makeText(getBaseContext(), "\n Generating Alliance Picks file - Please wait ... \n ", Toast.LENGTH_LONG);
+//        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+//        toast.show();
 
         String tName = ""; String totalScore=""; String DS = "";
         String underScore = new String(new char[30]).replace("\0", "_");    // string of 'x' underscores
@@ -854,7 +857,7 @@ public void Toast_Msg(String choice, Integer minimum) {
         Collections.reverse(team_Scores);   // Descending
         loadTeams();
 // ======================================================================================
-
+        // ToDo - Convert to Async task
         if (numPicks > team_Scores.size()) {
 //            Log.w(TAG, "******>> numPick changed to: " + team_Scores.size());
             numPicks = team_Scores.size();      // Use max (prevent Error when # teams < 'numPicks')
