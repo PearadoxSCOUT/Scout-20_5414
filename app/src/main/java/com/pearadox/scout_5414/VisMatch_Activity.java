@@ -47,7 +47,7 @@ public class VisMatch_Activity extends AppCompatActivity {
     TextView txt_Lvl1, txt_Lvl2, txt_NoShow;
     TextView txt_Pos1, txt_Pos2, txt_Pos3;
     public static String[] numMatch = new String[]             // Num. of Matches to process
-            {"ALL","Last","Last 2","Last 3"};
+            {"ALL","Last","Last 2","Last 3","Last 4","Last 5"};
     BarChart mBarChart;
     int BarCargo = 0;  int BarPanels = 0;  int LastCargo = 0;  int LastPanels = 0;
     //----------------------------------
@@ -82,9 +82,9 @@ public class VisMatch_Activity extends AppCompatActivity {
         Bundle bundle = this.getIntent().getExtras();
         String param1 = bundle.getString("team");
         String param2 = bundle.getString("name");
-        Log.w(TAG, param1);      // ** DEBUG **
+//        Log.w(TAG, param1);      // ** DEBUG **
         tnum = param1;      // Save Team #
-        Log.w(TAG, param2);      // ** DEBUG **
+//        Log.w(TAG, param2);      // ** DEBUG **
         tname = param2;      // Save Team #
 
 
@@ -130,6 +130,7 @@ public class VisMatch_Activity extends AppCompatActivity {
         txt_Pos2 = (TextView) findViewById(R.id.txt_Pos2);
         txt_Pos3 = (TextView) findViewById(R.id.txt_Pos3);
         txt_AutoComments = (TextView) findViewById(R.id.txt_AutoComments);
+        txt_AutoComments.setTextSize(12);       // normal
         txt_AutoComments.setMovementMethod(new ScrollingMovementMethod());
         /*  Tele  */
         txt_Tele_cargoScored = (TextView) findViewById(R.id.txt_Tele_cargoScored);
@@ -157,7 +158,7 @@ public class VisMatch_Activity extends AppCompatActivity {
         txt_teamName.setText(tname);    // Get real
 
         numObjects = Pearadox.Matches_Data.size();
-        Log.w(TAG, "Objects = " + numObjects);
+//        Log.w(TAG, "Objects = " + numObjects);
         txt_NumMatches.setText(String.valueOf(numObjects));
 
         init_Values();
@@ -169,7 +170,7 @@ public class VisMatch_Activity extends AppCompatActivity {
     private void getMatch_Data() {
         BarCargo = 0; BarPanels = 0; LastCargo = 0;  LastPanels = 0;
         for (int i = start; i < numObjects; i++) {
-            Log.w(TAG, "In for loop!   " + i);
+//            Log.w(TAG, "In for loop!   " + i);
             match_inst = Pearadox.Matches_Data.get(i);      // Get instance of Match Data
             match_id = match_inst.getMatch();
             matches = matches + match_inst.getMatch() + "  ";   // cumulative list of matches
@@ -188,7 +189,7 @@ public class VisMatch_Activity extends AppCompatActivity {
                 auto_Comments = auto_Comments + match_inst.getMatch() + "-" + match_inst.getSand_comment() + "\n" + underScore  + "\n" ;
             }
             String pos = match_inst.getPre_startPos().trim();
-            Log.w(TAG, "Start Pos. " + pos);
+//            Log.w(TAG, "Start Pos. " + pos);
             switch (pos) {
                 case "Level 1":
                     auto_B1++;
@@ -204,7 +205,7 @@ public class VisMatch_Activity extends AppCompatActivity {
             }
 
             int PlayerStat = match_inst.getPre_PlayerSta();
-            Log.w(TAG, "Player Station. " + PlayerStat);
+//            Log.w(TAG, "Player Station. " + PlayerStat);
             switch (PlayerStat) {
                 case 1:
                     auto_Ps1++;
@@ -563,9 +564,9 @@ public class VisMatch_Activity extends AppCompatActivity {
             BarCargo = (cargL1 + cargL2 + cargL3 + TcargL1 + TcargL2 + TcargL3) - LastCargo;
             BarPanels = (panL1 + panL2 + panL3 + TpanL1 + TpanL2 + TpanL3) - LastPanels;
             mBarChart.addBar(new BarModel(BarCargo, 0xffff0000));       // Cargo
-            Log.w(TAG, i + " @@@@@@@@ Cargo=" + BarCargo + "   Panels=" + BarPanels + "  " + match_id);
-            Log.e(TAG, "    CL1=" + cargL1 + " CL2=" + cargL2 + " CL3=" + cargL3 + "    TcL1=" + TcargL1 + " TcL2=" + TcargL2 + " TcL3=" + TcargL3 + "  Last=" + LastCargo);
-            Log.e(TAG, "    PL1=" + panL1 + " PL2=" + panL2 + " PL3=" + panL3 + "    TpL1=" + TpanL1 + " TpL2=" + TpanL2 + " TpL3=" + TpanL3 + "  Last=" + LastPanels +"\n");
+//            Log.w(TAG, i + " @@@@@@@@ Cargo=" + BarCargo + "   Panels=" + BarPanels + "  " + match_id);
+//            Log.e(TAG, "    CL1=" + cargL1 + " CL2=" + cargL2 + " CL3=" + cargL3 + "    TcL1=" + TcargL1 + " TcL2=" + TcargL2 + " TcL3=" + TcargL3 + "  Last=" + LastCargo);
+//            Log.e(TAG, "    PL1=" + panL1 + " PL2=" + panL2 + " PL3=" + panL3 + "    TpL1=" + TpanL1 + " TpL2=" + TpanL2 + " TpL3=" + TpanL3 + "  Last=" + LastPanels +"\n");
 
             mBarChart.addBar(new BarModel( BarPanels,  0xff08457e));       // Panels
             LastCargo = LastCargo + BarCargo;
@@ -776,6 +777,30 @@ public class VisMatch_Activity extends AppCompatActivity {
                         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                         toast.show();
                     }
+                case "Last 4":
+                    if (numObjects > 3) {
+                        start = numObjects - 4;     //
+                        numProcessed = 4;
+                        break;
+                    } else {
+                        final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+                        tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
+                        Toast toast = Toast.makeText(getBaseContext(), "***  This team only has " + numObjects +  " match(s) ***", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.show();
+                    }
+                case "Last 5":
+                    if (numObjects > 4) {
+                        start = numObjects - 5;     //
+                        numProcessed = 5;
+                        break;
+                    } else {
+                        final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
+                        tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
+                        Toast toast = Toast.makeText(getBaseContext(), "***  This team only has " + numObjects +  " match(s) ***", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.show();
+                    }
                 case "ALL":
                     start = 0;                  // Start at beginning
                     numProcessed = numObjects;
@@ -783,7 +808,7 @@ public class VisMatch_Activity extends AppCompatActivity {
                 default:                //
                     Log.e(TAG, "Invalid Sort - " + start);
             }
-            Log.w(TAG, "Start = " + num );
+//            Log.w(TAG, "Start = " + num );
             init_Values();
             getMatch_Data();
         }
@@ -805,14 +830,14 @@ public class VisMatch_Activity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        Log.e(TAG, "@@@  Options  @@@ " );
-        Log.w(TAG, " \n  \n");
+//        Log.e(TAG, "@@@  Options  @@@ " );
+//        Log.w(TAG, " \n  \n");
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_screen) {
             String filNam = Pearadox.FRC_Event.toUpperCase() + "-VizMatch"  + "_" + tnum.trim() + ".JPG";
-            Log.w(TAG, "File='" + filNam + "'");
+//            Log.w(TAG, "File='" + filNam + "'");
             try {
                 File imageFile = new File(Environment.getExternalStorageDirectory() + "/download/FRC5414/" + filNam);
                 View v1 = getWindow().getDecorView().getRootView();             // **\
@@ -841,6 +866,14 @@ public class VisMatch_Activity extends AppCompatActivity {
     }
 
 
+
+    private void sayLeaving() {
+        txt_AutoComments = (TextView) findViewById(R.id.txt_AutoComments);
+        txt_AutoComments.setTextSize(20);
+        txt_AutoComments.setText("**** Exiting " + TAG + " ****" );
+    }
+
+
     //###################################################################
 //###################################################################
 //###################################################################
@@ -858,6 +891,7 @@ public class VisMatch_Activity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         Log.v(TAG, "onStop");
+        sayLeaving();
     }
 
     @Override

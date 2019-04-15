@@ -18,11 +18,13 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
@@ -46,6 +48,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -54,6 +57,7 @@ import java.util.Iterator;
 
 import static android.util.Log.e;
 import static android.util.Log.i;
+import static com.pearadox.scout_5414.R.id.progressBar1;
 
 public class DraftScout_Activity extends AppCompatActivity {
 
@@ -72,7 +76,8 @@ public class DraftScout_Activity extends AppCompatActivity {
     Spinner spinner_numMatches;
     ListView lstView_Teams;
     TextView TeamData, BA, Stats, Stats2;
-    Button btn_Match, btn_Default;
+    Button btn_Match, btn_Pit, btn_Default;
+    ProgressBar pbSpinner;
     RadioGroup radgrp_Sort;
     RadioButton radio_Climb, radio_Cargo, radio_Weight, radio_Team, radio_pGt1, radio_cGt1, radio_Panels;
     //    Button btn_Up, btn_Down, btn_Delete;
@@ -287,32 +292,41 @@ public class DraftScout_Activity extends AppCompatActivity {
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+   protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_draft_scout);
         Log.i(TAG, "@@@@@ DraftScout_Activity  @@@@@");
         Log.e(TAG, "B4 - " + sortType);
         if (savedInstanceState != null) {
-            Log.w(TAG, "Are we ever getting called? " + is_Resumed);
+            Log.e(TAG, "Are we ever getting called? " + is_Resumed);
             SharedPreferences prefs = getPreferences(MODE_PRIVATE);
             String sortType = prefs.getString("Sort", "");
         } else {
-//            sortType = "Team#";
+    //            sortType = "Team#";
         }
         Log.e(TAG, "After - " + sortType);
         getprefs();         // Get multiplier values from Preferences
 
-        txt_EventName = (TextView) findViewById(R.id.txt_EventName);
-        txt_NumTeams = (TextView) findViewById(R.id.txt_NumTeams);
-        txt_Formula = (TextView) findViewById(R.id.txt_Formula);
-        lbl_Formula = (TextView) findViewById(R.id.lbl_Formula);
-        txt_LoadStatus = (TextView) findViewById(R.id.txt_LoadStatus);
-        txt_SelNum = (TextView) findViewById(R.id.txt_SelNum);
+        txt_EventName = findViewById(R.id.txt_EventName);
+        txt_NumTeams = findViewById(R.id.txt_NumTeams);
+        txt_Formula = findViewById(R.id.txt_Formula);
+        lbl_Formula = findViewById(R.id.lbl_Formula);
+        txt_LoadStatus = findViewById(R.id.txt_LoadStatus);
+        txt_SelNum = findViewById(R.id.txt_SelNum);
         txt_SelNum.setText("");
-        lstView_Teams = (ListView) findViewById(R.id.lstView_Teams);
+        lstView_Teams = findViewById(R.id.lstView_Teams);
         txt_EventName.setText(Pearadox.FRC_EventName);              // Event Name
         txt_NumTeams.setText(String.valueOf(Pearadox.numTeams));    // # of Teams
         txt_Formula.setText(" ");
+        btn_Match = findViewById(R.id.btn_Match);
+        btn_Pit = findViewById(R.id.btn_Pit);
+        btn_Match.setEnabled(false);
+        btn_Match.setVisibility(View.INVISIBLE);
+        btn_Pit.setEnabled(false);
+        btn_Pit.setVisibility(View.INVISIBLE);
+        pbSpinner =  (ProgressBar) findViewById(progressBar1);
+//        pbSpinner.setVisibility(View.INVISIBLE);
 //        Spinner spinner_numMatches = (Spinner) findViewById(R.id.spinner_numMatches);
 //        ArrayAdapter adapter_Matches = new ArrayAdapter<String>(this, R.layout.robonum_list_layout, numMatch);
 //        adapter_Matches.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -323,9 +337,9 @@ public class DraftScout_Activity extends AppCompatActivity {
         pfDatabase = FirebaseDatabase.getInstance();
         pfMatchData_DBReference = pfDatabase.getReference("match-data/" + Pearadox.FRC_Event);    // Match Data
 
-        RadioGroup radgrp_Sort = (RadioGroup) findViewById(R.id.radgrp_Sort);
+        RadioGroup radgrp_Sort = findViewById(R.id.radgrp_Sort);
         for(int i = 0; i < radgrp_Sort.getChildCount(); i++){        // turn them all OFF
-           ((RadioButton)radgrp_Sort.getChildAt(i)).setEnabled(false);
+           radgrp_Sort.getChildAt(i).setEnabled(false);
         }
         radgrp_Sort.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
@@ -333,12 +347,12 @@ public class DraftScout_Activity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 Log.i(TAG, "@@ RadioClick_Sort @@");
                 minMatches = 99;    // Reset for new search
-                txt_SelNum = (TextView) findViewById(R.id.txt_SelNum);
+                txt_SelNum = findViewById(R.id.txt_SelNum);
                 txt_SelNum.setText("");
                 teamSelected = -1;
-                radio_Team = (RadioButton) findViewById(checkedId);
+                radio_Team = findViewById(checkedId);
                 String value = radio_Team.getText().toString();
-                Log.w(TAG, "RadioSort -  '" + value + "'");
+//                Log.w(TAG, "RadioSort -  '" + value + "'");
                 switch (value) {
                     case "Climb":
 //                        Log.w(TAG, "Climb sort");
@@ -417,7 +431,7 @@ public class DraftScout_Activity extends AppCompatActivity {
                 lstView_Teams.setSelector(android.R.color.holo_blue_light);
         		/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
 //                tnum = draftList.get(teamSelected).substring(0,4);
-                txt_SelNum = (TextView) findViewById(R.id.txt_SelNum);
+                txt_SelNum = findViewById(R.id.txt_SelNum);
                 txt_SelNum.setText(String.valueOf(pos+1));      // Sort Position
             }
 
@@ -523,7 +537,7 @@ public class DraftScout_Activity extends AppCompatActivity {
                     }
                     break;
                 case "Last 3":
-                    Log.d(TAG, "@@@ Last 3 @@@" );
+//                    Log.d(TAG, "@@@ Last 3 @@@" );
                     if (minMatches >= 3) {
                         start = numObjects - 3;     //
                         numProcessed = 3;
@@ -534,7 +548,7 @@ public class DraftScout_Activity extends AppCompatActivity {
                     }
                     break;
                 case "Last 4":
-                    Log.d(TAG, "@@@ Last 4 @@@" );
+//                    Log.d(TAG, "@@@ Last 4 @@@" );
                     if (minMatches >= 4) {
                         start = numObjects - 4;     //
                         numProcessed = 4;
@@ -594,7 +608,9 @@ public void Toast_Msg(String choice, Integer minimum) {
         Log.i(TAG, ">>>>> buttonMatch_Click  " + teamSelected);
         HashMap<String, String> temp = new HashMap<String, String>();
         String teamHash;
-
+        setProgressBarIndeterminateVisibility(true);
+//        pbSpinner = (ProgressBar) findViewById(progressBar1);
+//        pbSpinner.setVisibility(View.VISIBLE);
         if (teamSelected >= 0) {
             draftList.get(teamSelected);
             temp = draftList.get(teamSelected);
@@ -611,6 +627,8 @@ public void Toast_Msg(String choice, Integer minimum) {
             toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
         }
+        pbSpinner.setVisibility(View.INVISIBLE);
+        setProgressBarIndeterminateVisibility(false);
     }
 
 
@@ -619,7 +637,8 @@ public void Toast_Msg(String choice, Integer minimum) {
         Log.i(TAG, ">>>>> buttonPit_Click  " + teamSelected);
         HashMap<String, String> temp = new HashMap<String, String>();
         String teamHash="";
-        final String[] URL = {""};
+        final String[] URL = {""};  Viz_URL = "";
+        FirebaseStorage storage = FirebaseStorage.getInstance();
 
         if (teamSelected >= 0) {
             draftList.get(teamSelected);
@@ -628,23 +647,24 @@ public void Toast_Msg(String choice, Integer minimum) {
             teamNum = teamHash.substring(0, 4);
             teamName = teamHash.substring(5, teamHash.indexOf("("));  // UP TO # MATCHES
             Log.e(TAG, "****** team  '" + teamName + "' ");
-            FirebaseStorage storage = FirebaseStorage.getInstance();
+//            FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageReference = storage.getReferenceFromUrl("gs://pearadox-2019.appspot.com/images/" + Pearadox.FRC_Event).child("robot_" + teamNum.trim() + ".png");
-//            Log.e(TAG, "gs://paradox-2017.appspot.com/images/" + Pearadox.FRC_Event + ".child(robot_" + teamNum.trim() + ".png)");
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-//                    Log.w(TAG, "URI=" + uri);
+                    Log.w(TAG, "@@@@@@@@  Getting Photo!   URI=" + uri);
                     URL[0] = uri.toString();
-//                    Log.w(TAG, "URL=" + URL[0]);
                     Viz_URL = URL[0];
-//                    Log.w(TAG, "Team '" + teamNum + "'  '" + teamName + "'  URL=" + Viz_URL);
-                    launchVizPit(teamNum, teamName, Viz_URL);
+                    Log.w(TAG, "*GOOD* URL=" + Viz_URL);
+                    launchVizPit(teamNum, teamName, Viz_URL);   // do it here to WAIT for FB retrieval
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     Log.e(TAG, "ERR= '" + exception + "'");
+                    Viz_URL = "";
+                    Log.w(TAG, "*BAD* URL=" + Viz_URL + "' ");
+                    launchVizPit(teamNum, teamName, Viz_URL);
                 }
             });
         } else {
@@ -659,7 +679,7 @@ public void Toast_Msg(String choice, Integer minimum) {
 
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     private void launchVizPit(String team, String name, String imgURL) {
-        i(TAG,">>>>>>>>  launchVizPit " + team + " " + name + " " + imgURL);      // ** DEBUG **
+        Log.d(TAG,">>>>>>>>  launchVizPit " + team + " " + name + " " + imgURL);      // ** DEBUG **
         Intent pit_intent = new Intent(DraftScout_Activity.this, VisPit_Activity.class);
         Bundle VZbundle = new Bundle();
         VZbundle.putString("team", team);        // Pass data to activity
@@ -710,6 +730,7 @@ public void Toast_Msg(String choice, Integer minimum) {
 
     private void loadTeams() {
         Log.w(TAG, "@@@@  loadTeams started  @@@@  " + team_Scores.size() + " Type=" + sortType);
+//        pbSpinner.setVisibility(View.VISIBLE);
 
         SimpleAdapter adaptTeams = new SimpleAdapter(
                 this,
@@ -1005,7 +1026,7 @@ public void Toast_Msg(String choice, Integer minimum) {
         });
         Collections.reverse(team_Scores);   // Descending
         loadTeams();
-        Log.w(TAG,"Size=" + draftList.size());
+//        Log.w(TAG,"Size=" + draftList.size());
 // ======================================================================================
         HashMap<String, String> temp = new HashMap<String, String>();
         try {
@@ -1394,10 +1415,10 @@ public void Toast_Msg(String choice, Integer minimum) {
         float climbScore = 0; float cubeScored = 0; float cubeCollect = 0; float cargoScore = 0; float combinedScore = 0; float switchScore = 0; float scaleScore = 0; float panelsScore = 0;
 //        Log.e(TAG, team + " "+ climbs + " "+ lift1Num + " "+ lift2Num + " " + platNum +  " " + liftedNum + " / " + numMatches);
         if (numMatches > 0) {
-            climbScore = (float) (((climbH1 * Float.parseFloat(climbHAB1) + climbH2 * Float.parseFloat(climbHAB2) + climbH3 * Float.parseFloat(climbHAB3)  + climbH0 * Float.parseFloat(climbHAB0)) + (lift1Num * Float.parseFloat(climbLift1)) + (lift2Num * Float.parseFloat(climbLift2)) + (liftedNum * Float.parseFloat(climbLifted))) / numMatches);
-            cargoScore = (float) ((((cargL1+TcargL1) * Float.parseFloat(cargo_L1)) + ((cargL2+TcargL2) * Float.parseFloat(cargo_L2)) + ((cargL3+TcargL3) * Float.parseFloat(cargo_L3)))  / numMatches);
+            climbScore = ((climbH1 * Float.parseFloat(climbHAB1) + climbH2 * Float.parseFloat(climbHAB2) + climbH3 * Float.parseFloat(climbHAB3)  + climbH0 * Float.parseFloat(climbHAB0)) + (lift1Num * Float.parseFloat(climbLift1)) + (lift2Num * Float.parseFloat(climbLift2)) + (liftedNum * Float.parseFloat(climbLifted))) / numMatches;
+            cargoScore = (((cargL1+TcargL1) * Float.parseFloat(cargo_L1)) + ((cargL2+TcargL2) * Float.parseFloat(cargo_L2)) + ((cargL3+TcargL3) * Float.parseFloat(cargo_L3)))  / numMatches;
 //            Log.e(TAG, "@@@" + team + "  1="+ (cargL1+TcargL1) + " 2="+ (cargL2+TcargL2) + " 3="+ (cargL3+TcargL3) + " TOTAL=" + cargoScore);
-            panelsScore = (float) ((((panL1+TpanL1) * Float.parseFloat(panels_L1)) + ((panL2+TpanL2) * Float.parseFloat(panels_L2)) + ((panL3+TpanL3) * Float.parseFloat(panels_L3)) + (dropped * Float.parseFloat(panels_Drop))) / numMatches);
+            panelsScore = (((panL1+TpanL1) * Float.parseFloat(panels_L1)) + ((panL2+TpanL2) * Float.parseFloat(panels_L2)) + ((panL3+TpanL3) * Float.parseFloat(panels_L3)) + (dropped * Float.parseFloat(panels_Drop))) / numMatches;
             combinedScore = (((climbScore * Float.parseFloat(wtClimb) + (cargoScore * Float.parseFloat(wtCargo)) + (panelsScore * Float.parseFloat(wtPanels)))) / numMatches);
         } else {
             climbScore = 0;
@@ -1426,9 +1447,9 @@ public void Toast_Msg(String choice, Integer minimum) {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i(TAG, "<<<< getFB_Data >>>> _ALL_ Match Data ");
-                ImageView imgStat_Load = (ImageView) findViewById(R.id.imgStat_Load);
-                RadioGroup radgrp_Sort = (RadioGroup) findViewById(R.id.radgrp_Sort);
-                txt_LoadStatus = (TextView) findViewById(R.id.txt_LoadStatus);
+                ImageView imgStat_Load = findViewById(R.id.imgStat_Load);
+                RadioGroup radgrp_Sort = findViewById(R.id.radgrp_Sort);
+                txt_LoadStatus = findViewById(R.id.txt_LoadStatus);
                 All_Matches.clear();
                 matchData mdobj = new matchData();
                 Iterable<DataSnapshot> snapshotIterator = dataSnapshot.getChildren();   /*get the data children*/
@@ -1437,16 +1458,22 @@ public void Toast_Msg(String choice, Integer minimum) {
                     mdobj = iterator.next().getValue(matchData.class);
                     All_Matches.add(mdobj);
                 }
-                Log.w(TAG, "addMD_VE *****  Matches Loaded. # = "  + All_Matches.size());
-                Button btn_Match = (Button) findViewById(R.id.btn_Match);   // Listner defined in Layout XML
-                btn_Match.setEnabled(true);
+                Log.e(TAG, "addMD_VE *****  Matches Loaded. # = "  + All_Matches.size());
+                Button btn_Match = findViewById(R.id.btn_Match);
+                Button btn_Pit = findViewById(R.id.btn_Pit);
                 imgStat_Load.setImageDrawable(getResources().getDrawable(R.drawable.traffic_light_green));
                 txt_LoadStatus.setText(All_Matches.size() + " Matches");
-                radio_Team = (RadioButton) findViewById(R.id.radio_Team);
+                radio_Team = findViewById(R.id.radio_Team);
                 radio_Team.performClick();         // "force" radio button click  (so it works 1st time)
                 for(int i = 0; i < radgrp_Sort.getChildCount(); i++){        // turn them all ON
-                    ((RadioButton)radgrp_Sort.getChildAt(i)).setEnabled(true);
+                    radgrp_Sort.getChildAt(i).setEnabled(true);
                 }
+                btn_Match.setEnabled(true);
+                btn_Match.setVisibility(View.VISIBLE);
+                btn_Pit.setEnabled(true);
+                btn_Pit.setVisibility(View.VISIBLE);
+                pbSpinner.setVisibility(View.INVISIBLE);
+//                setProgressBarIndeterminateVisibility(false);
             }
 
             @Override
@@ -1463,7 +1490,7 @@ public void Toast_Msg(String choice, Integer minimum) {
 
     private void initScores() {
         Log.i(TAG, " ## initScores ##  " + is_Resumed);
-        Log.d(TAG, "Start to Load team scores '"  + sortType + "'");
+//        Log.d(TAG, "Start to Load team scores '"  + sortType + "'");
         team_Scores.clear();
         for (int i = 0; i < Pearadox.numTeams; i++) {
             Scores curScrTeam = new Scores();       // instance of Scores object
@@ -1490,24 +1517,24 @@ public void Toast_Msg(String choice, Integer minimum) {
 //
             // ToDONE - Load teams according to Radio Button (VisMatch return messes it up)
             Log.e(TAG, "Leave scores alone '"  + sortType + "'");
-            radgrp_Sort = (RadioGroup) findViewById(R.id.radgrp_Sort);
+            radgrp_Sort = findViewById(R.id.radgrp_Sort);
             radgrp_Sort.setActivated(true);
             radgrp_Sort.setSelected(true);
             switch (sortType) {
                 case "Climb":
-                    radio_Climb = (RadioButton) findViewById(R.id.radio_Climb);
+                    radio_Climb = findViewById(R.id.radio_Climb);
                     radio_Climb.performClick();         // "force" radio button click
                     break;
                 case "Cargo":
-                    radio_Cargo = (RadioButton) findViewById(R.id.radio_Cargo);
+                    radio_Cargo = findViewById(R.id.radio_Cargo);
                     radio_Cargo.performClick();         // "force" radio button click
                     break;
                 case "Combined":
-                    radio_Weight = (RadioButton) findViewById(R.id.radio_Weight);
+                    radio_Weight = findViewById(R.id.radio_Weight);
                     radio_Weight.performClick();         // "force" radio button click
                     break;
                 case "Panels":
-                    radio_Panels = (RadioButton) findViewById(R.id.radio_Panels);
+                    radio_Panels = findViewById(R.id.radio_Panels);
                     radio_Panels.performClick();         // "force" radio button click
                     break;
                 default:                //
@@ -1526,6 +1553,8 @@ public void onStart() {
     initScores();
     addMD_VE_Listener(pfMatchData_DBReference);        // Load _ALL_ Matches
     }
+
+
 @Override
 public void onResume() {
     super.onResume();
@@ -1536,6 +1565,8 @@ public void onResume() {
     Log.d(TAG, "Resume Prefs >> " + sortType);
 //    initScores();           // make sure it sorts by _LAST_ radio button
     }
+
+
     @Override
     public void onPause() {
         super.onPause();

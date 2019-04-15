@@ -86,7 +86,7 @@ public class VisPit_Activity extends AppCompatActivity {
         tnum = bundle.getString("team");
         tname = bundle.getString("name");
         imgURL = bundle.getString("url");
-        Log.w(TAG, "\n >>>>>>>> " + tnum + " " + tname + " " + imgURL);      // ** DEBUG **
+        Log.w(TAG, "\n >>>>>>>> " + tnum + " " + tname + " '" + imgURL + "' ");      // ** DEBUG **
 
         pfDatabase = FirebaseDatabase.getInstance();
         pfPitData_DBReference = pfDatabase.getReference("pit-data/" + Pearadox.FRC_Event); // Pit Scout Data
@@ -141,12 +141,12 @@ public class VisPit_Activity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Log.w(TAG, "%%%%%%%%%%%%  ChildAdded");
-                System.out.println(dataSnapshot.getValue());
-                System.out.println("\n \n ");
+//                System.out.println(dataSnapshot.getValue());
+//                System.out.println("\n \n ");
                 pitData Pit_Data = dataSnapshot.getValue(pitData.class);
-                    System.out.println("Team: " + Pit_Data.getPit_team());
-                    System.out.println("Comment: " + Pit_Data.getPit_comment());
-                    System.out.println("\n \n ");
+//                    System.out.println("Team: " + Pit_Data.getPit_team());
+//                    System.out.println("Comment: " + Pit_Data.getPit_comment());
+//                    System.out.println("\n \n ");
                 txt_Ht = (TextView) findViewById(R.id.txt_Ht);
                 txt_TotWheels = (TextView) findViewById(R.id.txt_TotWheels);
                 txt_NumTrac = (TextView) findViewById(R.id.txt_NumTrac);

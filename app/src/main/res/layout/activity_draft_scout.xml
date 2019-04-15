@@ -184,6 +184,7 @@
         android:text="MATCH DATA"
         android:textColor="@android:color/black"
         android:textSize="12sp"
+        android:backgroundTint="@color/cyan"
         tools:enabled="false" />
 
     <Button
@@ -290,5 +291,16 @@
         <!--android:text="⚫ >1" />-->
 
     </RadioGroup>
+
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" >
+    </ProgressBar>
+    <!--style="@style/Spinner"-->
 
 </RelativeLayout>
