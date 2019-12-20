@@ -638,7 +638,7 @@ pitData Pit_Data = new pitData();
         Log.w(TAG, "$$$$$  SaveToFirebase  $$$$$" + savedFile);
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageReference = storage.getReferenceFromUrl("gs://pearadox-2019.appspot.com/images/"+ Pearadox.FRC_Event).child(picname);
+        StorageReference storageReference = storage.getReferenceFromUrl("gs://pearadox-2020.appspot.com/images/"+ Pearadox.FRC_Event).child(picname);
 
         UploadTask uploadTask = storageReference.putFile(currentImageUri);
 
@@ -944,7 +944,7 @@ pitData Pit_Data = new pitData();
             imageOnFB = false;
 
             FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageReference = storage.getReferenceFromUrl("gs://pearadox-2019.appspot.com/images/" + Pearadox.FRC_Event).child("robot_" + team.trim() + ".png");
+            StorageReference storageReference = storage.getReferenceFromUrl("gs://pearadox-2020.appspot.com/images/" + Pearadox.FRC_Event).child("robot_" + team.trim() + ".png");
             Log.e(TAG, "images/" + Pearadox.FRC_Event + "/robot_" + team.trim() + ".png" + "\n \n");
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override

@@ -1067,7 +1067,7 @@ private void preReqs() {
                 fileReader.close();
                 pw = (stringBuffer.toString());
                 pw = pw.substring(0, 11);    //Remove CR/LF
-            Log.e(TAG, "Peardox = '" + pw + "'");
+            Log.e(TAG, "Pearadox = '" + pw + "'");
             } catch (IOException e) {
                 final ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
                 tg.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD);
@@ -1076,7 +1076,7 @@ private void preReqs() {
                 toast.show();
                 e.printStackTrace();
             }
-        Log.e(TAG, "Sign-In " + eMail + "  '" + pw + "'");
+            Log.e(TAG, "Sign-In " + eMail + "  '" + pw + "'");
 
             mAuth.signInWithEmailAndPassword(eMail, pw)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
